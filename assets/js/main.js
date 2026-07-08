@@ -5,11 +5,14 @@
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-  /* Preloader */
-  window.addEventListener("load", () => {
-    const p = $(".preload");
-    if (p) setTimeout(() => p.classList.add("done"), 350);
-  });
+  /* Preloader — hide as soon as the DOM is ready, never wait on video downloads */
+  const hidePreload = () => { const p = $(".preload"); if (p) p.classList.add("done"); };
+  if (document.readyState !== "loading") setTimeout(hidePreload, 400);
+  else document.addEventListener("DOMContentLoaded", () => setTimeout(hidePreload, 400));
+  setTimeout(hidePreload, 2000); // hard cap so a slow asset can never trap the loader
+
+  /* Hover-play videos must not block first paint or the load event */
+  $$(".media-video").forEach(v => { v.preload = "none"; });
 
   /* Nav scroll state */
   const nav = $(".nav");
