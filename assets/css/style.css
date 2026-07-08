@@ -4,8 +4,8 @@
    ============================================================ */
 
 :root{
-  --bg:#08080a;
-  --bg-2:#0c0d10;
+  --bg:#050506;
+  --bg-2:#0a0a0c;
   --panel:#111318;
   --panel-2:#15181e;
   --line:rgba(198,204,212,.12);
@@ -18,8 +18,9 @@
   --muted:#9aa1ab;
   --faint:#6b7280;
 
-  --chrome:linear-gradient(180deg,#ffffff 0%,#d6dbe2 22%,#9aa1ab 50%,#eef1f5 68%,#8b929c 100%);
-  --chrome-soft:linear-gradient(180deg,#f4f6f9,#aeb4bd 60%,#e7eaee);
+  /* brand v2: headings render clean warm-white; primary actions render champagne gold */
+  --chrome:linear-gradient(180deg,#ffffff 0%,#f3f1ea 55%,#dbd7cb 100%);
+  --chrome-soft:linear-gradient(180deg,#f7ecc7 0%,#d9c38f 55%,#bb9a5c 100%);
 
   /* Brand v2 — champagne gold accent (black/white/gold) */
   --gold-hi:#f3e4b8;
@@ -119,7 +120,8 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;lette
   border-bottom:1px solid var(--line);padding:12px clamp(20px,5vw,48px);
 }
 .brand{display:flex;align-items:center;gap:12px;font-family:var(--ff-display);font-weight:600;letter-spacing:.18em;font-size:15px}
-.brand .mark{width:34px;height:34px;flex:0 0 auto}
+.brand .mark{width:38px;height:38px;flex:0 0 auto;object-fit:contain;filter:brightness(0) invert(1) drop-shadow(0 0 4px rgba(247,236,199,.5)) drop-shadow(0 0 11px rgba(217,195,143,.4));transition:filter .4s}
+.brand:hover .mark{filter:brightness(0) invert(1) drop-shadow(0 0 6px rgba(247,236,199,.7)) drop-shadow(0 0 16px rgba(217,195,143,.6))}
 .brand b{background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent}
 .nav-links{display:flex;align-items:center;gap:30px}
 .nav-links a{font-size:13.5px;letter-spacing:.04em;color:var(--muted);transition:color .3s;position:relative}
@@ -421,5 +423,5 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 /* preloader */
 .preload{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;transition:opacity .8s,visibility .8s}
 .preload.done{opacity:0;visibility:hidden}
-.preload .mark{width:64px;height:64px;animation:spin 3s linear infinite}
+.preload .mark{width:72px;height:72px;object-fit:contain;animation:spin 3s linear infinite;filter:drop-shadow(0 0 18px rgba(217,195,143,.5)) drop-shadow(0 0 6px rgba(247,236,199,.4))}
 @keyframes spin{to{transform:rotate(360deg)}}
