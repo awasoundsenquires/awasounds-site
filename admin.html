@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin, Awa Sounds</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+<nav class="nav"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a>
+<div class="nav-links"><a href="index.html">Home</a><a href="beat-store.html">Beat Store</a><a href="account.html">Account</a></div>
+<div class="nav-right"><span class="admin-tag">Admin</span><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+
+<section class="page-hero" style="padding-bottom:20px"><div class="wrap">
+  <div class="breadcrumb"><a href="index.html">Home</a> / Admin</div>
+  <span class="eyebrow">Control Room</span>
+  <h1 class="display chrome">Admin</h1>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="wrap">
+
+  <div id="adm-loading" class="acc-guest"><div class="acc-guest-card"><p>Checking access…</p></div></div>
+
+  <div id="adm-guest" class="acc-guest" hidden>
+    <div class="acc-guest-card">
+      <h3>Admin sign-in</h3>
+      <p>Sign in with your admin account to manage the site.</p>
+      <button class="btn btn-primary" id="adm-signin">Sign in</button>
+    </div>
+  </div>
+
+  <div id="adm-denied" class="acc-guest" hidden>
+    <div class="acc-guest-card">
+      <h3>No admin access</h3>
+      <p>This account is not an admin. Ask the site owner to enable admin on your profile.</p>
+      <button class="btn btn-ghost" id="adm-signout2">Sign out</button>
+    </div>
+  </div>
+
+  <div id="adm-app" hidden>
+    <header class="acc-head">
+      <div><div class="acc-name">Admin panel</div><div class="acc-status"><span class="acc-badge member" id="adm-who">—</span></div></div>
+      <button class="btn btn-ghost" id="adm-signout" style="margin-left:auto">Sign out</button>
+    </header>
+
+    <div class="acc-tabs">
+      <button class="on" data-panel="beats">Beats</button>
+      <button data-panel="content">Site Text</button>
+      <button data-panel="help">Guide</button>
+    </div>
+
+    <!-- BEATS -->
+    <div class="acc-panel on" data-panel="beats">
+      <div class="acc-panel-head"><h3>Beat catalogue</h3><button class="btn btn-primary" id="beat-new">+ Add beat</button></div>
+      <div id="beat-admin-list" class="adm-list"></div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="acc-panel" data-panel="content">
+      <div class="acc-panel-head"><h3>Editable text</h3><button class="btn btn-primary" id="content-new">+ Add block</button></div>
+      <p class="adm-hint">Any text on the site tagged with a matching key updates here. Edit the value and save.</p>
+      <div id="content-admin-list" class="adm-list"></div>
+    </div>
+
+    <!-- HELP -->
+    <div class="acc-panel" data-panel="help">
+      <div class="adm-guide">
+        <h3>How this works</h3>
+        <ol>
+          <li><b>Beats</b> — add, edit or remove any beat in the store. Set the title, BPM, key, tags, cover image and the GoDaddy Pay Link for each license. Changes go live instantly, no code.</li>
+          <li><b>Cover images</b> — paste an image URL, or upload one if you created a public <code>covers</code> storage bucket in Supabase.</li>
+          <li><b>Site Text</b> — edit headlines and copy that are tagged on the pages. Add a new block with the exact <code>key</code> that a page uses.</li>
+          <li><b>Pay Links</b> — create a GoDaddy Pay Link per license, then paste it into the beat. Empty links fall back to an email enquiry.</li>
+        </ol>
+        <p class="adm-hint">First-time setup: run <code>supabase-schema.sql</code> in Supabase, then mark yourself admin (see the note at the bottom of that file).</p>
+      </div>
+    </div>
+  </div>
+
+</div></section>
+
+<!-- Beat editor modal -->
+<div class="lic-modal" id="beat-modal">
+  <div class="lic-card" style="max-width:600px">
+    <button class="lic-close" id="beat-modal-close" aria-label="Close">&times;</button>
+    <div class="lic-head"><span class="eyebrow">Beat</span><h3 class="lic-title" id="beat-modal-title">Add beat</h3></div>
+    <form id="beat-form" class="adm-form">
+      <div class="adm-row">
+        <label>Slug / ID <input name="id" required placeholder="chrome-nights"></label>
+        <label>Sort order <input name="sort" type="number" value="0"></label>
+      </div>
+      <label>Title <input name="title" required placeholder="Chrome Nights"></label>
+      <div class="adm-row">
+        <label>Producer <input name="producer" value="AWA"></label>
+        <label>BPM <input name="bpm" type="number" placeholder="92"></label>
+        <label>Key <input name="music_key" placeholder="Am"></label>
+      </div>
+      <label>Tags (comma separated) <input name="tags" placeholder="R&B, Trapsoul"></label>
+      <label>Cover image URL <input name="cover_url" placeholder="assets/img/beat-chrome-nights.png or https://…"></label>
+      <div class="adm-upload"><input type="file" id="cover-file" accept="image/*"><button type="button" class="btn btn-ghost" id="cover-upload-btn">Upload to Supabase</button><span id="cover-upload-status"></span></div>
+      <label>Preview audio URL (optional) <input name="preview_url" placeholder="https://…mp3"></label>
+      <div class="adm-row">
+        <label>Pay Link · MP3 £30 <input name="pay_mp3" placeholder="GoDaddy Pay Link"></label>
+        <label>Pay Link · WAV £45 <input name="pay_wav" placeholder="GoDaddy Pay Link"></label>
+      </div>
+      <div class="adm-row">
+        <label>Pay Link · Trackout £145 <input name="pay_trackout" placeholder="GoDaddy Pay Link"></label>
+        <label class="adm-check">Active <input name="active" type="checkbox" checked></label>
+      </div>
+      <p class="auth-error" id="beat-form-error"></p>
+      <div class="adm-form-actions">
+        <button type="button" class="btn btn-ghost" id="beat-delete" hidden>Delete</button>
+        <button type="submit" class="btn btn-primary">Save beat</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer><div class="wrap"><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds — Admin</span><span><a href="index.html">Back to site</a></span></div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/admin.js"></script>
+<script src="assets/js/main.js"></script>
+</body></html>

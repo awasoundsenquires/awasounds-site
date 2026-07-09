@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Account, Awa Sounds</title>
+<meta name="description" content="Your Awa Sounds account. Save beats, build playlists, write lyrics and manage your Insider membership." />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+<div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
+<nav class="nav"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a>
+<div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="studio.html">Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
+<div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+
+<section class="page-hero" style="padding-bottom:24px"><div class="wrap">
+  <div class="breadcrumb"><a href="index.html">Home</a> / Account</div>
+  <span class="eyebrow" data-reveal>Your Space</span>
+  <h1 class="display chrome" data-reveal data-reveal-delay="1">My Account</h1>
+</div></section>
+
+<section class="section" style="padding-top:0"><div class="wrap">
+  <!-- Logged-out state -->
+  <div id="acc-guest" class="acc-guest" hidden>
+    <div class="acc-guest-card">
+      <h3>Sign in to your Awa Sounds account</h3>
+      <p>Save beats, build playlists, write lyrics to any beat, and unlock Insider pricing across the store.</p>
+      <button class="btn btn-primary" id="acc-signin">Sign in / Create account</button>
+    </div>
+  </div>
+
+  <!-- Loading / not-configured -->
+  <div id="acc-loading" class="acc-guest"><div class="acc-guest-card"><p>Loading your account…</p></div></div>
+
+  <!-- Logged-in state -->
+  <div id="acc-app" hidden>
+    <header class="acc-head">
+      <div>
+        <div class="acc-name" id="acc-name">—</div>
+        <div class="acc-status" id="acc-status"></div>
+      </div>
+      <div class="acc-head-cta" id="acc-head-cta"></div>
+      <button class="btn btn-ghost" id="acc-signout">Sign out</button>
+    </header>
+
+    <div class="acc-tabs">
+      <button class="on" data-panel="lyrics">Lyrics</button>
+      <button data-panel="likes">Saved Beats</button>
+      <button data-panel="playlists">Playlists</button>
+      <button data-panel="membership">Membership</button>
+    </div>
+
+    <div class="acc-panel on" data-panel="lyrics">
+      <div class="acc-panel-head"><h3>Your lyrics</h3><button class="btn btn-primary" id="ly-new">New draft</button></div>
+      <div class="acc-lyrics" id="ly-list"></div>
+    </div>
+
+    <div class="acc-panel" data-panel="likes">
+      <div class="acc-panel-head"><h3>Saved beats</h3><a class="btn btn-ghost" href="beat-store.html">Browse store</a></div>
+      <div class="acc-beatgrid" id="like-list"></div>
+    </div>
+
+    <div class="acc-panel" data-panel="playlists">
+      <div class="acc-panel-head"><h3>Playlists</h3><button class="btn btn-primary" id="pl-new">New playlist</button></div>
+      <div class="acc-playlists" id="pl-list"></div>
+    </div>
+
+    <div class="acc-panel" data-panel="membership">
+      <div class="acc-panel-head"><h3>Insider membership</h3></div>
+      <div class="acc-member" id="member-box"></div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><div class="foot-grid">
+  <div class="foot-brand"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a><p>An independent UK record label built for the next generation of sound. Sign. Develop. Release.</p></div>
+  <div class="foot-col"><h5>Explore</h5><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="gallery.html">Gallery</a></div>
+  <div class="foot-col"><h5>Divisions</h5><a href="studio.html">Recording Studio</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="contact.html">Distribution</a></div>
+  <div class="foot-col"><h5>Contact</h5><a href="mailto:awasound.music@gmail.com">awasound.music@gmail.com</a><a href="account.html">My Account</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
+</div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></span></div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/cms.js"></script>
+<script src="assets/js/account.js"></script>
+<script src="assets/js/main.js"></script>
+</body></html>

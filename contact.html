@@ -26,19 +26,22 @@
   <div>
     <span class="eyebrow" data-reveal>Submit Your Demo</span>
     <h2 class="section-title chrome" data-reveal data-reveal-delay="1" style="margin-bottom:32px">Show us something<br>that sounds like no one else.</h2>
-    <form class="form" data-reveal data-reveal-delay="2" onsubmit="event.preventDefault();this.querySelector('.form-status').hidden=false;this.reset();">
+    <form class="form" id="demo-form" data-reveal data-reveal-delay="2">
+      <input type="hidden" name="subject" value="New demo / enquiry — Awa Sounds site">
+      <input type="hidden" name="from_name" value="Awa Sounds Website">
+      <input type="text" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div class="row">
-        <div class="field"><label>Artist / Name</label><input type="text" required placeholder="Your name"></div>
-        <div class="field"><label>Email</label><input type="email" required placeholder="you@email.com"></div>
+        <div class="field"><label>Artist / Name</label><input type="text" name="name" required placeholder="Your name"></div>
+        <div class="field"><label>Email</label><input type="email" name="email" required placeholder="you@email.com"></div>
       </div>
       <div class="row">
-        <div class="field"><label>Genre</label><select><option>R&amp;B / Soul</option><option>Afrobeats</option><option>Hip-Hop / Rap</option><option>Pop</option><option>Alt / Electronic</option><option>Other</option></select></div>
-        <div class="field"><label>Reason</label><select><option>Submit a demo</option><option>Book the studio</option><option>License a beat</option><option>Distribution / Sync</option><option>General enquiry</option></select></div>
+        <div class="field"><label>Genre</label><select name="genre"><option>R&amp;B / Soul</option><option>Afrobeats</option><option>Hip-Hop / Rap</option><option>Pop</option><option>Alt / Electronic</option><option>Other</option></select></div>
+        <div class="field"><label>Reason</label><select name="reason"><option>Submit a demo</option><option>Book the studio</option><option>License a beat</option><option>Distribution / Sync</option><option>General enquiry</option></select></div>
       </div>
-      <div class="field"><label>Link to your music</label><input type="url" placeholder="SoundCloud / Drive / Dropbox link"></div>
-      <div class="field"><label>Message</label><textarea placeholder="Tell us about you and what you're working on..."></textarea></div>
+      <div class="field"><label>Link to your music</label><input type="url" name="music_link" placeholder="SoundCloud / Drive / Dropbox link"></div>
+      <div class="field"><label>Message</label><textarea name="message" placeholder="Tell us about you and what you're working on..."></textarea></div>
       <button class="btn btn-primary" type="submit" style="justify-self:start">Send Submission <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      <p class="form-status" hidden style="color:var(--silver);font-family:var(--ff-display)">✓ Received, we'll be in touch. (Demo form is a front end mockup; wire it to your inbox on launch.)</p>
+      <p class="form-status" hidden style="color:var(--gold);font-family:var(--ff-display)"></p>
     </form>
   </div>
   <div class="split-media" data-reveal data-reveal-delay="1" style="aspect-ratio:3/4;background:radial-gradient(60% 60% at 50% 45%,rgba(217,195,143,.06),#050506);border:1px solid var(--gold-line);display:grid;place-items:center"><video src="assets/img/logo-loop.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:contain"></video></div>
@@ -46,8 +49,8 @@
 
 <section class="section"><div class="wrap">
   <div class="services">
-    <div class="service" data-reveal><div class="idx">EMAIL</div><h3>Say hello</h3><p><a href="mailto:hello@awasounds.com" style="color:var(--silver)">hello@awasounds.com</a></p></div>
-    <div class="service" data-reveal data-reveal-delay="1"><div class="idx">PHONE</div><h3>Call us</h3><p><a href="tel:+440000000000" style="color:var(--silver)">+44 (0) 000 000 000</a></p></div>
+    <div class="service" data-reveal><div class="idx">EMAIL</div><h3>Say hello</h3><p><a href="mailto:awasound.music@gmail.com" style="color:var(--gold)">awasound.music@gmail.com</a></p></div>
+    <div class="service" data-reveal data-reveal-delay="1"><div class="idx">DEMOS</div><h3>Submit</h3><p>Use the form, we read everything</p></div>
     <div class="service" data-reveal data-reveal-delay="2"><div class="idx">LOCATION</div><h3>Find us</h3><p>United Kingdom · sessions by appointment</p></div>
     <div class="service" data-reveal data-reveal-delay="3"><div class="idx">SOCIAL</div><h3>Follow</h3><p>Instagram · YouTube · TikTok · SoundCloud</p></div>
   </div>
@@ -57,7 +60,31 @@
   <div class="foot-brand"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a><p>An independent UK record label built for the next generation of sound. Sign. Develop. Release.</p></div>
   <div class="foot-col"><h5>Explore</h5><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="gallery.html">Gallery</a></div>
   <div class="foot-col"><h5>Divisions</h5><a href="studio.html">Recording Studio</a><a href="beat-store.html">Beat Store</a><a href="contact.html">Distribution</a><a href="contact.html">Sync &amp; Licensing</a></div>
-  <div class="foot-col"><h5>Contact</h5><a href="mailto:hello@awasounds.com">hello@awasounds.com</a><a href="tel:+440000000000">+44 (0) 000 000 000</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
+  <div class="foot-col"><h5>Contact</h5><a href="mailto:awasound.music@gmail.com">awasound.music@gmail.com</a><a href="account.html">My Account</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
 </div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></span></div></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+(function(){
+  var form=document.getElementById("demo-form"); if(!form) return;
+  var status=form.querySelector(".form-status");
+  form.addEventListener("submit",async function(e){
+    e.preventDefault();
+    var key=(window.AWA&&window.AWA.web3formsKey)||"";
+    if(!key){ status.hidden=false; status.style.color="#e8637a"; status.textContent="Form not connected yet — email awasound.music@gmail.com directly."; return; }
+    var btn=form.querySelector('button[type=submit]'); btn.disabled=true;
+    status.hidden=false; status.style.color="var(--muted)"; status.textContent="Sending…";
+    var data=new FormData(form); data.append("access_key",key);
+    try{
+      var res=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{Accept:"application/json"},body:data});
+      var out=await res.json();
+      if(out.success){ status.style.color="var(--gold)"; status.textContent="✓ Received. We read everything and reply to what moves us."; form.reset(); }
+      else{ status.style.color="#e8637a"; status.textContent=out.message||"Something went wrong. Email us directly."; }
+    }catch(err){ status.style.color="#e8637a"; status.textContent="Network error. Email awasound.music@gmail.com directly."; }
+    btn.disabled=false;
+  });
+})();
+</script>
 <script src="assets/js/main.js"></script>
 </body></html>
