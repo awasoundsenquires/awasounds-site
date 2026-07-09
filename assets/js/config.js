@@ -7,8 +7,8 @@
    to an email enquiry; account features stay hidden until Supabase keys are set). */
 window.AWA = {
   /* --- Supabase (Awa Sounds project, awasoundsenquires@gmail.com) --- */
-  supabaseUrl:     "",   // e.g. https://xxxxxxxx.supabase.co
-  supabaseAnonKey: "",   // the "anon public" key from Supabase → Project Settings → API
+  supabaseUrl:     "https://rhiwtvdtbdudgtdqgjkc.supabase.co",
+  supabaseAnonKey: "sb_publishable_Qy5KbtIGofTrZyTheHifKA_qY3fWg0I",   // publishable (browser-safe) key
 
   /* --- Contact / demo form --- */
   web3formsKey: "",      // free key from https://web3forms.com → sends to awasound.music@gmail.com
