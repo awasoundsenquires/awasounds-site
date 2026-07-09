@@ -4,3 +4,4 @@ PROMPTS.md
 *.zip
 Thumbs.db
 .DS_Store
+.gstack/

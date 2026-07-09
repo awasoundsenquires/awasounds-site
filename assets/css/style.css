@@ -286,6 +286,8 @@ section{position:relative;z-index:1}
 /* ---------- CTA banner ---------- */
 .cta-banner{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--line-strong);padding:clamp(48px,8vw,96px) clamp(28px,6vw,80px);text-align:center}
 .cta-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;z-index:0}
+.cta-banner video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;z-index:0}
+.split-media video{width:100%;height:100%;object-fit:cover;display:block}
 .cta-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,10,.6),rgba(8,8,10,.85));z-index:1}
 .cta-banner>*{position:relative;z-index:2}
 .cta-banner h2{margin-bottom:18px}
