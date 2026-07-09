@@ -11,7 +11,7 @@ window.AWA = {
   supabaseAnonKey: "sb_publishable_Qy5KbtIGofTrZyTheHifKA_qY3fWg0I",   // publishable (browser-safe) key
 
   /* --- Contact / demo form --- */
-  web3formsKey: "",      // free key from https://web3forms.com → sends to awasound.music@gmail.com
+  web3formsKey: "eb514f46-d5ae-43ff-9ffc-933f8041340c",   // Web3Forms (Awa Sounds Website) → awasoundsenquires@gmail.com
   enquiryEmail: "awasound.music@gmail.com",
 
   /* --- Membership --- */
