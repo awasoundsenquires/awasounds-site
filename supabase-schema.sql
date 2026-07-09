@@ -113,6 +113,12 @@ create policy "lyrics are private to owner"
 --   where id = (select id from auth.users where email = 'YOUR_ADMIN_EMAIL');
 alter table public.profiles add column if not exists is_admin boolean not null default false;
 
+-- Personalization fields for the account overview / profile tab
+alter table public.profiles add column if not exists artist_name text;
+alter table public.profiles add column if not exists role text;
+alter table public.profiles add column if not exists fav_genre text;
+alter table public.profiles add column if not exists bio text;
+
 create or replace function public.is_admin()
 returns boolean language sql stable security definer set search_path = public as $$
   select coalesce((select is_admin from public.profiles where id = auth.uid()), false);

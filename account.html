@@ -38,22 +38,53 @@
   <!-- Logged-in state -->
   <div id="acc-app" hidden>
     <header class="acc-head">
-      <div>
+      <div class="acc-avatar" id="acc-avatar">—</div>
+      <div class="acc-id">
+        <div class="acc-greet" id="acc-greet">Welcome back</div>
         <div class="acc-name" id="acc-name">—</div>
+        <div class="acc-tagline" id="acc-tagline"></div>
         <div class="acc-status" id="acc-status"></div>
       </div>
       <div class="acc-head-cta" id="acc-head-cta"></div>
       <button class="btn btn-ghost" id="acc-signout">Sign out</button>
     </header>
 
+    <div class="acc-stats" id="acc-stats"></div>
+    <div class="acc-upsell" id="acc-upsell"></div>
+
+    <div class="acc-quick-wrap">
+      <div class="acc-quick-head"><span class="eyebrow" id="acc-quick-eyebrow">For you</span></div>
+      <div class="acc-quick" id="acc-quick"></div>
+    </div>
+
     <div class="acc-tabs">
-      <button class="on" data-panel="lyrics">Lyrics</button>
+      <button class="on" data-panel="profile">Profile</button>
+      <button data-panel="lyrics">Lyrics</button>
       <button data-panel="likes">Saved</button>
       <button data-panel="playlists">Playlists</button>
       <button data-panel="membership">Membership</button>
     </div>
 
-    <div class="acc-panel on" data-panel="lyrics">
+    <div class="acc-panel on" data-panel="profile">
+      <div class="acc-panel-head"><h3>Your profile</h3></div>
+      <form class="acc-profile" id="acc-profile-form">
+        <div class="acc-prow">
+          <label>Display name<input name="display_name" maxlength="40" placeholder="How we greet you"></label>
+          <label>Artist / creator name<input name="artist_name" maxlength="60" placeholder="Your stage name (optional)"></label>
+        </div>
+        <div class="acc-prow">
+          <label>I'm here as<select name="role">
+            <option value="">Choose…</option>
+            <option>Artist</option><option>Producer</option><option>Songwriter</option><option>Fan</option><option>Manager / Label</option>
+          </select></label>
+          <label>Favourite genre<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&B, Drill"></label>
+        </div>
+        <label>Short bio<textarea name="bio" rows="3" maxlength="240" placeholder="A line or two about you and your sound"></textarea></label>
+        <div class="acc-profile-actions"><span class="acc-profile-note" id="acc-profile-note"></span><button type="submit" class="btn btn-primary">Save profile</button></div>
+      </form>
+    </div>
+
+    <div class="acc-panel" data-panel="lyrics">
       <div class="acc-panel-head"><h3>Your lyrics</h3><button class="btn btn-primary" id="ly-new">New draft</button></div>
       <div class="acc-lyrics" id="ly-list"></div>
     </div>
