@@ -83,7 +83,7 @@
       upsell.style.display = "";
       upsell.innerHTML = `
         <div class="acc-upsell-in">
-          <div><b>You're one step from Insider.</b> Save 15% on every beat, cover and service, plus early access to drops.</div>
+          <div><b>You're one step from Insider.</b> Save 30% on cover art and 15% on beats and services, plus early access to drops.</div>
           <button class="btn btn-primary" id="acc-upsell-btn">Become an Insider · ${money(CFG.membershipPrice || 4.99)}/mo</button>
         </div>`;
       $("#acc-upsell-btn").addEventListener("click", startMembership);
@@ -305,15 +305,16 @@
       box.innerHTML = `
         <div class="member-active">
           <span class="acc-badge member">Insider · active</span>
-          <p>You save ${Math.round((CFG.memberDiscount || 0) * 100)}% on every beat license, cover art and service.${since ? " Member since " + since + "." : ""}</p>
+          <p>You save 30% on cover art and 15% on every beat license and service.${since ? " Member since " + since + "." : ""}</p>
         </div>`;
     } else {
       box.innerHTML = `
         <div class="member-offer">
           <div class="member-price">${money(CFG.membershipPrice || 4.99)}<small>/month</small></div>
           <ul>
+            <li><b>30% off all cover art</b></li>
             <li>15% off every beat license</li>
-            <li>15% off cover art and all services</li>
+            <li>15% off all other services</li>
             <li>Save beats, build playlists, write lyrics</li>
             <li>Early access to new releases and drops</li>
           </ul>

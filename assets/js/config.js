@@ -17,7 +17,8 @@ window.AWA = {
   /* --- Membership --- */
   membershipPayLink: "", // GoDaddy Pay Link for the £4.99/mo Insider membership
   membershipPrice: 4.99,
-  memberDiscount: 0.15,  // 15% off every service + cover art for members
+  memberDiscount: 0.15,       // 15% off beats + services for members
+  coverMemberDiscount: 0.30,  // 30% off cover art for members
 
   /* --- License tiers (global; same for every beat) --- */
   licenses: {

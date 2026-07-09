@@ -10,7 +10,8 @@
 
   const COVERS = CFG.covers || [];
   const money = (n) => "£" + Number(n).toFixed(0);
-  const memberPrice = (n) => Math.round(n * (1 - (CFG.memberDiscount || 0)));
+  const coverDiscount = CFG.coverMemberDiscount != null ? CFG.coverMemberDiscount : (CFG.memberDiscount || 0);
+  const memberPrice = (n) => Math.round(n * (1 - coverDiscount));
   const likeId = (id) => "cover:" + id;
   const isMember = () => window.AWAAuth && AWAAuth.isMember();
   let likeSet = new Set();
@@ -29,7 +30,7 @@
       <div class="previews"><span class="on"></span><span></span></div>
       <div class="store-body">
         <div><h4>${esc(c.title)}</h4><div class="sub">${esc(c.sub)} · 3000×3000 + 2 videos</div></div>
-        <div class="store-price"><span class="now">${money(c.price)}</span>${c.premium ? `<span class="subprice">Members ${money(c.subPrice)}</span>` : ""}</div>
+        <div class="store-price"><span class="now">${money(c.price)}</span><span class="subprice">Members ${money(c.premium && c.subPrice != null ? Math.min(c.subPrice, memberPrice(c.price)) : memberPrice(c.price))}</span></div>
       </div>`;
     return el;
   }
@@ -112,10 +113,13 @@
     dm.querySelector(".cover-title").textContent = current.title;
     dm.querySelector(".cover-sub").textContent = current.sub;
     const member = isMember();
-    const price = current.premium ? (member ? current.subPrice : current.price) : (member ? memberPrice(current.price) : current.price);
+    const memPrice = current.premium && current.subPrice != null
+      ? Math.min(current.subPrice, memberPrice(current.price))
+      : memberPrice(current.price);
+    const price = member ? memPrice : current.price;
     dm.querySelector(".cover-price").innerHTML = member
       ? `<s>${money(current.price)}</s> ${money(price)} <em>member</em>`
-      : `${money(current.price)}${current.premium ? ` · <span class="cover-memhint">Members ${money(current.subPrice)}</span>` : ""}`;
+      : `${money(current.price)} · <span class="cover-memhint">Members ${money(memPrice)}</span>`;
     // save state
     const saveBtn = dm.querySelector(".cover-save-lg");
     saveBtn.classList.toggle("on", likeSet.has(current.id));
