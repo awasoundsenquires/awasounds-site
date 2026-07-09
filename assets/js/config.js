@@ -37,5 +37,19 @@ window.AWA = {
     { id:"silver-static",  title:"Silver Static",   producer:"AWA", bpm:120, key:"C",  tags:["Pop","Electronic"],      cover:"assets/img/beat-silver-static.png",  preview:"", pay:{ mp3:"", wav:"", trackout:"" } },
     { id:"ember-room",     title:"Ember Room",      producer:"AWA", bpm:84,  key:"Dm", tags:["Alt R&B","Soul"],        cover:"assets/img/beat-ember-room.png",     preview:"", pay:{ mp3:"", wav:"", trackout:"" } },
     { id:"foundry",        title:"Foundry",         producer:"AWA", bpm:128, key:"Em", tags:["Hip-Hop","Boom Bap"],    cover:"assets/img/beat-foundry.png",        preview:"", pay:{ mp3:"", wav:"", trackout:"" } }
+  ],
+
+  /* --- Cover Art catalogue ---
+     videos: the two motion versions. premium covers show a members price.
+     pay: GoDaddy Pay Link for this cover (empty → email enquiry). */
+  covers: [
+    { id:"mercury",     title:"Mercury",     sub:"Liquid chrome",  img:"assets/img/gen-cover-blue.png",     videos:["assets/img/cover-blue-1.mp4","assets/img/cover-blue-2.mp4"],        price:39, premium:false, pay:"" },
+    { id:"ember-fold",  title:"Ember Fold",  sub:"Molten silver",  img:"assets/img/gen-cover-ember.png",    videos:["assets/img/cover-ember-1.mp4","assets/img/cover-ember-2.mp4"],      price:39, premium:false, pay:"" },
+    { id:"violet-drift",title:"Violet Drift",sub:"Rippled chrome", img:"assets/img/gen-cover-violet.png",   videos:["assets/img/cover-violet-1.mp4","assets/img/cover-violet-2.mp4"],    price:39, premium:true,  subPrice:19, pay:"" },
+    { id:"shatter",     title:"Shatter",     sub:"Steel shards",   img:"assets/img/gen-cover-shards.png",   videos:["assets/img/cover-shards-1.mp4","assets/img/cover-shards-2.mp4"],    price:39, premium:false, pay:"" },
+    { id:"champagne",   title:"Champagne",   sub:"Gold chrome",    img:"assets/img/gen-cover-gold.png",     videos:["assets/img/cover-gold-1.mp4","assets/img/cover-gold-2.mp4"],        price:39, premium:false, pay:"" },
+    { id:"gunmetal",    title:"Gunmetal",    sub:"Faceted metal",  img:"assets/img/gen-cover-gunmetal.png", videos:["assets/img/cover-gunmetal-1.mp4","assets/img/cover-gunmetal-2.mp4"],price:39, premium:true,  subPrice:19, pay:"" },
+    { id:"chrome-smoke",title:"Chrome Smoke",sub:"Smoke & metal",  img:"assets/img/gen-cover-smoke.png",    videos:["assets/img/cover-smoke-1.mp4","assets/img/cover-smoke-2.mp4"],      price:39, premium:false, pay:"" },
+    { id:"harmattan",   title:"Harmattan",   sub:"Dusty silver",   img:"assets/img/gen-cover-sand.png",     videos:["assets/img/cover-sand-1.mp4","assets/img/cover-sand-2.mp4"],        price:39, premium:false, pay:"" }
   ]
 };

@@ -96,19 +96,27 @@
     loadLyrics();
   });
 
-  /* ---------- Saved beats (likes) ---------- */
+  /* ---------- Saved items (beats + covers) ---------- */
+  const coverById = (id) => (CFG.covers || []).find(c => c.id === id);
   async function loadLikes() {
     const { data } = await client().from("likes").select("beat_id").eq("user_id", uid()).order("created_at", { ascending: false });
     const box = $("#like-list");
     box.innerHTML = "";
-    if (!data || !data.length) { box.innerHTML = `<p class="acc-empty">No saved beats yet. Tap the heart on any beat in the store.</p>`; return; }
-    data.forEach(r => {
-      const b = beatById(r.beat_id); if (!b) return;
-      const el = document.createElement("a");
-      el.className = "acc-beat"; el.href = "beat-store.html";
-      el.innerHTML = `<img src="${b.cover}" alt="" loading="lazy" onerror="this.style.opacity=0"><div><b>${esc(b.title)}</b><small>${b.bpm} BPM · ${esc(b.key)}</small></div>`;
-      box.appendChild(el);
+    let shown = 0;
+    (data || []).forEach(r => {
+      let el;
+      if (r.beat_id.indexOf("cover:") === 0) {
+        const c = coverById(r.beat_id.slice(6)); if (!c) return;
+        el = document.createElement("a"); el.className = "acc-beat"; el.href = "cover-store.html";
+        el.innerHTML = `<img src="${c.img}" alt="" loading="lazy" onerror="this.style.opacity=0"><div><b>${esc(c.title)}</b><small>Cover · ${esc(c.sub)}</small></div>`;
+      } else {
+        const b = beatById(r.beat_id); if (!b) return;
+        el = document.createElement("a"); el.className = "acc-beat"; el.href = "beat-store.html";
+        el.innerHTML = `<img src="${b.cover}" alt="" loading="lazy" onerror="this.style.opacity=0"><div><b>${esc(b.title)}</b><small>${b.bpm} BPM · ${esc(b.key)}</small></div>`;
+      }
+      box.appendChild(el); shown++;
     });
+    if (!shown) box.innerHTML = `<p class="acc-empty">No saved items yet. Tap the heart on any beat or cover in the store.</p>`;
   }
 
   /* ---------- Playlists ---------- */
