@@ -193,4 +193,26 @@
 
   /* Year in footer */
   $$("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
+
+  /* Cookie consent banner */
+  (function() {
+    if (localStorage.getItem("cookie_consent")) return;
+    const banner = document.createElement("div");
+    banner.id = "cookie-banner";
+    banner.innerHTML = `
+      <p>We use strictly necessary cookies to keep you logged in. <a href="/cookie-policy.html">Cookie Policy</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
+      <div class="cookie-btns">
+        <button id="cookie-accept" class="btn btn-gold btn-sm">Accept</button>
+        <button id="cookie-decline" class="btn btn-ghost btn-sm">Decline</button>
+      </div>`;
+    document.body.appendChild(banner);
+    document.getElementById("cookie-accept").addEventListener("click", () => {
+      localStorage.setItem("cookie_consent", "accepted");
+      banner.remove();
+    });
+    document.getElementById("cookie-decline").addEventListener("click", () => {
+      localStorage.setItem("cookie_consent", "declined");
+      banner.remove();
+    });
+  })();
 })();
