@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Album Packs — Awa Sounds</title>
+<meta name="description" content="Get 7–10 exclusive cover art variations in one pack. Same mood, each one unique. One-time limited runs."/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css"/>
+<link rel="stylesheet" href="assets/css/roulette.css"/>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap nav-inner">
+  <a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a>
+  <div class="nav-links"><a href="beat-store.html">Beats</a><a href="cover-store.html">Covers</a><a href="vault-drop.html">Vault Drop</a><a href="account.html">Account</a></div>
+  <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+
+<!-- Promo banner -->
+<div id="promo-banner"></div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Album Packs</div>
+    <span class="eyebrow">Collector's Series</span>
+    <h1 class="display chrome">Album Packs</h1>
+    <p class="hero-sub" style="max-width:520px">7–10 exclusive cover art variations in one purchase. Every piece is unique — same visual universe, each one a different world. Released in limited runs.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+
+    <!-- What's in a pack -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:72px">
+      <div>
+        <div style="font-size:32px;margin-bottom:12px">🎨</div>
+        <h4>All Unique</h4>
+        <p style="font-size:14px;color:var(--muted);line-height:1.6">Every cover in the pack is a distinct piece — same mood, completely different composition. No repeats.</p>
+      </div>
+      <div>
+        <div style="font-size:32px;margin-bottom:12px">🔒</div>
+        <h4>Fully Exclusive</h4>
+        <p style="font-size:14px;color:var(--muted);line-height:1.6">Pack covers are never sold individually. Once a pack sells out, those designs are retired permanently.</p>
+      </div>
+      <div>
+        <div style="font-size:32px;margin-bottom:12px">💰</div>
+        <h4>Fraction of the Price</h4>
+        <p style="font-size:14px;color:var(--muted);line-height:1.6">A 7-cover pack at £49 works out to £7/cover — that's one cover's worth for an entire release catalogue.</p>
+      </div>
+      <div>
+        <div style="font-size:32px;margin-bottom:12px">✏️</div>
+        <h4>Edit on Each</h4>
+        <p style="font-size:14px;color:var(--muted);line-height:1.6">Each cover in your pack can receive a title/artist name edit for a small fee. Just contact us with the image code.</p>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom:8px">Available Packs</h2>
+    <p style="color:var(--muted);margin-bottom:0">Limited quantities — once sold out, not restocked.</p>
+
+    <!-- Album pack grid (rendered by roulette.js) -->
+    <div class="pack-grid" id="album-packs-grid">
+      <div style="text-align:center;padding:60px 20px;color:var(--muted)">Loading packs…</div>
+    </div>
+
+    <!-- Promo code section -->
+    <div style="margin-top:60px;max-width:480px">
+      <h4 style="margin-bottom:8px">Have a promo code?</h4>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:12px">Apply it below before purchasing to get your discount.</p>
+      <div class="promo-input-section">
+        <div class="promo-input-row">
+          <input class="promo-input" placeholder="ENTER CODE" maxlength="30"/>
+          <button class="btn btn-ghost promo-apply-btn">Apply</button>
+        </div>
+        <div class="promo-result"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer><div class="wrap"><div class="foot-bottom">
+  <span>© <span data-year>2026</span> Awa Sounds · AWASOUNDS LTD CH 15791593</span>
+  <span><a href="privacy-policy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="cookie-policy.html">Cookies</a></span>
+</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/roulette.js"></script>
+<script src="assets/js/chatbot.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

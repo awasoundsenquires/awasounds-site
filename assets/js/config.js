@@ -58,6 +58,64 @@ window.AWA = {
   rejoinPriorityMs: 120000,    // 2-min priority window if you were recently bumped
   heartbeatIntervalMs: 20000,  // send heartbeat every 20s while in bidder mode
 
+  /* --- Welcome Roulette prizes (weighted random) ---
+     weight: higher = more common. Total weights = 100.
+     Customers spin once on registration; extra spins earned via referrals / milestones. */
+  roulettePrizes: [
+    { id:"credits_10",  label:"10 Credits",       emoji:"⚡", type:"credits",        value:"10",  weight:30, color:"#1e1e2e" },
+    { id:"credits_25",  label:"25 Credits",       emoji:"💎", type:"credits",        value:"25",  weight:20, color:"#111a11" },
+    { id:"credits_50",  label:"50 Credits",       emoji:"🔥", type:"credits",        value:"50",  weight:8,  color:"#11111a" },
+    { id:"disc_10",     label:"10% Off",          emoji:"✦",  type:"discount_pct",   value:"10",  weight:20, color:"#1e140a" },
+    { id:"disc_15",     label:"15% Off",          emoji:"★",  type:"discount_pct",   value:"15",  weight:10, color:"#1e0f0a" },
+    { id:"two_for_one", label:"Get One Free",     emoji:"🎨", type:"two_for_one",    value:null,  weight:6,  color:"#140a1e" },
+    { id:"free_edit",   label:"Free Cover Edit",  emoji:"✏️", type:"free_edit",      value:null,  weight:4,  color:"#0a141e" },
+    { id:"album_disc",  label:"Album Pack −30%",  emoji:"📀", type:"album_discount", value:"30",  weight:2,  color:"#1a1600" }
+  ],
+
+  /* --- Streak milestones (bonus credits on consecutive daily logins) ---
+     The record_login_streak() SQL function handles the actual award. */
+  streakMilestones: { 5:10, 7:5, 10:25, 14:10, 21:15, 30:50 },
+
+  /* --- Referral rewards --- */
+  referralCredits: { referrer: 25, referred: 25 },  // both get 25 cr on referred user's first purchase
+
+  /* --- Album Packs ---
+     coverIds: must be IDs from the covers array (auctionOnly covers can also be in packs).
+     available: null = unlimited; number = limited run (show countdown).
+     priceGBP: full price; memberPriceGBP: Insider price. */
+  albumPacks: [
+    {
+      id:            "chrome-universe-vol1",
+      code:          "AWA-PACK-001",
+      title:         "Chrome Universe Vol. 1",
+      subtitle:      "7 covers — same metallic universe, 7 distinct worlds",
+      mood:          "Silver, chrome, liquid metal aesthetics",
+      coverIds:      ["mercury","ember-fold","chrome-smoke","shatter","champagne","gunmetal","harmattan"],
+      priceGBP:      49,
+      memberPriceGBP:34,
+      available:     10,
+      tag:           "Best Value"
+    },
+    {
+      id:            "void-series-vol1",
+      code:          "AWA-PACK-002",
+      title:         "Void Series Vol. 1",
+      subtitle:      "10 Vault Drop exclusives — darkness with identity",
+      mood:          "Deep space, psychedelic chrome, unknown terrain",
+      coverIds:      ["onyx-rain","sol-chrome","iron-bloom","midnight-arc","onyx-rain","sol-chrome","iron-bloom","midnight-arc","onyx-rain","sol-chrome"],
+      priceGBP:      69,
+      memberPriceGBP:49,
+      available:     5,
+      tag:           "Limited"
+    }
+  ],
+
+  /* --- Promos (active promotional banners shown on the site) --- */
+  activePromos: [
+    { type:"two_for_one", label:"Buy one cover, get one FREE", code:"2FOR1COVER", expiresHours: 336 },
+    { type:"bundle",      label:"Cover + WAV Lease — save 20%", code:"BUNDLE20",  expiresHours: null }
+  ],
+
   /* --- License tiers (global; same for every beat) --- */
   licenses: {
     mp3:       { name: "MP3 Lease",  price: 30,   streams: "30,000",  doc: "licenses/mp3-lease.html" },

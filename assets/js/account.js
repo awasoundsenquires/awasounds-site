@@ -43,6 +43,7 @@
     fillProfileForm(PROFILE);
     renderQuick(PROFILE);
     loadStats(); loadLyrics(); loadLikes(); loadPlaylists(); renderMembership(PROFILE);
+    loadCreditBalance(); loadCreditHistory();
   });
 
   /* ---------- Overview ---------- */
@@ -330,6 +331,52 @@
     const body = encodeURIComponent(`Hi Awa Sounds,\n\nI'd like to start the £${CFG.membershipPrice || 4.99}/mo Insider membership.\n\nAccount email: ${AWAAuth.user().email}\n\nThanks.`);
     window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
   }
+
+  /* ---------- Credits ---------- */
+  async function loadCreditBalance() {
+    const el = $("#acc-credit-balance");
+    if (!el) return;
+    const { data } = await client().from("credit_balances").select("balance").eq("user_id", uid()).maybeSingle();
+    el.textContent = (data && data.balance != null) ? data.balance : "0";
+  }
+
+  async function loadCreditHistory() {
+    const box = $("#acc-credit-history");
+    if (!box) return;
+    const { data } = await client()
+      .from("credit_ledger")
+      .select("amount, reason, created_at")
+      .eq("user_id", uid())
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (!data || !data.length) {
+      box.innerHTML = `<p class="acc-empty">No credit transactions yet. Credits are earned on registration, monthly, and through referrals.</p>`;
+      return;
+    }
+    box.innerHTML = `<table class="cr-table">
+      <thead><tr><th>Date</th><th>Reason</th><th>Amount</th></tr></thead>
+      <tbody>${data.map(r => {
+        const sign = r.amount > 0 ? "+" : "";
+        const cls  = r.amount > 0 ? "cr-pos" : "cr-neg";
+        const date = new Date(r.created_at).toLocaleDateString("en-GB", { day:"2-digit", month:"short", year:"numeric" });
+        return `<tr><td>${date}</td><td>${esc(r.reason || "—")}</td><td class="${cls}">${sign}${r.amount} cr</td></tr>`;
+      }).join("")}</tbody>
+    </table>`;
+  }
+
+  /* ---------- Referral panel (wired from roulette.js) ---------- */
+  // The promo-apply button inside the referral panel
+  (function wirePromoBtn() {
+    const section = document.querySelector('[data-panel="referral"] .promo-input-section');
+    if (!section) return;
+    const inp = section.querySelector(".promo-input");
+    const btn = section.querySelector(".promo-apply-btn");
+    const res = section.querySelector(".promo-result");
+    if (!btn || !inp) return;
+    btn.addEventListener("click", () => {
+      if (window.validatePromoCode) window.validatePromoCode(inp.value.trim(), res);
+    });
+  })();
 
   /* ---------- helpers ---------- */
   function flash(btn, msg) {

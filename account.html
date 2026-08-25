@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/roulette.css"/>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
@@ -57,12 +58,27 @@
       <div class="acc-quick" id="acc-quick"></div>
     </div>
 
+    <!-- Streak + Credits quick bar -->
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px">
+      <div class="streak-widget">
+        <span class="streak-fire">🔥</span>
+        <div><div class="streak-val" id="streak-value">—</div><div class="streak-label">day streak</div></div>
+      </div>
+      <div class="streak-widget" style="flex:1;min-width:160px">
+        <span style="font-size:20px">⚡</span>
+        <div><div class="streak-val" id="acc-credit-balance">—</div><div class="streak-label">AWA Credits</div></div>
+      </div>
+      <a href="album-packs.html" class="btn btn-ghost" style="align-self:center">Album Packs →</a>
+    </div>
+
     <div class="acc-tabs">
       <button class="on" data-panel="profile">Profile</button>
+      <button data-panel="credits">Credits</button>
       <button data-panel="lyrics">Lyrics</button>
       <button data-panel="likes">Saved</button>
       <button data-panel="playlists">Playlists</button>
       <button data-panel="membership">Membership</button>
+      <button data-panel="referral">Refer &amp; Earn</button>
     </div>
 
     <div class="acc-panel on" data-panel="profile">
@@ -103,6 +119,33 @@
       <div class="acc-panel-head"><h3>Insider membership</h3></div>
       <div class="acc-member" id="member-box"></div>
     </div>
+
+    <!-- CREDITS PANEL -->
+    <div class="acc-panel" data-panel="credits">
+      <div class="acc-panel-head"><h3>AWA Credits</h3></div>
+      <p class="adm-hint">Credits accumulate and never expire. Use them to bid in auctions or get discounts in the store (free: 20 cr = £1 off · Insider: 15 cr = £1 off, max 35% off).</p>
+      <div id="acc-credit-history" style="margin-top:20px">
+        <div style="text-align:center;padding:40px;color:var(--muted)">Loading credit history…</div>
+      </div>
+    </div>
+
+    <!-- REFERRAL PANEL -->
+    <div class="acc-panel" data-panel="referral">
+      <div class="acc-panel-head"><h3>Refer &amp; Earn</h3></div>
+      <p class="adm-hint">Share your link. When a friend makes their first purchase, you both get <b>25 AWA Credits</b> — no limit on referrals.</p>
+      <div id="referral-code-display" style="margin-top:20px">Loading…</div>
+      <div style="margin-top:32px">
+        <h4 style="margin-bottom:8px">Have a promo code?</h4>
+        <div class="promo-input-section">
+          <div class="promo-input-row">
+            <input class="promo-input" placeholder="ENTER CODE" maxlength="30"/>
+            <button class="btn btn-ghost promo-apply-btn">Apply</button>
+          </div>
+          <div class="promo-result"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div></section>
 
@@ -118,9 +161,11 @@
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/cms.js"></script>
 <script src="assets/js/account.js"></script>
+<script src="assets/js/roulette.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
 </body></html>
+
 
 
 

@@ -1,0 +1,182 @@
+/* AWA SOUNDS — Roulette wheel + engagement UI */
+
+/* ── Modal overlay ──────────────────────────────────────── */
+.roulette-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,.85); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.roulette-card {
+  background: var(--bg-1); border: 1px solid var(--gold-lo);
+  border-radius: 20px; padding: 40px 36px; max-width: 480px; width: 100%;
+  text-align: center; position: relative; overflow: hidden;
+}
+.roulette-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(217,195,143,.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.roulette-eyebrow {
+  font-size: 11px; letter-spacing: .2em; font-weight: 700; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.roulette-title { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+.roulette-sub   { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.5; }
+
+/* ── Wheel ──────────────────────────────────────────────── */
+.wheel-wrap {
+  position: relative; width: 260px; height: 260px; margin: 0 auto 28px;
+}
+.wheel-canvas { border-radius: 50%; display: block; }
+.wheel-pointer {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 22px solid var(--gold);
+  filter: drop-shadow(0 2px 6px rgba(217,195,143,.5));
+  z-index: 2;
+}
+.wheel-center {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg-1); border: 3px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; z-index: 3;
+}
+
+/* ── Spin button ────────────────────────────────────────── */
+.spin-btn {
+  width: 100%; padding: 16px; font-size: 16px; font-weight: 700;
+  letter-spacing: .06em; border-radius: 12px;
+  background: var(--gold-grad, linear-gradient(135deg,#d9c38f,#b9975a));
+  color: #161206; border: none; cursor: pointer;
+  transition: opacity .2s, transform .1s;
+}
+.spin-btn:hover:not(:disabled) { opacity: .9; }
+.spin-btn:active:not(:disabled) { transform: scale(.98); }
+.spin-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── Prize reveal ───────────────────────────────────────── */
+.prize-reveal {
+  display: none; margin-top: 24px;
+  background: var(--bg-2); border: 1px solid var(--gold-lo);
+  border-radius: 14px; padding: 24px;
+}
+.prize-reveal.show { display: block; animation: fadeUp .4s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.prize-emoji { font-size: 48px; margin-bottom: 8px; }
+.prize-name  { font-size: 22px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+.prize-desc  { font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+.prize-code-wrap { background: var(--bg-3); border: 1px dashed var(--gold-lo); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; }
+.prize-code  { font-family: monospace; font-size: 18px; letter-spacing: .12em; color: var(--gold); font-weight: 700; }
+.prize-code-hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* ── Promo banner ───────────────────────────────────────── */
+.promo-banner-wrap { overflow-x: auto; white-space: nowrap; padding: 12px 0; }
+.promo-banner {
+  display: inline-flex; gap: 12px; padding: 0 20px;
+}
+.promo-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-2); border: 1px solid var(--gold-lo);
+  border-radius: 100px; padding: 8px 16px; font-size: 13px;
+  cursor: pointer; transition: border-color .2s, background .2s; white-space: nowrap;
+}
+.promo-pill:hover { border-color: var(--gold); background: var(--bg-3); }
+.promo-pill-tag {
+  background: var(--gold-grad, linear-gradient(135deg,#d9c38f,#b9975a));
+  color: #161206; font-size: 10px; font-weight: 700; padding: 2px 7px;
+  border-radius: 100px; text-transform: uppercase; letter-spacing: .06em;
+}
+
+/* ── Promo code input ───────────────────────────────────── */
+.promo-input-row { display: flex; gap: 8px; margin-top: 12px; }
+.promo-input {
+  flex: 1; background: var(--bg-2); border: 1px solid var(--line); color: var(--text);
+  font-family: monospace; font-size: 14px; padding: 10px 14px; border-radius: 8px;
+  text-transform: uppercase; letter-spacing: .08em;
+  transition: border-color .2s;
+}
+.promo-input:focus { outline: none; border-color: var(--gold-lo); }
+.promo-result { font-size: 13px; margin-top: 8px; min-height: 20px; }
+.promo-result.ok  { color: #6dca6d; }
+.promo-result.err { color: #e05252; }
+
+/* ── Album Pack cards ───────────────────────────────────── */
+.album-packs-section { padding: 80px 0; }
+.pack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 36px; }
+.pack-card {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px;
+  overflow: hidden; transition: border-color .2s, transform .2s; position: relative;
+}
+.pack-card:hover { border-color: var(--gold-lo); transform: translateY(-3px); }
+.pack-card-tag {
+  position: absolute; top: 16px; right: 16px; z-index: 2;
+  background: var(--gold-grad, linear-gradient(135deg,#d9c38f,#b9975a));
+  color: #161206; font-size: 10px; font-weight: 700; padding: 3px 10px;
+  border-radius: 100px; text-transform: uppercase; letter-spacing: .08em;
+}
+.pack-mosaic {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  height: 160px; overflow: hidden;
+}
+.pack-mosaic-img { width: 100%; height: 100%; object-fit: cover; background: var(--bg-3); }
+.pack-mosaic-ph  { width: 100%; height: 100%; background: linear-gradient(135deg, var(--bg-2), var(--bg-3)); }
+.pack-body { padding: 20px; }
+.pack-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.pack-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 6px; line-height: 1.5; }
+.pack-mood { font-size: 11px; color: var(--faint); font-style: italic; margin-bottom: 14px; }
+.pack-meta { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+.pack-price-block .pack-price-main { font-family: var(--ff-display); font-size: 26px; color: var(--gold); }
+.pack-price-block .pack-price-sub  { font-size: 12px; color: var(--muted); }
+.pack-price-block .pack-price-member { font-size: 13px; color: #6dca6d; }
+.pack-avail { font-size: 11px; color: var(--muted); text-align: right; }
+.pack-avail b { color: var(--gold); }
+
+/* ── Streak widget ──────────────────────────────────────── */
+.streak-widget {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 10px; padding: 10px 14px; font-size: 13px;
+}
+.streak-fire { font-size: 20px; }
+.streak-val  { font-family: var(--ff-display); font-size: 20px; color: var(--gold); }
+.streak-label { font-size: 11px; color: var(--muted); }
+.streak-bonus-toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--bg-2); border: 1px solid var(--gold-lo); border-radius: 12px;
+  padding: 14px 24px; font-size: 14px; color: var(--gold); font-weight: 600;
+  z-index: 8000; animation: slideUp .4s ease, fadeOut .4s 3s forwards;
+  white-space: nowrap;
+}
+@keyframes slideUp  { from { opacity:0; transform:translateX(-50%) translateY(20px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+@keyframes fadeOut  { from { opacity:1; } to { opacity:0; } }
+
+/* ── Referral section (account page) ───────────────────── */
+.referral-box {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; padding: 24px;
+}
+.referral-link-row { display: flex; gap: 8px; margin-top: 12px; }
+.referral-link-input {
+  flex: 1; background: var(--bg-3); border: 1px solid var(--line); color: var(--muted);
+  font-size: 12px; padding: 10px 12px; border-radius: 8px; font-family: monospace;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .roulette-card { padding: 28px 20px; }
+  .wheel-wrap { width: 220px; height: 220px; }
+  .pack-mosaic { height: 120px; }
+  .pack-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ── Credit history table ──────────────────────────────────── */
+.cr-table { width:100%; border-collapse:collapse; font-size:14px; }
+.cr-table thead th { text-align:left; padding:8px 12px; font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); border-bottom:1px solid var(--line); }
+.cr-table tbody tr:hover { background:var(--bg-2); }
+.cr-table td { padding:10px 12px; border-bottom:1px solid color-mix(in srgb,var(--line) 50%,transparent); }
+.cr-table .cr-pos { color:#6dca6d; font-weight:700; }
+.cr-table .cr-neg { color:#e86d6d; font-weight:700; }
