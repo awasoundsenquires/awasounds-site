@@ -47,6 +47,16 @@ window.AWA = {
   // Bid fee per bid attempt (non-refundable, covers platform cost)
   bidFeeCredits: 5,
 
+  /* --- Vault Drop session model ---
+     Each bidding day = one session with 10–15 products queued in order.
+     Each product gets exactly 5 minutes of live bidding, then the next goes live.
+     Anti-snipe: last 60 s of a product's window → one 90-second extension max. */
+  productDurationMs:    300000,  // 5 minutes per product (never changes)
+  antiSnipeWindowMs:    60000,   // bid in the last 60 s → triggers extension
+  antiSnipeExtendMs:    90000,   // one-time 90-second extension per product
+  minProductsPerSession: 10,     // minimum queue size per session
+  maxProductsPerSession: 15,     // maximum queue size per session
+
   /* --- Auction Room Limits (tuned for Supabase free tier: 200 connections) ---
      Only bidders hold Realtime connections (~8 bidders × 6 rooms = 48 total).
      Viewers use 6s polling — no Realtime connection needed. */

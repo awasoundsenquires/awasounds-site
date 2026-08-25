@@ -7,6 +7,106 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="stylesheet" href="assets/css/vault.css" />
+<style>
+/* ── Queue-mode overrides & new components ────────── */
+.auction-room-page.queue-mode .auction-layout {
+  grid-template-columns: 1fr 320px 240px;
+}
+
+/* Product queue rail */
+.product-queue-rail {
+  display: none;
+  flex-direction: column;
+  background: var(--surface, #0e0e1c);
+  border-left: 1px solid var(--line, #222238);
+  overflow-y: auto;
+  max-height: calc(100vh - 60px);
+}
+.queue-mode .product-queue-rail { display: flex; }
+.pq-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--line, #222238);
+  position: sticky; top: 0;
+  background: var(--surface, #0e0e1c);
+  z-index: 2;
+}
+.pq-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint, #3a3a60); }
+.pq-prog  { font-size: 10px; font-weight: 700; color: var(--gold, #e0a030); font-family: 'Space Grotesk', sans-serif; }
+
+.pq-list  { display: flex; flex-direction: column; padding: 8px 0; }
+.pq-item  {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px; cursor: default;
+  border-left: 3px solid transparent;
+  transition: background .15s;
+  position: relative;
+}
+.pq-item.pq-live   { background: rgba(224,160,48,.07); border-left-color: var(--gold, #e0a030); }
+.pq-item.pq-sold   { opacity: .45; }
+.pq-item.pq-passed { opacity: .3; }
+
+.pq-pos   { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; color: var(--faint, #555); min-width: 18px; text-align: center; }
+.pq-live .pq-pos { color: var(--gold, #e0a030); }
+
+.pq-thumb {
+  width: 36px; height: 36px; border-radius: 6px;
+  background: #1a1a2e; flex-shrink: 0;
+  border: 1px solid var(--line, #222238);
+}
+.pq-live .pq-thumb { border-color: var(--gold, #e0a030); }
+
+.pq-info { flex: 1; min-width: 0; }
+.pq-name { font-size: 11px; font-weight: 600; color: var(--hi, #e0e0f0); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pq-meta { font-size: 10px; color: var(--faint, #555); margin-top: 1px; }
+.pq-live .pq-meta { color: var(--gold, #e0a030); font-weight: 700; }
+.pq-sold .pq-meta { color: #4ecf7f; }
+
+.pq-live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold, #e0a030);
+  box-shadow: 0 0 8px var(--gold, #e0a030);
+  animation: pqdot .9s ease-in-out infinite alternate;
+  flex-shrink: 0;
+}
+@keyframes pqdot { from { opacity: .5; transform: scale(.8); } to { opacity: 1; transform: scale(1.2); } }
+
+/* Session progress bar */
+.session-progress-bar {
+  display: none; align-items: center; gap: 10px;
+  padding: 8px 18px;
+  background: var(--surface, #0e0e1c);
+  border-bottom: 1px solid var(--line, #222238);
+  font-size: 11px; color: var(--faint, #555);
+}
+.queue-mode .session-progress-bar { display: flex; }
+.sesh-track {
+  flex: 1; height: 4px; background: var(--line, #222238); border-radius: 2px; overflow: hidden;
+}
+.sesh-fill  { height: 100%; background: var(--gold, #e0a030); border-radius: 2px; transition: width .6s ease; }
+.sesh-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--gold, #e0a030); white-space: nowrap; font-size: 11px; }
+
+/* Timer urgency */
+.auction-timer-block.timer-urgent #timer-m,
+.auction-timer-block.timer-urgent #timer-s { color: #e05252; }
+.auction-timer-block.timer-urgent { animation: shake .25s infinite; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-1px)} 75%{transform:translateX(1px)} }
+
+/* 5-min pill badge */
+.item-duration-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(224,160,48,.12);
+  border: 1px solid rgba(224,160,48,.25);
+  color: var(--gold, #e0a030);
+  border-radius: 100px; padding: 3px 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.item-duration-badge::before { content: "⏱"; font-size: 10px; }
+
+/* Product badge */
+.pq-badge { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+</style>
 </head>
 <body class="auction-room-page">
 
@@ -17,7 +117,7 @@
       <span>AWA <b>SOUNDS</b></span>
     </a>
     <div class="nav-actions">
-      <div class="credit-chip" id="nav-credits">
+      <div class="credit-chip" id="nav-credits" style="display:none">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="11" fill="#161206" font-weight="700" font-family="Arial">A</text></svg>
         <span id="nav-credit-count">0</span> cr
       </div>
@@ -26,41 +126,55 @@
   </div>
 </nav>
 
+<!-- Session progress bar (queue mode only) -->
+<div class="session-progress-bar" id="session-progress-bar">
+  <span id="sesh-label-left">Loading session…</span>
+  <div class="sesh-track"><div class="sesh-fill" id="sesh-fill" style="width:0%"></div></div>
+  <span class="sesh-label" id="sesh-label-right">— / —</span>
+</div>
+
 <main class="auction-room">
   <div class="wrap auction-layout">
 
-    <!-- LEFT: Item -->
+    <!-- LEFT: Item panel -->
     <div class="auction-item-panel" id="auction-item-panel">
       <div class="auction-loading"><div class="loader-ring"></div><p>Loading…</p></div>
     </div>
 
-    <!-- RIGHT: Bid panel -->
+    <!-- CENTRE: Bid panel -->
     <div class="auction-bid-panel">
 
       <!-- Room capacity bar -->
       <div class="room-capacity-bar" id="room-capacity-bar">
         <div class="room-cap-item"><span class="room-cap-dot bidder-dot"></span><span id="cap-bidders">—</span> bidding</div>
         <div class="room-cap-item"><span class="room-cap-dot viewer-dot"></span><span id="cap-viewers">—</span> watching</div>
-        <div class="room-cap-item queue-item" id="cap-queue-wrap" style="display:none"><span class="room-cap-dot queue-dot"></span><span id="cap-queue">0</span> in queue</div>
+        <div class="room-cap-item queue-item" id="cap-queue-wrap" style="display:none">
+          <span class="room-cap-dot queue-dot"></span><span id="cap-queue">0</span> in queue
+        </div>
       </div>
+
       <!-- Inactivity alert -->
       <div class="inactivity-alert" id="inactivity-alert" style="display:none">
         ⚠️ Still there? Place a bid or you'll be moved to viewer mode in <span id="inactivity-countdown">15</span>s.
       </div>
-      <!-- Mode panel (viewer→bidder CTA or queue position) -->
+
+      <!-- Mode panel -->
       <div class="mode-panel" id="mode-panel" style="display:none"></div>
+
       <!-- Status + Timer -->
       <div class="auction-status-bar">
         <span class="auction-status-pill" id="auction-status-pill">LIVE</span>
-        <div class="auction-timer" id="auction-timer">
+        <div class="auction-timer auction-timer-block" id="auction-timer">
           <div class="timer-block"><span id="timer-h">00</span><label>hrs</label></div>
           <div class="timer-sep">:</div>
           <div class="timer-block"><span id="timer-m">00</span><label>min</label></div>
           <div class="timer-sep">:</div>
           <div class="timer-block"><span id="timer-s">00</span><label>sec</label></div>
         </div>
+        <!-- 5-min badge (queue mode) -->
+        <span class="item-duration-badge" id="duration-badge" style="display:none">5 min per item</span>
         <div class="snipe-warning" id="snipe-warning" style="display:none">
-          ⚡ Extended — someone just bid!
+          ⚡ Extended — someone just bid in the last 60s!
         </div>
       </div>
 
@@ -72,9 +186,9 @@
         <div class="bid-leader" id="bid-leader">No bids yet</div>
       </div>
 
-      <!-- Bid count + your status -->
+      <!-- Bid count -->
       <div class="auction-meta-row">
-        <span><b id="bid-count">0</b> bids placed</span>
+        <span><b id="bid-count">0</b> bids on this item</span>
         <span id="your-status" class="your-status"></span>
       </div>
 
@@ -84,20 +198,20 @@
           <input type="number" id="bid-input" class="bid-input" placeholder="Your bid (cr)" min="50" step="5" />
           <button class="btn btn-gold" id="bid-btn">Bid</button>
         </div>
-        <div class="bid-hint" id="bid-hint">Minimum bid: <b id="min-bid">50</b> cr · Each bid costs 5 cr fee</div>
+        <div class="bid-hint" id="bid-hint">Minimum bid: <b id="min-bid">50</b> cr &nbsp;·&nbsp; Each bid costs 5 cr fee</div>
         <div class="bid-cost-row" id="bid-cost-row" style="display:none">
-          Total deducted: <b id="bid-total-cost">—</b> cr &nbsp;·&nbsp; Balance after: <b id="bid-balance-after">—</b> cr
+          Total: <b id="bid-total-cost">—</b> cr &nbsp;·&nbsp; Balance after: <b id="bid-balance-after">—</b> cr
         </div>
       </div>
 
-      <!-- Quick top-up during live auction -->
+      <!-- Quick top-up -->
       <div class="topup-strip" id="topup-strip">
         <span>Need more credits?</span>
-        <button class="btn btn-ghost btn-sm" data-pack="100" data-price="800" onclick="openCreditModal(100,800)">+100 cr / £8</button>
-        <button class="btn btn-ghost btn-sm" data-pack="250" data-price="1800" onclick="openCreditModal(250,1800)">+250 cr / £18</button>
+        <button class="btn btn-ghost btn-sm" onclick="openCreditModal(100,800)">+100 cr / £8</button>
+        <button class="btn btn-ghost btn-sm" onclick="openCreditModal(250,1800)">+250 cr / £18</button>
       </div>
 
-      <!-- Not logged in state -->
+      <!-- Not signed in -->
       <div class="bid-signin" id="bid-signin" style="display:none">
         <p>Sign in to bid on this auction.</p>
         <a href="account.html" class="btn btn-gold">Sign in / Register</a>
@@ -105,25 +219,28 @@
 
       <!-- Bid history -->
       <div class="bid-history">
-        <h5>Bid history</h5>
+        <h5>Bids — this item</h5>
         <div id="bid-list" class="bid-list">
           <div class="bid-empty">No bids yet — be the first.</div>
         </div>
       </div>
 
-      <!-- Auction terms reminder -->
       <p class="auction-legal-note">By bidding you accept the <a href="licenses/auction-terms.html" target="_blank">Vault Drop Auction Terms</a>. Bid fees are non-refundable. Winners pay closing price in £GBP within 48 hrs.</p>
     </div>
+
+    <!-- RIGHT: Product queue rail (queue mode only) -->
+    <div class="product-queue-rail" id="product-queue-rail"></div>
+
   </div>
 </main>
 
-<!-- Credit top-up modal -->
+<!-- Credit modal -->
 <div class="modal-overlay" id="credit-modal" style="display:none">
   <div class="modal-card" style="max-width:400px">
     <button class="modal-close" onclick="document.getElementById('credit-modal').style.display='none'">×</button>
     <h3>Buy AWA Credits</h3>
-    <p id="credit-modal-desc">You're buying <b id="modal-pack-amount">100</b> credits for <b id="modal-pack-price">£8</b>.</p>
-    <p class="auction-legal-note">Clicking "Pay now" takes you to our secure checkout. Credits are added to your account instantly on payment confirmation.</p>
+    <p>You're buying <b id="modal-pack-amount">100</b> credits for <b id="modal-pack-price">£8</b>.</p>
+    <p class="auction-legal-note">Credits are added to your account instantly on payment confirmation.</p>
     <div style="display:flex;gap:12px;margin-top:20px">
       <button class="btn btn-ghost" onclick="document.getElementById('credit-modal').style.display='none'">Cancel</button>
       <a class="btn btn-gold" id="credit-modal-pay" href="#">Pay now →</a>

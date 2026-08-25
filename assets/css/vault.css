@@ -1,5 +1,41 @@
 /* AWA SOUNDS — Vault Drop styles */
 
+/* ── Queue-mode auction card ────────────────────────── */
+.auction-card-queue .card-queue-meta {
+  display: flex; flex-direction: column; gap: 3px;
+  font-size: 12px; color: var(--faint, #555);
+  margin: 6px 0 10px;
+}
+.auction-card-queue .card-queue-meta span { display: block; }
+
+.card-queue-progress {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.cqp-bar {
+  flex: 1; height: 4px; background: var(--line, #222238);
+  border-radius: 2px; overflow: hidden;
+}
+.cqp-fill {
+  height: 100%; background: var(--gold, #e0a030);
+  border-radius: 2px; transition: width .6s ease;
+}
+.cqp-label {
+  font-size: 10px; font-weight: 700;
+  color: var(--gold, #e0a030);
+  font-family: var(--ff-display, 'Space Grotesk', sans-serif);
+  white-space: nowrap;
+}
+
+/* ── 3-column layout for queue-mode auction room ─────── */
+.queue-mode .auction-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px 240px;
+  gap: 0;
+  align-items: start;
+  height: calc(100vh - 96px);
+  overflow: hidden;
+}
+
 /* ── Credit chip (nav) ──────────────────────────────────── */
 .credit-chip {
   display: flex; align-items: center; gap: 5px;
