@@ -37,6 +37,18 @@
     <!-- RIGHT: Bid panel -->
     <div class="auction-bid-panel">
 
+      <!-- Room capacity bar -->
+      <div class="room-capacity-bar" id="room-capacity-bar">
+        <div class="room-cap-item"><span class="room-cap-dot bidder-dot"></span><span id="cap-bidders">—</span> bidding</div>
+        <div class="room-cap-item"><span class="room-cap-dot viewer-dot"></span><span id="cap-viewers">—</span> watching</div>
+        <div class="room-cap-item queue-item" id="cap-queue-wrap" style="display:none"><span class="room-cap-dot queue-dot"></span><span id="cap-queue">0</span> in queue</div>
+      </div>
+      <!-- Inactivity alert -->
+      <div class="inactivity-alert" id="inactivity-alert" style="display:none">
+        ⚠️ Still there? Place a bid or you'll be moved to viewer mode in <span id="inactivity-countdown">15</span>s.
+      </div>
+      <!-- Mode panel (viewer→bidder CTA or queue position) -->
+      <div class="mode-panel" id="mode-panel" style="display:none"></div>
       <!-- Status + Timer -->
       <div class="auction-status-bar">
         <span class="auction-status-pill" id="auction-status-pill">LIVE</span>

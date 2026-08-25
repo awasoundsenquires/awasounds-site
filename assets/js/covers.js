@@ -8,7 +8,8 @@
   const list = document.getElementById("cover-list");
   if (!list) return;
 
-  const COVERS = CFG.covers || [];
+  // Filter out auction-only covers — they never appear in the store
+  const COVERS = (CFG.covers || []).filter(c => !c.auctionOnly);
   const money = (n) => "£" + Number(n).toFixed(0);
   const coverDiscount = CFG.coverMemberDiscount != null ? CFG.coverMemberDiscount : (CFG.memberDiscount || 0);
   const memberPrice = (n) => Math.round(n * (1 - coverDiscount));

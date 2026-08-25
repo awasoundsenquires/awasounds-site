@@ -188,6 +188,36 @@
 .auction-legal-note { font-size: 11px; color: var(--faint); line-height: 1.6; }
 .auction-legal-note a { color: var(--gold-lo); }
 
+/* ── Room capacity bar ──────────────────────────────────── */
+.room-capacity-bar {
+  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+  font-size: 12px; color: var(--muted); padding: 10px 14px;
+  background: var(--bg-3); border-radius: 8px; border: 1px solid var(--line);
+}
+.room-cap-item { display: flex; align-items: center; gap: 5px; }
+.room-cap-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.bidder-dot { background: var(--gold); }
+.viewer-dot { background: var(--silver, #a0a0b0); }
+.queue-dot  { background: #e89a3c; }
+
+/* ── Mode panel (enter bidder mode / queue position) ────── */
+.mode-panel {
+  background: var(--bg-3); border: 1px solid var(--gold-lo);
+  border-radius: 10px; padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.mode-panel p { font-size: 13px; color: var(--muted); margin: 0; }
+.mode-panel b { color: var(--silver-hi); }
+.mode-panel-queue { border-color: #e89a3c44; }
+
+/* ── Inactivity alert ───────────────────────────────────── */
+.inactivity-alert {
+  background: rgba(232,154,60,.12); border: 1px solid rgba(232,154,60,.35);
+  color: #e89a3c; font-size: 13px; font-weight: 600;
+  padding: 10px 14px; border-radius: 8px; text-align: center;
+  animation: pulse-live 1.5s infinite;
+}
+
 /* ── Admin dashboard stats ──────────────────────────────── */
 .adm-stats-grid {
   display: grid;

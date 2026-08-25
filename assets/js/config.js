@@ -27,12 +27,36 @@ window.AWA = {
     250: "",   // £18
     500: ""    // £30
   },
-  // Credit-to-GBP rate used if not set per-auction
-  defaultCreditRate: 10,       // 10 credits = £1
-  // Monthly free credit allocation
+  // Credit-to-GBP rate (purchase): 10 cr = £1
+  defaultCreditRate: 10,
+  // Store redemption rates (worse than purchase rate — protects margin)
+  storeRedemptionRate: {
+    free:   20,    // free users: 20 cr = £1 off
+    member: 15     // members: 15 cr = £1 off
+  },
+  // Max discount % of item price via credits (stacked discounts still capped)
+  maxDiscountPct: {
+    free:   0.20,  // free users: max 20% off
+    member: 0.35   // members: max 35% off (+ their 15% price discount)
+  },
+  // Minimum payment after credits — credits can never wipe a purchase below this
+  minPaymentFloorGBP: 15,
+  // Monthly credit grants (accumulated, never expire)
   monthlyFreeCredits: 20,
-  // Bid fee per bid (credits burned, non-refundable)
+  monthlyMemberCredits: 50,    // Insider (£4.99/mo) — ~£5 face value at purchase rate
+  // Bid fee per bid attempt (non-refundable, covers platform cost)
   bidFeeCredits: 5,
+
+  /* --- Auction Room Limits (tuned for Supabase free tier: 200 connections) ---
+     Only bidders hold Realtime connections (~8 bidders × 6 rooms = 48 total).
+     Viewers use 6s polling — no Realtime connection needed. */
+  maxBidderSlots: 8,           // active bidders per room
+  maxViewersPerRoom: 20,       // soft cap shown in UI (viewers use polling, not Realtime)
+  maxLiveRooms: 6,             // run up to 6 simultaneous auctions on free tier
+  inactivityAlertMs: 45000,    // 45s — alert before demotion
+  inactivityDemoteMs: 60000,   // 60s — auto-demote to viewer if no bid placed
+  rejoinPriorityMs: 120000,    // 2-min priority window if you were recently bumped
+  heartbeatIntervalMs: 20000,  // send heartbeat every 20s while in bidder mode
 
   /* --- License tiers (global; same for every beat) --- */
   licenses: {
@@ -55,16 +79,22 @@ window.AWA = {
   ],
 
   /* --- Cover Art catalogue ---
-     videos: the two motion versions. premium covers show a members price.
-     pay: GoDaddy Pay Link for this cover (empty → email enquiry). */
+     auctionOnly: true  → NEVER shown in the cover store, only appears in Vault Drop.
+                  false → available for direct purchase in the store.
+     This keeps store stock and auction stock completely separate. */
   covers: [
-    { id:"mercury",     title:"Mercury",     sub:"Liquid chrome",  img:"assets/img/gen-cover-blue.png",     videos:["assets/img/cover-blue-1.mp4","assets/img/cover-blue-2.mp4"],        price:39, premium:false, pay:"" },
-    { id:"ember-fold",  title:"Ember Fold",  sub:"Molten silver",  img:"assets/img/gen-cover-ember.png",    videos:["assets/img/cover-ember-1.mp4","assets/img/cover-ember-2.mp4"],      price:39, premium:false, pay:"" },
-    { id:"violet-drift",title:"Violet Drift",sub:"Rippled chrome", img:"assets/img/gen-cover-violet.png",   videos:["assets/img/cover-violet-1.mp4","assets/img/cover-violet-2.mp4"],    price:39, premium:true,  subPrice:19, pay:"" },
-    { id:"shatter",     title:"Shatter",     sub:"Steel shards",   img:"assets/img/gen-cover-shards.png",   videos:["assets/img/cover-shards-1.mp4","assets/img/cover-shards-2.mp4"],    price:39, premium:false, pay:"" },
-    { id:"champagne",   title:"Champagne",   sub:"Gold chrome",    img:"assets/img/gen-cover-gold.png",     videos:["assets/img/cover-gold-1.mp4","assets/img/cover-gold-2.mp4"],        price:39, premium:false, pay:"" },
-    { id:"gunmetal",    title:"Gunmetal",    sub:"Faceted metal",  img:"assets/img/gen-cover-gunmetal.png", videos:["assets/img/cover-gunmetal-1.mp4","assets/img/cover-gunmetal-2.mp4"],price:39, premium:true,  subPrice:19, pay:"" },
-    { id:"chrome-smoke",title:"Chrome Smoke",sub:"Smoke & metal",  img:"assets/img/gen-cover-smoke.png",    videos:["assets/img/cover-smoke-1.mp4","assets/img/cover-smoke-2.mp4"],      price:39, premium:false, pay:"" },
-    { id:"harmattan",   title:"Harmattan",   sub:"Dusty silver",   img:"assets/img/gen-cover-sand.png",     videos:["assets/img/cover-sand-1.mp4","assets/img/cover-sand-2.mp4"],        price:39, premium:false, pay:"" }
+    { id:"mercury",     title:"Mercury",     sub:"Liquid chrome",  img:"assets/img/gen-cover-blue.png",     videos:["assets/img/cover-blue-1.mp4","assets/img/cover-blue-2.mp4"],        price:39, premium:false, auctionOnly:false, pay:"" },
+    { id:"ember-fold",  title:"Ember Fold",  sub:"Molten silver",  img:"assets/img/gen-cover-ember.png",    videos:["assets/img/cover-ember-1.mp4","assets/img/cover-ember-2.mp4"],      price:39, premium:false, auctionOnly:false, pay:"" },
+    { id:"violet-drift",title:"Violet Drift",sub:"Rippled chrome", img:"assets/img/gen-cover-violet.png",   videos:["assets/img/cover-violet-1.mp4","assets/img/cover-violet-2.mp4"],    price:39, premium:true,  auctionOnly:false, subPrice:19, pay:"" },
+    { id:"shatter",     title:"Shatter",     sub:"Steel shards",   img:"assets/img/gen-cover-shards.png",   videos:["assets/img/cover-shards-1.mp4","assets/img/cover-shards-2.mp4"],    price:39, premium:false, auctionOnly:false, pay:"" },
+    { id:"champagne",   title:"Champagne",   sub:"Gold chrome",    img:"assets/img/gen-cover-gold.png",     videos:["assets/img/cover-gold-1.mp4","assets/img/cover-gold-2.mp4"],        price:39, premium:false, auctionOnly:false, pay:"" },
+    { id:"gunmetal",    title:"Gunmetal",    sub:"Faceted metal",  img:"assets/img/gen-cover-gunmetal.png", videos:["assets/img/cover-gunmetal-1.mp4","assets/img/cover-gunmetal-2.mp4"],price:39, premium:true,  auctionOnly:false, subPrice:19, pay:"" },
+    { id:"chrome-smoke",title:"Chrome Smoke",sub:"Smoke & metal",  img:"assets/img/gen-cover-smoke.png",    videos:["assets/img/cover-smoke-1.mp4","assets/img/cover-smoke-2.mp4"],      price:39, premium:false, auctionOnly:false, pay:"" },
+    { id:"harmattan",   title:"Harmattan",   sub:"Dusty silver",   img:"assets/img/gen-cover-sand.png",     videos:["assets/img/cover-sand-1.mp4","assets/img/cover-sand-2.mp4"],        price:39, premium:false, auctionOnly:false, pay:"" },
+    // ── Auction-only covers (Vault Drop exclusive — never shown in store) ──
+    { id:"onyx-rain",   title:"Onyx Rain",   sub:"Vault Drop exclusive", img:"assets/img/gen-cover-onyx.png",  videos:[], price:null, premium:false, auctionOnly:true, pay:"" },
+    { id:"sol-chrome",  title:"Sol Chrome",  sub:"Vault Drop exclusive", img:"assets/img/gen-cover-sol.png",   videos:[], price:null, premium:false, auctionOnly:true, pay:"" },
+    { id:"iron-bloom",  title:"Iron Bloom",  sub:"Vault Drop exclusive", img:"assets/img/gen-cover-iron.png",  videos:[], price:null, premium:false, auctionOnly:true, pay:"" },
+    { id:"midnight-arc",title:"Midnight Arc",sub:"Vault Drop exclusive", img:"assets/img/gen-cover-arc.png",   videos:[], price:null, premium:false, auctionOnly:true, pay:"" }
   ]
 };
