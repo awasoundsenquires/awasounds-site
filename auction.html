@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Live Auction — Vault Drop | Awa Sounds</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/vault.css" />
+</head>
+<body class="auction-room-page">
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds">
+      <span>AWA <b>SOUNDS</b></span>
+    </a>
+    <div class="nav-actions">
+      <div class="credit-chip" id="nav-credits">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="11" fill="#161206" font-weight="700" font-family="Arial">A</text></svg>
+        <span id="nav-credit-count">0</span> cr
+      </div>
+      <a href="vault-drop.html" class="btn btn-ghost btn-sm">← All Auctions</a>
+    </div>
+  </div>
+</nav>
+
+<main class="auction-room">
+  <div class="wrap auction-layout">
+
+    <!-- LEFT: Item -->
+    <div class="auction-item-panel" id="auction-item-panel">
+      <div class="auction-loading"><div class="loader-ring"></div><p>Loading…</p></div>
+    </div>
+
+    <!-- RIGHT: Bid panel -->
+    <div class="auction-bid-panel">
+
+      <!-- Status + Timer -->
+      <div class="auction-status-bar">
+        <span class="auction-status-pill" id="auction-status-pill">LIVE</span>
+        <div class="auction-timer" id="auction-timer">
+          <div class="timer-block"><span id="timer-h">00</span><label>hrs</label></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-block"><span id="timer-m">00</span><label>min</label></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-block"><span id="timer-s">00</span><label>sec</label></div>
+        </div>
+        <div class="snipe-warning" id="snipe-warning" style="display:none">
+          ⚡ Extended — someone just bid!
+        </div>
+      </div>
+
+      <!-- Current price -->
+      <div class="auction-price-block">
+        <div class="price-label">Current bid</div>
+        <div class="price-credits" id="current-bid-credits">— cr</div>
+        <div class="price-gbp" id="current-bid-gbp">— GBP</div>
+        <div class="bid-leader" id="bid-leader">No bids yet</div>
+      </div>
+
+      <!-- Bid count + your status -->
+      <div class="auction-meta-row">
+        <span><b id="bid-count">0</b> bids placed</span>
+        <span id="your-status" class="your-status"></span>
+      </div>
+
+      <!-- Bid input -->
+      <div class="bid-entry" id="bid-entry">
+        <div class="bid-row">
+          <input type="number" id="bid-input" class="bid-input" placeholder="Your bid (cr)" min="50" step="5" />
+          <button class="btn btn-gold" id="bid-btn">Bid</button>
+        </div>
+        <div class="bid-hint" id="bid-hint">Minimum bid: <b id="min-bid">50</b> cr · Each bid costs 5 cr fee</div>
+        <div class="bid-cost-row" id="bid-cost-row" style="display:none">
+          Total deducted: <b id="bid-total-cost">—</b> cr &nbsp;·&nbsp; Balance after: <b id="bid-balance-after">—</b> cr
+        </div>
+      </div>
+
+      <!-- Quick top-up during live auction -->
+      <div class="topup-strip" id="topup-strip">
+        <span>Need more credits?</span>
+        <button class="btn btn-ghost btn-sm" data-pack="100" data-price="800" onclick="openCreditModal(100,800)">+100 cr / £8</button>
+        <button class="btn btn-ghost btn-sm" data-pack="250" data-price="1800" onclick="openCreditModal(250,1800)">+250 cr / £18</button>
+      </div>
+
+      <!-- Not logged in state -->
+      <div class="bid-signin" id="bid-signin" style="display:none">
+        <p>Sign in to bid on this auction.</p>
+        <a href="account.html" class="btn btn-gold">Sign in / Register</a>
+      </div>
+
+      <!-- Bid history -->
+      <div class="bid-history">
+        <h5>Bid history</h5>
+        <div id="bid-list" class="bid-list">
+          <div class="bid-empty">No bids yet — be the first.</div>
+        </div>
+      </div>
+
+      <!-- Auction terms reminder -->
+      <p class="auction-legal-note">By bidding you accept the <a href="licenses/auction-terms.html" target="_blank">Vault Drop Auction Terms</a>. Bid fees are non-refundable. Winners pay closing price in £GBP within 48 hrs.</p>
+    </div>
+  </div>
+</main>
+
+<!-- Credit top-up modal -->
+<div class="modal-overlay" id="credit-modal" style="display:none">
+  <div class="modal-card" style="max-width:400px">
+    <button class="modal-close" onclick="document.getElementById('credit-modal').style.display='none'">×</button>
+    <h3>Buy AWA Credits</h3>
+    <p id="credit-modal-desc">You're buying <b id="modal-pack-amount">100</b> credits for <b id="modal-pack-price">£8</b>.</p>
+    <p class="auction-legal-note">Clicking "Pay now" takes you to our secure checkout. Credits are added to your account instantly on payment confirmation.</p>
+    <div style="display:flex;gap:12px;margin-top:20px">
+      <button class="btn btn-ghost" onclick="document.getElementById('credit-modal').style.display='none'">Cancel</button>
+      <a class="btn btn-gold" id="credit-modal-pay" href="#">Pay now →</a>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/vault.js"></script>
+</body>
+</html>

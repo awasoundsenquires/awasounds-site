@@ -20,6 +20,20 @@ window.AWA = {
   memberDiscount: 0.15,       // 15% off beats + services for members
   coverMemberDiscount: 0.30,  // 30% off cover art for members
 
+  /* --- Vault Drop Auction --- */
+  // AWA Credits pricing (GoDaddy Pay Links — fill in after creating products)
+  creditPayLinks: {
+    100: "",   // £8 — paste GoDaddy Pay Link here
+    250: "",   // £18
+    500: ""    // £30
+  },
+  // Credit-to-GBP rate used if not set per-auction
+  defaultCreditRate: 10,       // 10 credits = £1
+  // Monthly free credit allocation
+  monthlyFreeCredits: 20,
+  // Bid fee per bid (credits burned, non-refundable)
+  bidFeeCredits: 5,
+
   /* --- License tiers (global; same for every beat) --- */
   licenses: {
     mp3:       { name: "MP3 Lease",  price: 30,   streams: "30,000",  doc: "licenses/mp3-lease.html" },

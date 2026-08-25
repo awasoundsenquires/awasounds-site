@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vault Drop — Live Auctions | Awa Sounds</title>
+<meta name="description" content="Awa Sounds Vault Drop — exclusive 1-of-1 beats and cover art, twice a month. Bid with AWA Credits. Miss it and it's gone.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/vault.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds">
+      <span>AWA <b>SOUNDS</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="beat-store.html">Beats</a>
+      <a href="cover-store.html">Covers</a>
+      <a href="vault-drop.html" class="active">Vault Drop</a>
+      <a href="account.html" id="nav-account-link">Account</a>
+    </div>
+    <div class="nav-actions">
+      <div class="credit-chip" id="nav-credits" style="display:none">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="11" fill="#161206" font-weight="700" font-family="Arial">A</text></svg>
+        <span id="nav-credit-count">0</span> cr
+      </div>
+      <a href="account.html" class="btn btn-ghost btn-sm" id="nav-signin">Sign in</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="vault-hero">
+  <div class="wrap">
+    <div class="vault-badge">VAULT DROP</div>
+    <h1 class="vault-title">1 of 1.<br>Win it or miss it.</h1>
+    <p class="vault-sub">Exclusive beats and cover art auctioned twice a month. Bid with AWA Credits. When the timer hits zero, the last bid wins — and pays.</p>
+    <div class="vault-schedule">Next drop: <b id="next-drop-date">loading…</b></div>
+  </div>
+</section>
+
+<!-- LIVE / UPCOMING AUCTIONS GRID -->
+<section class="vault-section">
+  <div class="wrap">
+    <div class="vault-tabs">
+      <button class="vault-tab on" data-tab="live">Live Now</button>
+      <button class="vault-tab" data-tab="upcoming">Upcoming</button>
+      <button class="vault-tab" data-tab="ended">Ended</button>
+    </div>
+
+    <div id="auction-grid" class="auction-grid">
+      <div class="auction-loading">
+        <div class="loader-ring"></div>
+        <p>Loading auctions…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="vault-how">
+  <div class="wrap">
+    <h2 class="section-title">How the Vault Drop works</h2>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <h4>Get your Credits</h4>
+        <p>Every account gets 20 free AWA Credits each month. Top up any time — or buy more live during an auction.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <h4>Bid on exclusives</h4>
+        <p>Each bid costs 5 Credits. Raise the price, hold the top spot. Any bid in the last 5 minutes extends the timer.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <h4>Win. Pay. Own it.</h4>
+        <p>When the timer ends, the highest bidder pays the closing price in £GBP and receives the exclusive licence. Nobody else ever gets this piece.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">04</div>
+        <h4>Tag us on IG</h4>
+        <p>Winners must tag @awasounds on their first public post. That's the deal — and it's a good look for you too.</p>
+      </div>
+    </div>
+    <div class="how-legal">
+      Read the full <a href="licenses/auction-terms.html">Vault Drop Auction Terms</a> before bidding.
+    </div>
+  </div>
+</section>
+
+<!-- CREDIT PACKS -->
+<section class="vault-credits" id="buy-credits">
+  <div class="wrap">
+    <h2 class="section-title">AWA Credits</h2>
+    <p class="section-sub">20 free every month. Top up to stay in the game.</p>
+    <div class="credit-packs" id="credit-packs-grid">
+      <div class="credit-pack">
+        <div class="pack-amount">100 <span>cr</span></div>
+        <div class="pack-price">£8</div>
+        <div class="pack-value">= ~20 bids</div>
+        <button class="btn btn-ghost btn-sm buy-credits-btn" data-pack="100" data-price="800">Buy</button>
+      </div>
+      <div class="credit-pack featured">
+        <div class="pack-badge">Most popular</div>
+        <div class="pack-amount">250 <span>cr</span></div>
+        <div class="pack-price">£18</div>
+        <div class="pack-value">= ~50 bids</div>
+        <button class="btn btn-gold buy-credits-btn" data-pack="250" data-price="1800">Buy</button>
+      </div>
+      <div class="credit-pack">
+        <div class="pack-amount">500 <span>cr</span></div>
+        <div class="pack-price">£30</div>
+        <div class="pack-value">= ~100 bids</div>
+        <button class="btn btn-ghost btn-sm buy-credits-btn" data-pack="500" data-price="3000">Buy</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom" style="border-top:1px solid var(--line);padding-top:20px;margin-top:0">
+      <span>© <span data-year>2026</span> Awa Sounds — AWASOUNDS LTD</span>
+      <span>
+        <a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp;
+        <a href="terms.html">Terms &amp; Conditions</a> &nbsp;·&nbsp;
+        <a href="cookie-policy.html">Cookies</a> &nbsp;·&nbsp;
+        <a href="licenses/auction-terms.html">Auction Terms</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/vault.js"></script>
+<script>document.querySelectorAll("[data-year]").forEach(e=>e.textContent=new Date().getFullYear());</script>
+</body>
+</html>

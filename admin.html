@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -48,6 +48,8 @@
 
     <div class="acc-tabs">
       <button class="on" data-panel="beats">Beats</button>
+      <button data-panel="auctions">Vault Drop</button>
+      <button data-panel="credits">Credits</button>
       <button data-panel="content">Site Text</button>
       <button data-panel="help">Guide</button>
     </div>
@@ -56,6 +58,76 @@
     <div class="acc-panel on" data-panel="beats">
       <div class="acc-panel-head"><h3>Beat catalogue</h3><button class="btn btn-primary" id="beat-new">+ Add beat</button></div>
       <div id="beat-admin-list" class="adm-list"></div>
+    </div>
+
+    <!-- VAULT DROP AUCTIONS -->
+    <div class="acc-panel" data-panel="auctions">
+      <div class="acc-panel-head"><h3>Vault Drop — Auctions</h3><button class="btn btn-primary" id="auction-new">+ Create Auction</button></div>
+      <p class="adm-hint">Schedule and manage Vault Drop auctions. Set the item, starting bid, credit rate, and timer. Launch when ready.</p>
+      <div id="auction-admin-list" class="adm-list"></div>
+      <!-- Create / Edit Auction form (hidden by default) -->
+      <div id="auction-form-wrap" style="display:none; margin-top:24px; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:24px;">
+        <h4 id="auction-form-title">New Auction</h4>
+        <div class="adm-form-grid">
+          <label>Title<input type="text" id="af-title" placeholder="e.g. Chrome Nights — WAV Exclusive" /></label>
+          <label>Item type
+            <select id="af-type">
+              <option value="beat">Beat</option>
+              <option value="cover_art">Cover Art</option>
+              <option value="cover_art_video">Cover Art Video</option>
+            </select>
+          </label>
+          <label>Licence tier
+            <select id="af-licence">
+              <option value="wav">WAV Lease</option>
+              <option value="trackout">Trackout Lease</option>
+              <option value="exclusive">Exclusive</option>
+              <option value="mp3">MP3 Lease</option>
+              <option value="cover_art">Cover Art Licence</option>
+              <option value="cover_art_video">Cover Art Video Licence</option>
+            </select>
+          </label>
+          <label>Image URL<input type="url" id="af-image" placeholder="https://…" /></label>
+          <label>Preview audio URL (beats only)<input type="url" id="af-preview" placeholder="https://…" /></label>
+          <label>Description<textarea id="af-desc" rows="3" placeholder="What makes this piece special…"></textarea></label>
+          <label>Starting bid (credits)<input type="number" id="af-start-bid" value="50" min="10" /></label>
+          <label>Bid increment (credits)<input type="number" id="af-increment" value="5" min="1" /></label>
+          <label>Credit rate (cr per £1)<input type="number" id="af-rate" value="10" min="1" /></label>
+          <label>Opens at<input type="datetime-local" id="af-opens" /></label>
+          <label>Closes at<input type="datetime-local" id="af-closes" /></label>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:20px">
+          <button class="btn btn-ghost" id="auction-form-cancel">Cancel</button>
+          <button class="btn btn-primary" id="auction-form-save">Save auction</button>
+          <button class="btn btn-gold" id="auction-form-launch" style="display:none">Save &amp; Go Live</button>
+        </div>
+        <p class="adm-hint" style="margin-top:12px">Anti-snipe extension (5 min) fires automatically on every bid placed in the final 5 minutes. No setup needed.</p>
+      </div>
+    </div>
+
+    <!-- CREDITS ADMIN -->
+    <div class="acc-panel" data-panel="credits">
+      <div class="acc-panel-head"><h3>AWA Credits — Overview</h3></div>
+      <p class="adm-hint">Credit ledger is automatic. Monthly grant (20 cr) runs via Supabase function. Purchased credits are added on payment confirmation. Use the form below to manually adjust a user's balance (e.g. refund, bonus).</p>
+      <div style="background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:24px; margin-top:16px; max-width:480px;">
+        <h4>Manual credit adjustment</h4>
+        <div class="adm-form-grid">
+          <label>User email<input type="email" id="cr-email" placeholder="user@email.com" /></label>
+          <label>Amount (positive = add, negative = deduct)<input type="number" id="cr-amount" placeholder="e.g. 50 or -10" /></label>
+          <label>Note (shown in ledger)<input type="text" id="cr-note" placeholder="e.g. Refund — auction cancelled" /></label>
+        </div>
+        <button class="btn btn-primary" id="cr-adjust-btn" style="margin-top:16px">Apply adjustment</button>
+        <p id="cr-adjust-result" class="adm-hint" style="margin-top:10px"></p>
+      </div>
+      <div style="margin-top:28px">
+        <h4 style="margin-bottom:12px">Credit pack pay links</h4>
+        <p class="adm-hint">Paste the GoDaddy Pay Links for each credit pack into <code>assets/js/config.js</code> under <code>creditPayLinks</code>. Credits are added manually or via webhook when payment is confirmed.</p>
+        <table class="license-meta" style="margin-top:12px;width:auto">
+          <tr><td>100 cr / £8</td><td><code>creditPayLinks[100]</code></td></tr>
+          <tr><td>250 cr / £18</td><td><code>creditPayLinks[250]</code></td></tr>
+          <tr><td>500 cr / £30</td><td><code>creditPayLinks[500]</code></td></tr>
+        </table>
+      </div>
     </div>
 
     <!-- CONTENT -->
@@ -128,3 +200,5 @@
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
 </body></html>
+
+
