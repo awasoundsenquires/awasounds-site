@@ -188,6 +188,19 @@
 .auction-legal-note { font-size: 11px; color: var(--faint); line-height: 1.6; }
 .auction-legal-note a { color: var(--gold-lo); }
 
+/* ── Admin dashboard stats ──────────────────────────────── */
+.adm-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+.adm-stat-card {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px;
+  padding: 20px 18px; text-align: center;
+}
+.adm-stat-val { font-family: var(--ff-display); font-size: 28px; color: var(--gold); }
+.adm-stat-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; }
+
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 860px) {
   .auction-layout { grid-template-columns: 1fr; }

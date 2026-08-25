@@ -47,15 +47,45 @@
     </header>
 
     <div class="acc-tabs">
-      <button class="on" data-panel="beats">Beats</button>
+      <button class="on" data-panel="dashboard">Dashboard</button>
+      <button data-panel="beats">Beats</button>
       <button data-panel="auctions">Vault Drop</button>
       <button data-panel="credits">Credits</button>
+      <button data-panel="edits">Cover Edits</button>
+      <button data-panel="items">Item Codes</button>
       <button data-panel="content">Site Text</button>
       <button data-panel="help">Guide</button>
     </div>
 
+    <!-- DASHBOARD -->
+    <div class="acc-panel on" data-panel="dashboard">
+      <div class="acc-panel-head"><h3>Dashboard Overview</h3><button class="btn btn-ghost" id="dash-refresh">↻ Refresh</button></div>
+      <div class="adm-stats-grid" id="dash-stats">
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-users">—</div><div class="adm-stat-lbl">Total Users</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-credits">—</div><div class="adm-stat-lbl">Credits Issued</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-auctions">—</div><div class="adm-stat-lbl">Active Auctions</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-bids">—</div><div class="adm-stat-lbl">Total Bids</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-edit-reqs">—</div><div class="adm-stat-lbl">Pending Cover Edits</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-items">—</div><div class="adm-stat-lbl">Item Codes</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px">
+        <div>
+          <h4 style="margin-bottom:12px">Recent Bids</h4>
+          <div id="dash-recent-bids" class="adm-list"></div>
+        </div>
+        <div>
+          <h4 style="margin-bottom:12px">Pending Cover Edit Requests</h4>
+          <div id="dash-pending-edits" class="adm-list"></div>
+        </div>
+      </div>
+      <div style="margin-top:28px">
+        <h4 style="margin-bottom:12px">Live / Upcoming Auctions</h4>
+        <div id="dash-auctions" class="adm-list"></div>
+      </div>
+    </div>
+
     <!-- BEATS -->
-    <div class="acc-panel on" data-panel="beats">
+    <div class="acc-panel" data-panel="beats">
       <div class="acc-panel-head"><h3>Beat catalogue</h3><button class="btn btn-primary" id="beat-new">+ Add beat</button></div>
       <div id="beat-admin-list" class="adm-list"></div>
     </div>
@@ -93,6 +123,8 @@
           <label>Starting bid (credits)<input type="number" id="af-start-bid" value="50" min="10" /></label>
           <label>Bid increment (credits)<input type="number" id="af-increment" value="5" min="1" /></label>
           <label>Credit rate (cr per £1)<input type="number" id="af-rate" value="10" min="1" /></label>
+          <label>Min price floor (£ GBP — leave blank for no reserve)<input type="number" id="af-min-price" placeholder="e.g. 150 for exclusive beat" min="0" step="0.01" /></label>
+          <label>Item code (e.g. AWA-CVR-003)<input type="text" id="af-item-code" placeholder="AWA-BT-001" /></label>
           <label>Opens at<input type="datetime-local" id="af-opens" /></label>
           <label>Closes at<input type="datetime-local" id="af-closes" /></label>
         </div>
@@ -108,7 +140,7 @@
     <!-- CREDITS ADMIN -->
     <div class="acc-panel" data-panel="credits">
       <div class="acc-panel-head"><h3>AWA Credits — Overview</h3></div>
-      <p class="adm-hint">Credit ledger is automatic. Monthly grant (20 cr) runs via Supabase function. Purchased credits are added on payment confirmation. Use the form below to manually adjust a user's balance (e.g. refund, bonus).</p>
+      <p class="adm-hint">Credit ledger is automatic. Monthly grants run via Supabase function: <b>free users get 20 cr/month</b>, <b>Insider members (£4.99/mo) get 50 cr/month</b> — all credits accumulate and never expire. Purchased credits are added on payment confirmation. Use the form below to manually adjust a user's balance (e.g. refund, bonus, membership activation).</p>
       <div style="background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:24px; margin-top:16px; max-width:480px;">
         <h4>Manual credit adjustment</h4>
         <div class="adm-form-grid">
@@ -119,6 +151,18 @@
         <button class="btn btn-primary" id="cr-adjust-btn" style="margin-top:16px">Apply adjustment</button>
         <p id="cr-adjust-result" class="adm-hint" style="margin-top:10px"></p>
       </div>
+      <div style="background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:24px; margin-top:16px; max-width:480px;">
+        <h4>Activate / remove Insider membership</h4>
+        <p class="adm-hint">Sets <code>is_member = true/false</code> on the user's profile. This controls whether they get 50 cr instead of 20 cr on the next monthly grant run.</p>
+        <div class="adm-form-grid">
+          <label>User email<input type="email" id="mem-email" placeholder="user@email.com" /></label>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button class="btn btn-primary" id="mem-activate-btn">Activate membership</button>
+          <button class="btn btn-ghost" id="mem-remove-btn">Remove membership</button>
+        </div>
+        <p id="mem-result" class="adm-hint" style="margin-top:10px"></p>
+      </div>
       <div style="margin-top:28px">
         <h4 style="margin-bottom:12px">Credit pack pay links</h4>
         <p class="adm-hint">Paste the GoDaddy Pay Links for each credit pack into <code>assets/js/config.js</code> under <code>creditPayLinks</code>. Credits are added manually or via webhook when payment is confirmed.</p>
@@ -127,6 +171,34 @@
           <tr><td>250 cr / £18</td><td><code>creditPayLinks[250]</code></td></tr>
           <tr><td>500 cr / £30</td><td><code>creditPayLinks[500]</code></td></tr>
         </table>
+      </div>
+    </div>
+
+    <!-- COVER EDIT REQUESTS -->
+    <div class="acc-panel" data-panel="edits">
+      <div class="acc-panel-head"><h3>Cover Edit Requests</h3></div>
+      <p class="adm-hint">Customers request song title + artist name edits here. Each request includes their image code (e.g. AWA-CVR-003) and contact email. Mark as delivered when done.</p>
+      <div id="edit-req-list" class="adm-list"></div>
+    </div>
+
+    <!-- ITEM CODES -->
+    <div class="acc-panel" data-panel="items">
+      <div class="acc-panel-head"><h3>Item Codes</h3><button class="btn btn-primary" id="item-new">+ Add Code</button></div>
+      <p class="adm-hint">Every beat and cover has a unique AWA code (e.g. AWA-CVR-001, AWA-BT-001). Sold items are marked automatically when an auction closes.</p>
+      <div id="item-code-list" class="adm-list"></div>
+      <!-- Add item form -->
+      <div id="item-form-wrap" style="display:none;margin-top:24px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:24px;">
+        <h4>New Item Code</h4>
+        <div class="adm-form-grid">
+          <label>Item type<select id="ic-type"><option value="cover_art">Cover Art</option><option value="beat">Beat</option></select></label>
+          <label>Item code (e.g. AWA-CVR-009)<input type="text" id="ic-code" placeholder="AWA-CVR-009" /></label>
+          <label>Title<input type="text" id="ic-title" placeholder="Mercury" /></label>
+          <label>Image URL<input type="url" id="ic-img" placeholder="https://…" /></label>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:16px">
+          <button class="btn btn-ghost" id="item-form-cancel">Cancel</button>
+          <button class="btn btn-primary" id="item-form-save">Save</button>
+        </div>
       </div>
     </div>
 
