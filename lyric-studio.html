@@ -653,7 +653,7 @@ function drawThumbs(){
     x.font = 'bold 13px "Space Grotesk",sans-serif';
     x.textAlign='center'; x.textBaseline='middle';
     x.fillStyle = 'rgba(255,255,255,0.85)';
-    const preview = { impact:'WORD', mirror:'WORD\n&#x25BC;DROW', ticker:'AWA AWA AWA AWA', split:'&#x2026;lyrics&#x2026;', kinetic:'WORD', karaoke:'word by word', neon:'NEON', cinematic:'C I N E M A', glitch:'G_TCH', minimal:'MINIMAL' };
+    const preview = { impact:'WORD', mirror:'WORD\n\u25BCDROW', ticker:'AWA AWA AWA AWA', split:'\u2026lyrics\u2026', kinetic:'WORD', karaoke:'word by word', neon:'NEON', cinematic:'C I N E M A', glitch:'G_TCH', minimal:'MINIMAL' };
     const lines = preview[s.id].split('\n');
     if(lines.length===1){ x.fillText(lines[0],80,45); }
     else { lines.forEach((l,i)=>x.fillText(l,80,30+i*24)); }
@@ -691,7 +691,7 @@ function fillCovers(){
   const sel = document.getElementById('cover-sel');
   (window.AWA?.covers||[]).filter(c=>!c.auctionOnly).forEach(c=>{
     const o = document.createElement('option');
-    o.value=c.id; o.textContent=c.title+' &#x2014; '+c.sub; sel.appendChild(o);
+    o.value=c.id; o.textContent=c.title+' \u2014 '+c.sub; sel.appendChild(o);
   });
 }
 
