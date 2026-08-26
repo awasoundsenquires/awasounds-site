@@ -1,10 +1,10 @@
-/* AWA SOUNDS &#x2014; Cover Art store v2
+/* AWA SOUNDS — Cover Art store v2
    Features:
    - GG watermark canvas overlay on all preview images (anti-piracy)
    - TITLED / CLEAN toggle button above the grid
    - Side-by-side (clean left, titled right) + videos-below modal
    - Receipt FX animation wired to buy flow
-   &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+   ─────────────────────────────────────────────────────────────────── */
 (function () {
   "use strict";
   const CFG = window.AWA || {};
@@ -12,7 +12,7 @@
   if (!list) return;
 
   const COVERS = (CFG.covers || []).filter(c => !c.auctionOnly);
-  const money = (n) => "&#x00A3;" + Number(n).toFixed(0);
+  const money = (n) => "£" + Number(n).toFixed(0);
   const coverDiscount = CFG.coverMemberDiscount != null ? CFG.coverMemberDiscount : (CFG.memberDiscount || 0);
   const memberPrice = (n) => Math.round(n * (1 - coverDiscount));
   const likeId = (id) => "cover:" + id;
@@ -22,7 +22,7 @@
   // Display mode: 'titled' (default) or 'clean'
   let displayMode = "titled";
 
-  /* &#x2500;&#x2500; Clean-mode CSS &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+  /* ── Clean-mode CSS ───────────────────────────────────── */
   const coverStyle = document.createElement("style");
   coverStyle.textContent = `
     #cover-list.clean-mode{gap:8px}
@@ -35,7 +35,7 @@
   `;
   document.head.appendChild(coverStyle);
 
-  /* &#x2500;&#x2500; Toggle button &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+  /* ── Toggle button ────────────────────────────────────── */
   const toggleWrap = document.createElement("div");
   toggleWrap.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:20px";
   toggleWrap.innerHTML = `
@@ -58,7 +58,7 @@
     });
   });
 
-  /* &#x2500;&#x2500; GG Watermark canvas overlay &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+  /* ── GG Watermark canvas overlay ─────────────────────── */
   function applyWatermark(artEl) {
     if (artEl.querySelector(".wm-canvas")) return;
     const cv = document.createElement("canvas");
@@ -99,7 +99,7 @@
     ro.observe(artEl);
   }
 
-  /* &#x2500;&#x2500; Card builder &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+  /* ── Card builder ─────────────────────────────────────── */
   function card(c) {
     const el = document.createElement("article");
     el.className = "store-card cover-card has-motion";
@@ -113,7 +113,7 @@
       <div class="art"><img src="${c.img}" alt="${esc(c.title)} cover art" loading="lazy"><video class="media-video" muted loop playsinline></video></div>
       <div class="previews"><span class="on"></span><span></span></div>
       <div class="store-body">
-        <div><h4>${esc(c.title)}</h4><div class="sub">${esc(c.sub)} &#x00B7; 3000&#x00D7;3000 + 2 videos</div></div>
+        <div><h4>${esc(c.title)}</h4><div class="sub">${esc(c.sub)} · 3000×3000 + 2 videos</div></div>
         <div class="store-price"><span class="now">${money(c.price)}</span><span class="subprice">Members ${money(c.premium && c.subPrice != null ? Math.min(c.subPrice, memberPrice(c.price)) : memberPrice(c.price))}</span></div>
       </div>`;
 
@@ -127,7 +127,7 @@
 
   COVERS.forEach(c => list.appendChild(card(c)));
 
-  /* &#x2500;&#x2500; Hover video cycle &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+  /* ── Hover video cycle ────────────────────────────────── */
   list.querySelectorAll(".cover-card.has-motion").forEach(cardEl => {
     const vid = cardEl.querySelector(".media-video");
     const dots = cardEl.querySelectorAll(".previews span");
@@ -138,7 +138,7 @@
     cardEl.addEventListener("mouseleave", () => { clearInterval(timer); if (vid) vid.pause(); dots.forEach((d, di) => d.classList.toggle("on", di === 0)); });
   });
 
-  /* &#x2500;&#x2500; Clicks &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+  /* ── Clicks ───────────────────────────────────────────── */
   list.addEventListener("click", (e) => {
     const save = e.target.closest(".cover-save");
     if (save) { e.preventDefault(); e.stopPropagation(); toggleSave(save.closest(".cover-card")); return; }
@@ -169,7 +169,7 @@
     });
   });
 
-  /* &#x2500;&#x2500; Detail modal &#x2014; side-by-side layout &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+  /* ── Detail modal — side-by-side layout ──────────────── */
   let dm = null, current = null;
 
   const MODAL_CSS = `
@@ -224,7 +224,7 @@
     dm.innerHTML = `
       <div class="cover-card-lg">
         <button class="cover-close" aria-label="Close">&times;</button>
-        <span class="eyebrow">Cover Art &#x2014; Awa Sounds</span>
+        <span class="eyebrow">Cover Art — Awa Sounds</span>
         <h3 class="cover-title"></h3>
         <div class="cover-sub"></div>
         <!-- Side-by-side pair -->
@@ -262,7 +262,7 @@
 
     const c = current;
     dm.querySelector(".cover-title").textContent = c.title;
-    dm.querySelector(".cover-sub").textContent = c.sub + " &#x00B7; 3000&#x00D7;3000 + 2 motion files";
+    dm.querySelector(".cover-sub").textContent = c.sub + " · 3000×3000 + 2 motion files";
 
     // Pair images
     const cleanImg = dm.querySelector(".cov-img-clean");
@@ -304,14 +304,14 @@
     dm.querySelector(".cov-price .now").textContent = money(price);
     dm.querySelector(".cov-price .subprice").innerHTML = member
       ? `<em>Insider price applied</em>`
-      : `&#x00B7; Members ${money(memPrice)}`;
+      : `· Members ${money(memPrice)}`;
 
     // Save button
     const saveBtn = dm.querySelector(".cov-save-lg");
     saveBtn.classList.toggle("on", likeSet.has(c.id));
     saveBtn.onclick = () => toggleSaveById(c.id, saveBtn);
 
-    // Buy button &#x2192; receipt animation
+    // Buy button → receipt animation
     dm.querySelector(".cov-buy-btn").onclick = () => triggerBuy(c, member, memPrice);
 
     dm.classList.add("open");
@@ -325,7 +325,7 @@
     dm.querySelectorAll("video").forEach(v => v.pause());
   }
 
-  /* &#x2500;&#x2500; Receipt animation &#x2192; payment &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; */
+  /* ── Receipt animation → payment ─────────────────────── */
   function triggerBuy(c, member, memPrice) {
     const priceVal = member && memPrice ? memberPrice(c.price) : c.price;
     const priceStr = money(priceVal);
@@ -348,7 +348,7 @@
   function openPayLink(c) {
     if (c.pay) { window.open(c.pay, "_blank", "noopener"); return; }
     const to = CFG.enquiryEmail || "awasound.music@gmail.com";
-    const subj = encodeURIComponent(`Cover art enquiry &#x2014; ${c.title}`);
+    const subj = encodeURIComponent(`Cover art enquiry — ${c.title}`);
     const body = encodeURIComponent(`Hi Awa Sounds,\n\nI'd like to buy the "${c.title}" cover (${c.sub}).\n\nName:\nRelease title:\n\nThanks.`);
     window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
   }
