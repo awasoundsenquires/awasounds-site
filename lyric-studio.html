@@ -354,7 +354,9 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <!-- Lyrics -->
   <div class="ps" style="flex:1">
     <div class="sec-lbl">Lyrics <span id="lyr-count" style="color:var(--muted);font-size:9px">0 lines</span></div>
-    <textarea class="lyrics-ta" id="lyr-ta" placeholder="Paste lyrics here — one line per row.
+    <textarea class="lyrics-ta" id="lyr-ta" placeholder="Not a template. Beat-reactive, your lyrics, your track.
+
+Paste your lyrics here — one line per row.
 
 [Verse 1]
 I been moving through the chrome
@@ -937,6 +939,15 @@ function drawFrame(){
     case 'minimal':   drawMinimal(a); break;
   }
   drawVignette();
+  // Awa Sounds watermark
+  ctx.save();
+  ctx.globalAlpha=0.32;
+  ctx.font="600 12px 'Space Grotesk',Arial,sans-serif";
+  ctx.textAlign='right';ctx.textBaseline='bottom';
+  ctx.letterSpacing='0.1em';
+  ctx.fillStyle='#ffffff';
+  ctx.fillText('AWA SOUNDS', W-14, H-12);
+  ctx.restore();
   // Beat indicator
   const bdot = document.getElementById('bdot');
   if(bassA>0.35) bdot.classList.add('on'); else bdot.classList.remove('on');
