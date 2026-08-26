@@ -86,8 +86,19 @@ window.AWA = {
      The record_login_streak() SQL function handles the actual award. */
   streakMilestones: { 5:10, 7:5, 10:25, 14:10, 21:15, 30:50 },
 
-  /* --- Referral rewards --- */
-  referralCredits: { referrer: 25, referred: 25 },  // both get 25 cr on referred user's first purchase
+  /* --- Referral rewards ---
+     Rules:
+     • Each purchase (beat or cover) the buyer earns 1 share — share link shows post-purchase.
+       Sharing = small credit reward (5 cr) for buyer only, 1 per purchase, not per share click.
+     • Referral code: unique per user. New user registers with code → BOTH get a free spin (1× per registration).
+     • Referred user makes their first purchase → REFERRING user earns 25 credits (not referred user).
+     • All bonuses are one-time caps. No stacking. */
+  referralCredits: {
+    purchaseShareBonus:  5,   // buyer gets 5 cr for sharing post-purchase (1 per purchase event)
+    regBonusReferrer:    0,   // referrer spin (handled via extra_spins grant, not credits)
+    regBonusReferred:    0,   // referred spin (same — grant 1 extra_spin each at registration)
+    firstPurchaseBonus: 25,   // referring user earns 25 cr when referred makes first purchase
+  },
 
   /* --- Album Packs ---
      coverIds: must be IDs from the covers array (auctionOnly covers can also be in packs).
@@ -126,18 +137,27 @@ window.AWA = {
     { type:"bundle",      label:"Cover + WAV Lease — save 20%", code:"BUNDLE20",  expiresHours: null }
   ],
 
-  /* --- License tiers (global; same for every beat) --- */
+  /* --- License tiers (global; same for every beat) ---
+     IMPORTANT: Cover image and animated cover video are EXCLUSIVE license only.
+     MP3/WAV/Trackout/Stems licenses purchase the MUSIC ONLY — no image or video asset.
+     Exclusive buyers receive: music (WAV) + cover image (PNG) + animated cover video (MP4). */
   licenses: {
-    mp3:       { name: "MP3 Lease",  price: 30,   streams: "30,000",  doc: "licenses/mp3-lease.html" },
-    wav:       { name: "WAV Lease",  price: 45,   streams: "150,000", doc: "licenses/wav-lease.html" },
-    trackout:  { name: "Trackout",   price: 145,  streams: "550,000", doc: "licenses/trackout-lease.html" },
-    exclusive: { name: "Exclusive",  price: null, streams: "Unlimited", doc: "licenses/exclusive.html" }
+    mp3:       { name: "MP3 Lease",  price: 30,   streams: "30,000",  doc: "licenses/mp3-lease.html",    includes: ["MP3 beat file", "30,000 streams/sales limit"], excludes: ["Cover image", "Animated cover video"] },
+    wav:       { name: "WAV Lease",  price: 45,   streams: "150,000", doc: "licenses/wav-lease.html",    includes: ["WAV beat file", "150,000 streams/sales limit"], excludes: ["Cover image", "Animated cover video"] },
+    trackout:  { name: "Trackout",   price: 145,  streams: "550,000", doc: "licenses/trackout-lease.html", includes: ["WAV beat file", "550,000 streams/sales limit"], excludes: ["Cover image", "Animated cover video"] },
+    stems:     { name: "Stems + Unlimited Streaming", price: 299, streams: "Unlimited", doc: "licenses/trackout-lease.html",
+                 includes: ["All stem files (WAV)", "Unlimited commercial streams", "Full mixing flexibility"],
+                 excludes: ["Cover image", "Animated cover video"] },
+    exclusive: { name: "Exclusive",  price: null, streams: "Unlimited", doc: "licenses/exclusive.html",
+                 includes: ["WAV beat file", "All stem files", "Cover image (PNG)", "Animated cover video (MP4)", "Unlimited streams", "Full ownership transfer", "Removed from catalogue"],
+                 excludes: [] }
   },
 
   /* --- Beat catalogue ---
      pay: per-tier GoDaddy Pay Link for THIS beat. Empty → Buy button emails an enquiry.
      preview: optional mp3/clip for the play button (leave "" for now). */
   beats: [
+    { id:"african-stamina", title:"African Stamina", producer:"AWA", bpm:113, key:"A♯ Minor", tags:["Afrobeats","Afro Vibes","Tribal"], cover:"assets/img/beat-african-stamina.png", preview:"", stems:true, pay:{ mp3:"", wav:"", trackout:"", stems:"" } },
     { id:"chrome-nights",  title:"Chrome Nights",   producer:"AWA", bpm:92,  key:"Am", tags:["R&B","Trapsoul"],       cover:"assets/img/beat-chrome-nights.png",  preview:"", pay:{ mp3:"", wav:"", trackout:"" } },
     { id:"lagos-after-dark", title:"Lagos After Dark", producer:"AWA", bpm:105, key:"Fm", tags:["Afrobeats","Pop"],     cover:"assets/img/beat-lagos-after-dark.png", preview:"", pay:{ mp3:"", wav:"", trackout:"" } },
     { id:"no-cosign",      title:"No Cosign",       producer:"AWA", bpm:140, key:"Gm", tags:["Trap","Drill"],          cover:"assets/img/beat-no-cosign.png",      preview:"", pay:{ mp3:"", wav:"", trackout:"" } },

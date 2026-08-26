@@ -190,13 +190,65 @@
 
   function checkout(key, link) {
     const L = CFG.licenses[key];
-    if (link) { window.open(link, "_blank", "noopener"); return; }
+    if (link) {
+      window.open(link, "_blank", "noopener");
+      closeLicense();
+      setTimeout(() => showCoverUpsell(currentBeat), 1200);
+      return;
+    }
     // Fallback: no Pay Link configured yet → email enquiry.
     const to = CFG.enquiryEmail || "awasound.music@gmail.com";
     const subj = encodeURIComponent(`Beat enquiry — ${currentBeat.title} (${L.name})`);
     const body = encodeURIComponent(
       `Hi Awa Sounds,\n\nI'd like the ${L.name} license for "${currentBeat.title}" (Prod. ${currentBeat.producer}).\n\nName:\nArtist name:\n\nThanks.`);
     window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
+    closeLicense();
+    setTimeout(() => showCoverUpsell(currentBeat), 800);
+  }
+
+  /* ---------- Post-purchase cover art upsell ---------- */
+  function showCoverUpsell(beat) {
+    // Pick covers that match the beat's tags/vibe — prefer non-auction-only covers
+    const allCovers = CFG.covers || [];
+    const genre = (beat.tags || []).join(" ").toLowerCase();
+
+    // Simple style matching: Afro/tribal → warmer earthy tones; pick first 3 available
+    const matched = allCovers
+      .filter(c => !c.auctionOnly)
+      .slice(0, 3);
+
+    if (!matched.length) return;
+
+    const panel = document.createElement("div");
+    panel.className = "cover-upsell-panel";
+    panel.innerHTML = `
+      <div class="cup-inner">
+        <button class="cup-close">&times;</button>
+        <div class="cup-eyebrow">Complete Your Look</div>
+        <h3 class="cup-title">Cover art that matches the energy of "${beat.title}"</h3>
+        <p class="cup-sub">Your beat needs a visual identity. These covers fit the same world.</p>
+        <div class="cup-grid">
+          ${matched.map(c => `
+            <a href="cover-store.html?id=${c.id}" class="cup-card">
+              <div class="cup-img" style="background:var(--bg3)">
+                ${c.img ? `<img src="${c.img}" alt="${esc(c.title)}" loading="lazy">` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:28px">🖼️</div>'}
+              </div>
+              <div class="cup-info">
+                <div class="cup-name">${esc(c.title)}</div>
+                <div class="cup-price">£${c.price}${c.subPrice ? ` <span style="font-size:10px;opacity:.5">· Insider £${c.subPrice}</span>` : ""}</div>
+              </div>
+            </a>`).join("")}
+        </div>
+        <a href="cover-store.html" class="cup-browse">Browse all covers →</a>
+        <p style="font-size:10px;color:var(--muted);margin-top:12px">Want your cover to match exactly? Use <a href="cover-overlay.html" style="color:var(--gold)">Make It Mine</a> to personalise it.</p>
+      </div>`;
+    document.body.appendChild(panel);
+    setTimeout(() => panel.classList.add("open"), 30);
+    panel.querySelector(".cup-close").addEventListener("click", () => {
+      panel.classList.remove("open");
+      setTimeout(() => panel.remove(), 350);
+    });
+    panel.addEventListener("click", e => { if (e.target === panel) { panel.classList.remove("open"); setTimeout(() => panel.remove(), 350); } });
   }
 
   /* ---------- helpers ---------- */
