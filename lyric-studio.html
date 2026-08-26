@@ -586,6 +586,7 @@ const W = 1280, H = 720;
 let bgEl = null;          // img or video
 let audio = null;
 let audioCtx = null, analyser = null, freqArr = null, timeArr = null;
+let mediaRecorder = null, recChunks = [], recAudioDest = null;
 let beats = [], bpm = 0;
 let lyrics = [];
 let lyricIdx = 0;
@@ -1403,41 +1404,90 @@ function updateHF(){
   document.getElementById('hf-txt').textContent=s?s.hf:'Select a style.';
 }
 function showExport(){
-  // Build export modal if not exists
   let em = document.getElementById('export-modal');
   if(!em){
     em = document.createElement('div');
     em.id = 'export-modal';
     em.style.cssText = 'position:fixed;inset:0;background:rgba(7,7,15,.96);z-index:2000;display:flex;align-items:center;justify-content:center;padding:24px';
     em.innerHTML = `
+      <style>@keyframes recpulse{0%,100%{opacity:1}50%{opacity:.25}}</style>
       <div style="background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:28px 28px 24px;max-width:420px;width:100%;position:relative">
-        <button onclick="document.getElementById('export-modal').remove()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer">&#xD7;</button>
-        <div style="font-size:24px;margin-bottom:8px">&#xD83D;&#xDCE4;</div>
+        <button onclick="document.getElementById('export-modal').remove()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer">&times;</button>
+        <div style="font-size:24px;margin-bottom:8px">&#x1F4E4;</div>
         <h3 style="font-family:'Space Grotesk',sans-serif;color:var(--hi);margin-bottom:6px">Export Your Lyric Video</h3>
-        <p style="font-size:12px;color:var(--silver);line-height:1.6;margin-bottom:18px">Your video is 1280&#xD7;720 HD, rendered in your browser. Use Chrome's built-in screen recorder to capture it:</p>
-        <div style="background:var(--bg3);border-radius:10px;padding:14px;margin-bottom:16px">
-          <div style="font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">How to record</div>
-          <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--text)">
-            <div>1. Press <b style="color:var(--hi)">&#x25B6; Play</b> to start your video</div>
-            <div>2. Open <b style="color:var(--hi)">Chrome menu &#x2192; More tools &#x2192; Record</b></div>
-            <div>3. Select this tab and hit Record</div>
-            <div>4. Stop recording when the video ends</div>
-            <div>5. Chrome saves it as a <b style="color:var(--hi)">.webm</b> (open in any video player)</div>
+        <p style="font-size:12px;color:var(--silver);line-height:1.6;margin-bottom:18px">1280&times;720 HD &mdash; records your animation and downloads it directly. No screen recorder needed.</p>
+        <div id="exp-controls" style="margin-bottom:16px">
+          <button id="btn-rec-start" onclick="startExportRec()" style="width:100%;padding:13px;background:var(--hi);color:#000;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:.02em">&#x25cf;&nbsp; Record &amp; Download</button>
+          <p style="font-size:11px;color:var(--muted);text-align:center;line-height:1.6;margin-top:10px">Press <b style="color:var(--silver)">Play</b> first to start your animation, then click Record. Hit Stop when done &mdash; the video downloads automatically as <b style="color:var(--silver)">.webm</b> (plays on all platforms &amp; social apps).</p>
+        </div>
+        <div id="exp-recording" style="display:none;text-align:center;margin-bottom:16px">
+          <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
+            <span style="width:11px;height:11px;background:#e22;border-radius:50%;display:inline-block;animation:recpulse 1s ease-in-out infinite"></span>
+            <span style="color:#e22;font-weight:700;font-size:14px;font-family:'Space Grotesk',sans-serif">Recording&hellip;</span>
           </div>
+          <p style="font-size:11px;color:var(--silver);margin-bottom:14px">Your animation is being captured in real time.</p>
+          <button onclick="stopExportRec()" style="width:100%;padding:12px;background:none;border:1px solid #e22;color:#e22;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Space Grotesk',sans-serif">&#x25a0;&nbsp; Stop &amp; Download</button>
         </div>
-        <div style="background:rgba(217,195,143,.07);border:1px solid rgba(217,195,143,.2);border-radius:10px;padding:14px;margin-bottom:18px">
+        <div style="background:rgba(217,195,143,.07);border:1px solid rgba(217,195,143,.2);border-radius:10px;padding:14px">
           <div style="font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Share it</div>
-          <p style="font-size:12px;color:var(--text);line-height:1.5;margin-bottom:10px">Post it on IG, TikTok or YouTube and tag us &#x2014; we repost the best ones.</p>
+          <p style="font-size:12px;color:var(--text);line-height:1.5;margin-bottom:10px">Post on IG, TikTok or YouTube and tag us &mdash; we repost the best ones.</p>
           <div style="background:var(--bg3);border-radius:8px;padding:10px;font-size:11.5px;color:var(--silver);line-height:1.6" id="share-caption">Made with Awa Sounds Lyric Studio &#x2726; @awasounds</div>
-          <button onclick="(function(btn){const txt=document.getElementById('share-caption').textContent;(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}).finally(()=>{});btn.textContent='&#x2713; Copied!';btn.style.color='var(--green)';btn.style.borderColor='var(--green)';setTimeout(()=>{btn.textContent='Copy Caption';btn.style.color='';btn.style.borderColor='';},2000);})(this)" style="background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;margin-top:8px;width:100%;transition:.2s">Copy Caption</button>
+          <button onclick="(function(btn){const txt=document.getElementById('share-caption').textContent;(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();});btn.textContent='&#x2713; Copied!';btn.style.color='var(--green)';btn.style.borderColor='var(--green)';setTimeout(()=>{btn.textContent='Copy Caption';btn.style.color='';btn.style.borderColor='';},2000);})(this)" style="background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;margin-top:8px;width:100%;transition:.2s">Copy Caption</button>
         </div>
-        <p style="font-size:10.5px;color:var(--muted);text-align:center">Full MP4 in-browser export coming in the next update.</p>
       </div>`;
     document.body.appendChild(em);
     em.addEventListener('click', e=>{ if(e.target===em) em.remove(); });
   } else {
     em.style.display = 'flex';
   }
+}
+
+function startExportRec(){
+  const canvas = document.getElementById('cv');
+  if(!canvas){ toast('Canvas not ready','err'); return; }
+  if(!window.MediaRecorder){ toast('Recording not supported in this browser','err'); return; }
+  try {
+    const videoStream = canvas.captureStream(30);
+    let finalStream = videoStream;
+    if(audioCtx){
+      try {
+        recAudioDest = audioCtx.createMediaStreamDestination();
+        if(analyser) analyser.connect(recAudioDest);
+        const aTracks = recAudioDest.stream.getAudioTracks();
+        if(aTracks.length) finalStream = new MediaStream([...videoStream.getVideoTracks(), aTracks[0]]);
+      } catch(e){}
+    }
+    const mime = ['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'].find(m=>MediaRecorder.isTypeSupported(m)) || 'video/webm';
+    mediaRecorder = new MediaRecorder(finalStream, { mimeType: mime, videoBitsPerSecond: 5000000 });
+    recChunks = [];
+    mediaRecorder.ondataavailable = e => { if(e.data && e.data.size > 0) recChunks.push(e.data); };
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(recChunks, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'lyric-video-awa-sounds.webm';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 15000);
+      const ec = document.getElementById('exp-controls');
+      const er = document.getElementById('exp-recording');
+      if(ec) ec.style.display = '';
+      if(er) er.style.display = 'none';
+      if(recAudioDest){ try{ if(analyser) analyser.disconnect(recAudioDest); }catch(e){} recAudioDest=null; }
+    };
+    mediaRecorder.start(200);
+    const ec = document.getElementById('exp-controls');
+    const er = document.getElementById('exp-recording');
+    if(ec) ec.style.display = 'none';
+    if(er) er.style.display = '';
+    if(!isPlaying) togglePlay();
+  } catch(e){
+    toast('Recording failed: '+e.message,'err');
+    console.error(e);
+  }
+}
+
+function stopExportRec(){
+  if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
 }
 let toastT;
 function toast(msg, type){
