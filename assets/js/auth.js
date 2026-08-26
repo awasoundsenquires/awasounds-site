@@ -43,11 +43,11 @@
     isMember: () => !!(profile && profile.is_member),
     onChange: (fn) => { listeners.push(fn); if (session !== undefined) fn(session, profile); },
 
-    async signUp(email, password, displayName) {
+    async signUp(email, password, displayName, newsletter) {
       if (!client) return { error: notReady() };
       return client.auth.signUp({
         email, password,
-        options: { data: { display_name: displayName || "" } }
+        options: { data: { display_name: displayName || "", newsletter_optin: !!newsletter } }
       });
     },
     async signIn(email, password) {
@@ -115,6 +115,10 @@
           <label>Password
             <input type="password" name="password" required minlength="6" autocomplete="current-password" placeholder="6+ characters">
           </label>
+          <label class="auth-newsletter" style="display:none;flex-direction:row;align-items:flex-start;gap:8px;background:rgba(217,195,143,.07);border:1px solid rgba(217,195,143,.2);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:11.5px;color:#8888aa;line-height:1.5">
+            <input type="checkbox" name="newsletter" checked style="margin-top:2px;flex:0 0 auto;accent-color:#d9c38f">
+            <span>Keep me updated — promo codes, beat drops, auction reminders and exclusive discounts. No spam, unsubscribe any time.</span>
+          </label>
           <p class="auth-error" role="alert"></p>
           <button type="submit" class="btn btn-primary auth-submit">Sign in</button>
         </form>
@@ -130,10 +134,12 @@
     const tabs = modal.querySelectorAll(".auth-tabs button");
     let mode = "in";
 
+    const newsletterField = modal.querySelector(".auth-newsletter");
     const setMode = (m) => {
       mode = m;
       tabs.forEach(t => t.classList.toggle("on", t.dataset.tab === m));
       nameField.style.display = m === "up" ? "" : "none";
+      newsletterField.style.display = m === "up" ? "flex" : "none";
       submit.textContent = m === "up" ? "Create account" : "Sign in";
       form.password.autocomplete = m === "up" ? "new-password" : "current-password";
       errEl.textContent = "";
@@ -150,8 +156,9 @@
       const email = form.email.value.trim();
       const password = form.password.value;
       const name = form.name.value.trim();
+      const newsletter = form.newsletter ? form.newsletter.checked : false;
       const res = mode === "up"
-        ? await API.signUp(email, password, name)
+        ? await API.signUp(email, password, name, newsletter)
         : await API.signIn(email, password);
       submit.disabled = false;
       if (res.error) { errEl.textContent = res.error.message; return; }
