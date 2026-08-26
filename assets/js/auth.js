@@ -13,7 +13,11 @@
     client = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey);
   }
 
-  const emit = () => listeners.forEach(fn => { try { fn(session, profile); } catch (e) {} });
+  const emit = () => {
+    window.AWA_SESSION = session;
+    window.AWA_PROFILE = profile;
+    listeners.forEach(fn => { try { fn(session, profile); } catch (e) {} });
+  };
 
   async function loadProfile() {
     if (!client || !session) { profile = null; return; }
