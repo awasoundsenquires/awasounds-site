@@ -133,6 +133,9 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;lette
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
 .burger span{width:24px;height:2px;background:var(--silver);transition:.3s}
 
+/* ---------- Promo banner placement ---------- */
+#promo-banner{margin-top:74px}
+
 /* ---------- Hero ---------- */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
 .hero-media{position:absolute;inset:0;z-index:0}
