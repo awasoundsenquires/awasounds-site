@@ -494,6 +494,12 @@ Every second getting full
 (function(){
 "use strict";
 
+/* ── Slot constants (must be before checkAccess) ── */
+const MAX_SLOTS_FREE      = 4;
+const MAX_SLOTS_UNLIMITED = 20;
+const MAX_SLOTS = (window.AWA_PROFILE && window.AWA_PROFILE.studio_unlimited) ? MAX_SLOTS_UNLIMITED : MAX_SLOTS_FREE;
+const STORE_PREFIX = 'awa_ls_slot_';
+
 /* ── Access gate ─────────────────────────────── */
 function checkAccess(){
   const gate = document.getElementById('gate');
@@ -530,11 +536,14 @@ function checkAccess(){
   if(cta) cta.style.display = (allFull && !(p && p.studio_unlimited)) ? 'inline-block' : 'none';
   return true;
 }
-if(window.AWAAuth){
-  window.AWAAuth.onChange(() => { if(checkAccess()) init(); });
-} else {
-  setTimeout(() => { if(checkAccess()) init(); }, 600);
-}
+// Delay so all const declarations in this IIFE are initialized before checkAccess/init run
+setTimeout(() => {
+  if(window.AWAAuth){
+    window.AWAAuth.onChange(() => { if(checkAccess()) init(); });
+  } else {
+    if(checkAccess()) init();
+  }
+}, 0);
 
 /* ── State ───────────────────────────────────── */
 const cv    = document.getElementById('cv');
@@ -688,15 +697,37 @@ async function fillBeats(){
 
 /* ── Wire UI ─────────────────────────────────── */
 function wireUI(){
+  // Drag-over visual feedback for all upload zones
+  document.querySelectorAll('.upzone').forEach(zone=>{
+    zone.addEventListener('dragover', e=>{ e.preventDefault(); zone.classList.add('drag'); });
+    zone.addEventListener('dragleave', ()=>zone.classList.remove('drag'));
+    zone.addEventListener('drop', e=>{ e.preventDefault(); zone.classList.remove('drag');
+      const inp=zone.querySelector('input[type=file]');
+      if(inp&&e.dataTransfer.files.length){ Object.defineProperty(e,'target',{value:inp}); const fe=new Event('change'); Object.defineProperty(fe,'target',{value:{files:e.dataTransfer.files}}); inp.dispatchEvent(fe); }
+    });
+  });
+
   // BG
   document.getElementById('bg-file').addEventListener('change', e=>{
-    const f = e.target.files[0]; if(!f) return;
+    const f = (e.target.files||e.target._files||[])[0]; if(!f) return;
     const url = URL.createObjectURL(f);
+    const bgZ = document.getElementById('bg-zone');
     if(f.type.startsWith('video/')){
       const v=document.createElement('video'); v.src=url; v.loop=true; v.muted=true; v.playsInline=true;
       v.onloadeddata=()=>{ bgEl=v; document.getElementById('bg-loaded').textContent='✓ '+f.name; document.getElementById('bg-loaded').style.display='block'; if(!isPlaying)drawFrame(); toast('Video loaded','ok'); };
     } else {
-      const img=new Image(); img.onload=()=>{ bgEl=img; document.getElementById('bg-loaded').textContent='✓ '+f.name; document.getElementById('bg-loaded').style.display='block'; if(!isPlaying)drawFrame(); toast('Image loaded','ok'); }; img.src=url;
+      const img=new Image();
+      img.onload=()=>{
+        bgEl=img;
+        document.getElementById('bg-loaded').textContent='✓ '+f.name;
+        document.getElementById('bg-loaded').style.display='block';
+        // Show thumbnail preview inside drop zone
+        let prev=bgZ.querySelector('.bg-prev-img');
+        if(!prev){ prev=document.createElement('img'); prev.className='bg-prev-img'; prev.style.cssText='width:100%;border-radius:6px;margin-top:6px;display:block;max-height:80px;object-fit:cover;opacity:.7'; bgZ.appendChild(prev); }
+        prev.src=url;
+        if(!isPlaying)drawFrame(); toast('Image loaded','ok');
+      };
+      img.src=url;
     }
   });
   document.getElementById('beat-file').addEventListener('change', e=>{
@@ -817,8 +848,9 @@ function restartLayers(){ layerAudios.slice(1).forEach(a=>{ if(a){ a.currentTime
 
 function loadAudio(src, name){
   if(audio){ audio.pause(); audio=null; }
-  audio = new Audio(src);
+  audio = new Audio();
   audio.crossOrigin='anonymous';
+  audio.src = src;
   audio.addEventListener('loadedmetadata',()=>{
     document.getElementById('beat-loaded').textContent='✓ '+name;
     document.getElementById('beat-loaded').style.display='block';
@@ -1318,11 +1350,7 @@ function toast(msg, type){
    Max 2 slots per profile.
    ══════════════════════════════════════════════════ */
 
-// 4 slots free for all members; unlimited with Studio Unlimited add-on (checked via AWA_PROFILE.studio_unlimited)
-const MAX_SLOTS_FREE    = 4;
-const MAX_SLOTS_UNLIMITED = 20; // practical cap for localStorage
-const MAX_SLOTS = (window.AWA_PROFILE && window.AWA_PROFILE.studio_unlimited) ? MAX_SLOTS_UNLIMITED : MAX_SLOTS_FREE;
-const STORE_PREFIX = 'awa_ls_slot_';
+// Slot constants declared at IIFE top so checkAccess() can reference them
 let isDirty = false;       // true after any user edit
 let activeSlot = null;     // 0 or 1 — slot currently loaded/saved into
 let autoBackupTimer = null;
@@ -1443,8 +1471,8 @@ for(let i=0;i<MAX_SLOTS;i++){
 /* ── Save button ──────────────────────────────────── */
 document.getElementById('btn-save-proj').addEventListener('click',()=>{
   if(activeSlot!==null){ saveToSlot(activeSlot); return; }
-  // Pick first empty slot, or slot 0 if both full
-  const emptySlot = [0,1].find(i=>!localStorage.getItem(STORE_PREFIX+i));
+  const allSlots = Array.from({length:MAX_SLOTS_FREE},(_,i)=>i);
+  const emptySlot = allSlots.find(i=>!localStorage.getItem(STORE_PREFIX+i));
   const target = emptySlot!==undefined ? emptySlot : 0;
   saveToSlot(target);
 });
@@ -1469,7 +1497,8 @@ function startAutoBackup(){
   autoBackupTimer = setInterval(()=>{
     if(!isDirty) return;
     const dot = document.getElementById('auto-dot');
-    const target = activeSlot!==null ? activeSlot : ([0,1].find(i=>!localStorage.getItem(STORE_PREFIX+i))??0);
+    const _slots=Array.from({length:MAX_SLOTS_FREE},(_,i)=>i);
+    const target = activeSlot!==null ? activeSlot : (_slots.find(i=>!localStorage.getItem(STORE_PREFIX+i))??0);
     saveToSlot(target, true); // silent
     dot.classList.add('pulse');
     document.getElementById('auto-lbl').textContent='Auto-saved '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
@@ -1486,7 +1515,8 @@ function showExitModal(onLeave){
   refreshSlotUI();
   exitPendingCb = onLeave;
   // Default to first empty slot or slot 0
-  exitModalSaveSlot = activeSlot!==null ? activeSlot : ([0,1].find(i=>!localStorage.getItem(STORE_PREFIX+i))??0);
+  const _exitSlots=Array.from({length:MAX_SLOTS_FREE},(_,i)=>i);
+  exitModalSaveSlot = activeSlot!==null ? activeSlot : (_exitSlots.find(i=>!localStorage.getItem(STORE_PREFIX+i))??0);
   document.getElementById('esp-'+exitModalSaveSlot).classList.add('on');
   document.getElementById('exit-saved-tag').style.display='none';
   document.getElementById('exit-modal').classList.add('show');
