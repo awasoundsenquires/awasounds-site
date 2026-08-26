@@ -755,3 +755,23 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 .btn-sm{padding:8px 18px;font-size:13px}
 .btn-gold{background:var(--gold-grad,linear-gradient(135deg,#d9c38f,#b9975a));color:#161206;font-weight:600;border:none;border-radius:6px;cursor:pointer;font-family:var(--ff-body)}
 .btn-gold:hover{opacity:.88}
+
+/* ── Post-purchase cover upsell panel ─────────────────────── */
+.cover-upsell-panel{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.cover-upsell-panel.open{opacity:1;pointer-events:all}
+.cup-inner{background:var(--bg-2,#0e0e1c);border:1px solid var(--line,#222238);border-radius:16px 16px 0 0;padding:28px 24px 36px;max-width:640px;width:100%;position:relative;transform:translateY(40px);transition:transform .35s cubic-bezier(.32,1.18,.44,1)}
+.cover-upsell-panel.open .cup-inner{transform:translateY(0)}
+.cup-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted,#3a3a60);font-size:20px;cursor:pointer;line-height:1}
+.cup-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold,#e0a030);margin-bottom:6px;font-weight:700}
+.cup-title{font-size:18px;font-weight:800;color:var(--hi,#e0e0f0);margin-bottom:6px}
+.cup-sub{font-size:12px;color:var(--silver,#7070a0);margin-bottom:18px;line-height:1.6}
+.cup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.cup-card{text-decoration:none;background:var(--bg-3,#151526);border:1px solid var(--line,#222238);border-radius:10px;overflow:hidden;transition:.2s}
+.cup-card:hover{border-color:var(--gold,#e0a030);transform:translateY(-2px)}
+.cup-img{aspect-ratio:1;overflow:hidden;background:var(--bg-3,#151526)}
+.cup-img img{width:100%;height:100%;object-fit:cover;display:block}
+.cup-info{padding:8px 10px}
+.cup-name{font-size:12px;font-weight:700;color:var(--hi,#e0e0f0)}
+.cup-price{font-size:11px;color:var(--gold,#e0a030);margin-top:2px}
+.cup-browse{display:inline-block;font-size:12px;color:var(--gold,#e0a030);text-decoration:none;font-weight:700;letter-spacing:.04em}
+.cup-browse:hover{text-decoration:underline}
