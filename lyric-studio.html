@@ -18,12 +18,22 @@ html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px}
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 
-/* ── Gate ──────────────────────────────────────────── */
+/* ── Gate (members only) ───────────────────────────── */
 #gate{position:fixed;inset:0;background:rgba(7,7,15,.97);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;text-align:center;padding:24px}
 #gate h2{font-size:22px}
 #gate p{color:var(--silver);max-width:360px;line-height:1.6;font-size:13px}
 .g-btn-gold{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:9px;padding:12px 26px;cursor:pointer;text-decoration:none;display:inline-block}
 .g-btn-ghost{background:none;border:1px solid var(--line);color:var(--silver);font-size:12px;border-radius:8px;padding:9px 18px;cursor:pointer;text-decoration:none;display:inline-block}
+
+/* ── Mobile portrait gate ──────────────────────────── */
+#rotate-gate{display:none;position:fixed;inset:0;background:#07070f;z-index:1000;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:30px}
+#rotate-gate .ico{font-size:56px;animation:rotpulse 2s ease-in-out infinite}
+@keyframes rotpulse{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
+#rotate-gate h2{font-size:20px;font-family:'Space Grotesk',sans-serif;color:var(--hi)}
+#rotate-gate p{color:var(--silver);font-size:13px;max-width:280px;line-height:1.6}
+@media (max-width:900px) and (orientation:portrait){
+  #rotate-gate{display:flex}
+}
 
 /* ── Nav ───────────────────────────────────────────── */
 .nav{background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:10px 18px;height:46px;flex-shrink:0}
@@ -160,6 +170,13 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 <body>
 
 <!-- Gate -->
+<!-- Mobile rotate gate (portrait on small screens) -->
+<div id="rotate-gate">
+  <div class="ico">📱</div>
+  <h2>Rotate Your Phone</h2>
+  <p>Lyric Studio requires landscape orientation (16:9) to use all tools. Rotate your phone sideways to continue.</p>
+</div>
+
 <div id="gate">
   <div style="font-size:28px">🔒</div>
   <h2>Insider Members Only</h2>
@@ -187,6 +204,9 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <span style="font-size:10px;color:var(--muted);margin-right:2px">SAVED PROJECTS</span>
     <div class="slot-pill empty" id="slot-0" data-slot="0">Slot 1</div>
     <div class="slot-pill empty" id="slot-1" data-slot="1">Slot 2</div>
+    <div class="slot-pill empty" id="slot-2" data-slot="2">Slot 3</div>
+    <div class="slot-pill empty" id="slot-3" data-slot="3">Slot 4</div>
+    <a href="account.html#studio-addon" id="slot-upgrade-cta" style="display:none;font-size:9px;color:var(--gold);text-decoration:none;border:1px solid rgba(224,160,48,.3);border-radius:6px;padding:3px 8px;white-space:nowrap;letter-spacing:.06em">+ Unlimited</a>
   </div>
   <button class="btn-save-proj" id="btn-save-proj">Save</button>
 </div>
@@ -201,6 +221,8 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <div class="exit-slot-pick">
       <div class="esp" id="esp-0" data-slot="0">Slot 1</div>
       <div class="esp" id="esp-1" data-slot="1">Slot 2</div>
+      <div class="esp" id="esp-2" data-slot="2">Slot 3</div>
+      <div class="esp" id="esp-3" data-slot="3">Slot 4</div>
     </div>
     <div class="exit-saved-tag" id="exit-saved-tag">✓ Saved! You can now leave safely.</div>
     <div class="exit-btns">
@@ -389,8 +411,14 @@ function checkAccess(){
   const gate = document.getElementById('gate');
   if(!window.AWA_SESSION){ gate.style.display='flex'; return false; }
   const p = window.AWA_PROFILE;
+  // Lyric Studio requires Insider membership
   if(p && !p.is_member){ gate.style.display='flex'; return false; }
-  gate.style.display='none'; return true;
+  gate.style.display='none';
+  // Show "Unlimited" CTA once all 4 slots are used and user doesn't have the add-on
+  const allFull = Array.from({length:MAX_SLOTS_FREE},(_,i)=>localStorage.getItem(STORE_PREFIX+i)).every(Boolean);
+  const cta = document.getElementById('slot-upgrade-cta');
+  if(cta) cta.style.display = (allFull && !(p && p.studio_unlimited)) ? 'inline-block' : 'none';
+  return true;
 }
 if(window.AWAAuth){
   window.AWAAuth.onChange(() => { if(checkAccess()) init(); });
@@ -1060,7 +1088,10 @@ function toast(msg, type){
    Max 2 slots per profile.
    ══════════════════════════════════════════════════ */
 
-const MAX_SLOTS = 2;
+// 4 slots free for all members; unlimited with Studio Unlimited add-on (checked via AWA_PROFILE.studio_unlimited)
+const MAX_SLOTS_FREE    = 4;
+const MAX_SLOTS_UNLIMITED = 20; // practical cap for localStorage
+const MAX_SLOTS = (window.AWA_PROFILE && window.AWA_PROFILE.studio_unlimited) ? MAX_SLOTS_UNLIMITED : MAX_SLOTS_FREE;
 const STORE_PREFIX = 'awa_ls_slot_';
 let isDirty = false;       // true after any user edit
 let activeSlot = null;     // 0 or 1 — slot currently loaded/saved into

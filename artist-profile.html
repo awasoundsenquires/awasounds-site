@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Artist Profile | Awa Sounds</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css"/>
+<style>
+:root{--bg:#07070f;--bg2:#0e0e1c;--bg3:#151526;--bg4:#1c1c32;--line:#222238;--muted:#3a3a60;--silver:#7070a0;--text:#b0b0d0;--hi:#e0e0f0;--gold:#e0a030;--gold2:rgba(224,160,48,.12)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh}
+
+/* Header strip */
+.profile-hero{position:relative;height:220px;background:linear-gradient(135deg,#0a0a18 0%,#14143a 50%,#0a0a18 100%);overflow:hidden}
+.hero-art{position:absolute;inset:0;opacity:.35;object-fit:cover;width:100%;height:100%}
+.hero-grad{position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(transparent,var(--bg))}
+
+/* Profile block */
+.profile-block{position:relative;max-width:860px;margin:0 auto;padding:0 24px}
+.profile-avatar-wrap{margin-top:-52px;position:relative;z-index:2;display:inline-block}
+.profile-avatar{width:100px;height:100px;border-radius:50%;border:3px solid var(--line);object-fit:cover;background:var(--bg3);display:block}
+.profile-avatar-ph{width:100px;height:100px;border-radius:50%;border:3px solid var(--line);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:36px;color:var(--muted)}
+.profile-meta{margin-top:12px}
+.profile-name{font-size:24px;font-weight:800;color:var(--hi);font-family:'Bebas Neue',cursive;letter-spacing:.05em}
+.profile-genre{font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.profile-bio{font-size:13px;color:var(--silver);margin-top:10px;max-width:520px;line-height:1.7}
+
+/* Socials row */
+.socials-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.social-pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--line);border-radius:100px;padding:5px 12px;font-size:11px;color:var(--silver);text-decoration:none;transition:.15s;font-weight:600}
+.social-pill:hover{border-color:var(--gold);color:var(--gold)}
+.social-pill svg{width:13px;height:13px;flex-shrink:0}
+
+/* Stats bar */
+.stats-bar{display:flex;gap:24px;margin-top:16px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{text-align:center}
+.stat-n{font-size:18px;font-weight:800;color:var(--hi)}
+.stat-l{font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+
+/* Tabs */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-top:28px}
+.tab{padding:10px 18px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid transparent;transition:.15s;background:none;border-top:none;border-left:none;border-right:none}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.tab:hover{color:var(--hi)}
+
+/* Tab content */
+.tab-pane{display:none;padding-top:24px}
+.tab-pane.on{display:block}
+
+/* Posts */
+.posts{display:flex;flex-direction:column;gap:16px}
+.post-card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.post-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.post-body{padding:16px}
+.post-date{font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.post-text{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px}
+.post-links{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.post-link{display:inline-flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--line);border-radius:7px;padding:5px 10px;font-size:11px;color:var(--silver);text-decoration:none;transition:.15s;font-weight:600}
+.post-link:hover{border-color:var(--gold);color:var(--gold)}
+.post-actions{display:flex;align-items:center;gap:10px;padding-top:10px;border-top:1px solid var(--line)}
+.post-like{display:flex;align-items:center;gap:5px;background:none;border:1px solid var(--line);border-radius:7px;padding:5px 10px;font-size:11px;color:var(--silver);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;transition:.15s}
+.post-like:hover,.post-like.liked{border-color:#e87070;color:#e87070}
+.post-like.liked svg{fill:#e87070}
+.post-share{display:flex;align-items:center;gap:5px;background:none;border:1px solid var(--line);border-radius:7px;padding:5px 10px;font-size:11px;color:var(--silver);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;transition:.15s}
+.post-share:hover{border-color:var(--gold);color:var(--gold)}
+.no-comment-note{margin-left:auto;font-size:10px;color:var(--muted);opacity:.6}
+
+/* Video grid */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.video-thumb{aspect-ratio:16/9;background:var(--bg3);border-radius:8px;overflow:hidden;cursor:pointer;position:relative;border:1px solid var(--line)}
+.video-thumb video,.video-thumb iframe{width:100%;height:100%;object-fit:cover;border:none}
+.video-play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:.15s}
+.video-play-overlay:hover{background:rgba(0,0,0,.15)}
+.video-play-overlay svg{width:36px;height:36px;color:rgba(255,255,255,.9)}
+
+/* Purchases (visible own purchases) */
+.purchases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.purch-card{background:var(--bg2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.purch-img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg3)}
+.purch-body{padding:8px 10px}
+.purch-title{font-size:11px;font-weight:700;color:var(--hi)}
+.purch-type{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+
+/* Song links (Linktree-style) */
+.link-tree{display:flex;flex-direction:column;gap:8px;max-width:480px}
+.ltree-link{display:flex;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px 16px;text-decoration:none;color:var(--hi);font-weight:600;font-size:14px;transition:.15s}
+.ltree-link:hover{border-color:var(--gold);background:var(--gold2)}
+.ltree-link .lico{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+.ltree-link .ltxt{flex:1}
+.ltree-link .ltxt small{display:block;font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.05em;margin-top:1px}
+.ltree-link .larr{color:var(--muted);font-size:14px}
+
+/* Main layout */
+.profile-main{max-width:860px;margin:0 auto;padding:0 24px 60px}
+
+/* Not found */
+.not-found{text-align:center;padding:80px 24px;color:var(--muted)}
+.not-found h2{color:var(--hi);margin-bottom:10px}
+
+/* Toast */
+.prf-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg2);border:1px solid var(--gold);border-radius:8px;padding:10px 20px;font-size:12px;color:var(--hi);opacity:0;pointer-events:none;transition:.3s;z-index:999;white-space:nowrap}
+.prf-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<div id="profile-hero-wrap">
+  <div class="profile-hero">
+    <img class="hero-art" id="hero-art" src="" alt="" style="display:none">
+    <div class="hero-grad"></div>
+  </div>
+</div>
+
+<div class="profile-main">
+  <div class="profile-block">
+    <div class="profile-avatar-wrap">
+      <div class="profile-avatar-ph" id="avatar-ph">🎵</div>
+      <img class="profile-avatar" id="avatar-img" src="" alt="" style="display:none">
+    </div>
+    <div class="profile-meta">
+      <div class="profile-name" id="profile-name">Loading…</div>
+      <div class="profile-genre" id="profile-genre"></div>
+      <div class="profile-bio" id="profile-bio"></div>
+    </div>
+    <div class="socials-row" id="socials-row"></div>
+    <div class="stats-bar" id="stats-bar"></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" data-tab="posts">Posts</button>
+    <button class="tab" data-tab="music">Music Links</button>
+    <button class="tab" data-tab="videos">Videos</button>
+    <button class="tab" data-tab="portfolio">Portfolio</button>
+  </div>
+
+  <div id="tab-posts" class="tab-pane on"></div>
+  <div id="tab-music" class="tab-pane"></div>
+  <div id="tab-videos" class="tab-pane"></div>
+  <div id="tab-portfolio" class="tab-pane"></div>
+</div>
+
+<div class="prf-toast" id="prf-toast"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+(function(){
+"use strict";
+
+// ── Get username from URL ?u=username or /artist/username path ────────────
+const params   = new URLSearchParams(location.search);
+const username = params.get("u") || location.pathname.split("/").filter(Boolean).pop();
+
+// ── Supabase fetch helper ─────────────────────────────────────────────────
+const CFG = window.AWA || {};
+async function dbGet(path){
+  const r = await fetch(`${CFG.supabaseUrl}/rest/v1/${path}`, {
+    headers:{ "apikey": CFG.supabaseAnonKey, "Authorization": "Bearer "+CFG.supabaseAnonKey }
+  });
+  return r.json();
+}
+async function dbPatch(path, body){
+  return fetch(`${CFG.supabaseUrl}/rest/v1/${path}`, {
+    method:"PATCH",
+    headers:{ "apikey": CFG.supabaseAnonKey,
+              "Authorization":"Bearer "+(window.AWA_SESSION?.access_token||CFG.supabaseAnonKey),
+              "Content-Type":"application/json", "Prefer":"return=minimal" },
+    body: JSON.stringify(body)
+  });
+}
+
+function toast(msg){
+  const el = document.getElementById("prf-toast");
+  el.textContent = msg; el.classList.add("show");
+  setTimeout(()=>el.classList.remove("show"), 2800);
+}
+
+// ── Social icons ──────────────────────────────────────────────────────────
+const SOCIAL_ICONS = {
+  instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`,
+  tiktok:    `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.82a8.18 8.18 0 004.79 1.53V6.9a4.85 4.85 0 01-1.02-.21z"/></svg>`,
+  spotify:   `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>`,
+  youtube:   `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`,
+  twitter:   `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>`,
+  soundcloud:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.56 8.87V17h8.76c.95-.19 1.68-.96 1.68-1.93 0-.93-.68-1.68-1.57-1.87.1-.3.16-.62.16-.95 0-1.72-1.4-3.12-3.12-3.12-.47 0-.9.11-1.3.3-.46-1.37-1.73-2.36-3.24-2.36-.14 0-.28.01-.41.02-.01.08-.01.15 0 .22V8.87zM0 15.07c0 1.05.86 1.93 1.93 1.93h1.36V13.1H1.93C.86 13.1 0 13.99 0 15.07zm4.33 1.93h1.36V11.8H4.33v5.2zm2.4 0h1.36V9.86H6.73v7.14zm2.41 0h1.36V11.8H9.14v5.2z"/></svg>`,
+  apple:     `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>`,
+};
+
+// ── Render profile from data ──────────────────────────────────────────────
+function renderProfile(p){
+  document.title = `${p.display_name||p.username} — Awa Sounds`;
+  document.getElementById("profile-name").textContent = p.display_name || p.username || "Artist";
+  document.getElementById("profile-genre").textContent = p.genre || "";
+  document.getElementById("profile-bio").textContent = p.bio || "";
+
+  if(p.avatar_url){
+    const img = document.getElementById("avatar-img");
+    img.src = p.avatar_url; img.style.display="block";
+    document.getElementById("avatar-ph").style.display="none";
+    document.getElementById("hero-art").src = p.avatar_url;
+    document.getElementById("hero-art").style.display="block";
+  }
+
+  // Socials
+  const sr = document.getElementById("socials-row");
+  const socials = p.socials || {};
+  const socialDefs = [
+    { key:"instagram", label:"Instagram" },
+    { key:"tiktok",    label:"TikTok"    },
+    { key:"spotify",   label:"Spotify"   },
+    { key:"youtube",   label:"YouTube"   },
+    { key:"twitter",   label:"X / Twitter" },
+    { key:"soundcloud",label:"SoundCloud"},
+    { key:"apple",     label:"Apple Music"},
+  ];
+  socialDefs.forEach(s=>{
+    if(!socials[s.key]) return;
+    const a = document.createElement("a");
+    a.className="social-pill"; a.href=socials[s.key]; a.target="_blank"; a.rel="noopener noreferrer";
+    a.innerHTML=(SOCIAL_ICONS[s.key]||"")+`<span>${s.label}</span>`;
+    sr.appendChild(a);
+  });
+
+  // Stats
+  const sb = document.getElementById("stats-bar");
+  const stats = [
+    { n: p.post_count||0,   l:"Posts" },
+    { n: p.like_count||0,   l:"Likes received" },
+    { n: p.cover_count||0,  l:"Covers owned" },
+    { n: p.beat_count||0,   l:"Beats licensed" },
+  ];
+  sb.innerHTML = stats.map(s=>`<div class="stat"><div class="stat-n">${s.n}</div><div class="stat-l">${s.l}</div></div>`).join("");
+
+  // Render tabs content
+  renderPosts(p.posts||[]);
+  renderMusicLinks(p.music_links||[]);
+  renderVideos(p.videos||[]);
+  renderPortfolio(p);
+}
+
+function renderPosts(posts){
+  const pane = document.getElementById("tab-posts");
+  if(!posts.length){ pane.innerHTML=`<p style="color:var(--muted);font-size:13px;padding:20px 0">No posts yet.</p>`; return; }
+  const wall = document.createElement("div"); wall.className="posts";
+  posts.forEach(post=>{
+    const card = document.createElement("div"); card.className="post-card"; card.dataset.id=post.id;
+    const imgHTML = post.image_url ? `<img class="post-img" src="${post.image_url}" alt="" loading="lazy">` : "";
+    const linksHTML = (post.links||[]).map(l=>`<a href="${l.url}" target="_blank" rel="noopener" class="post-link">${l.label||l.url}</a>`).join("");
+    card.innerHTML=`${imgHTML}<div class="post-body">
+      <div class="post-date">${new Date(post.created_at).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}</div>
+      <div class="post-text">${esc(post.body||"")}</div>
+      ${linksHTML ? `<div class="post-links">${linksHTML}</div>` : ""}
+      <div class="post-actions">
+        <button class="post-like" data-postid="${post.id}">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.5 2 5 5.2 5 7.3 5 8.7 6.2 12 9c3.3-2.8 4.7-4 6.8-4 3.2 0 4.8 3.5 3.2 6.8C19.5 16.4 12 21 12 21z"/></svg>
+          <span class="like-count">${post.like_count||0}</span>
+        </button>
+        <button class="post-share" data-url="${location.origin+location.pathname}?u=${username}#post-${post.id}">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
+          Share
+        </button>
+        <span class="no-comment-note">Comments disabled · View socials to connect</span>
+      </div>
+    </div>`;
+    wall.appendChild(card);
+  });
+  pane.appendChild(wall);
+}
+
+function renderMusicLinks(links){
+  const pane = document.getElementById("tab-music");
+  if(!links.length){ pane.innerHTML=`<p style="color:var(--muted);font-size:13px;padding:20px 0">No music links added yet.</p>`; return; }
+  const tree = document.createElement("div"); tree.className="link-tree";
+  links.forEach(l=>{
+    const a=document.createElement("a"); a.className="ltree-link"; a.href=l.url; a.target="_blank"; a.rel="noopener";
+    const icon = SOCIAL_ICONS[l.platform]||"🎵";
+    const iconHTML = typeof icon==="string"&&icon.startsWith("<svg") ? icon : `<span>${icon}</span>`;
+    a.innerHTML=`<div class="lico">${iconHTML}</div><div class="ltxt"><span>${l.title||l.url}</span><small>${l.subtitle||l.platform||""}</small></div><div class="larr">→</div>`;
+    tree.appendChild(a);
+  });
+  pane.appendChild(tree);
+}
+
+function renderVideos(videos){
+  const pane = document.getElementById("tab-videos");
+  if(!videos.length){ pane.innerHTML=`<p style="color:var(--muted);font-size:13px;padding:20px 0">No videos added yet.</p>`; return; }
+  const grid=document.createElement("div"); grid.className="video-grid";
+  videos.forEach(v=>{
+    const wrap=document.createElement("div"); wrap.className="video-thumb";
+    if(v.embed_url){
+      // YouTube / external embed
+      wrap.innerHTML=`<iframe src="${v.embed_url}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+    } else if(v.src){
+      wrap.innerHTML=`<video src="${v.src}" controls playsinline preload="metadata"></video>`;
+    }
+    grid.appendChild(wrap);
+  });
+  pane.appendChild(grid);
+}
+
+function renderPortfolio(p){
+  const pane = document.getElementById("tab-portfolio");
+  const covers = p.owned_covers||[];
+  const beats  = p.licensed_beats||[];
+  if(!covers.length&&!beats.length){
+    pane.innerHTML=`<p style="color:var(--muted);font-size:13px;padding:20px 0">No public portfolio items yet.</p>`; return;
+  }
+  if(covers.length){
+    const h=document.createElement("div"); h.style="font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;font-weight:700";
+    h.textContent="Cover Art"; pane.appendChild(h);
+    const g=document.createElement("div"); g.className="purchases-grid";
+    covers.forEach(c=>{
+      g.innerHTML+=`<div class="purch-card"><div class="purch-img" style="background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px">🖼️</div><div class="purch-body"><div class="purch-title">${esc(c.title||"")}</div><div class="purch-type">Cover Art</div></div></div>`;
+    });
+    pane.appendChild(g);
+  }
+  if(beats.length){
+    const h2=document.createElement("div"); h2.style="font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin:20px 0 12px;font-weight:700";
+    h2.textContent="Licensed Beats"; pane.appendChild(h2);
+    const g2=document.createElement("div"); g2.className="purchases-grid";
+    beats.forEach(b=>{
+      g2.innerHTML+=`<div class="purch-card"><div class="purch-img" style="background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px">🎵</div><div class="purch-body"><div class="purch-title">${esc(b.title||"")}</div><div class="purch-type">Beat License</div></div></div>`;
+    });
+    pane.appendChild(g2);
+  }
+}
+
+function esc(s){ const d=document.createElement("div"); d.textContent=s; return d.innerHTML; }
+
+// ── Tab switching ─────────────────────────────────────────────────────────
+document.querySelectorAll(".tab").forEach(t=>{
+  t.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+    document.querySelectorAll(".tab-pane").forEach(x=>x.classList.remove("on"));
+    t.classList.add("on");
+    document.getElementById("tab-"+t.dataset.tab).classList.add("on");
+  });
+});
+
+// ── Like & Share delegates ────────────────────────────────────────────────
+document.addEventListener("click", e=>{
+  const likeBtn = e.target.closest(".post-like");
+  if(likeBtn){
+    if(!window.AWA_SESSION){ toast("Sign in to like posts"); return; }
+    likeBtn.classList.toggle("liked");
+    const cnt = likeBtn.querySelector(".like-count");
+    const n = +cnt.textContent;
+    cnt.textContent = likeBtn.classList.contains("liked") ? n+1 : Math.max(0,n-1);
+    return;
+  }
+  const shareBtn = e.target.closest(".post-share");
+  if(shareBtn){
+    const url = shareBtn.dataset.url;
+    navigator.clipboard?.writeText(url).then(()=>toast("Link copied!")).catch(()=>toast("Copy: "+url));
+    return;
+  }
+});
+
+// ── Load profile ──────────────────────────────────────────────────────────
+async function loadProfile(){
+  if(!username){
+    document.getElementById("profile-name").textContent="Profile not found";
+    return;
+  }
+  // Try to load from profiles table (public data only)
+  const rows = await dbGet(`profiles?username=eq.${encodeURIComponent(username)}&select=id,display_name,username,avatar_url,bio,genre,socials,post_count,like_count,cover_count,beat_count&limit=1`);
+  if(!rows||!rows.length){
+    document.getElementById("profile-name").textContent="Artist not found";
+    document.getElementById("profile-bio").textContent="This profile doesn't exist or has been removed.";
+    return;
+  }
+  const prof = rows[0];
+  // Load posts (public)
+  const posts = await dbGet(`artist_posts?profile_id=eq.${prof.id}&select=id,body,image_url,links,created_at,like_count&order=created_at.desc&limit=20`).catch(()=>[]);
+  // Load music links (public)
+  const music_links = await dbGet(`artist_music_links?profile_id=eq.${prof.id}&select=platform,title,subtitle,url&order=sort_order.asc`).catch(()=>[]);
+  // Load videos (public)
+  const videos = await dbGet(`artist_videos?profile_id=eq.${prof.id}&select=embed_url,src,title&order=sort_order.asc`).catch(()=>[]);
+
+  renderProfile({ ...prof, posts, music_links, videos, owned_covers:[], licensed_beats:[] });
+}
+
+loadProfile();
+
+})();
+</script>
+</body>
+</html>

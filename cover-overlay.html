@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Make It Mine — Cover Art Personaliser | Awa Sounds</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,700&family=Oswald:wght@600&family=Dancing+Script:wght@700&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css"/>
+<style>
+:root{--bg:#07070f;--bg2:#0e0e1c;--bg3:#151526;--bg4:#1c1c32;--line:#222238;--muted:#3a3a60;--silver:#7070a0;--text:#b0b0d0;--hi:#e0e0f0;--gold:#e0a030;--gold2:rgba(224,160,48,.12)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow:hidden}
+
+/* Nav */
+.nav{background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px;height:52px;flex-shrink:0}
+.nav-brand{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;text-decoration:none}
+.nav-title{font-size:16px;font-weight:700;color:var(--hi)}
+.badge{font-size:9px;background:var(--gold2);color:var(--gold);border:1px solid rgba(224,160,48,.3);border-radius:100px;padding:3px 9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.nav-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.btn-sm{padding:7px 14px;border-radius:7px;font-size:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:.15s;border:none}
+.btn-ghost{background:none;border:1px solid var(--line);color:var(--silver)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-gold{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;text-transform:uppercase}
+.btn-gold:hover{filter:brightness(1.1)}
+.btn-gold:disabled{opacity:.4;cursor:not-allowed;filter:none}
+
+/* Main shell */
+.shell{display:flex;height:calc(100vh - 52px);overflow:hidden}
+
+/* Left panel */
+.panel{width:280px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--line);overflow-y:auto;display:flex;flex-direction:column}
+.panel::-webkit-scrollbar{width:4px}
+.panel::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
+
+.sec{padding:16px;border-bottom:1px solid var(--line)}
+.sec-lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:700}
+
+/* Image loader */
+.upzone{border:1.5px dashed var(--line);border-radius:10px;padding:20px 14px;text-align:center;cursor:pointer;position:relative;overflow:hidden;transition:.2s}
+.upzone:hover,.upzone.drag{border-color:var(--gold);background:var(--gold2)}
+.upzone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.uz-ico{font-size:24px;margin-bottom:6px}
+.uz-txt{font-size:11px;color:var(--silver);line-height:1.6}
+.uz-txt b{color:var(--hi)}
+.uz-loaded{font-size:11px;color:#4ecf7f;margin-top:6px;font-weight:600}
+.cover-thumb{width:100%;aspect-ratio:1;border-radius:8px;object-fit:cover;margin-top:8px;display:none}
+
+/* Text rows */
+.text-row{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:8px;position:relative}
+.text-row-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.text-row-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.text-row-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:0;line-height:1}
+.text-row-del:hover{color:#e87070}
+.text-input{width:100%;background:var(--bg4);border:1px solid var(--line);color:var(--hi);border-radius:6px;padding:7px 10px;font-size:13px;font-family:'Space Grotesk',sans-serif;outline:none;margin-bottom:8px}
+.text-input:focus{border-color:var(--gold)}
+.row-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.mini-lbl{font-size:9px;color:var(--muted);margin-bottom:4px;letter-spacing:.06em}
+.ls-sel{width:100%;background:var(--bg4);border:1px solid var(--line);color:var(--hi);border-radius:6px;padding:6px 8px;font-size:11px;font-family:'Space Grotesk',sans-serif;outline:none;cursor:pointer}
+.ls-sel:focus{border-color:var(--gold)}
+.color-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+.cpill{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s;flex-shrink:0}
+.cpill.on,.cpill:hover{border-color:var(--gold);transform:scale(1.15)}
+.color-custom{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid var(--line);overflow:hidden;position:relative;flex-shrink:0}
+.color-custom input{position:absolute;inset:-4px;opacity:0;cursor:pointer;width:200%;height:200%}
+
+/* Add layer btn */
+.btn-add{width:100%;background:none;border:1.5px dashed var(--line);border-radius:8px;color:var(--muted);font-size:12px;font-family:'Space Grotesk',sans-serif;font-weight:600;padding:10px;cursor:pointer;transition:.2s;margin-top:4px}
+.btn-add:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Size/opacity controls */
+input[type=range]{accent-color:var(--gold);width:100%;cursor:pointer;margin-top:2px}
+
+/* Canvas stage */
+.stage{flex:1;display:flex;align-items:center;justify-content:center;background:var(--bg);position:relative;overflow:hidden}
+.canvas-wrap{position:relative;user-select:none}
+#mc{display:block;border-radius:4px;cursor:crosshair;box-shadow:0 8px 48px rgba(0,0,0,.8)}
+.drag-hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--muted);letter-spacing:.05em;pointer-events:none;opacity:.7}
+
+/* Enquiry banner */
+.enq-banner{margin:16px;border-radius:10px;background:linear-gradient(135deg,rgba(224,160,48,.08),rgba(224,160,48,.03));border:1px solid rgba(224,160,48,.18);padding:14px}
+.enq-banner h4{font-size:13px;color:var(--gold);margin-bottom:6px}
+.enq-banner p{font-size:11px;color:var(--silver);line-height:1.6;margin-bottom:10px}
+.enq-banner .btn-gold{width:100%;display:block;text-align:center;text-decoration:none;padding:9px;font-size:11px;border-radius:7px}
+
+/* No-image placeholder */
+.no-img-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted);pointer-events:none}
+.no-img-msg .ico{font-size:48px;opacity:.3}
+.no-img-msg p{font-size:13px;opacity:.6}
+
+/* Gate overlay */
+#gate{position:fixed;inset:0;background:rgba(7,7,15,.96);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:24px}
+#gate h2{font-size:22px;color:var(--hi)}
+#gate p{color:var(--silver);max-width:360px;line-height:1.6;font-size:13px}
+.g-btn-gold{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:9px;padding:12px 26px;cursor:pointer;text-decoration:none;display:inline-block}
+.g-btn-ghost{background:none;border:1px solid var(--line);color:var(--silver);font-size:12px;border-radius:8px;padding:9px 18px;cursor:pointer;text-decoration:none;display:inline-block}
+
+/* Save slots */
+.slots{display:flex;flex-direction:column;gap:6px}
+.slot{background:var(--bg3);border:1px solid var(--line);border-radius:7px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.slot-name{font-size:12px;color:var(--hi);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.slot-meta{font-size:10px;color:var(--muted)}
+.slot-actions{display:flex;gap:4px;flex-shrink:0}
+.slot-btn{background:none;border:1px solid var(--line);border-radius:5px;color:var(--silver);font-size:10px;padding:3px 8px;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:.12s}
+.slot-btn:hover{border-color:var(--gold);color:var(--gold)}
+.slot-btn.del:hover{border-color:#e87070;color:#e87070}
+.slot-empty{border-style:dashed;color:var(--muted);font-size:11px;cursor:pointer}
+.slot-empty:hover{border-color:var(--gold);color:var(--gold)}
+.slots-upgrade{margin-top:10px;font-size:10px;color:var(--muted);text-align:center;line-height:1.6}
+.slots-upgrade a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div id="gate" style="display:none">
+  <div style="font-size:32px">✦</div>
+  <h2>Members Only</h2>
+  <p>The Cover Personaliser is available to all registered Awa Sounds members. Sign up free — no membership required.</p>
+  <a href="account.html" class="g-btn-gold">Sign In / Register</a>
+  <a href="cover-store.html" class="g-btn-ghost">Browse Covers</a>
+</div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand">Awa Sounds</a>
+  <div style="width:1px;height:20px;background:var(--line)"></div>
+  <span class="nav-title">Make It Mine</span>
+  <span class="badge">Cover Personaliser</span>
+  <div class="nav-right">
+    <button class="btn-sm btn-ghost" id="btn-save">Save Project</button>
+    <button class="btn-sm btn-gold" id="btn-download" disabled>Download PNG</button>
+  </div>
+</nav>
+
+<div class="shell">
+  <!-- ── LEFT PANEL ── -->
+  <div class="panel" id="left-panel">
+
+    <!-- Image upload -->
+    <div class="sec">
+      <div class="sec-lbl">Your Cover Image</div>
+      <div class="upzone" id="upzone">
+        <input type="file" id="img-input" accept="image/*">
+        <div class="uz-ico">🖼️</div>
+        <div class="uz-txt">Drop your cover art here<br><b>or click to upload</b><br><span style="font-size:9px;opacity:.6">JPG, PNG, WEBP · up to 20MB</span></div>
+        <div class="uz-loaded" id="uz-ok" style="display:none">✓ Image loaded</div>
+      </div>
+      <img id="cover-thumb" class="cover-thumb" alt="">
+      <p style="font-size:10px;color:var(--muted);margin-top:8px;line-height:1.5">Already purchased a cover? Upload it here to personalise it with your name and title.</p>
+    </div>
+
+    <!-- Text layers -->
+    <div class="sec">
+      <div class="sec-lbl">Text Layers</div>
+      <div id="text-layers"></div>
+      <button class="btn-add" id="btn-add-text">+ Add Text Layer</button>
+    </div>
+
+    <!-- Saved projects -->
+    <div class="sec">
+      <div class="sec-lbl">Saved Projects</div>
+      <div class="slots" id="slots-list"></div>
+      <div class="slots-upgrade" id="slots-upgrade-note"></div>
+    </div>
+
+    <!-- Style match enquiry -->
+    <div class="enq-banner">
+      <h4>Want the original style?</h4>
+      <p>Our covers come with bespoke typography and treatment. To get your artist name and song title rendered in the <em>exact same style</em> as the original design — matching fonts, effects, spacing — request a custom text addition from our team.</p>
+      <p style="margin-top:6px;margin-bottom:10px;font-size:10px;color:rgba(224,160,48,.6)">This is a paid service. Pricing depends on complexity (usually £10–25). Turnaround: 24–48h.</p>
+      <a href="contact.html?subject=Custom+Text+Addition&body=Cover+ID:+[your+cover]%0AArtist+Name:+%0ASong+Title:+" class="btn-gold btn-sm" style="display:block;text-align:center;text-decoration:none;font-size:11px;padding:9px;border-radius:7px;letter-spacing:.05em;text-transform:uppercase">Request Custom Text →</a>
+    </div>
+  </div>
+
+  <!-- ── CANVAS STAGE ── -->
+  <div class="stage">
+    <div class="canvas-wrap" id="canvas-wrap">
+      <canvas id="mc" width="1000" height="1000"></canvas>
+      <div class="no-img-msg" id="no-img-msg">
+        <div class="ico">🎨</div>
+        <p>Upload your cover to begin</p>
+      </div>
+    </div>
+    <div class="drag-hint" id="drag-hint" style="display:none">Drag text layers to reposition · Scroll to resize</div>
+  </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+(function(){
+"use strict";
+
+// ── Gate check (registered users only, not just members) ──────────────────
+function checkGate(){
+  const sess = window.AWA_SESSION;
+  if (!sess) { document.getElementById("gate").style.display="flex"; }
+}
+if (window.AWAAuth) AWAAuth.onChange(s=>{ if(!s) document.getElementById("gate").style.display="flex"; });
+setTimeout(checkGate, 800);
+
+// ── Canvas & state ────────────────────────────────────────────────────────
+const canvas  = document.getElementById("mc");
+const ctx     = canvas.getContext("2d");
+const wrap    = document.getElementById("canvas-wrap");
+let coverImg  = null;
+let layers    = [];   // [{id,text,font,size,color,x,y,align,opacity}]
+let selected  = null; // layer id
+let dragging  = null;
+let dragOffX  = 0, dragOffY = 0;
+
+// ── Font options ──────────────────────────────────────────────────────────
+const FONTS = [
+  { value:"'Space Grotesk', sans-serif",    label:"Space Grotesk"  },
+  { value:"'Bebas Neue', cursive",           label:"Bebas Neue"     },
+  { value:"'Playfair Display', serif",       label:"Playfair"       },
+  { value:"'Oswald', sans-serif",            label:"Oswald"         },
+  { value:"'Dancing Script', cursive",       label:"Dancing Script" },
+  { value:"'Rajdhani', sans-serif",          label:"Rajdhani"       },
+];
+
+const PRESET_COLORS = ["#ffffff","#f0e090","#e0a030","#b0c0e0","#c0c0c0","#1a1a2a","#e87070","#7fefb0"];
+
+// ── Canvas scaling ────────────────────────────────────────────────────────
+function scaleCanvas(){
+  const stageW = wrap.parentElement.clientWidth - 10;
+  const stageH = wrap.parentElement.clientHeight - 10;
+  const s = Math.min(stageW, stageH, 600);
+  canvas.style.width  = s+"px";
+  canvas.style.height = s+"px";
+}
+scaleCanvas();
+window.addEventListener("resize", ()=>{ scaleCanvas(); draw(); });
+
+function cssToCanvas(cssX, cssY){
+  const r = canvas.getBoundingClientRect();
+  return {
+    x: (cssX - r.left) * (canvas.width  / r.width),
+    y: (cssY - r.top)  * (canvas.height / r.height)
+  };
+}
+
+// ── Draw ──────────────────────────────────────────────────────────────────
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(!coverImg){
+    ctx.fillStyle="#0e0e1c";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    return;
+  }
+  // Draw image (cover fills canvas maintaining aspect ratio)
+  const iw=coverImg.naturalWidth, ih=coverImg.naturalHeight;
+  const scale=Math.max(canvas.width/iw, canvas.height/ih);
+  const dw=iw*scale, dh=ih*scale;
+  const dx=(canvas.width-dw)/2, dy=(canvas.height-dh)/2;
+  ctx.drawImage(coverImg, dx, dy, dw, dh);
+
+  // Draw text layers
+  for(const L of layers){
+    ctx.save();
+    ctx.globalAlpha = L.opacity;
+    ctx.font        = `${L.weight||700} ${L.size}px ${L.font}`;
+    ctx.fillStyle   = L.color;
+    ctx.textAlign   = L.align || "center";
+    ctx.textBaseline= "middle";
+
+    // Shadow for legibility
+    ctx.shadowColor  = "rgba(0,0,0,0.85)";
+    ctx.shadowBlur   = 18;
+    ctx.shadowOffsetX = 1;
+    ctx.shadowOffsetY = 2;
+
+    ctx.fillText(L.text || "", L.x, L.y);
+
+    // Selection indicator
+    if(L.id === selected){
+      ctx.shadowBlur=0; ctx.globalAlpha=1;
+      const m = ctx.measureText(L.text||"");
+      const th = L.size * 1.1;
+      const left = L.align==="center" ? L.x-m.width/2 : L.align==="right" ? L.x-m.width : L.x;
+      ctx.strokeStyle="rgba(224,160,48,.7)"; ctx.lineWidth=2; ctx.setLineDash([6,4]);
+      ctx.strokeRect(left-6, L.y-th/2-4, m.width+12, th+8);
+      ctx.setLineDash([]);
+    }
+    ctx.restore();
+  }
+
+  document.getElementById("btn-download").disabled = !coverImg;
+}
+
+// ── Layer management ──────────────────────────────────────────────────────
+let layerSeq = 0;
+function addLayer(text="Artist Name"){
+  const id = "L"+(++layerSeq);
+  layers.push({
+    id, text,
+    font:  FONTS[0].value,
+    size:  80,
+    color: "#ffffff",
+    opacity: 1,
+    align: "center",
+    x: canvas.width/2,
+    y: canvas.height * 0.85,
+  });
+  selected = id;
+  renderLayerPanels();
+  draw();
+}
+
+function removeLayer(id){
+  layers = layers.filter(L=>L.id!==id);
+  if(selected===id) selected = layers.length ? layers[layers.length-1].id : null;
+  renderLayerPanels();
+  draw();
+}
+
+function getLayer(id){ return layers.find(L=>L.id===id); }
+
+// ── Layer panel render ────────────────────────────────────────────────────
+function renderLayerPanels(){
+  const container = document.getElementById("text-layers");
+  container.innerHTML = "";
+  layers.forEach((L, idx) => {
+    const div = document.createElement("div");
+    div.className = "text-row";
+    div.dataset.lid = L.id;
+    if(L.id===selected) div.style.borderColor="var(--gold)";
+
+    const fontOptions = FONTS.map(f=>
+      `<option value="${f.value}" ${L.font===f.value?"selected":""}>${f.label}</option>`
+    ).join("");
+
+    const colorPills = PRESET_COLORS.map(c=>
+      `<div class="cpill${L.color===c?" on":""}" style="background:${c}" data-c="${c}" data-lid="${L.id}"></div>`
+    ).join("");
+
+    div.innerHTML=`
+      <div class="text-row-head">
+        <span class="text-row-label">Layer ${idx+1}</span>
+        <button class="text-row-del" data-del="${L.id}">✕</button>
+      </div>
+      <input class="text-input" type="text" value="${L.text.replace(/"/g,"&quot;")}" placeholder="Your text..." data-field="text" data-lid="${L.id}">
+      <div class="row-grid">
+        <div>
+          <div class="mini-lbl">Font</div>
+          <select class="ls-sel" data-field="font" data-lid="${L.id}">${fontOptions}</select>
+        </div>
+        <div>
+          <div class="mini-lbl">Align</div>
+          <select class="ls-sel" data-field="align" data-lid="${L.id}">
+            <option value="center" ${L.align==="center"?"selected":""}>Center</option>
+            <option value="left"   ${L.align==="left"?"selected":""}>Left</option>
+            <option value="right"  ${L.align==="right"?"selected":""}>Right</option>
+          </select>
+        </div>
+      </div>
+      <div class="mini-lbl" style="margin-bottom:4px">Size <span id="sv-${L.id}">${L.size}</span>px</div>
+      <input type="range" min="20" max="300" value="${L.size}" data-field="size" data-lid="${L.id}">
+      <div class="mini-lbl" style="margin-top:8px;margin-bottom:4px">Opacity <span id="ov-${L.id}">${Math.round(L.opacity*100)}</span>%</div>
+      <input type="range" min="5" max="100" value="${Math.round(L.opacity*100)}" data-field="opacity100" data-lid="${L.id}">
+      <div class="mini-lbl" style="margin-top:8px;margin-bottom:6px">Colour</div>
+      <div class="color-row">
+        ${colorPills}
+        <div class="color-custom" title="Custom colour">
+          <input type="color" value="${L.color}" data-field="color" data-lid="${L.id}">
+        </div>
+      </div>`;
+
+    div.addEventListener("mousedown", ()=>{ selected=L.id; renderLayerPanels(); draw(); });
+    container.appendChild(div);
+  });
+}
+
+// ── Panel events (delegated) ──────────────────────────────────────────────
+document.getElementById("left-panel").addEventListener("input", e=>{
+  const field = e.target.dataset.field, lid = e.target.dataset.lid;
+  if(!field||!lid) return;
+  const L = getLayer(lid); if(!L) return;
+  if(field==="text")       L.text = e.target.value;
+  if(field==="font")       L.font = e.target.value;
+  if(field==="align")      L.align = e.target.value;
+  if(field==="size")     { L.size = +e.target.value; const el=document.getElementById("sv-"+lid); if(el) el.textContent=e.target.value; }
+  if(field==="opacity100"){ L.opacity = e.target.value/100; const el=document.getElementById("ov-"+lid); if(el) el.textContent=e.target.value; }
+  if(field==="color")      L.color = e.target.value;
+  draw();
+});
+
+document.getElementById("left-panel").addEventListener("click", e=>{
+  const del = e.target.dataset.del; if(del){ removeLayer(del); return; }
+  const c = e.target.dataset.c, lid = e.target.dataset.lid;
+  if(c && lid){ const L=getLayer(lid); if(L){ L.color=c; renderLayerPanels(); draw(); } }
+});
+
+document.getElementById("btn-add-text").addEventListener("click", ()=> addLayer());
+
+// ── Image upload ──────────────────────────────────────────────────────────
+function loadImageFile(file){
+  if(!file||!file.type.startsWith("image/")) return;
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = ()=>{
+    coverImg = img;
+    document.getElementById("no-img-msg").style.display="none";
+    document.getElementById("drag-hint").style.display="block";
+    const thumb = document.getElementById("cover-thumb");
+    thumb.src = url; thumb.style.display="block";
+    document.getElementById("uz-ok").style.display="block";
+    if(!layers.length){ addLayer("Artist Name"); setTimeout(()=>addLayer("Song Title"),50); }
+    else draw();
+  };
+  img.src = url;
+}
+
+const imgInput = document.getElementById("img-input");
+imgInput.addEventListener("change", e=>loadImageFile(e.target.files[0]));
+const upzone = document.getElementById("upzone");
+upzone.addEventListener("dragover", e=>{ e.preventDefault(); upzone.classList.add("drag"); });
+upzone.addEventListener("dragleave", ()=> upzone.classList.remove("drag"));
+upzone.addEventListener("drop", e=>{ e.preventDefault(); upzone.classList.remove("drag"); loadImageFile(e.dataTransfer.files[0]); });
+
+// ── Canvas drag ───────────────────────────────────────────────────────────
+function hitTest(cx, cy){
+  for(let i=layers.length-1;i>=0;i--){
+    const L=layers[i];
+    ctx.font=`${L.weight||700} ${L.size}px ${L.font}`;
+    const m=ctx.measureText(L.text||"");
+    const th=L.size*1.1;
+    const left=L.align==="center"?L.x-m.width/2:L.align==="right"?L.x-m.width:L.x;
+    if(cx>=left-10 && cx<=left+m.width+10 && cy>=L.y-th/2-8 && cy<=L.y+th/2+8) return L.id;
+  }
+  return null;
+}
+
+canvas.addEventListener("mousedown", e=>{
+  const p=cssToCanvas(e.clientX,e.clientY);
+  const hit=hitTest(p.x,p.y);
+  if(hit){ dragging=hit; selected=hit; const L=getLayer(hit); dragOffX=p.x-L.x; dragOffY=p.y-L.y; canvas.style.cursor="grabbing"; renderLayerPanels(); }
+  else { selected=null; renderLayerPanels(); }
+  draw();
+});
+canvas.addEventListener("mousemove", e=>{
+  if(!dragging) return;
+  const p=cssToCanvas(e.clientX,e.clientY);
+  const L=getLayer(dragging); if(!L) return;
+  L.x=Math.max(0,Math.min(canvas.width, p.x-dragOffX));
+  L.y=Math.max(0,Math.min(canvas.height,p.y-dragOffY));
+  draw();
+});
+canvas.addEventListener("mouseup", ()=>{ dragging=null; canvas.style.cursor="crosshair"; });
+canvas.addEventListener("mouseleave", ()=>{ dragging=null; });
+
+canvas.addEventListener("wheel", e=>{
+  if(!selected) return; e.preventDefault();
+  const L=getLayer(selected); if(!L) return;
+  L.size=Math.max(10,Math.min(300,L.size-(e.deltaY>0?4:-4)));
+  renderLayerPanels(); draw();
+},{passive:false});
+
+// Touch drag
+canvas.addEventListener("touchstart", e=>{
+  const t=e.touches[0], p=cssToCanvas(t.clientX,t.clientY);
+  const hit=hitTest(p.x,p.y);
+  if(hit){ dragging=hit; selected=hit; const L=getLayer(hit); dragOffX=p.x-L.x; dragOffY=p.y-L.y; renderLayerPanels(); draw(); }
+  e.preventDefault();
+},{passive:false});
+canvas.addEventListener("touchmove", e=>{
+  if(!dragging) return;
+  const t=e.touches[0], p=cssToCanvas(t.clientX,t.clientY);
+  const L=getLayer(dragging); if(!L) return;
+  L.x=Math.max(0,Math.min(canvas.width,p.x-dragOffX));
+  L.y=Math.max(0,Math.min(canvas.height,p.y-dragOffY));
+  draw(); e.preventDefault();
+},{passive:false});
+canvas.addEventListener("touchend",()=>{ dragging=null; });
+
+// ── Save slots (localStorage, 4 max for free / check membership for more) ─
+const MAX_FREE_SLOTS = 4;
+const STORAGE_KEY    = "awa_cover_projects";
+
+function loadSlots(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"); } catch{ return []; } }
+function saveSlots(arr){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch{} }
+
+function renderSlots(){
+  const slots    = loadSlots();
+  const isMember = !!(window.AWA_SESSION);
+  // Unlimited slots available if user has "studio_unlimited" add-on (checked via profile)
+  const maxSlots = window.AWA_UNLIMITED_STUDIO ? 999 : MAX_FREE_SLOTS;
+  const list     = document.getElementById("slots-list");
+  list.innerHTML = "";
+
+  slots.forEach((s,i)=>{
+    const div=document.createElement("div"); div.className="slot";
+    div.innerHTML=`<div><div class="slot-name">${s.name||"Project "+(i+1)}</div><div class="slot-meta">${new Date(s.ts).toLocaleDateString()}</div></div><div class="slot-actions"><button class="slot-btn" data-load="${i}">Load</button><button class="slot-btn del" data-del="${i}">✕</button></div>`;
+    list.appendChild(div);
+  });
+
+  if(slots.length < maxSlots){
+    const empty=document.createElement("div"); empty.className="slot slot-empty";
+    empty.textContent="+ New save slot"; empty.id="new-slot-btn";
+    list.appendChild(empty);
+  }
+
+  const note=document.getElementById("slots-upgrade-note");
+  if(slots.length >= MAX_FREE_SLOTS && !window.AWA_UNLIMITED_STUDIO){
+    note.innerHTML=`Using ${slots.length}/${MAX_FREE_SLOTS} slots. <a href="account.html#studio-addon">Unlock unlimited slots</a> — add-on available in your account.`;
+  } else {
+    note.textContent=`${slots.length}/${maxSlots==="999"?"∞":maxSlots} slots used`;
+  }
+}
+
+document.getElementById("slots-list").addEventListener("click", e=>{
+  const load=e.target.dataset.load, del=e.target.dataset.del;
+  const slots=loadSlots();
+  if(del!==undefined){
+    slots.splice(+del,1); saveSlots(slots); renderSlots(); return;
+  }
+  if(load!==undefined){
+    const s=slots[+load]; if(!s) return;
+    layers = s.layers||[]; layerSeq=layers.reduce((m,L)=>Math.max(m,+L.id.slice(1)||0),0);
+    selected=null; renderLayerPanels(); draw(); return;
+  }
+  if(e.target.id==="new-slot-btn") saveProject();
+});
+
+function saveProject(){
+  const slots=loadSlots();
+  const maxSlots=window.AWA_UNLIMITED_STUDIO ? 999 : MAX_FREE_SLOTS;
+  if(slots.length>=maxSlots){ alert(`You've used all ${MAX_FREE_SLOTS} save slots. Unlock unlimited in your account settings.`); return; }
+  const name=prompt("Name this project:","My Cover");
+  if(!name) return;
+  slots.push({ name, ts:Date.now(), layers: JSON.parse(JSON.stringify(layers)) });
+  saveSlots(slots); renderSlots();
+}
+
+document.getElementById("btn-save").addEventListener("click", saveProject);
+
+// ── Download ──────────────────────────────────────────────────────────────
+document.getElementById("btn-download").addEventListener("click", ()=>{
+  if(!coverImg) return;
+  // Render clean (no selection box)
+  const prev=selected; selected=null; draw(); selected=prev;
+  const a=document.createElement("a");
+  a.href=canvas.toDataURL("image/png",1);
+  a.download="awa-cover-personalised.png";
+  a.click();
+  // Restore selection
+  draw();
+});
+
+// ── Init ──────────────────────────────────────────────────────────────────
+draw();
+renderSlots();
+
+})();
+</script>
+</body>
+</html>
