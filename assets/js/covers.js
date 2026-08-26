@@ -1,14 +1,16 @@
-/* AWA SOUNDS — Cover Art store (data-driven)
-   Renders window.AWA.covers into #cover-list: hover-cycle 2 preview videos,
-   save (registered users, stored as likes 'cover:<id>'), and a detail modal
-   with the still image, both motion versions, Save and Buy. */
+/* AWA SOUNDS — Cover Art store v2
+   Features:
+   - GG watermark canvas overlay on all preview images (anti-piracy)
+   - TITLED / CLEAN toggle button above the grid
+   - Side-by-side (clean left, titled right) + videos-below modal
+   - Receipt FX animation wired to buy flow
+   ─────────────────────────────────────────────────────────────────── */
 (function () {
   "use strict";
   const CFG = window.AWA || {};
   const list = document.getElementById("cover-list");
   if (!list) return;
 
-  // Filter out auction-only covers — they never appear in the store
   const COVERS = (CFG.covers || []).filter(c => !c.auctionOnly);
   const money = (n) => "£" + Number(n).toFixed(0);
   const coverDiscount = CFG.coverMemberDiscount != null ? CFG.coverMemberDiscount : (CFG.memberDiscount || 0);
@@ -16,6 +18,70 @@
   const likeId = (id) => "cover:" + id;
   const isMember = () => window.AWAAuth && AWAAuth.isMember();
   let likeSet = new Set();
+  let displayMode = "titled";
+
+  const toggleWrap = document.createElement("div");
+  toggleWrap.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:20px";
+  toggleWrap.innerHTML = `
+    <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Preview</span>
+    <div id="cover-toggle" style="display:inline-flex;background:var(--bg2,#0e0e1c);border:1px solid var(--line,#222238);border-radius:8px;overflow:hidden;cursor:pointer">
+      <button id="ct-titled" class="ct-btn" data-mode="titled" style="padding:7px 16px;font-size:11px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;background:var(--gold,#e0a030);color:#040200;transition:.15s">WITH TITLE</button>
+      <button id="ct-clean"  class="ct-btn" data-mode="clean"  style="padding:7px 16px;font-size:11px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;background:transparent;color:var(--silver,#7070a0);transition:.15s">CLEAN</button>
+    </div>`;
+  list.parentElement.insertBefore(toggleWrap, list);
+
+  toggleWrap.querySelectorAll(".ct-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      displayMode = btn.dataset.mode;
+      toggleWrap.querySelectorAll(".ct-btn").forEach(b => {
+        const on = b.dataset.mode === displayMode;
+        b.style.background = on ? "var(--gold,#e0a030)" : "transparent";
+        b.style.color = on ? "#040200" : "var(--silver,#7070a0)";
+      });
+      list.querySelectorAll(".cover-card").forEach(cardEl => {
+        const id = cardEl.dataset.id;
+        const c = COVERS.find(x => x.id === id);
+        if (!c) return;
+        const img = cardEl.querySelector(".art img");
+        if (img) img.src = displayMode === "clean" && c.imgClean ? c.imgClean : c.img;
+      });
+    });
+  });
+
+  function applyWatermark(artEl) {
+    if (artEl.querySelector(".wm-canvas")) return;
+    const cv = document.createElement("canvas");
+    cv.className = "wm-canvas";
+    cv.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2";
+    artEl.style.position = "relative";
+    artEl.appendChild(cv);
+    function drawWM() {
+      const W = artEl.offsetWidth || 280, H = artEl.offsetHeight || 280;
+      if (!W || !H) return;
+      cv.width = W; cv.height = H;
+      const ctx = cv.getContext("2d");
+      ctx.clearRect(0, 0, W, H);
+      ctx.save();
+      ctx.globalAlpha = 0.16;
+      ctx.fillStyle = "#ffffff";
+      ctx.font = `bold ${Math.max(12, W * 0.055)}px 'Space Grotesk',Arial,sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const step = W * 0.32, angle = -28 * Math.PI / 180;
+      for (let y = -step; y < H + step; y += step * 0.65) {
+        for (let x = -step; x < W + step; x += step) {
+          ctx.save();
+          ctx.translate(x + (y % (step * 2) < step ? 0 : step * 0.5), y);
+          ctx.rotate(angle);
+          ctx.fillText("GG", 0, 0);
+          ctx.restore();
+        }
+      }
+      ctx.restore();
+    }
+    drawWM();
+    new ResizeObserver(drawWM).observe(artEl);
+  }
 
   function card(c) {
     const el = document.createElement("article");
@@ -33,12 +99,14 @@
         <div><h4>${esc(c.title)}</h4><div class="sub">${esc(c.sub)} · 3000×3000 + 2 videos</div></div>
         <div class="store-price"><span class="now">${money(c.price)}</span><span class="subprice">Members ${money(c.premium && c.subPrice != null ? Math.min(c.subPrice, memberPrice(c.price)) : memberPrice(c.price))}</span></div>
       </div>`;
+    const artEl = el.querySelector(".art");
+    if (artEl.querySelector("img").complete) applyWatermark(artEl);
+    else el.querySelector("img").addEventListener("load", () => applyWatermark(artEl), { once: true });
     return el;
   }
 
   COVERS.forEach(c => list.appendChild(card(c)));
 
-  /* Hover-cycle the two preview videos (mirrors main.js store-card behaviour) */
   list.querySelectorAll(".cover-card.has-motion").forEach(cardEl => {
     const vid = cardEl.querySelector(".media-video");
     const dots = cardEl.querySelectorAll(".previews span");
@@ -49,7 +117,6 @@
     cardEl.addEventListener("mouseleave", () => { clearInterval(timer); if (vid) vid.pause(); dots.forEach((d, di) => d.classList.toggle("on", di === 0)); });
   });
 
-  /* Clicks: save button, or open detail */
   list.addEventListener("click", (e) => {
     const save = e.target.closest(".cover-save");
     if (save) { e.preventDefault(); e.stopPropagation(); toggleSave(save.closest(".cover-card")); return; }
@@ -67,7 +134,6 @@
     }, "Sign in to save cover art to your account.");
   }
 
-  /* Reflect saved covers on auth */
   if (window.AWAAuth) AWAAuth.onChange(async (sess) => {
     list.querySelectorAll(".cover-save.on").forEach(b => b.classList.remove("on"));
     likeSet = new Set();
@@ -81,67 +147,141 @@
     });
   });
 
-  /* ---------- Detail modal ---------- */
   let dm = null, current = null;
+
+  const MODAL_CSS = `
+  .cover-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:20px}
+  .cover-modal.open{opacity:1;pointer-events:all}
+  .cover-card-lg{background:var(--bg2,#0e0e1c);border:1px solid var(--line,#222238);border-radius:14px;width:100%;max-width:860px;max-height:92vh;overflow-y:auto;position:relative;padding:24px}
+  .cover-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--silver,#7070a0);font-size:22px;cursor:pointer;line-height:1;padding:4px 8px}
+  .cover-close:hover{color:var(--hi,#e0e0f0)}
+  .cover-modal h3{font-family:'Space Grotesk',sans-serif;font-size:20px;color:var(--hi,#e0e0f0);margin:0 0 4px}
+  .cover-modal .eyebrow{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted,#3a3a60);display:block;margin-bottom:6px}
+  .cover-modal .cover-sub{font-size:12px;color:var(--silver,#7070a0);margin-bottom:16px}
+  .cov-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+  .cov-side{position:relative;border-radius:10px;overflow:hidden;background:#000}
+  .cov-side img{width:100%;display:block;aspect-ratio:1/1;object-fit:cover}
+  .cov-side-lbl{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(0deg,rgba(0,0,0,.75)0%,transparent);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700}
+  .cov-vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+  .cov-vid-wrap{border-radius:10px;overflow:hidden;background:#000;position:relative;cursor:pointer}
+  .cov-vid-wrap video{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+  .cov-vid-lbl{position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(0deg,rgba(0,0,0,.75)0%,transparent);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff;font-family:'Space Grotesk',sans-serif}
+  .cov-vid-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.7;transition:.15s}
+  .cov-vid-play:hover{opacity:1}
+  .cov-vid-play svg{filter:drop-shadow(0 0 4px #000)}
+  .cov-info-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid var(--line,#222238)}
+  .cov-price .now{font-size:22px;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--hi,#e0e0f0)}
+  .cov-price .subprice{font-size:12px;color:var(--silver,#7070a0);margin-left:8px}
+  .cov-price em{font-style:normal;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold,#e0a030);margin-left:4px}
+  .cov-actions{display:flex;align-items:center;gap:10px}
+  .cov-save-lg{background:none;border:1px solid var(--line,#222238);border-radius:8px;padding:9px 14px;cursor:pointer;color:var(--silver,#7070a0);transition:.15s}
+  .cov-save-lg:hover,.cov-save-lg.on{border-color:var(--gold,#e0a030);color:var(--gold,#e0a030)}
+  @media(max-width:600px){.cov-pair{grid-template-columns:1fr}}
+  `;
+
+  function injectModalStyle() {
+    if (document.getElementById("covers-modal-css")) return;
+    const s = document.createElement("style"); s.id = "covers-modal-css"; s.textContent = MODAL_CSS;
+    document.head.appendChild(s);
+  }
+
   function build() {
+    injectModalStyle();
     dm = document.createElement("div");
     dm.className = "cover-modal";
     dm.innerHTML = `
       <div class="cover-card-lg">
         <button class="cover-close" aria-label="Close">&times;</button>
-        <div class="cover-stage">
-          <img class="cover-still" alt="">
-          <video class="cover-vid" muted loop playsinline></video>
+        <span class="eyebrow">Cover Art — Awa Sounds</span>
+        <h3 class="cover-title"></h3>
+        <div class="cover-sub"></div>
+        <div class="cov-pair">
+          <div class="cov-side" id="cov-clean-side"><img class="cov-img-clean" alt="Clean version"><div class="cov-side-lbl">Clean</div></div>
+          <div class="cov-side" id="cov-titled-side"><img class="cov-img-titled" alt="With title"><div class="cov-side-lbl">With Title</div></div>
         </div>
-        <div class="cover-info">
-          <div class="cover-head"><div><span class="eyebrow">Cover Art</span><h3 class="cover-title"></h3><div class="cover-sub"></div></div><button class="ib-like cover-save-lg" aria-label="Save"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.5 2 5 5.2 5 7.3 5 8.7 6.2 12 9c3.3-2.8 4.7-4 6.8-4 3.2 0 4.8 3.5 3.2 6.8C19.5 16.4 12 21 12 21z"/></svg></button></div>
-          <div class="cover-tabs"><button data-v="still" class="on">Still</button><button data-v="0">Motion 1</button><button data-v="1">Motion 2</button></div>
-          <p class="cover-desc">One-time exclusive. Ships as a 3000×3000 still plus two animated versions (visualizers) for your release and socials. Once sold, it's retired.</p>
-          <div class="cover-buy"><span class="cover-price"></span><button class="btn btn-primary cover-buy-btn">Buy cover</button></div>
+        <div class="cov-vids" id="cov-vids"></div>
+        <div class="cov-info-bar">
+          <div class="cov-price"><span class="now"></span><span class="subprice"></span></div>
+          <div class="cov-actions">
+            <button class="cov-save-lg" aria-label="Save"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.5 2 5 5.2 5 7.3 5 8.7 6.2 12 9c3.3-2.8 4.7-4 6.8-4 3.2 0 4.8 3.5 3.2 6.8C19.5 16.4 12 21 12 21z"/></svg></button>
+            <button class="btn btn-primary cov-buy-btn">Buy cover</button>
+          </div>
         </div>
       </div>`;
     document.body.appendChild(dm);
-    dm.addEventListener("click", (e) => { if (e.target === dm || e.target.closest(".cover-close")) close(); });
+    dm.addEventListener("click", e => { if (e.target === dm || e.target.closest(".cover-close")) close(); });
   }
 
   function openDetail(id) {
     current = COVERS.find(c => c.id === id);
     if (!current) return;
     if (!dm) build();
-    const still = dm.querySelector(".cover-still");
-    const vid = dm.querySelector(".cover-vid");
-    still.src = current.img;
-    dm.querySelector(".cover-title").textContent = current.title;
-    dm.querySelector(".cover-sub").textContent = current.sub;
-    const member = isMember();
-    const memPrice = current.premium && current.subPrice != null
-      ? Math.min(current.subPrice, memberPrice(current.price))
-      : memberPrice(current.price);
-    const price = member ? memPrice : current.price;
-    dm.querySelector(".cover-price").innerHTML = member
-      ? `<s>${money(current.price)}</s> ${money(price)} <em>member</em>`
-      : `${money(current.price)} · <span class="cover-memhint">Members ${money(memPrice)}</span>`;
-    // save state
-    const saveBtn = dm.querySelector(".cover-save-lg");
-    saveBtn.classList.toggle("on", likeSet.has(current.id));
-    saveBtn.onclick = () => { toggleSaveById(current.id, saveBtn); };
-    // tabs
-    const showStill = () => { still.style.display = ""; vid.style.display = "none"; vid.pause(); };
-    const showVid = (i) => { still.style.display = "none"; vid.style.display = ""; vid.src = current.videos[i]; vid.play().catch(() => {}); };
-    dm.querySelectorAll(".cover-tabs button").forEach(b => {
-      b.onclick = () => {
-        dm.querySelectorAll(".cover-tabs button").forEach(x => x.classList.toggle("on", x === b));
-        if (b.dataset.v === "still") showStill(); else showVid(parseInt(b.dataset.v, 10));
-      };
+    const c = current;
+    dm.querySelector(".cover-title").textContent = c.title;
+    dm.querySelector(".cover-sub").textContent = c.sub + " · 3000×3000 + 2 motion files";
+    dm.querySelector(".cov-img-clean").src = c.imgClean || c.img;
+    dm.querySelector(".cov-img-titled").src = c.img;
+    const cleanSide = document.getElementById("cov-clean-side");
+    cleanSide.style.display = c.imgClean ? "" : "none";
+    document.getElementById("cov-titled-side").style.gridColumn = c.imgClean ? "" : "1 / -1";
+    const vids = dm.querySelector("#cov-vids");
+    vids.innerHTML = "";
+    (c.videos || []).forEach((src, i) => {
+      const wrap = document.createElement("div");
+      wrap.className = "cov-vid-wrap";
+      wrap.innerHTML = `<video muted loop playsinline preload="none" src="${src}"></video>
+        <div class="cov-vid-lbl">Motion ${i + 1}</div>
+        <div class="cov-vid-play"><svg width="40" height="40" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,.55)"/><polygon points="10,8 17,12 10,16" fill="#fff"/></svg></div>`;
+      const video = wrap.querySelector("video");
+      wrap.addEventListener("click", () => {
+        if (video.paused) { video.play().catch(() => {}); wrap.querySelector(".cov-vid-play").style.display = "none"; }
+        else { video.pause(); wrap.querySelector(".cov-vid-play").style.display = ""; }
+      });
+      vids.appendChild(wrap);
     });
-    dm.querySelector(".cover-tabs button").classList.add("on");
-    dm.querySelectorAll(".cover-tabs button").forEach((x, i) => x.classList.toggle("on", i === 0));
-    showStill();
-    dm.querySelector(".cover-buy-btn").onclick = () => buy(current);
+    vids.style.display = (!c.videos || !c.videos.length) ? "none" : "";
+    const member = isMember();
+    const memPrice = c.premium && c.subPrice != null ? Math.min(c.subPrice, memberPrice(c.price)) : memberPrice(c.price);
+    dm.querySelector(".cov-price .now").textContent = money(member ? memPrice : c.price);
+    dm.querySelector(".cov-price .subprice").innerHTML = member ? `<em>Insider price applied</em>` : `· Members ${money(memPrice)}`;
+    const saveBtn = dm.querySelector(".cov-save-lg");
+    saveBtn.classList.toggle("on", likeSet.has(c.id));
+    saveBtn.onclick = () => toggleSaveById(c.id, saveBtn);
+    dm.querySelector(".cov-buy-btn").onclick = () => triggerBuy(c, member, memPrice);
     dm.classList.add("open");
     document.body.style.overflow = "hidden";
   }
-  function close() { if (dm) { dm.classList.remove("open"); dm.querySelector(".cover-vid").pause(); document.body.style.overflow = ""; } }
+
+  function close() {
+    if (!dm) return;
+    dm.classList.remove("open");
+    document.body.style.overflow = "";
+    dm.querySelectorAll("video").forEach(v => v.pause());
+  }
+
+  function triggerBuy(c, member, memPrice) {
+    if (window.AWAReceiptFX) {
+      close();
+      AWAReceiptFX.show({
+        title: c.title,
+        price: money(c.price),
+        memberPrice: money(member && memPrice ? memPrice : c.price),
+        isMember: member,
+        onConfirm: () => openPayLink(c),
+        onCancel: () => {}
+      });
+    } else {
+      openPayLink(c);
+    }
+  }
+
+  function openPayLink(c) {
+    if (c.pay) { window.open(c.pay, "_blank", "noopener"); return; }
+    const to = CFG.enquiryEmail || "awasound.music@gmail.com";
+    const subj = encodeURIComponent(`Cover art enquiry — ${c.title}`);
+    const body = encodeURIComponent(`Hi Awa Sounds,\n\nI'd like to buy the "${c.title}" cover (${c.sub}).\n\nName:\nRelease title:\n\nThanks.`);
+    window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
+  }
 
   function toggleSaveById(id, btn) {
     AWAAuth.requireAuth(async () => {
@@ -152,14 +292,6 @@
       if (on) { likeSet.add(id); await client.from("likes").upsert({ user_id: uid, beat_id: likeId(id) }); }
       else { likeSet.delete(id); await client.from("likes").delete().match({ user_id: uid, beat_id: likeId(id) }); }
     }, "Sign in to save cover art.");
-  }
-
-  function buy(c) {
-    if (c.pay) { window.open(c.pay, "_blank", "noopener"); return; }
-    const to = CFG.enquiryEmail || "awasound.music@gmail.com";
-    const subj = encodeURIComponent(`Cover art enquiry — ${c.title}`);
-    const body = encodeURIComponent(`Hi Awa Sounds,\n\nI'd like to buy the "${c.title}" cover (${c.sub}).\n\nName:\nRelease title:\n\nThanks.`);
-    window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
   }
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
