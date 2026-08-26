@@ -1593,8 +1593,12 @@ document.addEventListener('click', e=>{
   refreshSlotUI();
 })();
 
-// Idle animation loop
-(function idle(){ if(!isPlaying) drawFrame(); setTimeout(idle,80); })();
+// Idle animation loop — pause when auth gate is visible (prevents JS thread blocking)
+(function idle(){
+  const g = document.getElementById('gate');
+  if(!isPlaying && (!g || g.style.display === 'none')) drawFrame();
+  setTimeout(idle, 80);
+})();
 
 })();
 </script>
