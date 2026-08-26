@@ -61,7 +61,19 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 .upzone{border:1.5px dashed var(--line);border-radius:9px;padding:14px 10px;text-align:center;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
 .upzone:hover,.upzone.drag{border-color:var(--gold);background:var(--gold2)}
 .upzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upzone-sm{padding:8px 10px}
 .uz-icon{font-size:20px;margin-bottom:4px}
+
+/* Audio layer mixer */
+.audio-layer{background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px}
+.al-head{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.al-num{background:var(--muted);color:var(--bg);border-radius:50%;width:16px;height:16px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.al-lbl{font-size:10px;font-weight:600;color:var(--silver);letter-spacing:.06em;text-transform:uppercase;flex:1}
+.al-mute{background:none;border:1px solid var(--line);color:var(--muted);border-radius:4px;padding:1px 6px;font-size:9px;font-weight:700;cursor:pointer;transition:.15s}
+.al-mute:hover{border-color:var(--gold);color:var(--gold)}
+.al-mute.al-mute-on{background:var(--red);border-color:var(--red);color:#fff}
+.al-vol{display:flex;align-items:center;gap:8px;margin-top:8px}
+.al-vol-range{flex:1;accent-color:var(--gold)}
 .uz-txt{font-size:11px;color:var(--silver);line-height:1.5}
 .uz-txt b{color:var(--hi)}
 .uz-loaded{font-size:11px;color:var(--green);margin-top:6px;font-weight:600}
@@ -178,11 +190,46 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 </div>
 
 <div id="gate">
-  <div style="font-size:28px">🔒</div>
-  <h2>Insider Members Only</h2>
-  <p>Lyric Studio is exclusive to Awa Sounds Insider members. Upgrade to unlock beat-reactive lyric videos, HD export, and 10 animation styles.</p>
-  <a href="account.html#membership" class="g-btn-gold">Upgrade — £4.99/mo</a>
-  <a href="account.html" class="g-btn-ghost">Sign in</a>
+  <div style="font-size:36px;margin-bottom:4px">🎬</div>
+  <h2 id="gate-title">Insider Members Only</h2>
+  <p id="gate-desc">Lyric Studio is exclusive to Awa Sounds Insider members. Create your free account, then upgrade to unlock everything.</p>
+
+  <!-- What you get section -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px 20px;max-width:400px;text-align:left;margin:4px 0">
+    <div style="font-size:10px;letter-spacing:.1em;color:#7070a0;text-transform:uppercase;margin-bottom:10px;font-weight:600">What's inside</div>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div style="font-size:12.5px;color:#b0b0d0">🎵 <b style="color:#e0e0f0">Beat-reactive lyric videos</b> — text pulses on every kick</div>
+      <div style="font-size:12.5px;color:#b0b0d0">🎨 <b style="color:#e0e0f0">10 animation styles</b> — Impact, Kinetic, Glitch, Karaoke + more</div>
+      <div style="font-size:12.5px;color:#b0b0d0">🔊 <b style="color:#e0e0f0">3-layer audio mixer</b> — stack beat, vocals and ambience</div>
+      <div style="font-size:12.5px;color:#b0b0d0">📤 <b style="color:#e0e0f0">HD export</b> — 1280×720 ready to post on any platform</div>
+      <div style="font-size:12.5px;color:#b0b0d0">💾 <b style="color:#e0e0f0">4 saved projects</b> — auto-backup included</div>
+      <div style="font-size:12.5px;color:#b0b0d0">✅ <b style="color:#e0e0f0">No downloads. No apps.</b> Runs entirely in your browser.</div>
+    </div>
+  </div>
+
+  <!-- How to get access steps -->
+  <div style="display:flex;gap:8px;align-items:center;margin:6px 0;max-width:400px">
+    <div style="flex:1;height:1px;background:rgba(255,255,255,.1)"></div>
+    <span style="font-size:10px;color:#7070a0;letter-spacing:.08em">HOW TO GET ACCESS</span>
+    <div style="flex:1;height:1px;background:rgba(255,255,255,.1)"></div>
+  </div>
+  <div style="display:flex;gap:10px;max-width:400px;margin:0 0 8px">
+    <div style="text-align:center;flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 8px">
+      <div style="font-size:18px;font-weight:800;color:#e0a030;font-family:'Space Grotesk',sans-serif">1</div>
+      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4">Create your <b style="color:#e0e0f0">free account</b> — takes 30 seconds</div>
+    </div>
+    <div style="text-align:center;flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 8px">
+      <div style="font-size:18px;font-weight:800;color:#e0a030;font-family:'Space Grotesk',sans-serif">2</div>
+      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4">Upgrade to <b style="color:#e0e0f0">Insider</b> for £4.99/mo</div>
+    </div>
+    <div style="text-align:center;flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 8px">
+      <div style="font-size:18px;font-weight:800;color:#e0a030;font-family:'Space Grotesk',sans-serif">3</div>
+      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4"><b style="color:#e0e0f0">Start creating</b> in your browser right now</div>
+    </div>
+  </div>
+
+  <a href="account.html#membership" class="g-btn-gold" id="gate-cta-primary">Upgrade — £4.99/mo</a>
+  <a href="#" class="g-btn-ghost" id="gate-cta-secondary" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Lyric Studio.')">Create Free Account</a>
 </div>
 
 <!-- Nav -->
@@ -253,16 +300,55 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     </select>
   </div>
 
-  <!-- Beat -->
+  <!-- Multi-layer Audio Mixer -->
   <div class="ps">
-    <div class="sec-lbl">Beat / Audio</div>
-    <div class="upzone" id="beat-zone">
-      <input type="file" id="beat-file" accept="audio/*"/>
-      <div class="uz-icon">🎵</div>
-      <div class="uz-txt"><b>Drop your beat</b><br>MP3, WAV, FLAC</div>
-      <div class="uz-loaded" id="beat-loaded" style="display:none"></div>
+    <div class="sec-lbl">Audio Mixer <span style="color:var(--muted);font-weight:400">3 layers</span></div>
+    <!-- Layer 1: Beat -->
+    <div class="audio-layer" id="layer-0">
+      <div class="al-head">
+        <span class="al-num">1</span>
+        <span class="al-lbl">Beat</span>
+        <button class="al-mute" data-layer="0" title="Mute layer">M</button>
+      </div>
+      <div class="upzone upzone-sm" id="beat-zone">
+        <input type="file" id="beat-file" accept="audio/*"/>
+        <div class="uz-icon" style="font-size:14px">🎵</div>
+        <div class="uz-txt" style="font-size:10px"><b>Drop beat</b> · MP3, WAV, FLAC</div>
+        <div class="uz-loaded" id="beat-loaded" style="display:none"></div>
+      </div>
+      <div class="beat-list" id="beat-list"></div>
+      <div class="al-vol"><label style="font-size:9px;color:var(--muted);letter-spacing:.08em">VOL</label><input type="range" class="al-vol-range" data-layer="0" min="0" max="1" step="0.05" value="1"/></div>
     </div>
-    <div class="beat-list" id="beat-list"></div>
+    <!-- Layer 2: Vocals -->
+    <div class="audio-layer" id="layer-1">
+      <div class="al-head">
+        <span class="al-num">2</span>
+        <span class="al-lbl">Vocals</span>
+        <button class="al-mute" data-layer="1" title="Mute layer">M</button>
+      </div>
+      <div class="upzone upzone-sm" id="vocal-zone">
+        <input type="file" id="vocal-file" accept="audio/*"/>
+        <div class="uz-icon" style="font-size:14px">🎤</div>
+        <div class="uz-txt" style="font-size:10px"><b>Drop vocals</b> · MP3, WAV, FLAC</div>
+        <div class="uz-loaded" id="vocal-loaded" style="display:none"></div>
+      </div>
+      <div class="al-vol"><label style="font-size:9px;color:var(--muted);letter-spacing:.08em">VOL</label><input type="range" class="al-vol-range" data-layer="1" min="0" max="1" step="0.05" value="0.8"/></div>
+    </div>
+    <!-- Layer 3: Ambience / Other -->
+    <div class="audio-layer" id="layer-2">
+      <div class="al-head">
+        <span class="al-num">3</span>
+        <span class="al-lbl">Ambience</span>
+        <button class="al-mute" data-layer="2" title="Mute layer">M</button>
+      </div>
+      <div class="upzone upzone-sm" id="amb-zone">
+        <input type="file" id="amb-file" accept="audio/*"/>
+        <div class="uz-icon" style="font-size:14px">🌊</div>
+        <div class="uz-txt" style="font-size:10px"><b>Drop ambience</b> · MP3, WAV, FLAC</div>
+        <div class="uz-loaded" id="amb-loaded" style="display:none"></div>
+      </div>
+      <div class="al-vol"><label style="font-size:9px;color:var(--muted);letter-spacing:.08em">VOL</label><input type="range" class="al-vol-range" data-layer="2" min="0" max="1" step="0.05" value="0.4"/></div>
+    </div>
   </div>
 
   <!-- Lyrics -->
@@ -409,10 +495,32 @@ Every second getting full
 /* ── Access gate ─────────────────────────────── */
 function checkAccess(){
   const gate = document.getElementById('gate');
-  if(!window.AWA_SESSION){ gate.style.display='flex'; return false; }
+  if(!window.AWA_SESSION){
+    // Not logged in — show full onboarding gate
+    const title = document.getElementById('gate-title');
+    const desc = document.getElementById('gate-desc');
+    const ctaP = document.getElementById('gate-cta-primary');
+    const ctaS = document.getElementById('gate-cta-secondary');
+    if(title) title.textContent = 'Create an Account to Get Started';
+    if(desc) desc.textContent = 'Lyric Studio is exclusively for Awa Sounds Insider members. Step 1 is free — just sign up.';
+    if(ctaP){ ctaP.textContent = 'Create Free Account'; ctaP.href='#'; ctaP.onclick=(e)=>{ e.preventDefault(); window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Lyric Studio.'); }; }
+    if(ctaS){ ctaS.textContent = 'Already have an account? Sign in'; ctaS.href='#'; ctaS.onclick=(e)=>{ e.preventDefault(); window.AWAAuth&&window.AWAAuth.openModal(); }; }
+    gate.style.display='flex'; return false;
+  }
   const p = window.AWA_PROFILE;
   // Lyric Studio requires Insider membership
-  if(p && !p.is_member){ gate.style.display='flex'; return false; }
+  if(p && !p.is_member){
+    // Logged in but free account — show upgrade gate
+    const title = document.getElementById('gate-title');
+    const desc = document.getElementById('gate-desc');
+    const ctaP = document.getElementById('gate-cta-primary');
+    const ctaS = document.getElementById('gate-cta-secondary');
+    if(title) title.textContent = "You're In — Upgrade to Unlock";
+    if(desc) desc.textContent = "You have a free account. Upgrade to Insider for £4.99/mo and get instant access to Lyric Studio and everything else.";
+    if(ctaP){ ctaP.textContent = 'Upgrade to Insider — £4.99/mo'; ctaP.href='account.html#membership'; ctaP.onclick=null; }
+    if(ctaS){ ctaS.textContent = 'What do I get?'; ctaS.href='account.html#membership'; ctaS.onclick=null; }
+    gate.style.display='flex'; return false;
+  }
   gate.style.display='none';
   // Show "Unlimited" CTA once all 4 slots are used and user doesn't have the add-on
   const allFull = Array.from({length:MAX_SLOTS_FREE},(_,i)=>localStorage.getItem(STORE_PREFIX+i)).every(Boolean);
@@ -543,16 +651,26 @@ function fillCovers(){
   });
 }
 
-function fillBeats(){
+async function fillBeats(){
   const list = document.getElementById('beat-list');
-  const bts = window.AWA?.beats||[];
-  if(!bts.length){ list.innerHTML='<div style="font-size:10px;color:var(--muted);padding:4px">Buy a beat to unlock it here.</div>'; return; }
-  list.innerHTML = bts.map(b=>`
+  const isAdmin = window.AWA_PROFILE && window.AWA_PROFILE.role === 'admin';
+  let bts = window.AWA?.beats||[];
+
+  // Admin: load ALL beats from Supabase
+  if(isAdmin && window.AWAAuth && window.AWAAuth.client()){
+    try {
+      const { data } = await window.AWAAuth.client().from('beats').select('id,title,bpm,key,audio_url,preview_url').order('created_at',{ascending:false});
+      if(data && data.length) bts = data.map(b=>({ id:b.id, title:b.title, bpm:b.bpm||'', key:b.key||'', preview: b.preview_url||b.audio_url||'' }));
+    } catch(e){ /* fallback to window.AWA.beats */ }
+  }
+
+  if(!bts.length){ list.innerHTML='<div style="font-size:10px;color:var(--muted);padding:4px 0">'+(isAdmin?'No beats in store yet.':'Purchase a beat to load it here.')+'</div>'; return; }
+  list.innerHTML = (isAdmin?'<div style="font-size:9px;color:var(--gold);padding:2px 0 6px;letter-spacing:.06em">ADMIN — ALL STORE BEATS</div>':'')+bts.map(b=>`
     <div class="bi" data-id="${b.id}" data-src="${b.preview||''}">
       <span style="font-size:13px">🎵</span>
       <div style="min-width:0;flex:1">
         <div class="bi-name">${b.title}</div>
-        <div class="bi-meta">${b.bpm} BPM · ${b.key}</div>
+        <div class="bi-meta">${b.bpm?b.bpm+' BPM':''}${b.key?' · '+b.key:''}</div>
       </div>
     </div>`).join('');
   list.querySelectorAll('.bi').forEach(el=>{
@@ -561,7 +679,7 @@ function fillBeats(){
       el.classList.add('on');
       const src = el.dataset.src;
       if(src) loadAudio(src, el.querySelector('.bi-name').textContent);
-      else toast('No preview for this beat yet','info');
+      else toast('No preview URL for this beat yet','info');
     });
   });
 }
@@ -582,6 +700,30 @@ function wireUI(){
   document.getElementById('beat-file').addEventListener('change', e=>{
     const f=e.target.files[0]; if(!f) return;
     loadAudio(URL.createObjectURL(f), f.name);
+  });
+  // Layer 2: Vocals
+  document.getElementById('vocal-file').addEventListener('change', e=>{
+    const f=e.target.files[0]; if(!f) return;
+    loadLayerAudio(1, URL.createObjectURL(f), f.name);
+  });
+  // Layer 3: Ambience
+  document.getElementById('amb-file').addEventListener('change', e=>{
+    const f=e.target.files[0]; if(!f) return;
+    loadLayerAudio(2, URL.createObjectURL(f), f.name);
+  });
+  // Volume sliders for all layers
+  document.querySelectorAll('.al-vol-range').forEach(slider=>{
+    slider.addEventListener('input', e=>{
+      const layer=+e.target.dataset.layer;
+      setLayerVolume(layer, +e.target.value);
+    });
+  });
+  // Mute buttons
+  document.querySelectorAll('.al-mute').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const layer=+btn.dataset.layer;
+      toggleLayerMute(layer, btn);
+    });
   });
   document.getElementById('cover-sel').addEventListener('change', e=>{
     const id=e.target.value; if(!id) return;
@@ -629,6 +771,48 @@ function wireUI(){
 }
 
 /* ── Audio ───────────────────────────────────── */
+/* ── Multi-layer audio (layers 1 + 2 are secondary, no BPM analysis) ── */
+const layerAudios = [null, null, null]; // indices 0=beat(primary), 1=vocals, 2=amb
+const layerMuted  = [false, false, false];
+
+function loadLayerAudio(layerIdx, src, name){
+  if(layerAudios[layerIdx]){ layerAudios[layerIdx].pause(); layerAudios[layerIdx]=null; }
+  const a = new Audio(src);
+  a.loop = true;
+  a.volume = layerIdx===1 ? 0.8 : 0.4;
+  a.addEventListener('loadedmetadata',()=>{
+    const ids = ['beat-loaded','vocal-loaded','amb-loaded'];
+    const el = document.getElementById(ids[layerIdx]);
+    if(el){ el.textContent='✓ '+name; el.style.display='block'; }
+    toast(['Beat','Vocals','Ambience'][layerIdx]+' layer loaded: '+name,'ok');
+  });
+  layerAudios[layerIdx] = a;
+  // If primary audio is playing, sync this layer
+  if(isPlaying && audio){ a.currentTime=audio.currentTime; a.play().catch(()=>{}); }
+}
+
+function setLayerVolume(layerIdx, vol){
+  if(layerIdx===0 && audio){ audio.volume = vol; return; }
+  if(layerAudios[layerIdx]) layerAudios[layerIdx].volume = layerMuted[layerIdx] ? 0 : vol;
+}
+
+function toggleLayerMute(layerIdx, btn){
+  layerMuted[layerIdx] = !layerMuted[layerIdx];
+  btn.classList.toggle('al-mute-on', layerMuted[layerIdx]);
+  btn.title = layerMuted[layerIdx] ? 'Unmute layer' : 'Mute layer';
+  const slider = document.querySelector(`.al-vol-range[data-layer="${layerIdx}"]`);
+  const vol = slider ? +slider.value : (layerIdx===0?1:layerIdx===1?0.8:0.4);
+  if(layerIdx===0 && audio){ audio.volume = layerMuted[0]?0:vol; return; }
+  if(layerAudios[layerIdx]) layerAudios[layerIdx].volume = layerMuted[layerIdx]?0:vol;
+}
+
+/* Override play/pause to handle secondary layers */
+const _origTogglePlay = typeof togglePlay!=='undefined' ? togglePlay : null;
+
+function playLayers(){ layerAudios.slice(1).forEach(a=>{ if(a){ a.currentTime=audio?audio.currentTime:0; a.play().catch(()=>{}); } }); }
+function pauseLayers(){ layerAudios.slice(1).forEach(a=>{ if(a) a.pause(); }); }
+function restartLayers(){ layerAudios.slice(1).forEach(a=>{ if(a){ a.currentTime=0; if(isPlaying) a.play().catch(()=>{}); } }); }
+
 function loadAudio(src, name){
   if(audio){ audio.pause(); audio=null; }
   audio = new Audio(src);
@@ -711,9 +895,10 @@ function togglePlay(){
 function play(){
   if(audioCtx&&audioCtx.state==='suspended') audioCtx.resume();
   audio.play(); isPlaying=true; setPlayBtns(true); loop();
+  playLayers();
 }
-function pause(){ audio.pause(); isPlaying=false; setPlayBtns(false); cancelAnimationFrame(raf); }
-function restart(){ if(audio) audio.currentTime=0; lyricIdx=0; if(!isPlaying) drawFrame(); }
+function pause(){ audio.pause(); isPlaying=false; setPlayBtns(false); cancelAnimationFrame(raf); pauseLayers(); }
+function restart(){ if(audio) audio.currentTime=0; lyricIdx=0; if(!isPlaying) drawFrame(); restartLayers(); }
 function setPlayBtns(p){
   const lbl = p?'⏸ Pause':'▶ Play';
   document.getElementById('play-btn').textContent=lbl;
@@ -1071,7 +1256,41 @@ function updateHF(){
   document.getElementById('hf-txt').textContent=s?s.hf:'Select a style.';
 }
 function showExport(){
-  toast('Capture with OBS or Chrome screen recorder while the video plays. Full in-browser export (MP4) coming in next update.','info');
+  // Build export modal if not exists
+  let em = document.getElementById('export-modal');
+  if(!em){
+    em = document.createElement('div');
+    em.id = 'export-modal';
+    em.style.cssText = 'position:fixed;inset:0;background:rgba(7,7,15,.96);z-index:2000;display:flex;align-items:center;justify-content:center;padding:24px';
+    em.innerHTML = `
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:28px 28px 24px;max-width:420px;width:100%;position:relative">
+        <button onclick="document.getElementById('export-modal').remove()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer">×</button>
+        <div style="font-size:24px;margin-bottom:8px">📤</div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;color:var(--hi);margin-bottom:6px">Export Your Lyric Video</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.6;margin-bottom:18px">Your video is 1280×720 HD, rendered in your browser. Use Chrome's built-in screen recorder to capture it:</p>
+        <div style="background:var(--bg3);border-radius:10px;padding:14px;margin-bottom:16px">
+          <div style="font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">How to record</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--text)">
+            <div>1. Press <b style="color:var(--hi)">▶ Play</b> to start your video</div>
+            <div>2. Open <b style="color:var(--hi)">Chrome menu → More tools → Record</b></div>
+            <div>3. Select this tab and hit Record</div>
+            <div>4. Stop recording when the video ends</div>
+            <div>5. Chrome saves it as a <b style="color:var(--hi)">.webm</b> (open in any video player)</div>
+          </div>
+        </div>
+        <div style="background:rgba(217,195,143,.07);border:1px solid rgba(217,195,143,.2);border-radius:10px;padding:14px;margin-bottom:18px">
+          <div style="font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Share it</div>
+          <p style="font-size:12px;color:var(--text);line-height:1.5;margin-bottom:10px">Post it on IG, TikTok or YouTube and tag us — we repost the best ones.</p>
+          <div style="background:var(--bg3);border-radius:8px;padding:10px;font-size:11.5px;color:var(--silver);line-height:1.6" id="share-caption">Made with Awa Sounds Lyric Studio ✦ @awasounds</div>
+          <button onclick="navigator.clipboard?.writeText(document.getElementById('share-caption').textContent).then(()=>{ this.textContent='Copied!'; setTimeout(()=>this.textContent='Copy Caption',2000); })" style="background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;margin-top:8px;width:100%;transition:.2s">Copy Caption</button>
+        </div>
+        <p style="font-size:10.5px;color:var(--muted);text-align:center">Full MP4 in-browser export coming in the next update.</p>
+      </div>`;
+    document.body.appendChild(em);
+    em.addEventListener('click', e=>{ if(e.target===em) em.remove(); });
+  } else {
+    em.style.display = 'flex';
+  }
 }
 let toastT;
 function toast(msg, type){

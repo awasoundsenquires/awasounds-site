@@ -44,6 +44,15 @@
   </div>
 </section>
 
+<!-- ACCOUNT REQUIREMENT NOTICE -->
+<div id="vault-access-bar" style="background:rgba(217,195,143,.08);border-bottom:1px solid rgba(217,195,143,.15);padding:12px 0;text-align:center;display:none">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+    <span style="font-size:12.5px;color:#b0b0d0">🔒 <b style="color:#e0e0f0">A free account is required to bid.</b> Sign up in 30 seconds — no card needed.</span>
+    <a href="#" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to bid in Vault Drop auctions.')" style="background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border-radius:8px;padding:7px 16px;text-decoration:none;white-space:nowrap">Create Free Account →</a>
+    <a href="#" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal()" style="font-size:11.5px;color:#7070a0;text-decoration:underline">Already have an account?</a>
+  </div>
+</div>
+
 <!-- LIVE / UPCOMING AUCTIONS GRID -->
 <section class="vault-section">
   <div class="wrap">
@@ -155,6 +164,18 @@
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/vault.js"></script>
 <script src="assets/js/lastdrop.js"></script>
+<script>
+// Show account bar only for logged-out users
+(function(){
+  function checkVaultAccess(){
+    const bar = document.getElementById('vault-access-bar');
+    if(!bar) return;
+    bar.style.display = window.AWA_SESSION ? 'none' : 'block';
+  }
+  if(window.AWAAuth){ window.AWAAuth.onChange(checkVaultAccess); }
+  else { setTimeout(checkVaultAccess, 800); }
+})();
+</script>
 <script>
 /* ── Drop Calendar ────────────────────────────────────── */
 (function(){
