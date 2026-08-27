@@ -413,6 +413,7 @@
     clearTimeout(alertTimer);
     clearTimeout(inactivityTimer);
     clearInterval(heartbeatTimer);
+    clearInterval(itemTimerHandle);
   }
 
   // ── BID ENTRY ─────────────────────────────────────────────
@@ -506,9 +507,59 @@
 
   // ── PRODUCT QUEUE (5-min session mode) ───────────────────
 
-  let sessionQueue   = [];        // full queue array from get_session_queue
-  let liveItem       = null;      // the currently live auction_queue row
-  let queueCountdown = null;      // setTimeout handle for per-item countdown
+  let sessionQueue    = [];        // full queue array from get_session_queue
+  let liveItem        = null;      // the currently live auction_queue row
+  let queueCountdown  = null;      // setTimeout handle for per-item countdown
+  let itemTimerHandle = null;      // setInterval for the mutable-close-time countdown
+
+  /* ── Winner animation ─────────────────────────────────────────── */
+  function showWinnerAnimation(winnerDisplay, credits) {
+    return new Promise(resolve => {
+      const overlay  = document.getElementById("winner-overlay");
+      const woWinner = document.getElementById("wo-winner");
+      const woCr     = document.getElementById("wo-credits");
+      const woCount  = document.getElementById("wo-count");
+      const woNext   = document.getElementById("wo-next");
+      if (!overlay) { resolve(); return; }
+      if (woWinner) woWinner.textContent = "Winner: " + winnerDisplay;
+      if (woCr)     woCr.textContent     = credits + " cr";
+      if (woCount) { woCount.textContent = "5"; woCount.style.opacity = "1"; }
+      if (woNext)    woNext.style.opacity = "0";
+      overlay.style.display = "flex";
+      let count = 5;
+      const tick = setInterval(() => {
+        count--;
+        if (count <= 0) {
+          clearInterval(tick);
+          if (woCount) woCount.style.opacity = "0";
+          setTimeout(() => {
+            if (woNext) woNext.style.opacity = "1";
+            setTimeout(() => {
+              overlay.style.display = "none";
+              resolve();
+            }, 1400);
+          }, 200);
+        } else {
+          if (woCount) woCount.textContent = count;
+        }
+      }, 900);
+    });
+  }
+
+  /* ── Mutable-close-time item countdown ───────────────────────── */
+  function startItemTimer(onTick, onEnd) {
+    clearInterval(itemTimerHandle);
+    itemTimerHandle = setInterval(() => {
+      const closeISO = liveItem?.extended_until || liveItem?.closes_at;
+      if (!closeISO) return;
+      const diff = new Date(closeISO) - Date.now();
+      if (diff <= 0) { clearInterval(itemTimerHandle); onEnd(); return; }
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      onTick(h, m, s);
+    }, 1000);
+  }
 
   async function loadSessionQueue(auctionId) {
     const data = await rpc("get_session_queue", { p_session_id: auctionId });
@@ -538,7 +589,9 @@
           const isQueued = q.status === "queued";
           return `<div class="pq-item ${isLive?"pq-live":""} ${isSold?"pq-sold":""} ${isPassed?"pq-passed":""}">
             <div class="pq-pos">${q.position}</div>
-            <div class="pq-thumb" style="${q.image_url?`background-image:url(${q.image_url})`:""};background-size:cover;background-position:center"></div>
+            <div class="pq-thumb" style="${q.image_url?`background-image:url(${q.image_url})`:""};background-size:cover;background-position:center">
+              ${isSold?'<div class="pq-sold-pin">SOLD</div>':""}
+            </div>
             <div class="pq-info">
               <div class="pq-name">${q.title}</div>
               <div class="pq-meta">${isLive?"⚡ LIVE NOW":isSold?"✓ Sold — "+q.winning_bid+" cr":isPassed?"Passed":"Queued"}</div>
@@ -562,37 +615,39 @@
         ${item.image_url ? `<img src="${item.image_url}" alt="${item.title}" class="item-img"/>` : '<div class="item-img-ph"></div>'}`;
     }
 
-    // 5-minute countdown for this item
+    // 5-minute countdown for this item (mutable close time so snipe extension is picked up)
     clearTimeout(queueCountdown);
-    const closeAt = item.extended_until || item.closes_at;
-    const pill    = $("#auction-status-pill");
+    const pill = $("#auction-status-pill");
     if (pill) { pill.textContent = "LIVE"; pill.className = "auction-status-pill live"; }
 
-    // Anti-snipe banner: show when < 60 s remain
     let snipeBannerShown = false;
+    let itemEnded = false;
 
-    countdown(closeAt,
+    startItemTimer(
       (h, m, s) => {
         const th = $("#timer-h"), tm = $("#timer-m"), ts = $("#timer-s");
         if (th) th.textContent = pad(h);
         if (tm) tm.textContent = pad(m);
         if (ts) ts.textContent = pad(s);
-        // Colour the timer red in last 60 s
         const timerEl = $(".auction-timer-block");
         if (timerEl) timerEl.classList.toggle("timer-urgent", h === 0 && m === 0 && s <= 60);
-        // Anti-snipe warning
         if (!snipeBannerShown && h === 0 && m === 0 && s <= 60) {
           snipeBannerShown = true;
           const warn = $("#snipe-warning");
-          if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Last 60 seconds — bids extend time by 90s!"; }
+          if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Last 60 seconds — new bids reset the clock!"; }
         }
-        // Update bid entry min for this item
         updateItemPrice(item, auctionId);
       },
       async () => {
-        // Item expired on this client — call advance_product to move to the next
+        if (itemEnded) return;
+        itemEnded = true;
         if (pill) { pill.textContent = "ADVANCING…"; pill.className = "auction-status-pill closing"; }
         const warn = $("#snipe-warning"); if (warn) warn.style.display = "none";
+        // Show winner animation if there was a winning bid
+        if (liveItem?.winning_bid) {
+          const display = liveItem.winner_id ? "@user…" + liveItem.winner_id.slice(-6) : "Anonymous";
+          await showWinnerAnimation(display, liveItem.winning_bid);
+        }
         const res = await rpc("advance_product", { p_session_id: auctionId });
         if (res?.ok) {
           if (res.reason === "session_complete") {
@@ -601,11 +656,9 @@
             if (bidEntry) bidEntry.innerHTML = "<p class='auction-ended-msg'>All products in this session have been auctioned. Thank you for joining!</p>";
             clearPresenceTimers();
           } else {
-            // Brief pause then reload the queue
             setTimeout(() => loadSessionQueue(auctionId), 1200);
           }
         } else if (res?.reason === "still_live") {
-          // Another client already advanced; just refresh
           setTimeout(() => loadSessionQueue(auctionId), 600);
         }
       }
@@ -672,7 +725,7 @@
           item.extended_until = result.new_close;
           liveItem = item;
           const warn = $("#snipe-warning");
-          if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Bid in last 60s — 90 seconds added!"; setTimeout(() => warn.style.display = "none", 8000); }
+          if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Bid in last 60s — clock reset to 60s!"; setTimeout(() => warn.style.display = "none", 8000); }
         }
         item.winning_bid = bidAmt;
         minBid = bidAmt + item.bid_increment;
@@ -783,7 +836,7 @@
             if (fresh.extended_until && fresh.extended_until !== liveItem.extended_until) {
               liveItem.extended_until = fresh.extended_until;
               const warn = $("#snipe-warning");
-              if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Bid in last 60s — 90 seconds added!"; setTimeout(() => warn.style.display = "none", 8000); }
+              if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Bid in last 60s — clock reset to 60s!"; setTimeout(() => warn.style.display = "none", 8000); }
             }
           });
       } else {
