@@ -9,6 +9,74 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="stylesheet" href="assets/css/roulette.css"/>
+<style>
+/* â”€â”€ Cover Store page overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* scroll-world brand tokens â€” must win over @layer sw defaults */
+#cover-world {
+  --sw-bg: #090910;
+  --sw-ink: #e8e8f2;
+  --sw-ink-soft: rgba(232,232,242,.52);
+  --sw-accent: #c8a84b;
+  --sw-font-display: 'Space Grotesk', system-ui, sans-serif;
+  --sw-font-body: 'Inter', system-ui, sans-serif;
+}
+/* Pair grid override for this page */
+#cover-list { list-style: none; padding: 0; margin: 0; }
+/* Album pack pair preview strip */
+.pack-pair-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+  gap: 4px;
+  margin: 10px 0 14px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pack-pair-thumb {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #000;
+}
+.pack-pair-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pack-pair-thumb:nth-child(odd)::after {
+  content: 'C';
+  position: absolute;
+  bottom: 3px; left: 3px;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.5);
+  font-family: 'Space Grotesk', sans-serif;
+  background: rgba(0,0,0,.4);
+  border-radius: 2px;
+  padding: 1px 3px;
+}
+.pack-pair-thumb:nth-child(even)::after {
+  content: 'T';
+  position: absolute;
+  bottom: 3px; left: 3px;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.5);
+  font-family: 'Space Grotesk', sans-serif;
+  background: rgba(0,0,0,.4);
+  border-radius: 2px;
+  padding: 1px 3px;
+}
+.pack-pair-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  background: rgba(255,255,255,.04);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted, #9aa1ab);
+  font-family: 'Space Grotesk', sans-serif;
+}
+</style>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
@@ -16,40 +84,175 @@
 <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
 <div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
 
-<section class="page-hero page-hero-covers">
-  <a href="contact.html" class="btn store-submit-btn">Submit Cover Art <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-  <div class="wrap">
-    <div class="breadcrumb"><a href="index.html">Home</a> / Cover Art</div>
-    <span class="eyebrow" data-reveal>Ready-Made Cover Art</span>
-    <h1 class="display chrome" data-reveal data-reveal-delay="1">Cover Art Store</h1>
-    <p class="lede" data-reveal data-reveal-delay="2">Release ready artwork, finished and waiting. Every cover ships with two motion versions (animated visualizers) so you can post the still and the moving cut. Hover any piece to see it move.</p>
-  </div>
-</section>
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     SCROLL-WORLD CINEMA â€” driven by scrub-engine.js + cover-cinema.js
+     Still images used now; swap in Higgsfield dive clips via config
+     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div id="cover-world" aria-label="Cover art series explorer"></div>
 
-<section class="section" style="padding-top:20px"><div class="wrap">
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     MEMBER BANNER
+     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<section class="section" style="padding-top:32px"><div class="wrap">
   <div class="sub-banner" data-reveal>
     <div>
       <h3 class="chrome">Awa Sounds Members</h3>
-      <p>Insider members get <b>30% off all cover art</b>, plus 15% off beats, mixing, distribution and studio time. One £4.99 membership, benefits spread across everything we do.</p>
+      <p>Insider members get <b>30% off all cover art</b>, plus 15% off beats, mixing, distribution and studio time. One Â£4.99 membership, benefits spread across everything we do.</p>
     </div>
     <a href="contact.html" class="btn btn-primary">Become a Member <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
 </div></section>
 
-<section class="section" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><div><span class="eyebrow" data-reveal>The Collection</span><h2 class="section-title chrome" data-reveal data-reveal-delay="1">Pick your cover</h2></div><span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">Tap any cover to preview the videos, save it, or buy. Each purchase includes the still + 2 animated versions.</span></div>
-  <div class="store-grid" id="cover-list"></div>
-  <p class="lede" data-reveal style="text-align:center;margin:44px auto 0;font-size:14px">Each piece is one-time exclusive, once sold, it's retired. Save your favourites to your account and come back any time. More covers added weekly.</p>
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     ACTIVE COVERS â€” Series filter + pair grid
+     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<section class="section" id="cover-grid" style="padding-top:0"><div class="wrap">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow" data-reveal>The Collection</span>
+      <h2 class="section-title chrome" data-reveal data-reveal-delay="1">Pick your cover</h2>
+    </div>
+    <span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">Each cover comes as a pair â€” clean (no text) and titled (with name overlay) â€” plus two animated motion files. One-time exclusive: sold once, retired forever.</span>
+  </div>
+
+  <!-- Series filter tabs â€” populated statically; covers.js wires the click logic -->
+  <div class="series-filter" id="seriesFilter">
+    <button class="series-btn active" data-series="all">
+      All <span class="s-count">40</span>
+    </button>
+    <button class="series-btn" data-series="chrome-universe">
+      Chrome Universe <span class="s-count">9</span>
+    </button>
+    <button class="series-btn" data-series="void">
+      Void Series <span class="s-count">10</span>
+    </button>
+    <button class="series-btn" data-series="gold-season">
+      Gold Season <span class="s-count">8</span>
+    </button>
+    <button class="series-btn" data-series="flux">
+      Flux <span class="s-count">7</span>
+    </button>
+    <button class="series-btn" data-series="earth-chrome">
+      Earth Chrome <span class="s-count">6</span>
+    </button>
+  </div>
+
+  <!-- Pair grid â€” pair cards injected by covers.js -->
+  <div class="store-grid pair-grid" id="cover-list"></div>
+
+  <p class="lede" data-reveal style="text-align:center;margin:44px auto 0;font-size:14px">Each piece is sold once and retired. Save your favourites to your account. New pairs added every week.</p>
 </div></section>
 
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     COMING SOON
+     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <section class="section" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><div><span class="eyebrow" data-reveal>Dropping Soon</span><h2 class="section-title chrome" data-reveal data-reveal-delay="1">Coming releases</h2></div><span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">These covers are in the vault, releasing in 30 days. Save your spot — get notified the moment they go live.</span></div>
+  <div class="section-head">
+    <div>
+      <span class="eyebrow" data-reveal>Dropping Soon</span>
+      <h2 class="section-title chrome" data-reveal data-reveal-delay="1">Coming releases</h2>
+    </div>
+    <span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">These pairs are in the vault. Each shows both clean and titled previews. Hit Notify to be first in line when they drop.</span>
+  </div>
   <div id="coming-soon-list"></div>
 </div></section>
 
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     ALBUM PACKS
+     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <section class="section" id="album-packs" style="padding-top:0"><div class="wrap">
-  <div class="section-head"><div><span class="eyebrow" data-reveal>Album Art Packs</span><h2 class="section-title chrome" data-reveal data-reveal-delay="1">Full album collections</h2></div><span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">Themed packs of 8–13 coordinated covers. Every piece in a pack shares the same visual world — consistent palette, consistent mood, built to release as a body of work or pick individually.</span></div>
+  <div class="section-head">
+    <div>
+      <span class="eyebrow" data-reveal>Album Art Packs</span>
+      <h2 class="section-title chrome" data-reveal data-reveal-delay="1">Full album collections</h2>
+    </div>
+    <span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">Themed packs of 8â€“13 coordinated covers â€” each delivered as clean + titled pairs, plus two motion files per piece. One visual world, built to release as a body of work.</span>
+  </div>
   <div class="pack-grid">
+
+    <!-- Chrome Universe Vol. 1 â€” 9 covers, 18 pairs -->
+    <div class="pack-card" data-reveal>
+      <div class="pack-img-wrap">
+        <!-- 8 pair thumbnails (4 covers Ã— clean + titled) + "+10 more" -->
+        <div class="pack-pair-strip">
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-blue.png" alt="Mercury clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-blue.png" alt="Mercury titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-ember.png" alt="Spectre clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-ember.png" alt="Spectre titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-violet.png" alt="Nebula clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-violet.png" alt="Nebula titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-shards.png" alt="Shatter clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-shards.png" alt="Shatter titled" loading="lazy"></div>
+          <div class="pack-pair-more">+10</div>
+        </div>
+        <div class="pack-badge">9 covers Â· 18 pairs</div>
+      </div>
+      <div class="pack-body">
+        <div class="pack-vol">Chrome Universe Â· Vol. 01</div>
+        <h3 class="pack-title">Chrome Universe</h3>
+        <p class="pack-desc">Liquid chrome, mercury pools, and deep-space metallics. Each cover delivered as a clean and a titled pair â€” 18 total assets. Built for trap, electronic, and dark R&B artists who want a cold, cinematic identity.</p>
+        <div class="pack-price-row">
+          <div class="pack-price-block"><span class="pack-price">Â£249</span><span class="pack-price-member">Members Â£174</span></div>
+          <a href="contact.html" class="btn btn-primary btn-sm">Buy Pack <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Void Series Vol. 1 â€” 10 covers, 20 pairs -->
+    <div class="pack-card" data-reveal data-reveal-delay="1">
+      <div class="pack-img-wrap">
+        <div class="pack-pair-strip">
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-violet.png" alt="Obsidian clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-violet.png" alt="Obsidian titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-gunmetal.png" alt="Onyx clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-gunmetal.png" alt="Onyx titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-smoke.png" alt="Phantom clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-smoke.png" alt="Phantom titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-blue.png" alt="Eclipse clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-blue.png" alt="Eclipse titled" loading="lazy"></div>
+          <div class="pack-pair-more">+12</div>
+        </div>
+        <div class="pack-badge">10 covers Â· 20 pairs</div>
+      </div>
+      <div class="pack-body">
+        <div class="pack-vol">Void Series Â· Vol. 01</div>
+        <h3 class="pack-title">Void Series</h3>
+        <p class="pack-desc">Deep blacks, obsidian surfaces, fractured light. Twenty assets (clean + titled per cover) delivering a unified dark universe for ambient, metal, neo-soul, and noir hip-hop releases.</p>
+        <div class="pack-price-row">
+          <div class="pack-price-block"><span class="pack-price">Â£275</span><span class="pack-price-member">Members Â£193</span></div>
+          <a href="contact.html" class="btn btn-primary btn-sm">Buy Pack <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gold Season Vol. 1 â€” 8 covers, 16 pairs -->
+    <div class="pack-card" data-reveal data-reveal-delay="2">
+      <div class="pack-img-wrap">
+        <div class="pack-pair-strip">
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-gold.png" alt="Champagne clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-gold.png" alt="Champagne titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-sand.png" alt="Harmattan clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-sand.png" alt="Harmattan titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-ember.png" alt="Amber clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-ember.png" alt="Amber titled" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-foundry.png" alt="Bronze clean" loading="lazy"></div>
+          <div class="pack-pair-thumb"><img src="assets/img/gen-cover-foundry.png" alt="Bronze titled" loading="lazy"></div>
+          <div class="pack-pair-more">+8</div>
+        </div>
+        <div class="pack-badge">8 covers Â· 16 pairs</div>
+      </div>
+      <div class="pack-body">
+        <div class="pack-vol">Gold Season Â· Vol. 01</div>
+        <h3 class="pack-title">Gold Season</h3>
+        <p class="pack-desc">Warm amber, champagne, and burnished gold. Sixteen assets spanning desert heat to warm-room intimacy. Built for Afrobeats, jazz-fusion, and soul artists who want luxury without pretence.</p>
+        <div class="pack-price-row">
+          <div class="pack-price-block"><span class="pack-price">Â£225</span><span class="pack-price-member">Members Â£158</span></div>
+          <a href="contact.html" class="btn btn-primary btn-sm">Buy Pack <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tribe (legacy pack) -->
     <div class="pack-card" data-reveal>
       <div class="pack-img-wrap"><img src="assets/img/album-pack-vol1-preview.webp" alt="Vol 1 Tribe preview" loading="lazy"><div class="pack-badge">13 covers</div></div>
       <div class="pack-body">
@@ -57,11 +260,12 @@
         <h3 class="pack-title">Tribe</h3>
         <p class="pack-desc">Minimalist African line art with the Awa triangle mark. Black and gold on clean ground. Built for soul, Afrobeats, and jazz artists who want presence without noise.</p>
         <div class="pack-price-row">
-          <div class="pack-price-block"><span class="pack-price">£49</span><span class="pack-price-member">Members £34</span></div>
+          <div class="pack-price-block"><span class="pack-price">Â£49</span><span class="pack-price-member">Members Â£34</span></div>
           <a href="https://buy.stripe.com/tribe-vol1" class="btn btn-primary btn-sm">Buy Now <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
     </div>
+
     <div class="pack-card" data-reveal data-reveal-delay="1">
       <div class="pack-img-wrap"><img src="assets/img/album-pack-vol2-preview.webp" alt="Vol 2 Afro Japan preview" loading="lazy"><div class="pack-badge">9 covers</div></div>
       <div class="pack-body">
@@ -69,11 +273,12 @@
         <h3 class="pack-title">Afro Japan</h3>
         <p class="pack-desc">Afrofuturist meets ukiyo-e. Deep amber and vermilion, wave compositions, high contrast illustration. Rare cultural fusion for artists building global reach.</p>
         <div class="pack-price-row">
-          <div class="pack-price-block"><span class="pack-price">£39</span><span class="pack-price-member">Members £27</span></div>
+          <div class="pack-price-block"><span class="pack-price">Â£39</span><span class="pack-price-member">Members Â£27</span></div>
           <a href="https://buy.stripe.com/afrojapan-vol2" class="btn btn-primary btn-sm">Buy Now <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
     </div>
+
     <div class="pack-card" data-reveal data-reveal-delay="2">
       <div class="pack-img-wrap"><img src="assets/img/album-pack-vol3-preview.webp" alt="Vol 3 Bathroom Love preview" loading="lazy"><div class="pack-badge">8 covers</div></div>
       <div class="pack-body">
@@ -81,11 +286,12 @@
         <h3 class="pack-title">Bathroom Love</h3>
         <p class="pack-desc">Intimate, hazy, candlelit. Steam, mirrors, rose petals. Perfect for R&amp;B, soul, and bedroom-pop artists who want emotional realism over abstraction.</p>
         <div class="pack-price-row">
-          <div class="pack-price-block"><span class="pack-price">£35</span><span class="pack-price-member">Members £25</span></div>
+          <div class="pack-price-block"><span class="pack-price">Â£35</span><span class="pack-price-member">Members Â£25</span></div>
           <a href="https://buy.stripe.com/bathroomlove-vol3" class="btn btn-primary btn-sm">Buy Now <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
     </div>
+
   </div>
   <p class="lede" style="text-align:center;margin:32px auto 0;font-size:13px;color:var(--faint)">Packs are sold as complete sets or individual pieces. Insider members get 30% off all packs. <a href="contact.html" style="color:var(--silver)">Contact us</a> to reserve your volume.</p>
 </div></section>
@@ -102,20 +308,19 @@
   <div class="foot-col"><h5>Explore</h5><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="gallery.html">Gallery</a></div>
   <div class="foot-col"><h5>Divisions</h5><a href="studio.html">Recording Studio</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="contact.html">Sync &amp; Licensing</a></div>
   <div class="foot-col"><h5>Contact</h5><a href="mailto:awasound.music@gmail.com">awasound.music@gmail.com</a><a href="tel:+440000000000">+44 (0) 000 000 000</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
-</div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;·&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
+</div><div class="foot-bottom"><span>Â© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;Â·&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;Â·&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
+
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<!-- scroll-world scrub engine â€” must load before cover-cinema.js -->
+<script src="assets/js/scrub-engine.js"></script>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/receipt-fx.js"></script>
 <script src="assets/js/covers.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<!-- cover-cinema initialises mountScrollWorld after covers.js sets up the grid -->
+<script src="assets/js/cover-cinema.js"></script>
 <script src="assets/js/roulette.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/scroll-cinema.js"></script>
 </body></html>
-
-
-
-
