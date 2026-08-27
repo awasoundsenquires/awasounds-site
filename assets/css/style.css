@@ -529,6 +529,10 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 .pack-title{font-family:var(--ff-display);font-size:clamp(20px,2.5vw,26px);color:var(--silver-hi);margin:0;line-height:1.1}
 .pack-desc{font-size:13.5px;color:var(--muted);line-height:1.65;flex:1;margin:0}
 .pack-body .btn{align-self:flex-start;margin-top:6px}
+.pack-price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.pack-price-block{display:flex;flex-direction:column;gap:3px}
+.pack-price{font-size:24px;font-weight:700;color:var(--silver-hi);font-family:var(--ff-display)}
+.pack-price-member{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.04em}
 @media(max-width:800px){.pack-grid{grid-template-columns:1fr}}
 
 /* preloader */
