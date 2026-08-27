@@ -1,6 +1,6 @@
 /* ============================================================
-   AWA SOUNDS â€” Design System
-   Near-black canvas Â· liquid chrome Â· cinematic motion
+   AWA SOUNDS — Design System
+   Near-black canvas · liquid chrome · cinematic motion
    ============================================================ */
 
 :root{
@@ -22,7 +22,7 @@
   --chrome:linear-gradient(180deg,#ffffff 0%,#f3f1ea 55%,#dbd7cb 100%);
   --chrome-soft:linear-gradient(180deg,#f7ecc7 0%,#d9c38f 55%,#bb9a5c 100%);
 
-  /* Brand v2 â€” champagne gold accent (black/white/gold) */
+  /* Brand v2 — champagne gold accent (black/white/gold) */
   --gold-hi:#f3e4b8;
   --gold:#d9c38f;
   --gold-lo:#b9975a;
@@ -192,7 +192,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;lette
 .marquee-track{display:flex;gap:48px;width:max-content;animation:marq 32s linear infinite}
 .marquee:hover .marquee-track{animation-play-state:paused}
 .marquee span{font-family:var(--ff-display);font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:var(--silver-lo);display:inline-flex;align-items:center;gap:48px;white-space:nowrap}
-.marquee span::after{content:"â—†";color:var(--line-strong);font-size:8px}
+.marquee span::after{content:"◆";color:var(--line-strong);font-size:8px}
 @keyframes marq{to{transform:translateX(-50%)}}
 
 /* ---------- Section shell ---------- */
@@ -235,6 +235,14 @@ section{position:relative;z-index:1}
 .split p{color:var(--muted);margin:22px 0}
 .split p+p{margin-top:0}
 
+/* Logo reveal — replaces studio-logo-2.mp4 */
+.split-media--logo{background:radial-gradient(ellipse 70% 70% at 50% 48%,#111520 0%,#050506 100%);border-color:rgba(180,190,210,.10)}
+.logo-reveal-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10%}
+.logo-reveal-img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 32px rgba(180,190,220,.18)) drop-shadow(0 0 6px rgba(255,255,255,.06));animation:logo-float 6s ease-in-out infinite,logo-glow 4s ease-in-out infinite alternate}
+@keyframes logo-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes logo-glow{0%{filter:drop-shadow(0 0 28px rgba(180,190,220,.15)) drop-shadow(0 0 4px rgba(255,255,255,.05))}100%{filter:drop-shadow(0 0 52px rgba(200,210,240,.32)) drop-shadow(0 0 14px rgba(255,255,255,.10))}}
+@media(prefers-reduced-motion:reduce){.logo-reveal-img{animation:none}}
+
 /* ---------- Services ---------- */
 .services{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .service{
@@ -248,7 +256,7 @@ section{position:relative;z-index:1}
 .service::before{content:"";position:absolute;inset:0;background:radial-gradient(120px 120px at var(--mx,50%) var(--my,0%),rgba(200,210,225,.08),transparent 70%);opacity:0;transition:opacity .4s}
 .service:hover::before{opacity:1}
 
-/* ---------- What we do â€” gold icon grid ---------- */
+/* ---------- What we do — gold icon grid ---------- */
 .wwd{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--gold-line);border-left:1px solid var(--gold-line)}
 .wwd-item{padding:clamp(30px,4vw,52px) clamp(24px,4vw,56px);border-right:1px solid var(--gold-line);border-bottom:1px solid var(--gold-line);transition:background .4s}
 .wwd-item:hover{background:linear-gradient(180deg,rgba(217,195,143,.05),transparent)}
@@ -411,7 +419,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:70px 0 34
 /* ---------- Reveal animation ---------- */
 [data-reveal]{opacity:0;transform:translateY(30px) scale(.992);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
 [data-reveal].in{opacity:1;transform:none}
-/* reversed direction when scrolling up â€” mirrors the entrance, keeps it looping */
+/* reversed direction when scrolling up — mirrors the entrance, keeps it looping */
 body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 [data-reveal-delay="1"]{transition-delay:.08s}
 [data-reveal-delay="2"]{transition-delay:.16s}
@@ -508,6 +516,21 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 @media (max-width:1000px){.store-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.store-grid{grid-template-columns:1fr}}
 
+/* ---------- Album Pack Grid ---------- */
+.pack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.pack-card{border-radius:var(--radius-lg);overflow:hidden;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;transition:border-color .25s,transform .3s var(--ease-out)}
+.pack-card:hover{border-color:var(--line-strong);transform:translateY(-4px)}
+.pack-img-wrap{position:relative;aspect-ratio:1;overflow:hidden}
+.pack-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease-out)}
+.pack-card:hover .pack-img-wrap img{transform:scale(1.04)}
+.pack-badge{position:absolute;bottom:10px;right:10px;background:rgba(8,8,12,.75);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.06em;padding:4px 9px;color:var(--silver)}
+.pack-body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;gap:10px}
+.pack-vol{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.pack-title{font-family:var(--ff-display);font-size:clamp(20px,2.5vw,26px);color:var(--silver-hi);margin:0;line-height:1.1}
+.pack-desc{font-size:13.5px;color:var(--muted);line-height:1.65;flex:1;margin:0}
+.pack-body .btn{align-self:flex-start;margin-top:6px}
+@media(max-width:800px){.pack-grid{grid-template-columns:1fr}}
+
 /* preloader */
 .preload{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;transition:opacity .8s,visibility .8s}
 .preload.done{opacity:0;visibility:hidden}
@@ -515,7 +538,7 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ============================================================
-   BEAT STORE v2 â€” cover cards, auth, license picker, account
+   BEAT STORE v2 — cover cards, auth, license picker, account
    ============================================================ */
 
 /* Nav account control */
@@ -689,7 +712,7 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 .member-price small{font-size:16px;color:var(--muted);-webkit-text-fill-color:var(--muted)}
 .member-offer ul{list-style:none;margin:20px 0 24px;display:grid;gap:10px}
 .member-offer li{position:relative;padding-left:24px;color:var(--ink);font-size:14px}
-.member-offer li::before{content:"âœ¦";position:absolute;left:0;color:var(--gold)}
+.member-offer li::before{content:"✦";position:absolute;left:0;color:var(--gold)}
 .member-active{border:1px solid var(--gold-line);border-radius:var(--radius);background:var(--bg-2);padding:26px 30px;max-width:460px}
 .member-active p{color:var(--muted);font-size:14px;margin-top:12px}
 
@@ -759,7 +782,7 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 @media (max-width:600px){.adm-row,.adm-row:has(input[name=bpm]){grid-template-columns:1fr}}
 
 /* ============================================================
-   Reviews marquee Â· Concierge chatbot
+   Reviews marquee · Concierge chatbot
    ============================================================ */
 .review-marquee{overflow:hidden;position:relative;padding:6px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .review-track{display:flex;gap:20px;width:max-content;animation:reviewScroll 70s linear infinite}
@@ -842,7 +865,7 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-30px) scale(.992)}
 .btn-gold{background:var(--gold-grad,linear-gradient(135deg,#d9c38f,#b9975a));color:#161206;font-weight:600;border:none;border-radius:6px;cursor:pointer;font-family:var(--ff-body)}
 .btn-gold:hover{opacity:.88}
 
-/* â”€â”€ Post-purchase cover upsell panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Post-purchase cover upsell panel ─────────────────────── */
 .cover-upsell-panel{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
 .cover-upsell-panel.open{opacity:1;pointer-events:all}
 .cup-inner{background:var(--bg-2,#0e0e1c);border:1px solid var(--line,#222238);border-radius:16px 16px 0 0;padding:28px 24px 36px;max-width:640px;width:100%;position:relative;transform:translateY(40px);transition:transform .35s cubic-bezier(.32,1.18,.44,1)}
