@@ -9,6 +9,280 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="stylesheet" href="assets/css/roulette.css"/>
+<style>
+/* ═══════════════════════════════════════
+   BEAT STORE — IMMERSIVE ENTRANCE
+═══════════════════════════════════════ */
+
+/* Scroll container that gives room for the sticky experience */
+.bs-entrance-wrap {
+  position: relative;
+  height: 320vh;
+}
+
+/* The sticky panel that stays fixed while scrolling through 320vh */
+.bs-entrance-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #060608;
+  z-index: 1;
+}
+
+/* Base scene layer */
+.bs-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── SCENE A: CORRIDOR ─── */
+.bs-scene-a { z-index: 2; }
+
+.bs-corridor {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Nested frames creating corridor depth */
+.bs-ring {
+  position: absolute;
+  border-style: solid;
+  border-color: rgba(200,215,235,0.07);
+  border-width: 1px;
+  border-radius: 3px;
+  transition: none;
+  will-change: transform, opacity;
+}
+.bs-ring:nth-child(1) { width: 96vw; height: 90vh; }
+.bs-ring:nth-child(2) { width: 80vw; height: 74vh; border-color: rgba(200,215,235,0.09); }
+.bs-ring:nth-child(3) { width: 62vw; height: 56vh; border-color: rgba(200,215,235,0.12); }
+.bs-ring:nth-child(4) { width: 44vw; height: 38vh; border-color: rgba(200,215,235,0.16); }
+.bs-ring:nth-child(5) { width: 28vw; height: 22vh; border-color: rgba(200,215,235,0.21); }
+.bs-ring:nth-child(6) { width: 14vw; height: 10vh; min-width:60px; min-height:44px; border-color: rgba(218,165,32,0.35); }
+
+/* Gold corner accents on each ring */
+.bs-ring::before, .bs-ring::after {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  border-color: rgba(218,165,32,0.45);
+  border-style: solid;
+}
+.bs-ring:nth-child(1)::before, .bs-ring:nth-child(2)::before { width: 20px; height: 20px; }
+.bs-ring::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.bs-ring::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+/* Vanishing-point glow */
+.bs-vp-glow {
+  position: absolute;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(218,165,32,0.12) 0%, rgba(218,165,32,0.04) 40%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Gold door at the end of the corridor */
+.bs-door {
+  position: absolute;
+  width: 7vw; height: 9vh;
+  min-width: 52px; min-height: 68px;
+  border: 1px solid rgba(218,165,32,0.4);
+  border-radius: 2px;
+  background: radial-gradient(ellipse at center bottom, rgba(218,165,32,0.22) 0%, rgba(218,165,32,0.05) 60%, transparent 100%);
+}
+.bs-door::before {
+  content: '';
+  position: absolute;
+  inset: -50px;
+  background: radial-gradient(ellipse at center, rgba(218,165,32,0.18) 0%, transparent 65%);
+}
+
+/* Entrance text block */
+.bs-enter-text {
+  position: absolute;
+  text-align: center;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  pointer-events: none;
+}
+.bs-enter-text .bs-eyebrow {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: rgba(218,165,32,0.65);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-family: var(--ff-body, 'Inter', sans-serif);
+}
+.bs-enter-text h1 {
+  font-family: var(--ff-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(52px, 8vw, 110px);
+  font-weight: 700;
+  color: rgba(220,226,240,0.06);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+  user-select: none;
+}
+
+/* Scroll hint */
+.bs-scroll-hint {
+  position: absolute;
+  bottom: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
+}
+.bs-scroll-hint span {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: rgba(200,210,230,0.38);
+  text-transform: uppercase;
+  font-family: var(--ff-body, 'Inter', sans-serif);
+}
+.bs-scroll-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, rgba(218,165,32,0.6), transparent);
+  animation: bs-line-pulse 2s ease-in-out infinite;
+}
+@keyframes bs-line-pulse {
+  0%, 100% { opacity: 0.25; transform: scaleY(0.8) translateY(0); }
+  50%       { opacity: 0.9;  transform: scaleY(1)   translateY(4px); }
+}
+
+/* ─── SCENE B: VIDEO WALKTHROUGH ─── */
+.bs-scene-b {
+  z-index: 3;
+  opacity: 0;
+  clip-path: inset(48% 48% 48% 48% round 6px);
+  will-change: opacity, clip-path;
+}
+.bs-scene-b video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+}
+.bs-scene-b-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(6,6,8,0.55) 0%, rgba(6,6,8,0.1) 45%, rgba(6,6,8,0.65) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bs-walk-text {
+  font-family: var(--ff-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(36px, 5.5vw, 72px);
+  font-weight: 700;
+  color: rgba(220,226,240,0.92);
+  letter-spacing: -0.025em;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+  will-change: opacity, transform;
+}
+
+/* ═══════════════════════════════════════
+   BEAT ROOM — STUDIO INTERIOR
+═══════════════════════════════════════ */
+.studio-room {
+  background: #06060a;
+  position: relative;
+  overflow: hidden;
+  padding-top: 0;
+}
+
+/* Converging light rails — showroom effect */
+.studio-rails {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  width: 100%;
+  height: 320px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floor reflection strip */
+.studio-floor {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 180px;
+  background: linear-gradient(to top, rgba(218,165,32,0.03) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.studio-room .wrap {
+  position: relative;
+  z-index: 1;
+  padding-top: 80px;
+}
+
+.studio-room-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  gap: 24px;
+}
+.studio-room-head .eyebrow { justify-content: flex-start; }
+
+/* Beat cards inherit studio palette */
+.studio-room .bstore .beat-card {
+  background: rgba(14,16,22,0.95) !important;
+  border-color: rgba(200,215,235,0.07) !important;
+}
+.studio-room .bstore .beat-card:hover {
+  border-color: rgba(218,165,32,0.25) !important;
+  box-shadow: 0 0 40px rgba(218,165,32,0.05), 0 8px 32px rgba(0,0,0,0.6) !important;
+}
+
+/* License section on dark bg */
+.studio-room ~ .section {
+  background: #06060a;
+}
+.studio-room ~ .section .service {
+  background: rgba(14,16,22,0.9);
+  border-color: rgba(200,215,235,0.07);
+}
+.studio-room ~ .section .service:hover {
+  border-color: rgba(218,165,32,0.2);
+}
+
+/* Sub-banner on dark */
+.studio-room ~ .section .sub-banner {
+  background: rgba(14,16,22,0.9);
+  border-color: rgba(200,215,235,0.08);
+}
+
+@media (max-width: 700px) {
+  .bs-entrance-wrap { height: 280vh; }
+  .bs-ring:nth-child(1) { width: 94vw; height: 88vh; }
+  .bs-ring:nth-child(3) { width: 70vw; height: 62vh; }
+  .studio-room-head { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bs-scroll-line { animation: none; }
+}
+</style>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
@@ -16,21 +290,98 @@
 <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
 <div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
 
-<section class="page-hero page-hero-beats">
-  <a href="contact.html" class="btn store-submit-btn">Sell Your Beats <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<!-- ═══ IMMERSIVE ENTRANCE ═══ -->
+<div class="bs-entrance-wrap">
+  <div class="bs-entrance-sticky" id="bs-sticky">
+
+    <!-- Scene A: Corridor perspective -->
+    <div class="bs-scene bs-scene-a" id="bs-scene-a">
+      <div class="bs-corridor">
+        <div class="bs-ring"></div>
+        <div class="bs-ring"></div>
+        <div class="bs-ring"></div>
+        <div class="bs-ring"></div>
+        <div class="bs-ring"></div>
+        <div class="bs-ring"></div>
+        <div class="bs-vp-glow"></div>
+        <div class="bs-door"></div>
+      </div>
+      <div class="bs-enter-text">
+        <span class="bs-eyebrow">Awa Sounds Production</span>
+        <h1>BEAT STORE</h1>
+      </div>
+      <div class="bs-scroll-hint">
+        <span>Enter the studio</span>
+        <div class="bs-scroll-line"></div>
+      </div>
+    </div>
+
+    <!-- Scene B: Video walk-in -->
+    <div class="bs-scene bs-scene-b" id="bs-scene-b">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="assets/img/studio-ambiance.mp4" type="video/mp4">
+      </video>
+      <div class="bs-scene-b-overlay">
+        <div class="bs-walk-text" id="bs-walk-text">Step inside.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ BEAT ROOM ═══ -->
+<section class="studio-room">
+
+  <!-- Converging light rails (showroom ceiling) -->
+  <svg class="studio-rails" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="rail-fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(200,215,240,0.5)"/>
+        <stop offset="100%" stop-color="rgba(200,215,240,0)"/>
+      </linearGradient>
+      <linearGradient id="rail-gold-fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(218,165,32,0.55)"/>
+        <stop offset="100%" stop-color="rgba(218,165,32,0)"/>
+      </linearGradient>
+      <radialGradient id="center-glow" cx="50%" cy="0%" r="60%">
+        <stop offset="0%" stop-color="rgba(218,165,32,0.12)"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <!-- Background glow from ceiling center -->
+    <rect width="1440" height="320" fill="url(#center-glow)"/>
+    <!-- Standard rails left side -->
+    <line x1="0"   y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="1"/>
+    <line x1="80"  y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="1"/>
+    <line x1="200" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="0.7"/>
+    <line x1="360" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="0.5"/>
+    <!-- Standard rails right side -->
+    <line x1="1440" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="1"/>
+    <line x1="1360" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="1"/>
+    <line x1="1240" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="0.7"/>
+    <line x1="1080" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="0.5"/>
+    <!-- Gold accent rails -->
+    <line x1="40"   y1="0" x2="720" y2="320" stroke="url(#rail-gold-fade)" stroke-width="1.5"/>
+    <line x1="1400" y1="0" x2="720" y2="320" stroke="url(#rail-gold-fade)" stroke-width="1.5"/>
+    <line x1="140"  y1="0" x2="720" y2="320" stroke="url(#rail-gold-fade)" stroke-width="0.8"/>
+    <line x1="1300" y1="0" x2="720" y2="320" stroke="url(#rail-gold-fade)" stroke-width="0.8"/>
+  </svg>
+
+  <div class="studio-floor"></div>
+
   <div class="wrap">
-    <div class="breadcrumb"><a href="index.html">Home</a> / Beat Store</div>
-    <span class="eyebrow" data-reveal>Produced In-House</span>
-    <h1 class="display chrome" data-reveal data-reveal-delay="1" data-cms="beatstore.hero.title">Beat Store</h1>
-    <p class="lede" data-reveal data-reveal-delay="2" data-cms="beatstore.hero.lede">Licensable beats from our production team. Lease or go exclusive, open to everyone, signed or not. Save your favourites, build playlists, and write to the beat once you have a free account.</p>
+    <div class="studio-room-head">
+      <div>
+        <span class="eyebrow" data-reveal>Produced In-House</span>
+        <h2 class="section-title chrome" data-reveal data-reveal-delay="1">Pick your sound</h2>
+      </div>
+      <a href="contact.html" class="btn store-submit-btn" style="position:static;transform:none;margin:0">Sell Your Beats <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="bstore" id="beat-list"></div>
   </div>
 </section>
 
-<section class="section" style="padding-top:20px"><div class="wrap">
-  <div class="bstore" id="beat-list"></div>
-</div></section>
-
-<section class="section"><div class="wrap">
+<section class="section" style="background:#06060a"><div class="wrap">
   <div class="section-head"><div><span class="eyebrow" data-reveal>Licensing</span><h2 class="section-title chrome" data-reveal data-reveal-delay="1">Pick your license</h2></div></div>
   <div class="services">
     <div class="service" data-reveal><div class="idx">MP3 LEASE</div><h3>£30</h3><p>Tagged &amp; untagged MP3. Up to 30,000 streams. Non-exclusive, ideal for demos and early releases.</p></div>
@@ -40,7 +391,7 @@
   </div>
 </div></section>
 
-<section class="section" style="padding-top:0"><div class="wrap">
+<section class="section" style="padding-top:0;background:#06060a"><div class="wrap">
   <div class="sub-banner" data-reveal>
     <div>
       <span class="eyebrow">Awa Sounds Insider</span>
@@ -58,6 +409,8 @@
   <div class="foot-col"><h5>Contact</h5><a href="mailto:awasound.music@gmail.com">awasound.music@gmail.com</a><a href="account.html">My Account</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
 </div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;·&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/auth.js"></script>
@@ -67,8 +420,82 @@
 <script src="assets/js/lastdrop.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
-</body></html>
+<script>
+/* ═══ Beat Store Scroll Experience ═══ */
+(function(){
+  if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
 
+  const sceneA  = document.getElementById('bs-scene-a');
+  const sceneB  = document.getElementById('bs-scene-b');
+  const walkTxt = document.getElementById('bs-walk-text');
+  const rings   = document.querySelectorAll('.bs-ring');
 
+  /* ── Corridor ambient particle drift ── */
+  gsap.to('.bs-vp-glow', {
+    scale: 1.12, opacity: 0.8,
+    duration: 3, ease: 'sine.inOut',
+    yoyo: true, repeat: -1
+  });
 
+  /* ── Main scroll driver ── */
+  ScrollTrigger.create({
+    trigger: '.bs-entrance-wrap',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 1.2,
+    onUpdate(self) {
+      const p = self.progress;
 
+      /* Phase 1 (0 → 0.38): Corridor zooms toward viewer */
+      if (p <= 0.38) {
+        const t = p / 0.38;
+        rings.forEach((r, i) => {
+          const s = 1 + t * (0.08 + i * 0.14);
+          r.style.transform = `scale(${s})`;
+          r.style.opacity   = 1 - t * 0.25;
+        });
+        gsap.set(sceneA,  { opacity: 1 });
+        gsap.set(sceneB,  { opacity: 0, clipPath: 'inset(48% 48% 48% 48% round 6px)' });
+        gsap.set(walkTxt, { opacity: 0, y: 14 });
+      }
+
+      /* Phase 2 (0.38 → 0.70): Door opens — video expands from centre */
+      else if (p <= 0.70) {
+        const t = (p - 0.38) / 0.32;
+        const inset = 48 * (1 - t);
+        const radius = Math.max(0, 6 * (1 - t));
+        gsap.set(sceneA, { opacity: Math.max(0, 1 - t * 1.4) });
+        gsap.set(sceneB, {
+          opacity: 1,
+          clipPath: `inset(${inset}% ${inset}% ${inset}% ${inset}% round ${radius}px)`
+        });
+        gsap.set(walkTxt, { opacity: Math.min(1, (t - 0.3) / 0.4), y: 14 * (1 - t) });
+      }
+
+      /* Phase 3 (0.70 → 1.0): Hold on studio video, prepare release */
+      else {
+        gsap.set(sceneA, { opacity: 0 });
+        gsap.set(sceneB, { opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 0px)' });
+        gsap.set(walkTxt, { opacity: 1, y: 0 });
+      }
+    }
+  });
+
+  /* ── Stagger beat cards on studio room entry ── */
+  ScrollTrigger.create({
+    trigger: '.studio-room',
+    start: 'top 80%',
+    once: true,
+    onEnter() {
+      gsap.from('.studio-room .bstore .beat-card', {
+        opacity: 0, y: 28, stagger: 0.07, duration: 0.6,
+        ease: 'power2.out', delay: 0.1
+      });
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
