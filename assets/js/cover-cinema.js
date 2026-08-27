@@ -1,4 +1,4 @@
-/* cover-cinema.js â€” scroll-world scrub engine config for the Cover Art Store
+            /* cover-cinema.js â€” scroll-world scrub engine config for the Cover Art Store
    Drops the scrub-engine's mountScrollWorld into #cover-world.
    Still images are used now; add clip/clipMobile URLs when Higgsfield dive
    videos are generated for each series. */
