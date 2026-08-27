@@ -12,7 +12,7 @@
 <style>
 /* â”€â”€ Cover Store page overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 /* scroll-world brand tokens â€” must win over @layer sw defaults */
-#cover-world {
+#cover-world .sw-root {
   --sw-bg: #090910;
   --sw-ink: #e8e8f2;
   --sw-ink-soft: rgba(232,232,242,.52);
@@ -20,7 +20,14 @@
   --sw-font-display: 'Space Grotesk', system-ui, sans-serif;
   --sw-font-body: 'Inter', system-ui, sans-serif;
 }
-/* Pair grid override for this page */
+/* Push engine topbar below fixed nav (~72px) */
+#cover-world .sw-topbar {
+  top: 72px !important;
+  }
+  /* Hide engine brand - site nav shows AWA SOUNDS */
+  #cover-world .sw-brand {
+    display: none !important;
+    }
 #cover-list { list-style: none; padding: 0; margin: 0; }
 /* Album pack pair preview strip */
 .pack-pair-strip {
