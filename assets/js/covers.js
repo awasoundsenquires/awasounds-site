@@ -11,7 +11,8 @@
   const list = document.getElementById("cover-list");
   if (!list) return;
 
-  const COVERS = (CFG.covers || []).filter(c => !c.auctionOnly);
+  const COVERS = (CFG.covers || []).filter(c => !c.auctionOnly && !c.comingSoon);
+  const COMING_SOON = (CFG.covers || []).filter(c => !c.auctionOnly && c.comingSoon);
   const money = (n) => "£" + Number(n).toFixed(0);
   const coverDiscount = CFG.coverMemberDiscount != null ? CFG.coverMemberDiscount : (CFG.memberDiscount || 0);
   const memberPrice = (n) => Math.round(n * (1 - coverDiscount));
@@ -365,4 +366,70 @@
   }
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+  /* ── Coming Soon section ───────────────────────────────── */
+  (function renderComingSoon() {
+    const container = document.getElementById("coming-soon-list");
+    if (!container || !COMING_SOON.length) return;
+
+    const style = document.createElement("style");
+    style.textContent = `
+      .cs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;margin-top:8px}
+      .cs-card{position:relative;background:var(--panel,#111318);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+      .cs-img{position:relative;aspect-ratio:1/1;overflow:hidden}
+      .cs-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(0.4) brightness(0.7);transition:.3s}
+      .cs-card:hover .cs-img img{filter:grayscale(0.1) brightness(0.85)}
+      .cs-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 40%,rgba(0,0,0,0.85) 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:16px}
+      .cs-lock{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.75);border:1px solid rgba(218,165,32,0.4);border-radius:20px;padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(218,165,32,0.9);font-family:'Space Grotesk',sans-serif}
+      .cs-countdown{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(218,165,32,0.85);margin-bottom:6px;font-family:'Space Grotesk',sans-serif;font-weight:700}
+      .cs-body{padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+      .cs-title{font-size:15px;font-weight:700;color:var(--hi,#e0e0f0);font-family:'Space Grotesk',sans-serif}
+      .cs-sub{font-size:11px;color:var(--muted,#9aa1ab)}
+      .cs-price-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+      .cs-price{font-size:14px;font-weight:700;color:var(--hi,#e0e0f0);font-family:'Space Grotesk',sans-serif}
+      .cs-notify{padding:7px 14px;border-radius:8px;border:1px solid rgba(218,165,32,0.4);background:transparent;color:rgba(218,165,32,0.9);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:.15s}
+      .cs-notify:hover{background:rgba(218,165,32,0.12);border-color:rgba(218,165,32,0.7)}
+      .cs-notify.notified{border-color:rgba(218,165,32,0.3);color:var(--muted);cursor:default}
+      .cs-premium{position:absolute;top:12px;left:12px;background:rgba(218,165,32,0.9);color:#040200;border-radius:4px;padding:3px 8px;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif}
+    `;
+    document.head.appendChild(style);
+
+    const grid = document.createElement("div");
+    grid.className = "cs-grid";
+
+    COMING_SOON.forEach(c => {
+      const days = c.releaseInDays || 30;
+      const el = document.createElement("article");
+      el.className = "cs-card";
+      el.innerHTML = `
+        <div class="cs-img">
+          <img src="${c.img}" alt="${esc(c.title)}" loading="lazy">
+          <div class="cs-overlay">
+            <div class="cs-countdown">Releasing in ${days} days</div>
+          </div>
+          <div class="cs-lock">Coming Soon</div>
+          ${c.premium ? '<div class="cs-premium">Premium</div>' : ""}
+        </div>
+        <div class="cs-body">
+          <div class="cs-title">${esc(c.title)}</div>
+          <div class="cs-sub">${esc(c.sub)}</div>
+          <div class="cs-price-row">
+            <div class="cs-price">£${c.price}</div>
+            <button class="cs-notify" data-id="${esc(c.id)}">Notify Me</button>
+          </div>
+        </div>`;
+
+      el.querySelector(".cs-notify").addEventListener("click", function() {
+        if (this.classList.contains("notified")) return;
+        this.classList.add("notified");
+        this.textContent = "Notified ✓";
+        /* In production: POST to Supabase notifications table */
+      });
+
+      grid.appendChild(el);
+    });
+
+    container.appendChild(grid);
+  })();
+
 })();
