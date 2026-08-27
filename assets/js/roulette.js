@@ -482,7 +482,7 @@
     wrap.innerHTML = `<div class="promo-banner-wrap"><div class="promo-banner">${
       promos.map(p=>`
         <div class="promo-pill" onclick="applyPromoBanner('${p.code}')">
-          <span class="promo-pill-tag">${p.type==="two_for_one"?"2 for 1":p.type==="bundle"?"Bundle":"Offer"}</span>
+          <span class="promo-pill-tag">${p.type==="buy_2_get_1"?"Buy 2 Get 1":p.type==="bundle"?"Bundle":"Offer"}</span>
           <span>${p.label}</span>
           ${p.code?`<span style="font-family:monospace;font-size:11px;opacity:.6">${p.code}</span>`:""}
         </div>`).join("")
