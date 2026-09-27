@@ -44,6 +44,15 @@
   </div>
 </section>
 
+<!-- ACCOUNT REQUIREMENT NOTICE -->
+<div id="vault-access-bar" style="background:rgba(217,195,143,.08);border-bottom:1px solid rgba(217,195,143,.15);padding:12px 0;text-align:center;display:none">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+    <span style="font-size:12.5px;color:#b0b0d0">🔒 <b style="color:#e0e0f0">A free account is required to bid.</b> Sign up in 30 seconds — no card needed.</span>
+    <a href="#" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to bid in Vault Drop auctions.')" style="background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border-radius:8px;padding:7px 16px;text-decoration:none;white-space:nowrap">Create Free Account →</a>
+    <a href="#" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal()" style="font-size:11.5px;color:#7070a0;text-decoration:underline">Already have an account?</a>
+  </div>
+</div>
+
 <!-- LIVE / UPCOMING AUCTIONS GRID -->
 <section class="vault-section">
   <div class="wrap">
@@ -58,6 +67,20 @@
         <div class="loader-ring"></div>
         <p>Loading auctions…</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- DROP CALENDAR -->
+<section class="vault-cal" id="drop-calendar">
+  <div class="wrap">
+    <div class="vc-head">
+      <span class="eyebrow">Schedule</span>
+      <h2 class="section-title">Upcoming Drops</h2>
+      <p class="section-sub">Every session runs twice a month. Set a reminder so you don't lose your spot.</p>
+    </div>
+    <div class="vc-grid" id="vc-grid">
+      <!-- populated by JS below -->
     </div>
   </div>
 </section>
@@ -140,6 +163,102 @@
 <script src="assets/js/config.js"></script>
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/vault.js"></script>
+<script src="assets/js/lastdrop.js"></script>
+<script>
+// Show account bar only for logged-out users
+(function(){
+  function checkVaultAccess(){
+    const bar = document.getElementById('vault-access-bar');
+    if(!bar) return;
+    bar.style.display = window.AWA_SESSION ? 'none' : 'block';
+  }
+  if(window.AWAAuth){ window.AWAAuth.onChange(checkVaultAccess); }
+  else { setTimeout(checkVaultAccess, 800); }
+})();
+</script>
+<script>
+/* ── Drop Calendar ────────────────────────────────────── */
+(function(){
+  function nthSat(y,m,n){
+    let c=0;
+    for(let d=1;d<=31;d++){
+      const dt=new Date(y,m,d);
+      if(dt.getMonth()!==m)break;
+      if(dt.getDay()===6&&++c===n){dt.setHours(19,0,0,0);return dt;}
+    }
+    return null;
+  }
+  function upcoming(count){
+    const drops=[];
+    const now=new Date();
+    let y=now.getFullYear(),m=now.getMonth();
+    while(drops.length<count){
+      [2,4].forEach(n=>{const d=nthSat(y,m,n);if(d&&d>now)drops.push(d);});
+      if(++m>11){m=0;y++;}
+    }
+    return drops.slice(0,count);
+  }
+  function fmt(d){
+    return d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})+" · 7:00 PM GMT";
+  }
+  function countdown(target){
+    const ms=target-Date.now();
+    if(ms<=0)return"Starting soon";
+    const s=Math.floor(ms/1000);
+    const m=Math.floor(s/60)%60,h=Math.floor(s/3600)%24,d=Math.floor(s/86400);
+    return`${d}d ${h}h ${m}m`;
+  }
+  function isBellOn(drop){
+    try{return localStorage.getItem("awa_bell_"+drop.getTime())==="1";}catch(e){return false;}
+  }
+  function toggleBell(drop,btn){
+    const key="awa_bell_"+drop.getTime();
+    const on=isBellOn(drop);
+    try{localStorage.setItem(key,on?"0":"1");}catch(e){}
+    btn.classList.toggle("vc-bell-on",!on);
+    btn.title=on?"Remind me":"Reminder set ✓";
+    // If logged in, persist to Supabase
+    if(!on&&window.AWAAuth&&AWAAuth.user()){
+      AWAAuth.client().from("drop_reminders")
+        .upsert({user_id:AWAAuth.user().id,drop_at:drop.toISOString()})
+        .then(()=>{});
+    }
+  }
+  const drops=upcoming(3);
+  const grid=document.getElementById("vc-grid");
+  if(!grid)return;
+  const LABELS=["Next Drop","Coming Up","On Deck"];
+  drops.forEach((d,i)=>{
+    const card=document.createElement("div");
+    card.className="vc-card"+(i===0?" vc-card-next":"");
+    const bellOn=isBellOn(d);
+    card.innerHTML=`
+      <div class="vc-label">${LABELS[i]}</div>
+      <div class="vc-date">${fmt(d)}</div>
+      <div class="vc-countdown" data-ts="${d.getTime()}">–</div>
+      <div class="vc-foot">
+        <span class="vc-items">10–15 items · Beat &amp; Cover Art</span>
+        <button class="vc-bell${bellOn?" vc-bell-on":""}" title="${bellOn?"Reminder set ✓":"Remind me"}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="vc-bell-txt">${bellOn?"Set":"Remind me"}</span>
+        </button>
+      </div>`;
+    card.querySelector(".vc-bell").addEventListener("click",function(){toggleBell(d,this);this.querySelector(".vc-bell-txt").textContent=isBellOn(d)?"Set":"Remind me";});
+    grid.appendChild(card);
+  });
+  // Live countdowns
+  function tick(){
+    document.querySelectorAll(".vc-countdown").forEach(el=>{
+      const ts=parseInt(el.dataset.ts,10);
+      el.textContent=countdown(new Date(ts));
+    });
+  }
+  tick();setInterval(tick,30000);
+  // Update vault-hero next-drop-date
+  const nd=document.getElementById("next-drop-date");
+  if(nd&&drops[0])nd.textContent=drops[0].toLocaleDateString("en-GB",{day:"numeric",month:"long"})+" at 7 PM";
+})();
+</script>
 <script>document.querySelectorAll("[data-year]").forEach(e=>e.textContent=new Date().getFullYear());</script>
 </body>
 </html>

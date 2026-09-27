@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -9,25 +9,312 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="stylesheet" href="assets/css/roulette.css"/>
+<style>
+/* ═══════════════════════════════════════
+   BEAT STORE — SCROLL CINEMA
+   Technique: video.currentTime driven by
+   scroll position (the scroll wheel IS
+   the playhead through the studio walk-in)
+═══════════════════════════════════════ */
+
+/* Tall container that gives the scroll track */
+.bs-scroll-cinema {
+  position: relative;
+  height: 400vh;
+}
+
+/* Sticky frame — pinned to viewport while user scrolls 400vh */
+.bs-cinema-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+/* The scrub video fills the entire sticky frame */
+#bs-walkthrough {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay sits on top of the video */
+.bs-cinema-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 80px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.45) 0%,
+    rgba(0,0,0,0)    35%,
+    rgba(0,0,0,0)    60%,
+    rgba(0,0,0,0.55) 100%
+  );
+  pointer-events: none;
+}
+
+/* Title block — visible at start, fades as you scroll deeper */
+.bs-enter-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  will-change: opacity, transform;
+}
+
+.bs-eyebrow {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(218,165,32,0.85);
+  margin-bottom: 12px;
+}
+
+.bs-enter-text h1 {
+  font-family: var(--ff-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(52px, 9vw, 100px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  margin: 0;
+  line-height: 1;
+  background: linear-gradient(135deg, #fff 0%, #c8d7f0 55%, #9aabcc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Scroll hint at bottom */
+.bs-scroll-hint {
+  position: absolute;
+  bottom: 7vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  will-change: opacity;
+}
+
+.bs-scroll-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, rgba(218,165,32,0.7), transparent);
+  animation: bs-drop 1.6s ease-in-out infinite;
+}
+
+@keyframes bs-drop {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+  50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+}
+
+/* "Step inside" text — appears mid-scroll */
+.bs-walk-text {
+  position: absolute;
+  bottom: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  opacity: 0;
+  will-change: opacity;
+}
+
+
+/* ═══════════════════════════════════════
+   BEAT ROOM — STUDIO INTERIOR
+═══════════════════════════════════════ */
+.studio-room {
+  background: #06060a;
+  position: relative;
+  overflow: hidden;
+  padding-top: 0;
+}
+
+/* Converging light rails — showroom effect */
+.studio-rails {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  width: 100%;
+  height: 320px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floor reflection strip */
+.studio-floor {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 180px;
+  background: linear-gradient(to top, rgba(218,165,32,0.03) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.studio-room .wrap {
+  position: relative;
+  z-index: 1;
+  padding-top: 80px;
+}
+
+.studio-room-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  gap: 24px;
+}
+.studio-room-head .eyebrow { justify-content: flex-start; }
+
+/* Beat cards inherit studio palette */
+.studio-room .bstore .beat-card {
+  background: rgba(14,16,22,0.95) !important;
+  border-color: rgba(200,215,235,0.07) !important;
+}
+.studio-room .bstore .beat-card:hover {
+  border-color: rgba(218,165,32,0.25) !important;
+  box-shadow: 0 0 40px rgba(218,165,32,0.05), 0 8px 32px rgba(0,0,0,0.6) !important;
+}
+
+/* License section on dark bg */
+.studio-room ~ .section {
+  background: #06060a;
+}
+.studio-room ~ .section .service {
+  background: rgba(14,16,22,0.9);
+  border-color: rgba(200,215,235,0.07);
+}
+.studio-room ~ .section .service:hover {
+  border-color: rgba(218,165,32,0.2);
+}
+
+/* Sub-banner on dark */
+.studio-room ~ .section .sub-banner {
+  background: rgba(14,16,22,0.9);
+  border-color: rgba(200,215,235,0.08);
+}
+
+@media (max-width: 700px) {
+  .bs-scroll-cinema { height: 320vh; }
+  .bs-enter-text h1 { font-size: clamp(40px, 12vw, 72px); }
+  .studio-room-head { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bs-scroll-line { animation: none; }
+}
+</style>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
 <nav class="nav"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a>
-<div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="studio.html">Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
+<div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="album-packs.html">Album Packs</a><a href="vault-drop.html">Vault Drop</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
 <div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
 
-<section class="page-hero"><div class="wrap">
-  <div class="breadcrumb"><a href="index.html">Home</a> / Beat Store</div>
-  <span class="eyebrow" data-reveal>Produced In-House</span>
-  <h1 class="display chrome" data-reveal data-reveal-delay="1" data-cms="beatstore.hero.title">Beat Store</h1>
-  <p class="lede" data-reveal data-reveal-delay="2" data-cms="beatstore.hero.lede">Licensable beats from our production team. Lease or go exclusive, open to everyone, signed or not. Save your favourites, build playlists, and write to the beat once you have a free account.</p>
-</div></section>
+<!-- ═══ SCROLL CINEMA ENTRANCE ═══
+     Technique: scroll wheel = playhead.
+     video.currentTime is driven directly
+     from ScrollTrigger progress so the
+     user "walks into the studio" by scrolling.
+-->
+<div class="bs-scroll-cinema">
+  <div class="bs-cinema-sticky">
 
-<section class="section" style="padding-top:20px"><div class="wrap">
-  <div class="bstore" id="beat-list"></div>
-</div></section>
+    <!-- The scrub video — NOT autoplay, NOT loop. Scroll controls it. -->
+    <video id="bs-walkthrough" src="assets/img/studio-ambiance.mp4"
+           preload="auto" muted playsinline></video>
 
-<section class="section"><div class="wrap">
+    <div class="bs-cinema-overlay">
+      <!-- Title block: visible at scroll 0, fades as you enter deeper -->
+      <div class="bs-enter-text" id="bs-enter-text">
+        <span class="bs-eyebrow">Awa Sounds Production</span>
+        <h1>BEAT STORE</h1>
+      </div>
+
+      <!-- Walk-in text: appears mid-scroll -->
+      <div class="bs-walk-text" id="bs-walk-text">Step inside.</div>
+
+      <!-- Scroll prompt: visible at scroll 0 only -->
+      <div class="bs-scroll-hint" id="bs-scroll-hint">
+        <span>Enter the studio</span>
+        <div class="bs-scroll-line"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ BEAT ROOM ═══ -->
+<section class="studio-room">
+
+  <!-- Converging light rails (showroom ceiling) -->
+  <svg class="studio-rails" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="rail-fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(200,215,240,0.5)"/>
+        <stop offset="100%" stop-color="rgba(200,215,240,0)"/>
+      </linearGradient>
+      <linearGradient id="rail-gold-fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(218,165,32,0.55)"/>
+        <stop offset="100%" stop-color="rgba(218,165,32,0)"/>
+      </linearGradient>
+      <radialGradient id="center-glow" cx="50%" cy="0%" r="60%">
+        <stop offset="0%" stop-color="rgba(218,165,32,0.12)"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+    </defs>
+    <!-- Background glow from ceiling center -->
+    <rect width="1440" height="320" fill="url(#center-glow)"/>
+    <!-- Standard rails left side -->
+    <line x1="0"  y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="1"/>
+    <line x1="80" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="1"/>
+    <line x1="200" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="0.7"/>
+    <line x1="360" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="0.5"/>
+    <!-- Standard rails right side -->
+    <line x1="1440" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="1"/>
+    <line x1="1360" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="1"/>
+    <line x1="1240" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="0.7"/>
+    <line x1="1080" y1="0" x2="720" y2="320" stroke="url(#rail-fade)" stroke-width="0.5"/>
+    <!-- Gold accent rails -->
+    <line x1="40"   y1="0" x2="720" y2="320" stroke="url(#rail-gold-fade)" stroke-width="1.5"/>
+    <line x1="1400" y1="0" x2="720" y2="320" stroke="url(#rail-gold-fade)" stroke-width="1.5"/>
+    <line x1="140"  y1="0" x2="720" y2="320" stroke="url(#rail-gold-fade)" stroke-width="0.8"/>
+    <line x1="1300" y1="0" x2="720" y2="320" stroke="url(#rail-gold-fade)" stroke-width="0.8"/>
+  </svg>
+
+  <div class="studio-floor"></div>
+
+  <div class="wrap">
+    <div class="studio-room-head">
+      <div>
+        <span class="eyebrow" data-reveal>Produced In-House</span>
+        <h2 class="section-title chrome" data-reveal data-reveal-delay="1">Pick your sound</h2>
+      </div>
+      <a href="contact.html" class="btn store-submit-btn" style="position:static;transform:none;margin:0">Sell Your Beats <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="bstore" id="beat-list"></div>
+  </div>
+</section>
+
+<section class="section" style="background:#06060a"><div class="wrap">
   <div class="section-head"><div><span class="eyebrow" data-reveal>Licensing</span><h2 class="section-title chrome" data-reveal data-reveal-delay="1">Pick your license</h2></div></div>
   <div class="services">
     <div class="service" data-reveal><div class="idx">MP3 LEASE</div><h3>£30</h3><p>Tagged &amp; untagged MP3. Up to 30,000 streams. Non-exclusive, ideal for demos and early releases.</p></div>
@@ -37,7 +324,7 @@
   </div>
 </div></section>
 
-<section class="section" style="padding-top:0"><div class="wrap">
+<section class="section" style="padding-top:0;background:#06060a"><div class="wrap">
   <div class="sub-banner" data-reveal>
     <div>
       <span class="eyebrow">Awa Sounds Insider</span>
@@ -54,17 +341,95 @@
   <div class="foot-col"><h5>Divisions</h5><a href="studio.html">Recording Studio</a><a href="beat-store.html">Beat Store</a><a href="contact.html">Distribution</a><a href="contact.html">Sync &amp; Licensing</a></div>
   <div class="foot-col"><h5>Contact</h5><a href="mailto:awasound.music@gmail.com">awasound.music@gmail.com</a><a href="account.html">My Account</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
 </div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;·&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
-
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/cms.js"></script>
 <script src="assets/js/store.js"></script>
 <script src="assets/js/roulette.js"></script>
+<script src="assets/js/lastdrop.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
-</body></html>
+<script src="assets/js/scroll-cinema.js"></script>
+<script>
+/* ═══ Beat Store — Scroll Cinema ═══
+   The scroll wheel IS the playhead.
+   video.currentTime is set from ScrollTrigger
+   progress so the user scrubs through the
+   studio walk-in film frame by frame.
+*/
+(function(){
+  if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
 
+  const video    = document.getElementById('bs-walkthrough');
+  const enterTxt = document.getElementById('bs-enter-text');
+  const walkTxt  = document.getElementById('bs-walk-text');
+  const hint     = document.getElementById('bs-scroll-hint');
 
+  /* Freeze the video at frame 0 on load — do NOT play */
+  video.pause();
+  video.currentTime = 0;
 
+  /* Wait for enough data to scrub smoothly */
+  function initScrub() {
+    ScrollTrigger.create({
+      trigger: '.bs-scroll-cinema',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,          /* scrub:true = 1:1 with scroll, no lag */
+      onUpdate(self) {
+        const p = self.progress;
 
+        /* Drive the video frame by frame */
+        if (video.readyState >= 2 && video.duration) {
+          video.currentTime = p * video.duration;
+        }
+
+        /* Title fades out as you move forward (0 → 0.25) */
+        const titleAlpha = Math.max(0, 1 - p / 0.25);
+        enterTxt.style.opacity = titleAlpha;
+        enterTxt.style.transform = `translate(-50%, calc(-50% + ${p * 40}px))`;
+
+        /* Scroll hint fades out immediately */
+        hint.style.opacity = Math.max(0, 1 - p / 0.15);
+
+        /* "Step inside" text fades in mid-scroll (0.35 → 0.60) then fades out (0.75 → 1.0) */
+        let walkAlpha = 0;
+        if (p >= 0.35 && p <= 0.60) {
+          walkAlpha = (p - 0.35) / 0.25;
+        } else if (p > 0.60 && p <= 0.75) {
+          walkAlpha = 1;
+        } else if (p > 0.75) {
+          walkAlpha = Math.max(0, 1 - (p - 0.75) / 0.25);
+        }
+        walkTxt.style.opacity = walkAlpha;
+      }
+    });
+  }
+
+  if (video.readyState >= 1) {
+    initScrub();
+  } else {
+    video.addEventListener('loadedmetadata', initScrub, { once: true });
+  }
+
+  /* ── Stagger beat cards when studio room scrolls into view ── */
+  ScrollTrigger.create({
+    trigger: '.studio-room',
+    start: 'top 80%',
+    once: true,
+    onEnter() {
+      gsap.from('.studio-room .bstore .beat-card', {
+        opacity: 0, y: 28, stagger: 0.07, duration: 0.6,
+        ease: 'power2.out', delay: 0.1
+      });
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
