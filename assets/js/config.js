@@ -28,8 +28,8 @@ window.AWA = {
   },
 
   /* --- Cover art pay links per tier --- */
-  coverPayLink:          "https://buy.stripe.com/00w6oGfCJ2izg4QapOawo04",  /* £15 Lifestyle */
-  coverAnimatedPayLink:  "https://buy.stripe.com/dRm9ASgGN6yP8Co8hGawo05",  /* £25 Editorial  */
+  coverPayLink:          "https://buy.stripe.com/7sYcN4629f5l3i49lKawo09",  /* £15 Lifestyle */
+  coverAnimatedPayLink:  "https://buy.stripe.com/3cIfZggGNbT9f0M1Tiawo0a",  /* £25 Editorial  */
   coverPremiumPayLink:   "https://buy.stripe.com/14A5kCgGNaP5f0M0Peawo06",  /* £35 Standard   */
   coverCinematicPayLink: "https://buy.stripe.com/aFabJ0629g9p19W0Peawo07",  /* £40 Cinematic  */
   coverSignaturePayLink: "https://buy.stripe.com/28E9ASeyF2iz4m841qawo08",  /* £50 Signature  */
