@@ -153,6 +153,64 @@
   .cov-save-lg{background:none;border:1px solid var(--line,#222238);border-radius:8px;padding:9px 14px;cursor:pointer;color:var(--silver,#7070a0);transition:.15s}
   .cov-save-lg:hover,.cov-save-lg.on{border-color:var(--gold,#e0a030);color:var(--gold,#e0a030)}
   @media(max-width:600px){.cov-pair,.pair-images{grid-template-columns:1fr}.pair-divider{display:none}.pair-grid{grid-template-columns:1fr}.cs-pair-grid{grid-template-columns:1fr}}
+
+  /* ── SOLD State ────────────────────────────────────────────── */
+  .pair-card--sold{cursor:default}
+  .pair-card--sold .pair-art{filter:grayscale(.35) brightness(.72)}
+  .pair-card--sold:hover{transform:none !important;border-color:var(--line,#222238) !important}
+  .pair-card--sold .pair-buy-btn{display:none !important}
+
+  /* Hazard tape overlay */
+  .sold-tape-wrap{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+  .sold-tape{
+    position:absolute;
+    top:50%;left:-30%;
+    width:160%;height:26%;
+    background:repeating-linear-gradient(90deg,#FFD600 0px,#FFD600 16px,#111 16px,#111 32px);
+    border-top:2px solid rgba(0,0,0,.65);
+    border-bottom:2px solid rgba(0,0,0,.65);
+    box-shadow:0 3px 14px rgba(0,0,0,.6);
+    transform-origin:center
+  }
+  .sold-tape-1{transform:translateY(-50%) rotate(-40deg)}
+  .sold-tape-2{transform:translateY(-50%) rotate(40deg)}
+  .sold-center-badge{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    background:#FFD600;
+    border:3px solid #000;
+    border-radius:50%;
+    width:54px;height:54px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10px;font-weight:900;
+    letter-spacing:.14em;text-transform:uppercase;color:#000;
+    z-index:6;
+    box-shadow:0 2px 10px rgba(0,0,0,.7)
+  }
+
+  /* Sold CTA in card footer */
+  .sold-footer-badge{
+    display:flex;align-items:center;gap:6px;
+    padding:5px 14px;
+    background:#FFD600;
+    border:2px solid #000;
+    border-radius:7px;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#000;
+    cursor:default;user-select:none
+  }
+
+  /* Sold state in modal */
+  .cov-sold-banner{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:10px 16px;
+    background:repeating-linear-gradient(90deg,#FFD600 0px,#FFD600 14px,#111 14px,#111 28px);
+    border-top:2px solid #000;border-bottom:2px solid #000;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#000;
+    margin-bottom:16px;border-radius:6px
+  }
   `;
 
   const styleEl = document.createElement("style");
@@ -302,7 +360,7 @@
      ══════════════════════════════════════════════════════════════════ */
   function pairCard(c) {
     const el = document.createElement("article");
-    el.className = "pair-card";
+    el.className = "pair-card" + (c.sold ? " pair-card--sold" : "");
     el.dataset.id = c.id;
     el.dataset.series = c.series || "chrome-universe";
     el.dataset.videos = (c.videos || []).join(",");
@@ -326,6 +384,7 @@
         <div class="pair-slot">
           <div class="pair-art" data-side="clean">
             <img src="${esc(c.imgClean || c.img)}" alt="${esc(c.title)} clean" loading="lazy">
+            ${c.sold ? '<div class="sold-tape-wrap"><div class="sold-tape sold-tape-1"></div><div class="sold-tape sold-tape-2"></div><div class="sold-center-badge">SOLD</div></div>' : ""}
           </div>
           <div class="pair-slot-label">CLEAN</div>
         </div>
@@ -343,6 +402,7 @@
               <span class="pair-title-text">${esc(c.title).toUpperCase()}</span>
               <span class="pair-artist-text">AWA SOUNDS</span>
             </div>
+            ${c.sold ? '<div class="sold-tape-wrap"><div class="sold-tape sold-tape-1"></div><div class="sold-tape sold-tape-2"></div></div>' : ""}
           </div>
           <div class="pair-slot-label">WITH TITLE</div>
         </div>
@@ -360,7 +420,9 @@
           </div>
           <div class="pair-btns">
             <button class="btn btn-ghost btn-sm btn-xs pair-preview-btn">Preview</button>
-            <button class="btn btn-primary btn-sm btn-xs pair-buy-btn">Buy ${money(c.price)}</button>
+            ${c.sold
+              ? '<span class="sold-footer-badge">&#9632; SOLD</span>'
+              : `<button class="btn btn-primary btn-sm btn-xs pair-buy-btn">Buy ${money(c.price)}</button>`}
           </div>
         </div>
       </div>`;
@@ -373,7 +435,8 @@
     });
 
     el.querySelector(".pair-preview-btn").addEventListener("click", e => { e.stopPropagation(); openDetail(c.id); });
-    el.querySelector(".pair-buy-btn").addEventListener("click",    e => { e.stopPropagation(); triggerBuy(c, isMember(), memPx); });
+    const buyBtn = el.querySelector(".pair-buy-btn");
+    if (buyBtn) buyBtn.addEventListener("click", e => { e.stopPropagation(); triggerBuy(c, isMember(), memPx); });
     el.querySelector(".cover-save").addEventListener("click",      e => { e.stopPropagation(); toggleSave(el); });
 
     return el;
@@ -489,7 +552,28 @@
     const saveBtn = dm.querySelector(".cov-save-lg");
     saveBtn.classList.toggle("on", likeSet.has(c.id));
     saveBtn.onclick = () => toggleSaveById(c.id, saveBtn);
-    dm.querySelector(".cov-buy-btn").onclick = () => triggerBuy(c, member, memPx);
+
+    const covBuyBtn = dm.querySelector(".cov-buy-btn");
+    let soldBanner = dm.querySelector(".cov-sold-banner");
+    if (c.sold) {
+      covBuyBtn.disabled = true;
+      covBuyBtn.textContent = "Sold";
+      covBuyBtn.style.opacity = "0.4";
+      covBuyBtn.onclick = null;
+      if (!soldBanner) {
+        soldBanner = document.createElement("div");
+        soldBanner.className = "cov-sold-banner";
+        soldBanner.innerHTML = "&#9888; THIS COVER HAS BEEN SOLD";
+        dm.querySelector(".cov-info-bar").insertAdjacentElement("beforebegin", soldBanner);
+      }
+      soldBanner.style.display = "";
+    } else {
+      covBuyBtn.disabled = false;
+      covBuyBtn.textContent = "Buy cover";
+      covBuyBtn.style.opacity = "";
+      covBuyBtn.onclick = () => triggerBuy(c, member, memPx);
+      if (soldBanner) soldBanner.style.display = "none";
+    }
 
     dm.classList.add("open");
     document.body.style.overflow = "hidden";
@@ -519,11 +603,14 @@
   }
 
   function openPayLink(c) {
+    if (c.sold) return; // Sold — purchase blocked
     if (c.pay) { window.open(c.pay, "_blank", "noopener"); return; }
     // Route to tier-specific Stripe link based on price
     let globalLink = CFG.coverPayLink;
-    if (c.price >= 35 && CFG.coverPremiumPayLink)       globalLink = CFG.coverPremiumPayLink;
-    else if (c.price >= 29 && CFG.coverAnimatedPayLink) globalLink = CFG.coverAnimatedPayLink;
+    if      (c.price >= 50 && CFG.coverSignaturePayLink)  globalLink = CFG.coverSignaturePayLink;
+    else if (c.price >= 40 && CFG.coverCinematicPayLink)  globalLink = CFG.coverCinematicPayLink;
+    else if (c.price >= 35 && CFG.coverPremiumPayLink)    globalLink = CFG.coverPremiumPayLink;
+    else if (c.price >= 25 && CFG.coverAnimatedPayLink)   globalLink = CFG.coverAnimatedPayLink;
     if (globalLink) { window.open(globalLink, "_blank", "noopener"); return; }
     const to   = CFG.enquiryEmail || "awasound.music@gmail.com";
     const subj = encodeURIComponent(`Cover art enquiry — ${c.title}`);
