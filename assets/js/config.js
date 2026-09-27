@@ -238,6 +238,36 @@ window.AWA = {
     { id:"ice-fold",     series:"chrome-universe",title:"Ice Fold",  sub:"Crystal cold",  img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:[], price:19, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-11-07", pay:"" },
     { id:"void-signal",  series:"void",        title:"Void Signal",  sub:"Static dark",   img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:19, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-11-07", pay:"" },
 
+    /* ── CHROME UNIVERSE — Extended Pack (5 new) ────────────────────── */
+    { id:"silver-peak",   series:"chrome-universe", title:"Silver Peak",   sub:"Mountain chrome",  img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:29, premium:false, auctionOnly:false, pay:"" },
+    { id:"liquid-arc",    series:"chrome-universe", title:"Liquid Arc",    sub:"Flowing silver",   img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"chrome-storm",  series:"chrome-universe", title:"Chrome Storm",  sub:"Metal tempest",    img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:[], price:19, premium:false, auctionOnly:false, pay:"" },
+    { id:"prism",         series:"chrome-universe", title:"Prism",         sub:"Refracted chrome", img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:29, premium:false, auctionOnly:false, pay:"" },
+    { id:"mirror-fade",   series:"chrome-universe", title:"Mirror Fade",   sub:"Reflective silver",img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+
+    /* ── VOID SERIES — Extended Pack (4 new) ────────────────────────── */
+    { id:"deep-null",     series:"void", title:"Deep Null",     sub:"Absolute dark",    img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:19, premium:false, auctionOnly:false, pay:"" },
+    { id:"void-prism",    series:"void", title:"Void Prism",    sub:"Dark refraction",  img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"obsidian",      series:"void", title:"Obsidian",      sub:"Volcanic black",   img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:29, premium:false, auctionOnly:false, pay:"" },
+    { id:"dark-matter",   series:"void", title:"Dark Matter",   sub:"Unknown void",     img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:[], price:19, premium:false, auctionOnly:false, pay:"" },
+
+    /* ── GOLD SEASON — Extended Pack (4 new) ────────────────────────── */
+    { id:"rose-gold",     series:"gold-season", title:"Rose Gold",     sub:"Blush chrome",     img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:29, premium:false, auctionOnly:false, pay:"" },
+    { id:"gold-rush",     series:"gold-season", title:"Gold Rush",     sub:"Raw gold chrome",  img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"caramel",       series:"gold-season", title:"Caramel",       sub:"Warm spice chrome",img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:[], price:19, premium:false, auctionOnly:false, pay:"" },
+    { id:"topaz",         series:"gold-season", title:"Topaz",         sub:"Gem gold",         img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:29, premium:false, auctionOnly:false, pay:"" },
+
+    /* ── FLUX — Extended Pack (4 new) ───────────────────────────────── */
+    { id:"surge",         series:"flux", title:"Surge",         sub:"Power chrome",     img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:[], price:19, premium:false, auctionOnly:false, pay:"" },
+    { id:"voltage",       series:"flux", title:"Voltage",       sub:"Electric storm",   img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"flicker",       series:"flux", title:"Flicker",       sub:"Brief light",      img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:19, premium:false, auctionOnly:false, pay:"" },
+    { id:"circuit",       series:"flux", title:"Circuit",       sub:"Board chrome",     img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:[], price:29, premium:false, auctionOnly:false, pay:"" },
+
+    /* ── EARTH CHROME — Extended Pack (3 new) ───────────────────────── */
+    { id:"fossil",        series:"earth-chrome", title:"Fossil",        sub:"Ancient chrome",   img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:[], price:19, premium:false, auctionOnly:false, pay:"" },
+    { id:"flint",         series:"earth-chrome", title:"Flint",         sub:"Struck metal",     img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:29, premium:false, auctionOnly:false, pay:"" },
+    { id:"dune-chrome",   series:"earth-chrome", title:"Dune Chrome",   sub:"Sand-swept metal", img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+
     /* ── AUCTION ONLY (Vault Drop exclusive — never shown in store) ───── */
     { id:"onyx-rain",    title:"Onyx Rain",    sub:"Vault Drop exclusive", img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:null, auctionOnly:true, pay:"" },
     { id:"sol-chrome",   title:"Sol Chrome",   sub:"Vault Drop exclusive", img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:null, auctionOnly:true, pay:"" },
