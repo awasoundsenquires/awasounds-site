@@ -27,8 +27,10 @@ window.AWA = {
     trackout: "https://buy.stripe.com/7sY5kCbmt6yP4m87dCawo02"
   },
 
-  /* --- Cover art default pay link (Standard tier £19) --- */
-  coverPayLink: "https://buy.stripe.com/00w6oGfCJ2izg4QapOawo04",
+  /* --- Cover art pay links per tier --- */
+  coverPayLink:         "https://buy.stripe.com/00w6oGfCJ2izg4QapOawo04",
+  coverAnimatedPayLink: "https://buy.stripe.com/dRm9ASgGN6yP8Co8hGawo05",
+  coverPremiumPayLink:  "https://buy.stripe.com/14A5kCgGNaP5f0M0Peawo06",
 
   /* --- Vault Drop Auction --- */
   creditPayLinks: { 100: "", 250: "", 500: "" },

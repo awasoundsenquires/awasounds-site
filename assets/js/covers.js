@@ -520,6 +520,11 @@
 
   function openPayLink(c) {
     if (c.pay) { window.open(c.pay, "_blank", "noopener"); return; }
+    // Route to tier-specific Stripe link based on price
+    let globalLink = CFG.coverPayLink;
+    if (c.price >= 35 && CFG.coverPremiumPayLink)       globalLink = CFG.coverPremiumPayLink;
+    else if (c.price >= 29 && CFG.coverAnimatedPayLink) globalLink = CFG.coverAnimatedPayLink;
+    if (globalLink) { window.open(globalLink, "_blank", "noopener"); return; }
     const to   = CFG.enquiryEmail || "awasound.music@gmail.com";
     const subj = encodeURIComponent(`Cover art enquiry — ${c.title}`);
     const body = encodeURIComponent(`Hi Awa Sounds,\n\nI'd like to buy the "${c.title}" cover (${c.sub}).\n\nName:\nRelease title:\n\nThanks.`);
