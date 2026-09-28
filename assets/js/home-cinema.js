@@ -24,7 +24,7 @@
         accent:  '#c9ced6',
         eyebrow: 'Independent Record Label · United Kingdom',
         title:   'Independent.\nCinematic.\nPermanent.',
-        body:    'We sign artists who refuse to sound like everyone else. Real A&R. Real strategy. Full career development under one roof, from first take to global distribution.',
+        body:    'The industry stopped developing artists and started renting them distribution. We do it the old way and the new way at once — real A&R, real studio time, real strategy, then release it everywhere that matters.',
         tags:    ['Artist Development', 'Distribution', 'Beat Store', 'Cover Art'],
         cta: {
           primary:   { label: 'Submit Your Demo', href: 'contact.html' },
