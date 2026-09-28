@@ -235,32 +235,7 @@
      from ScrollTrigger progress so the
      user "walks into the studio" by scrolling.
 -->
-<div class="bs-scroll-cinema">
-  <div class="bs-cinema-sticky">
-
-    <!-- The scrub video â€” NOT autoplay, NOT loop. Scroll controls it. -->
-    <video id="bs-walkthrough" src="assets/img/studio-ambiance.mp4"
-           preload="auto" muted playsinline></video>
-
-    <div class="bs-cinema-overlay">
-      <!-- Title block: visible at scroll 0, fades as you enter deeper -->
-      <div class="bs-enter-text" id="bs-enter-text">
-        <span class="bs-eyebrow">Awa Sounds Production</span>
-        <h1>BEAT STORE</h1>
-      </div>
-
-      <!-- Walk-in text: appears mid-scroll -->
-      <div class="bs-walk-text" id="bs-walk-text">Step inside.</div>
-
-      <!-- Scroll prompt: visible at scroll 0 only -->
-      <div class="bs-scroll-hint" id="bs-scroll-hint">
-        <span>Enter the studio</span>
-        <div class="bs-scroll-line"></div>
-      </div>
-    </div>
-
-  </div>
-</div>
+<div id="beat-world"></div>
 
 <!-- â•â•â• BEAT ROOM â•â•â• -->
 <section class="studio-room">
@@ -352,75 +327,14 @@
 <script src="assets/js/lastdrop.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/scroll-cinema.js"></script>
+<script src="assets/js/cinematic-engine.js"></script>
+<script src="assets/js/beat-cinema.js"></script>
 <script>
-/* â•â•â• Beat Store â€” Scroll Cinema â•â•â•
-   The scroll wheel IS the playhead.
-   video.currentTime is set from ScrollTrigger
-   progress so the user scrubs through the
-   studio walk-in film frame by frame.
-*/
 (function(){
   if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-
-  const video    = document.getElementById('bs-walkthrough');
-  const enterTxt = document.getElementById('bs-enter-text');
-  const walkTxt  = document.getElementById('bs-walk-text');
-  const hint     = document.getElementById('bs-scroll-hint');
-
-  /* Freeze the video at frame 0 on load â€” do NOT play */
-  video.pause();
-  video.currentTime = 0;
-
-  /* Wait for enough data to scrub smoothly */
-  function initScrub() {
-    ScrollTrigger.create({
-      trigger: '.bs-scroll-cinema',
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: true,          /* scrub:true = 1:1 with scroll, no lag */
-      onUpdate(self) {
-        const p = self.progress;
-
-        /* Drive the video frame by frame */
-        if (video.readyState >= 2 && video.duration) {
-          video.currentTime = p * video.duration;
-        }
-
-        /* Title fades out as you move forward (0 â†’ 0.25) */
-        const titleAlpha = Math.max(0, 1 - p / 0.25);
-        enterTxt.style.opacity = titleAlpha;
-        enterTxt.style.transform = `translate(-50%, calc(-50% + ${p * 40}px))`;
-
-        /* Scroll hint fades out immediately */
-        hint.style.opacity = Math.max(0, 1 - p / 0.15);
-
-        /* "Step inside" text fades in mid-scroll (0.35 â†’ 0.60) then fades out (0.75 â†’ 1.0) */
-        let walkAlpha = 0;
-        if (p >= 0.35 && p <= 0.60) {
-          walkAlpha = (p - 0.35) / 0.25;
-        } else if (p > 0.60 && p <= 0.75) {
-          walkAlpha = 1;
-        } else if (p > 0.75) {
-          walkAlpha = Math.max(0, 1 - (p - 0.75) / 0.25);
-        }
-        walkTxt.style.opacity = walkAlpha;
-      }
-    });
-  }
-
-  if (video.readyState >= 1) {
-    initScrub();
-  } else {
-    video.addEventListener('loadedmetadata', initScrub, { once: true });
-  }
-
-  /* â”€â”€ Stagger beat cards when studio room scrolls into view â”€â”€ */
   ScrollTrigger.create({
-    trigger: '.studio-room',
-    start: 'top 80%',
-    once: true,
+    trigger: '.studio-room', start: 'top 80%', once: true,
     onEnter() {
       gsap.from('.studio-room .bstore .beat-card', {
         opacity: 0, y: 28, stagger: 0.07, duration: 0.6,
@@ -428,7 +342,6 @@
       });
     }
   });
-
 })();
 </script>
 <script src="assets/js/premium-fx.js"></script>
