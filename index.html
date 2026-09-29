@@ -137,6 +137,17 @@
   pointer-events: none;
 }
 @media (max-width: 640px) { .svs { height: 140px; } }
+
+/* Phase 4: protagonists strip + price tease */
+.hero-sub-strip { display:flex; align-items:center; gap:16px; margin-top:20px; flex-wrap:wrap; }
+.hero-protagonist-tag { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.38); display:flex; align-items:center; gap:8px; }
+.hero-protagonist-tag .sep { opacity:.35; }
+.hero-price-pill { display:inline-flex; align-items:center; gap:8px; padding:5px 14px; border:1px solid rgba(200,168,75,.28); border-radius:20px; background:rgba(200,168,75,.06); }
+.hero-price-pill a { color:rgba(200,168,75,.88); text-decoration:none; font-size:12px; font-weight:600; letter-spacing:.04em; }
+.hero-price-pill a:hover { color:#c8a84b; }
+.hero-price-pill .sep { color:rgba(255,255,255,.22); font-size:11px; }
+.nav-insider { color:rgba(200,168,75,.9) !important; font-weight:600; }
+.nav-insider:hover { color:#c8a84b !important; }
 </style>
 </head>
 <body>
@@ -162,7 +173,7 @@
     <a href="vault-drop.html">Vault Drop</a>
     <a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a>
     <a href="gallery.html">Gallery</a>
-    <a href="contact.html">Contact</a>
+    <a href="account.html" class="nav-insider">Insider ✶</a><a href="contact.html">Contact</a>
   </div>
   <div class="nav-right">
     <a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a>
@@ -186,6 +197,10 @@
     <div class="hero-cta" data-reveal data-reveal-delay="3">
       <a href="contact.html" class="btn btn-primary">Submit Your Demo <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a href="roster.html" class="btn btn-ghost">Explore the Label</a>
+    </div>
+    <div class="hero-sub-strip" data-reveal data-reveal-delay="4">
+      <p class="hero-protagonist-tag"><span>Independent artists</span><span class="sep">·</span><span>Beat producers</span><span class="sep">·</span><span>Emerging creators</span></p>
+      <div class="hero-price-pill"><a href="beat-store.html">Beats from £<b>30</b></a><span class="sep">·</span><a href="cover-store.html">Covers from £<b>15</b></a></div>
     </div>
   </div>
   <div class="scroll-hint"><span class="dot"></span>Scroll</div>
