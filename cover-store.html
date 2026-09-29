@@ -11,23 +11,100 @@
 <link rel="stylesheet" href="assets/css/roulette.css"/>
 <style>
 /* â"€â"€ Cover Store page overrides â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
-/* scroll-world brand tokens &#x2014; must win over @layer sw defaults */
-#cover-world .sw-root {
-  --sw-bg: #090910;
-  --sw-ink: #e8e8f2;
-  --sw-ink-soft: rgba(232,232,242,.52);
-  --sw-accent: #c8a84b;
-  --sw-font-display: 'Space Grotesk', system-ui, sans-serif;
-  --sw-font-body: 'Inter', system-ui, sans-serif;
+/* -- Cover Intro Cinema Sequence ----------------------------------- */
+#cover-intro-seq {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  max-height: 820px;
+  min-height: 400px;
+  overflow: hidden;
+  background: #050508;
 }
-/* Push engine topbar below fixed nav (~72px) */
-#cover-world .sw-topbar {
-  top: 72px !important;
-  }
-  /* Hide engine brand - site nav shows AWA SOUNDS */
-  #cover-world .sw-brand {
-    display: none !important;
-    }
+#cis-vid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+#cis-vid.cis-playing { opacity: 1; }
+.cis-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(5,5,8,.12) 0%, transparent 35%, rgba(5,5,8,.55) 72%, rgba(5,5,8,.97) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 40px 52px;
+  pointer-events: none;
+}
+.cis-text { margin-bottom: 22px; }
+.cis-eyebrow {
+  display: block;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #c8a84b;
+  margin-bottom: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+.cis-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(24px, 5vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #e8e8f2;
+  margin: 0;
+}
+.cis-bars { display: flex; gap: 6px; }
+.cis-bar {
+  flex: 1;
+  height: 2px;
+  background: rgba(232,232,242,.18);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.cis-bar.cis-done { background: rgba(200,168,75,.6); }
+.cis-bar.cis-active { background: rgba(232,232,242,.18); overflow: hidden; }
+.cis-bar.cis-active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #c8a84b;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: cis-fill var(--cis-dur, 12s) linear forwards;
+}
+@keyframes cis-fill { to { transform: scaleX(1); } }
+.cis-skip {
+  position: absolute;
+  bottom: 22px;
+  right: 28px;
+  background: rgba(200,168,75,.1);
+  border: 1px solid rgba(200,168,75,.28);
+  color: #c8a84b;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background .2s;
+  z-index: 2;
+}
+.cis-skip:hover { background: rgba(200,168,75,.2); }
+@media (max-width: 640px) {
+  #cover-intro-seq { height: 65vh; max-height: 520px; }
+  .cis-overlay { padding: 0 20px 40px; }
+  .cis-headline { font-size: clamp(20px, 6.5vw, 30px); }
+  .cis-skip { right: 16px; bottom: 16px; }
+}
 #cover-list { list-style: none; padding: 0; margin: 0; }
 /* Album pack pair preview strip */
 .pack-pair-strip {
@@ -91,11 +168,61 @@
 <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
 <div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-     SCROLL-WORLD CINEMA &#x2014; driven by scrub-engine.js + cover-cinema.js
-     Still images used now; swap in Higgsfield dive clips via config
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<div id="cover-world" aria-label="Cover art series explorer"></div>
+<!-- COVER ART CINEMA INTRO - 3 sequential autoplay videos chained end-to-end -->
+<section id="cover-intro-seq" aria-label="Cover art collection preview">
+  <video id="cis-vid" muted playsinline preload="auto"></video>
+  <div class="cis-overlay">
+    <div class="cis-text" id="cis-text"></div>
+    <div class="cis-bars" id="cis-bars">
+      <div class="cis-bar"></div>
+      <div class="cis-bar"></div>
+      <div class="cis-bar"></div>
+    </div>
+  </div>
+  <button class="cis-skip" id="cis-skip">View Collection &#x2193;</button>
+</section>
+<script>
+(function(){
+  var clips = [
+    { src: 'assets/img/studio-ambiance.mp4', eyebrow: 'Chrome &#xB7; Void &#xB7; Gold &#xB7; Earth', head: 'Premium cover art,<br>built for your sound.' },
+    { src: 'assets/img/studio-ambiance.mp4', eyebrow: 'Exclusive &#xB7; Sold once &#xB7; Retired forever', head: 'Every piece is unique.<br>None are reprinted.' },
+    { src: 'assets/img/studio-ambiance.mp4', eyebrow: 'Your visual identity starts here', head: 'Scroll down to discover<br>the collection.' }
+  ];
+  var cur = 0;
+  var vidEl  = document.getElementById('cis-vid');
+  var textEl = document.getElementById('cis-text');
+  var barsEl = document.getElementById('cis-bars');
+  var skipBtn = document.getElementById('cis-skip');
+  var bars = Array.from(barsEl.children);
+  function scrollToGrid(){
+    var g = document.getElementById('cover-grid');
+    if(g) g.scrollIntoView({ behavior:'smooth' });
+    else   window.scrollBy({ top: window.innerHeight, behavior:'smooth' });
+  }
+  function playClip(idx){
+    cur = idx;
+    var c = clips[idx];
+    textEl.innerHTML = '<span class="cis-eyebrow">'+c.eyebrow+'</span><h2 class="cis-headline chrome">'+c.head+'</h2>';
+    vidEl.classList.remove('cis-playing');
+    vidEl.src = c.src;
+    vidEl.load();
+    vidEl.oncanplay = function(){
+      bars.forEach(function(b,i){
+        b.className = 'cis-bar';
+        if(i < idx) b.classList.add('cis-done');
+        if(i === idx){ b.classList.add('cis-active'); b.style.setProperty('--cis-dur', (vidEl.duration||12)+'s'); }
+      });
+    };
+    vidEl.play().then(function(){ vidEl.classList.add('cis-playing'); }).catch(scrollToGrid);
+  }
+  vidEl.addEventListener('ended', function(){
+    if(cur < clips.length - 1) playClip(cur + 1);
+    else setTimeout(scrollToGrid, 500);
+  });
+  skipBtn.addEventListener('click', scrollToGrid);
+  playClip(0);
+})();
+</script>
 
 <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      MEMBER BANNER
@@ -319,14 +446,10 @@
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<!-- cinematic engine &#x2014; direct-URL seeking, canvas frame buffer, ken burns -->
-<script src="assets/js/cinematic-engine.js"></script>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/receipt-fx.js"></script>
 <script src="assets/js/covers.js"></script>
-<!-- cover-cinema initialises mountScrollWorld after covers.js sets up the grid -->
-<script src="assets/js/cover-cinema.js"></script>
 <script src="assets/js/roulette.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
