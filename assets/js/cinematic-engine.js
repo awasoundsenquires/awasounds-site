@@ -259,6 +259,8 @@ function mountScrollWorld(container, config) {
     scrollbarFill.style.transform = `scaleX(${clamp(y/(totalW*vh))})`;
     hint.style.opacity = clamp(1-y/(0.5*vh));
     if (particles) particles.style.transform = `translate3d(0,${-y*0.05}px,0)`;
+    // exit cinema: fade all fixed layers when user scrolls past the track
+    container.classList.toggle('sw-exited', y > totalW * vh);
     ticking = false;
   }
 
@@ -350,7 +352,7 @@ function injectCinemaCSS() {
   html,body{margin:0;background:var(--sw-bg,#050506);overflow-x:hidden}
 
   /* sky / atmosphere */
-  .sw-sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--sw-bg)}
+  .sw-sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--sw-bg);transition:opacity .5s}
   .sw-sky__grad{position:absolute;inset:-10%;background:linear-gradient(178deg,
     color-mix(in srgb,var(--sw-accent) 8%,var(--sw-bg)) 0%,
     var(--sw-bg) 55%,
@@ -371,14 +373,14 @@ function injectCinemaCSS() {
 
   /* scrollbar */
   .sw-scrollbar{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;
-    background:color-mix(in srgb,var(--sw-accent) 12%,transparent)}
+    background:color-mix(in srgb,var(--sw-accent) 12%,transparent);transition:opacity .5s}
   .sw-scrollbar span{display:block;height:100%;width:100%;transform-origin:0 50%;
     transform:scaleX(0);background:var(--sw-accent)}
 
   /* topbar */
   .sw-topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;
     align-items:center;justify-content:space-between;gap:16px;
-    padding:clamp(14px,2.4vw,26px) clamp(18px,5vw,64px)}
+    padding:clamp(14px,2.4vw,26px) clamp(18px,5vw,64px);transition:opacity .5s}
   .sw-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--sw-ink)}
   .sw-brand__mark{width:24px;height:28px;border-radius:7px 7px 10px 10px;
     background:linear-gradient(160deg,var(--sw-accent),color-mix(in srgb,var(--sw-accent) 60%,#000));
@@ -396,7 +398,7 @@ function injectCinemaCSS() {
     background:var(--sw-ink);padding:10px 20px;border-radius:999px;white-space:nowrap}
 
   /* stage */
-  .sw-stage{position:fixed;inset:0;z-index:10;pointer-events:none}
+  .sw-stage{position:fixed;inset:0;z-index:10;pointer-events:none;transition:opacity .5s}
   .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity}
 
   /* stills with Ken Burns ambient animation */
@@ -430,10 +432,10 @@ function injectCinemaCSS() {
   .sw-scene.has-clip .sw-scene__still{opacity:0;animation:none}
 
   /* copy layer */
-  .sw-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none}
+  .sw-copylayer{position:fixed;inset:0;z-index:20;pointer-events:none;transition:opacity .5s}
   .sw-copylayer::before{content:"";position:absolute;inset:0;width:min(62vw,820px);
-    background:linear-gradient(90deg,rgba(5,5,6,.76) 0%,rgba(5,5,6,.54) 36%,
-      rgba(5,5,6,.22) 64%,transparent 100%)}
+    background:linear-gradient(90deg,rgba(5,5,6,.50) 0%,rgba(5,5,6,.30) 36%,
+      rgba(5,5,6,.10) 64%,transparent 100%)}
   .sw-copy{position:absolute;left:clamp(18px,5vw,64px);top:50%;
     transform:translateY(-50%);width:min(42vw,460px);opacity:0;will-change:opacity,transform}
   .sw-copy__num{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;
@@ -462,7 +464,7 @@ function injectCinemaCSS() {
 
   /* route dots */
   .sw-route{position:fixed;right:clamp(14px,2.4vw,30px);top:50%;z-index:40;
-    transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;padding:18px 10px}
+    transform:translateY(-50%);display:flex;flex-direction:column;gap:22px;padding:18px 10px;transition:opacity .5s}
   .sw-route::before{content:"";position:absolute;left:50%;top:22px;bottom:22px;width:1px;
     transform:translateX(-50%);background:var(--sw-accent);opacity:.2}
   .sw-route__dot{position:relative;border:0;background:transparent;cursor:pointer;
@@ -496,6 +498,11 @@ function injectCinemaCSS() {
   @keyframes sw-wheel{
     0%{opacity:0;top:6px} 40%{opacity:1} 100%{opacity:0;top:17px}
   }
+  /* cinema exit — fade & disable all fixed layers once user scrolls past the track */
+  .sw-root.sw-exited .sw-sky,.sw-root.sw-exited .sw-stage,.sw-root.sw-exited .sw-copylayer,
+  .sw-root.sw-exited .sw-scrollbar,.sw-root.sw-exited .sw-topbar,.sw-root.sw-exited .sw-route,
+  .sw-root.sw-exited .sw-hint{opacity:0;pointer-events:none}
+
   .sw-track{position:relative;z-index:1;width:100%;pointer-events:none}
 
   /* mobile */
