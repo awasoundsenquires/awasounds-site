@@ -89,6 +89,24 @@
       el.textContent = "Sign in";
       el.onclick = (e) => { e.preventDefault(); openModal(); };
     }
+    // Sync mobile drawer — add Insider CTA or My Account link
+    const navLinks = document.querySelector(".nav-links");
+    if (navLinks) {
+      let mobileAcct = navLinks.querySelector(".nav-mobile-account");
+      if (!mobileAcct) {
+        mobileAcct = document.createElement("a");
+        mobileAcct.className = "nav-mobile-account";
+        navLinks.appendChild(mobileAcct);
+      }
+      if (session) {
+        mobileAcct.href = "account.html";
+        mobileAcct.textContent = "My Account";
+      } else {
+        mobileAcct.href = "#";
+        mobileAcct.textContent = "Become an Insider \u2192";
+        mobileAcct.onclick = (e) => { e.preventDefault(); openModal("Join Awa Sounds. Unlock Insider pricing, save beats and submit demos."); };
+      }
+    }
   }
 
   /* ---------- Auth modal ---------- */
