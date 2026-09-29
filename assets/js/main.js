@@ -5,11 +5,23 @@
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-  /* Preloader — hide as soon as the DOM is ready, never wait on video downloads */
+  /* Preloader — skip on return visits in the same session; only show on first load */
   const hidePreload = () => { const p = $(".preload"); if (p) p.classList.add("done"); };
-  if (document.readyState !== "loading") setTimeout(hidePreload, 400);
-  else document.addEventListener("DOMContentLoaded", () => setTimeout(hidePreload, 400));
-  setTimeout(hidePreload, 2000); // hard cap so a slow asset can never trap the loader
+  try {
+    if (sessionStorage.getItem("awa_visited")) {
+      const p = document.querySelector(".preload");
+      if (p) { p.style.transition = "none"; p.classList.add("done"); }
+    } else {
+      sessionStorage.setItem("awa_visited", "1");
+      if (document.readyState !== "loading") setTimeout(hidePreload, 400);
+      else document.addEventListener("DOMContentLoaded", () => setTimeout(hidePreload, 400));
+      setTimeout(hidePreload, 2000);
+    }
+  } catch(e) {
+    if (document.readyState !== "loading") setTimeout(hidePreload, 400);
+    else document.addEventListener("DOMContentLoaded", () => setTimeout(hidePreload, 400));
+    setTimeout(hidePreload, 2000);
+  }
 
   /* Hover-play videos must not block first paint or the load event */
   $$(".media-video").forEach(v => { v.preload = "none"; });
@@ -30,7 +42,7 @@
     $$(".nav-links a").forEach(a => a.addEventListener("click", () => links.classList.remove("open")));
   }
 
-  /* Scroll direction — drives the reversed reveal on the way up */
+  /* Scroll direction */
   let lastY = window.scrollY;
   document.body.classList.add("dir-down");
   window.addEventListener("scroll", () => {
@@ -43,7 +55,7 @@
     }
   }, { passive: true });
 
-  /* Reveal on scroll — bidirectional: replays entering, reverses leaving (locked loop) */
+  /* Reveal on scroll */
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => e.target.classList.toggle("in", e.isIntersecting));
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
@@ -91,8 +103,6 @@
       });
       btn.addEventListener("mouseleave", () => { btn.style.transform = ""; });
     });
-
-    /* Service spotlight follow */
     $$(".service").forEach(s => {
       s.addEventListener("mousemove", (e) => {
         const r = s.getBoundingClientRect();
@@ -100,8 +110,6 @@
         s.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
       });
     });
-
-    /* Cursor glow */
     const glow = document.createElement("div");
     glow.className = "cursor-glow";
     document.body.appendChild(glow);
@@ -122,7 +130,7 @@
     }, { passive: true });
   }
 
-  /* Audio toggle — controls hero video sound */
+  /* Audio toggle */
   const toggle = $(".audio-toggle"), vid = $(".hero-media video");
   if (toggle && vid) {
     toggle.classList.add("muted");
@@ -133,7 +141,7 @@
     });
   }
 
-  /* Demo play buttons — visual feedback only (placeholder for real audio) */
+  /* Demo play buttons */
   $$("[data-play]").forEach(el => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
@@ -160,7 +168,7 @@
     });
   }
 
-  /* Store card: cycle 2 video previews on hover */
+  /* Store card: cycle video previews on hover */
   $$(".store-card.has-motion").forEach(card => {
     const vid = $(".media-video", card);
     const dots = $$(".previews span", card);
@@ -200,11 +208,11 @@
     const banner = document.createElement("div");
     banner.id = "cookie-banner";
     banner.innerHTML = `
-      <p>We use strictly necessary cookies to keep you logged in. <a href="/cookie-policy.html">Cookie Policy</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
+      <p>We use strictly necessary cookies to keep you logged in. <a href="/cookie-policy.html">Cookie Policy<\/a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy<\/a><\/p>
       <div class="cookie-btns">
-        <button id="cookie-accept" class="btn btn-gold btn-sm">Accept</button>
-        <button id="cookie-decline" class="btn btn-ghost btn-sm">Decline</button>
-      </div>`;
+        <button id="cookie-accept" class="btn btn-gold btn-sm">Accept<\/button>
+        <button id="cookie-decline" class="btn btn-ghost btn-sm">Decline<\/button>
+      <\/div>`;
     document.body.appendChild(banner);
     document.getElementById("cookie-accept").addEventListener("click", () => {
       localStorage.setItem("cookie_consent", "accepted");
