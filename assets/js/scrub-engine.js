@@ -1,5 +1,5 @@
-/* ============================================================================
-   scroll-world — portable scroll-scrubbed camera-flight engine
+﻿/* ============================================================================
+   scroll-world \u2014 portable scroll-scrubbed camera-flight engine
    ----------------------------------------------------------------------------
    Framework-agnostic. Vanilla JS, zero dependencies. It builds its own DOM and
    injects its own (namespaced) CSS into a container you give it, so it drops into
@@ -16,9 +16,9 @@
        atmosphere: true,  // subtle gradient + drifting particles behind the clips
        sections: [
          { id, label, still, stillMobile, clip, clipMobile, accent,
-           scroll: 1.6,   // optional per-section override of diveScroll — more scroll
+           scroll: 1.6,   // optional per-section override of diveScroll \u2014 more scroll
                           // distance = a slower, longer dwell in this scene
-           linger: 0.5,   // optional 0..1 — remaps time so the camera settles mid-scene
+           linger: 0.5,   // optional 0..1 \u2014 remaps time so the camera settles mid-scene
                           // (exactly where the copy peaks) and moves quicker at the
                           // edges. 0 = linear (default). Keep â‰¤ 0.6; 1 = full pause.
            eyebrow, title, body, tags:[â€¦],
@@ -32,7 +32,7 @@
    the rest of the phone handling below is always on)
      The engine is phone-aware out of the box: on a coarse-pointer / â‰¤860px viewport it
        - loads `clipMobile` / `connectorsMobile` when provided (encode these smaller +
-         tighter-GOP — seek cost on a phone decoder is dominated by frames-from-keyframe,
+         tighter-GOP \u2014 seek cost on a phone decoder is dominated by frames-from-keyframe,
          so a 720p, -g 4 file scrubs far smoother than the 1080p desktop master; see
          pipeline.md). Falls back to the desktop `clip` if no mobile variant is given.
        - uses `stillMobile` as the scene poster when provided (pair it with native 9:16
@@ -42,10 +42,10 @@
        - coalesces seeks (never issues a new currentTime while the decoder is still
          `seeking`) so fast flicks can't pile up and freeze the video.
        - keeps the still as a live poster until the clip actually paints its first frame,
-         and primes each video (muted playâ†’pause) on first touch — this is what stops iOS
+         and primes each video (muted playâ†’pause) on first touch \u2014 this is what stops iOS
          from showing a blank scene before the first seek.
        - drops the drifting particles and ignores URL-bar-only resizes (no scroll jump).
-     Nothing here is required — a config with only `clip`/`connectors` still works on
+     Nothing here is required \u2014 a config with only `clip`/`connectors` still works on
      phones; the mobile variants just make it lighter and smoother.
 
    THEME (CSS custom properties; set on the container or :root to override)
@@ -196,7 +196,7 @@ function mountScrollWorld(container, config) {
   }
 
   function loadClip(s) {
-    // Under prefers-reduced-motion we never load the clips at all — the stills stay up
+    // Under prefers-reduced-motion we never load the clips at all \u2014 the stills stay up
     // and simply cross-dissolve as you scroll. No scrubbed video motion, no decode cost.
     if (reduce || s.loading || !s.clip) return;
     s.loading = true;
@@ -211,7 +211,7 @@ function mountScrollWorld(container, config) {
         v.src = URL.createObjectURL(blob);
         v.addEventListener('loadedmetadata', () => { s.ready = true; read(); });
         // Reveal the video (hide the still poster) only once a real frame has
-        // painted — on iOS a seeked-but-never-played muted video stays blank, so
+        // painted \u2014 on iOS a seeked-but-never-played muted video stays blank, so
         // hiding the still on metadata alone would flash an empty scene.
         v.addEventListener('seeked', () => { s.el.classList.add('has-clip'); }, { once: true });
         v.addEventListener('loadeddata', () => { try { v.pause(); } catch (e) {} if (userReady) primeVideo(v); });
@@ -306,8 +306,7 @@ function mountScrollWorld(container, config) {
   window.addEventListener('pointerdown', onFirstGesture, { once: true, passive: true });
   window.addEventListener('touchstart', onFirstGesture, { once: true, passive: true });
 
-  // Particles are a per-frame cost we can't afford alongside video scrubbing on a phone.
-  seedParticles(particles, reduce || coarse);
+  // particles removed — bubble effect disabled per design decision
   window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
   // Mobile browsers fire `resize` every time the URL bar slides in/out. Re-running
   // layout() there rebuilds the track height and yanks the scroll position, so on

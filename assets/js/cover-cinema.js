@@ -1,4 +1,4 @@
-            /* cover-cinema.js — scroll-world scrub engine config for the Cover Art Store
+﻿            /* cover-cinema.js \u2014 scroll-world scrub engine config for the Cover Art Store
    Drops the scrub-engine's mountScrollWorld into #cover-world.
    Still images are used now; add clip/clipMobile URLs when Higgsfield dive
    videos are generated for each series. */
@@ -24,7 +24,7 @@
         clip:        'https://d8j0ntlcm91z4.cloudfront.net/user_3CK8SB2bS5zvnxJ8dKPvt4hcvS3/hf_20260928_001032_a10e605b-58b5-4fdc-a6fa-c6a161f36e38.mp4',
         scroll: 1.7, linger: 0.5,
         accent:  '#8caade',
-        eyebrow: '9 covers · chrome series',
+        eyebrow: '9 covers \u00B7 chrome series',
         title:   'Chrome Universe',
         body:    'Liquid mercury, deep space metallics, mirror surfaces. Cold, cinematic, architectural. Not templated. Not licensed to six other artists. Yours.',
         tags:    ['Mercury', 'Arc', 'Prism', 'Vapor', 'Glacier', 'Void Arc', 'Carbon', 'Steel Dreams', 'Chrome Nova'],
@@ -41,7 +41,7 @@
         clip:        'https://d8j0ntlcm91z4.cloudfront.net/user_3CK8SB2bS5zvnxJ8dKPvt4hcvS3/hf_20260928_001051_81efd418-0299-4741-b429-64ad9ba51181.mp4',
         scroll: 1.7, linger: 0.5,
         accent:  '#9060c8',
-        eyebrow: '10 covers · void series',
+        eyebrow: '10 covers \u00B7 void series',
         title:   'Void Series',
         body:    'Obsidian, deep blacks, fractured light. For artists who live in the dark. Built from nothing, owned by one.',
         tags:    ['Obsidian', 'Eclipse', 'Phantom', 'Dark Matter', 'Abyss', 'Vortex', 'Shadow', 'Black Sun', 'Void Pulse', 'Umbra'],
@@ -57,7 +57,7 @@
         clip:        'https://d8j0ntlcm91z4.cloudfront.net/user_3CK8SB2bS5zvnxJ8dKPvt4hcvS3/hf_20260928_001032_11230ea2-c522-4938-a36f-313ed4def93e.mp4',
         scroll: 1.7, linger: 0.5,
         accent:  '#c8a84b',
-        eyebrow: '8 covers · gold season',
+        eyebrow: '8 covers \u00B7 gold season',
         title:   'Gold Season',
         body:    'Warm amber, champagne, desert gold. Luxury without pretence. Made to look like it cost ten times more.',
         tags:    ['Champagne', 'Amber', 'Harmattan', 'Solstice', 'Saffron', 'Velvet', 'Gilded', 'Sunrise'],
@@ -73,7 +73,7 @@
         clip:        'https://d8j0ntlcm91z4.cloudfront.net/user_3CK8SB2bS5zvnxJ8dKPvt4hcvS3/hf_20260928_001032_1ca95fd8-bf63-47a6-b1c0-94f4d6f61a81.mp4',
         scroll: 1.7, linger: 0.5,
         accent:  '#50a0c8',
-        eyebrow: '7 covers · flux',
+        eyebrow: '7 covers \u00B7 flux',
         title:   'Flux',
         body:    'Gradients, static, drift. Fluid and mathematical. Art that moves because sound does.',
         tags:    ['Static', 'Gradient', 'Current', 'Pulse', 'Signal', 'Kinetic', 'Flow'],
@@ -89,7 +89,7 @@
         clip:        'https://d8j0ntlcm91z4.cloudfront.net/user_3CK8SB2bS5zvnxJ8dKPvt4hcvS3/hf_20260928_001032_8a313b77-8b3b-450e-8560-e05bf852b6c9.mp4',
         scroll: 1.7, linger: 0.5,
         accent:  '#b07a5c',
-        eyebrow: '6 covers · earth chrome',
+        eyebrow: '6 covers \u00B7 earth chrome',
         title:   'Earth Chrome',
         body:    'Industrial steel, volcanic stone, foundry heat. Raw and grounded. No filters, no stock. Just weight.',
         tags:    ['Gunmetal', 'Foundry', 'Basalt', 'Mineral', 'Ember', 'Ore'],

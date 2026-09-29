@@ -1,4 +1,4 @@
-/* home-cinema.js — scroll-world config for the Awa Sounds home page
+﻿/* home-cinema.js — scroll-world config for the Awa Sounds home page
    Mounts on #home-world. Requires cinematic-engine.js loaded first. */
 (function () {
   if (typeof window.mountScrollWorld !== 'function') return;
@@ -22,7 +22,7 @@
         clipMobile:  'https://d8j0ntlcm91z4.cloudfront.net/user_3CK8SB2bS5zvnxJ8dKPvt4hcvS3/hf_20260928_085801_9fd78305-18ae-403a-9049-91c4a9242d30.mp4',
         scroll: 1.8, linger: 0.4,
         accent:  '#c9ced6',
-        eyebrow: 'Independent Record Label · United Kingdom',
+        eyebrow: 'Independent Record Label \u00B7 United Kingdom',
         title:   'Independent.\nCinematic.\nPermanent.',
         body:    'The industry stopped developing artists and started renting them distribution. We do it the old way and the new way at once — real A&R, real studio time, real strategy, then release it everywhere that matters.',
         tags:    ['Artist Development', 'Distribution', 'Beat Store', 'Cover Art'],

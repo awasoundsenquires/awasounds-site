@@ -1,8 +1,8 @@
-/* AWA SOUNDS — Cover Art store v3
+﻿/* AWA SOUNDS \u2014 Cover Art store v3
    Features:
    - Pair card display (clean | titled side-by-side always visible in grid)
    - Cinema scroll rail (horizontal film strip pinned by GSAP, driven by scroll)
-   - Series filter tabs (Chrome Universe · Void · Gold Season · Flux · Earth Chrome)
+   - Series filter tabs (Chrome Universe \u00B7 Void \u00B7 Gold Season \u00B7 Flux \u00B7 Earth Chrome)
    - releaseDate-based countdown for coming-soon covers
    - GG watermark canvas overlay on all preview images (anti-piracy)
    - Side-by-side modal with video previews
@@ -18,7 +18,7 @@
   const COVERS      = (CFG.covers || []).filter(c => !c.auctionOnly && !c.comingSoon);
   const COMING_SOON = (CFG.covers || []).filter(c => !c.auctionOnly && c.comingSoon);
 
-  const money      = n  => "£" + Number(n).toFixed(0);
+  const money      = n  => "\u00A3" + Number(n).toFixed(0);
   const esc        = s  => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const coverDisc  = CFG.coverMemberDiscount != null ? CFG.coverMemberDiscount : (CFG.memberDiscount || 0);
   const memberPrice = n  => Math.round(n * (1 - coverDisc));
@@ -38,7 +38,7 @@
   let activeSeries = "all";
 
   /* ══════════════════════════════════════════════════════════════════
-     CSS — pair cards + cinema rail + series filter + coming-soon
+     CSS \u2014 pair cards + cinema rail + series filter + coming-soon
      ══════════════════════════════════════════════════════════════════ */
   const STYLE = `
   /* ── Cinema Rail ───────────────────────────────────────────── */
@@ -411,7 +411,7 @@
       <div class="pair-footer">
         <div class="pair-info">
           <h4 class="pair-title-name">${esc(c.title)}</h4>
-          <div class="pair-sub">${esc(c.sub)} · 3000×3000 + 2 videos</div>
+          <div class="pair-sub">${esc(c.sub)} \u00B7 3000×3000 + 2 videos</div>
         </div>
         <div class="pair-price-actions">
           <div class="pair-price-stack">
@@ -482,7 +482,7 @@
     dm.innerHTML = `
       <div class="cover-card-lg">
         <button class="cover-close" aria-label="Close">&times;</button>
-        <span class="eyebrow">Cover Art — Awa Sounds</span>
+        <span class="eyebrow">Cover Art \u2014 Awa Sounds</span>
         <h3 class="cover-title"></h3>
         <div class="cover-sub"></div>
         <div class="cov-pair">
@@ -517,7 +517,7 @@
 
     const c = current;
     dm.querySelector(".cover-title").textContent = c.title;
-    dm.querySelector(".cover-sub").textContent   = c.sub + " · 3000×3000 + 2 motion files";
+    dm.querySelector(".cover-sub").textContent   = c.sub + " \u00B7 3000×3000 + 2 motion files";
 
     const cleanSide = document.getElementById("cov-clean-side");
     const titledSide = document.getElementById("cov-titled-side");
@@ -547,7 +547,7 @@
     const memPx   = c.premium && c.subPrice != null ? Math.min(c.subPrice, memberPrice(c.price)) : memberPrice(c.price);
     const price   = member ? memPx : c.price;
     dm.querySelector(".cov-price .now").textContent = money(price);
-    dm.querySelector(".cov-price .subprice").innerHTML = member ? `<em style="font-style:normal;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold,#e0a030)">Insider price applied</em>` : `· Members ${money(memPx)}`;
+    dm.querySelector(".cov-price .subprice").innerHTML = member ? `<em style="font-style:normal;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold,#e0a030)">Insider price applied</em>` : `\u00B7 Members ${money(memPx)}`;
 
     const saveBtn = dm.querySelector(".cov-save-lg");
     saveBtn.classList.toggle("on", likeSet.has(c.id));
@@ -603,7 +603,7 @@
   }
 
   function openPayLink(c) {
-    if (c.sold) return; // Sold — purchase blocked
+    if (c.sold) return; // Sold \u2014 purchase blocked
     if (c.pay) { window.open(c.pay, "_blank", "noopener"); return; }
     // Route to tier-specific Stripe link based on price
     let globalLink = CFG.coverPayLink;
@@ -612,8 +612,8 @@
     else if (c.price >= 35 && CFG.coverPremiumPayLink)    globalLink = CFG.coverPremiumPayLink;
     else if (c.price >= 25 && CFG.coverAnimatedPayLink)   globalLink = CFG.coverAnimatedPayLink;
     if (globalLink) { window.open(globalLink, "_blank", "noopener"); return; }
-    const to   = CFG.enquiryEmail || "awasound.music@gmail.com";
-    const subj = encodeURIComponent(`Cover art enquiry — ${c.title}`);
+    const to   = CFG.enquiryEmail || "awasoundsenquires@gmail.com";
+    const subj = encodeURIComponent(`Cover art enquiry \u2014 ${c.title}`);
     const body = encodeURIComponent(`Hi Awa Sounds,\n\nI'd like to buy the "${c.title}" cover (${c.sub}).\n\nName:\nRelease title:\n\nThanks.`);
     window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
   }
@@ -630,7 +630,7 @@
   }
 
   /* ══════════════════════════════════════════════════════════════════
-     Coming Soon — Pair View
+     Coming Soon \u2014 Pair View
      ══════════════════════════════════════════════════════════════════ */
   (function renderComingSoon() {
     const container = document.getElementById("coming-soon-list");
