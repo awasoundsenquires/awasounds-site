@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -10,12 +10,12 @@
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="stylesheet" href="assets/css/roulette.css"/>
 <style>
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   BEAT STORE â€” SCROLL CINEMA
+/* ═══════════════════════════════════════
+   BEAT STORE &#x2014; SCROLL CINEMA
    Technique: video.currentTime driven by
    scroll position (the scroll wheel IS
    the playhead through the studio walk-in)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════ */
 
 /* Tall container that gives the scroll track */
 .bs-scroll-cinema {
@@ -23,7 +23,7 @@
   height: 400vh;
 }
 
-/* Sticky frame â€” pinned to viewport while user scrolls 400vh */
+/* Sticky frame &#x2014; pinned to viewport while user scrolls 400vh */
 .bs-cinema-sticky {
   position: sticky;
   top: 0;
@@ -61,7 +61,7 @@
   pointer-events: none;
 }
 
-/* Title block â€” visible at start, fades as you scroll deeper */
+/* Title block &#x2014; visible at start, fades as you scroll deeper */
 .bs-enter-text {
   position: absolute;
   top: 50%;
@@ -124,7 +124,7 @@
   100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
 }
 
-/* "Step inside" text â€” appears mid-scroll */
+/* "Step inside" text &#x2014; appears mid-scroll */
 .bs-walk-text {
   position: absolute;
   bottom: 88px;
@@ -139,9 +139,9 @@
 }
 
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   BEAT ROOM â€” STUDIO INTERIOR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════
+   BEAT ROOM &#x2014; STUDIO INTERIOR
+═══════════════════════════════════════ */
 .studio-room {
   background: #06060a;
   position: relative;
@@ -149,7 +149,7 @@
   padding-top: 0;
 }
 
-/* Converging light rails â€” showroom effect */
+/* Converging light rails &#x2014; showroom effect */
 .studio-rails {
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -229,15 +229,31 @@
 <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="album-packs.html">Album Packs</a><a href="vault-drop.html">Vault Drop</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
 <div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
 
-<!-- â•â•â• SCROLL CINEMA ENTRANCE â•â•â•
-     Technique: scroll wheel = playhead.
-     video.currentTime is driven directly
-     from ScrollTrigger progress so the
-     user "walks into the studio" by scrolling.
--->
+<!-- ═══ CINEMATIC SCROLL WORLD &#x2014; Apple-style studio entrance ═══ -->
 <div id="beat-world"></div>
 
-<!-- â•â•â• BEAT ROOM â•â•â• -->
+<!-- Gradient bridge: cinema world → studio room -->
+<div style="height:120px;background:linear-gradient(to bottom,#000 0%,#06060a 100%);margin-top:-2px"></div>
+
+<!-- Legacy scroll cinema &#x2014; kept as invisible fallback markup only
+<div class="bs-scroll-cinema" style="display:none">
+  <div class="bs-cinema-sticky">
+    <div class="bs-cinema-overlay">
+      <div class="bs-enter-text" id="bs-enter-text">
+        <span class="bs-eyebrow">Awa Sounds Production</span>
+        <h1>BEAT STORE</h1>
+      </div>
+
+      <div class="bs-walk-text" id="bs-walk-text">Step inside.</div>
+      <div class="bs-scroll-hint" id="bs-scroll-hint">
+        <span>Enter the studio</span>
+        <div class="bs-scroll-line"></div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- ═══ BEAT ROOM ═══ -->
 <section class="studio-room">
 
   <!-- Converging light rails (showroom ceiling) -->
@@ -292,9 +308,9 @@
 <section class="section" style="background:#06060a"><div class="wrap">
   <div class="section-head"><div><span class="eyebrow" data-reveal>Licensing</span><h2 class="section-title chrome" data-reveal data-reveal-delay="1">Pick your license</h2></div></div>
   <div class="services">
-    <div class="service" data-reveal><div class="idx">MP3 LEASE</div><h3>Â£30</h3><p>Tagged &amp; untagged MP3. Up to 30,000 streams. Non-exclusive, ideal for demos and early releases.</p></div>
-    <div class="service" data-reveal data-reveal-delay="1"><div class="idx">WAV LEASE</div><h3>Â£45</h3><p>High-quality WAV + MP3. Up to 150,000 streams. Music-video rights included.</p></div>
-    <div class="service" data-reveal data-reveal-delay="2"><div class="idx">TRACKOUT</div><h3>Â£145</h3><p>Full stems for your own mix. Up to 550,000 streams. Built for serious releases.</p></div>
+    <div class="service" data-reveal><div class="idx">MP3 LEASE</div><h3>&#xA3;30</h3><p>Tagged &amp; untagged MP3. Up to 30,000 streams. Non-exclusive, ideal for demos and early releases.</p></div>
+    <div class="service" data-reveal data-reveal-delay="1"><div class="idx">WAV LEASE</div><h3>&#xA3;45</h3><p>High-quality WAV + MP3. Up to 150,000 streams. Music-video rights included.</p></div>
+    <div class="service" data-reveal data-reveal-delay="2"><div class="idx">TRACKOUT</div><h3>&#xA3;145</h3><p>Full stems for your own mix. Up to 550,000 streams. Built for serious releases.</p></div>
     <div class="service" data-reveal data-reveal-delay="3"><div class="idx">EXCLUSIVE</div><h3>Enquire</h3><p>You own it. Beat removed from the store. Unlimited streams, full commercial rights.</p></div>
   </div>
 </div></section>
@@ -303,10 +319,10 @@
   <div class="sub-banner" data-reveal>
     <div>
       <span class="eyebrow">Awa Sounds Insider</span>
-      <h3 style="font-family:var(--ff-display);font-size:22px;margin:8px 0 6px">Â£4.99 / month</h3>
+      <h3 style="font-family:var(--ff-display);font-size:22px;margin:8px 0 6px">&#xA3;4.99 / month</h3>
       <p style="color:var(--muted);max-width:52ch">Save 30% on cover art and 15% on every beat license and service. Like beats, save playlists and keep your lyrics in one place.</p>
     </div>
-    <a href="account.html" class="btn btn-primary">Become an Insider <span class="arw">â†’</span></a>
+    <a href="account.html" class="btn btn-primary">Become an Insider <span class="arw">→</span></a>
   </div>
 </div></section>
 
@@ -314,8 +330,8 @@
   <div class="foot-brand"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a><p>An independent UK record label built for the next generation of sound. Sign. Develop. Release.</p></div>
   <div class="foot-col"><h5>Explore</h5><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="gallery.html">Gallery</a></div>
   <div class="foot-col"><h5>Divisions</h5><a href="studio.html">Recording Studio</a><a href="beat-store.html">Beat Store</a><a href="contact.html">Distribution</a><a href="contact.html">Sync &amp; Licensing</a></div>
-  <div class="foot-col"><h5>Contact</h5><a href="mailto:awasound.music@gmail.com">awasound.music@gmail.com</a><a href="account.html">My Account</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
-</div><div class="foot-bottom"><span>Â© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;Â·&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;Â·&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
+  <div class="foot-col"><h5>Contact</h5><a href="mailto:awasoundsenquires@gmail.com">awasoundsenquires@gmail.com</a><a href="account.html">My Account</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
+</div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;&#xB7;&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;&#xB7;&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -330,11 +346,15 @@
 <script src="assets/js/cinematic-engine.js"></script>
 <script src="assets/js/beat-cinema.js"></script>
 <script>
+/* ═══ Beat Store &#x2014; legacy stagger kept for studio-room cards ═══ */
 (function(){
   if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
+  /* ── Stagger beat cards when studio room scrolls into view ── */
   ScrollTrigger.create({
-    trigger: '.studio-room', start: 'top 80%', once: true,
+    trigger: '.studio-room',
+    start: 'top 80%',
+    once: true,
     onEnter() {
       gsap.from('.studio-room .bstore .beat-card', {
         opacity: 0, y: 28, stagger: 0.07, duration: 0.6,
@@ -342,6 +362,7 @@
       });
     }
   });
+
 })();
 </script>
 <script src="assets/js/premium-fx.js"></script>

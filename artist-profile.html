@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -190,7 +190,7 @@ const SOCIAL_ICONS = {
 
 // ── Render profile from data ──────────────────────────────────────────────
 function renderProfile(p){
-  document.title = `${p.display_name||p.username} — Awa Sounds`;
+  document.title = `${p.display_name||p.username} &#x2014; Awa Sounds`;
   document.getElementById("profile-name").textContent = p.display_name || p.username || "Artist";
   document.getElementById("profile-genre").textContent = p.genre || "";
   document.getElementById("profile-bio").textContent = p.bio || "";
@@ -261,7 +261,7 @@ function renderPosts(posts){
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
           Share
         </button>
-        <span class="no-comment-note">Comments disabled · View socials to connect</span>
+        <span class="no-comment-note">Comments disabled &#xB7; View socials to connect</span>
       </div>
     </div>`;
     wall.appendChild(card);

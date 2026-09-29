@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Live Auction — Vault Drop | Awa Sounds</title>
+<title>Live Auction &#x2014; Vault Drop | Awa Sounds</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="stylesheet" href="assets/css/vault.css" />
@@ -166,7 +166,7 @@
 <div class="session-progress-bar" id="session-progress-bar">
   <span id="sesh-label-left">Loading session…</span>
   <div class="sesh-track"><div class="sesh-fill" id="sesh-fill" style="width:0%"></div></div>
-  <span class="sesh-label" id="sesh-label-right">— / —</span>
+  <span class="sesh-label" id="sesh-label-right">&#x2014; / &#x2014;</span>
 </div>
 
 <main class="auction-room">
@@ -182,8 +182,8 @@
 
       <!-- Room capacity bar -->
       <div class="room-capacity-bar" id="room-capacity-bar">
-        <div class="room-cap-item"><span class="room-cap-dot bidder-dot"></span><span id="cap-bidders">—</span> bidding</div>
-        <div class="room-cap-item"><span class="room-cap-dot viewer-dot"></span><span id="cap-viewers">—</span> watching</div>
+        <div class="room-cap-item"><span class="room-cap-dot bidder-dot"></span><span id="cap-bidders">&#x2014;</span> bidding</div>
+        <div class="room-cap-item"><span class="room-cap-dot viewer-dot"></span><span id="cap-viewers">&#x2014;</span> watching</div>
         <div class="room-cap-item queue-item" id="cap-queue-wrap" style="display:none">
           <span class="room-cap-dot queue-dot"></span><span id="cap-queue">0</span> in queue
         </div>
@@ -210,15 +210,15 @@
         <!-- 5-min badge (queue mode) -->
         <span class="item-duration-badge" id="duration-badge" style="display:none">5 min per item</span>
         <div class="snipe-warning" id="snipe-warning" style="display:none">
-          ⚡ Extended — someone just bid in the last 60s!
+          ⚡ Extended &#x2014; someone just bid in the last 60s!
         </div>
       </div>
 
       <!-- Current price -->
       <div class="auction-price-block">
         <div class="price-label">Current bid</div>
-        <div class="price-credits" id="current-bid-credits">— cr</div>
-        <div class="price-gbp" id="current-bid-gbp">— GBP</div>
+        <div class="price-credits" id="current-bid-credits">&#x2014; cr</div>
+        <div class="price-gbp" id="current-bid-gbp">&#x2014; GBP</div>
         <div class="bid-leader" id="bid-leader">No bids yet</div>
       </div>
 
@@ -234,17 +234,17 @@
           <input type="number" id="bid-input" class="bid-input" placeholder="Your bid (cr)" min="50" step="5" />
           <button class="btn btn-gold" id="bid-btn">Bid</button>
         </div>
-        <div class="bid-hint" id="bid-hint">Minimum bid: <b id="min-bid">50</b> cr &nbsp;·&nbsp; Each bid costs 5 cr fee</div>
+        <div class="bid-hint" id="bid-hint">Minimum bid: <b id="min-bid">50</b> cr &nbsp;&#xB7;&nbsp; Each bid costs 5 cr fee</div>
         <div class="bid-cost-row" id="bid-cost-row" style="display:none">
-          Total: <b id="bid-total-cost">—</b> cr &nbsp;·&nbsp; Balance after: <b id="bid-balance-after">—</b> cr
+          Total: <b id="bid-total-cost">&#x2014;</b> cr &nbsp;&#xB7;&nbsp; Balance after: <b id="bid-balance-after">&#x2014;</b> cr
         </div>
       </div>
 
       <!-- Quick top-up -->
       <div class="topup-strip" id="topup-strip">
         <span>Need more credits?</span>
-        <button class="btn btn-ghost btn-sm" onclick="openCreditModal(100,800)">+100 cr / £8</button>
-        <button class="btn btn-ghost btn-sm" onclick="openCreditModal(250,1800)">+250 cr / £18</button>
+        <button class="btn btn-ghost btn-sm" onclick="openCreditModal(100,800)">+100 cr / &#xA3;8</button>
+        <button class="btn btn-ghost btn-sm" onclick="openCreditModal(250,1800)">+250 cr / &#xA3;18</button>
       </div>
 
       <!-- Not signed in -->
@@ -255,13 +255,13 @@
 
       <!-- Bid history -->
       <div class="bid-history">
-        <h5>Bids — this item</h5>
+        <h5>Bids &#x2014; this item</h5>
         <div id="bid-list" class="bid-list">
-          <div class="bid-empty">No bids yet — be the first.</div>
+          <div class="bid-empty">No bids yet &#x2014; be the first.</div>
         </div>
       </div>
 
-      <p class="auction-legal-note">By bidding you accept the <a href="licenses/auction-terms.html" target="_blank">Vault Drop Auction Terms</a>. Bid fees are non-refundable. Winners pay closing price in £GBP within 48 hrs.</p>
+      <p class="auction-legal-note">By bidding you accept the <a href="licenses/auction-terms.html" target="_blank">Vault Drop Auction Terms</a>. Bid fees are non-refundable. Winners pay closing price in &#xA3;GBP within 48 hrs.</p>
     </div>
 
     <!-- RIGHT: Product queue rail (queue mode only) -->
@@ -275,7 +275,7 @@
   <div class="modal-card" style="max-width:400px">
     <button class="modal-close" onclick="document.getElementById('credit-modal').style.display='none'">×</button>
     <h3>Buy AWA Credits</h3>
-    <p>You're buying <b id="modal-pack-amount">100</b> credits for <b id="modal-pack-price">£8</b>.</p>
+    <p>You're buying <b id="modal-pack-amount">100</b> credits for <b id="modal-pack-price">&#xA3;8</b>.</p>
     <p class="auction-legal-note">Credits are added to your account instantly on payment confirmation.</p>
     <div style="display:flex;gap:12px;margin-top:20px">
       <button class="btn btn-ghost" onclick="document.getElementById('credit-modal').style.display='none'">Cancel</button>
@@ -288,8 +288,8 @@
 <div id="winner-overlay" class="winner-overlay" style="display:none">
   <div class="wo-inner">
     <div class="wo-badge">SOLD</div>
-    <div class="wo-winner" id="wo-winner">Winner: —</div>
-    <div class="wo-at">at <span id="wo-credits">— cr</span></div>
+    <div class="wo-winner" id="wo-winner">Winner: &#x2014;</div>
+    <div class="wo-at">at <span id="wo-credits">&#x2014; cr</span></div>
     <div class="wo-count" id="wo-count">5</div>
     <div class="wo-next" id="wo-next" style="opacity:0">BIDDING</div>
   </div>

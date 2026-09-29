@@ -42,7 +42,7 @@
 
   <div id="adm-app" hidden>
     <header class="acc-head">
-      <div><div class="acc-name">Admin panel</div><div class="acc-status"><span class="acc-badge member" id="adm-who">—</span></div></div>
+      <div><div class="acc-name">Admin panel</div><div class="acc-status"><span class="acc-badge member" id="adm-who">&#x2014;</span></div></div>
       <button class="btn btn-ghost" id="adm-signout" style="margin-left:auto">Sign out</button>
     </header>
 
@@ -61,12 +61,12 @@
     <div class="acc-panel on" data-panel="dashboard">
       <div class="acc-panel-head"><h3>Dashboard Overview</h3><button class="btn btn-ghost" id="dash-refresh">↻ Refresh</button></div>
       <div class="adm-stats-grid" id="dash-stats">
-        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-users">—</div><div class="adm-stat-lbl">Total Users</div></div>
-        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-credits">—</div><div class="adm-stat-lbl">Credits Issued</div></div>
-        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-auctions">—</div><div class="adm-stat-lbl">Active Auctions</div></div>
-        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-bids">—</div><div class="adm-stat-lbl">Total Bids</div></div>
-        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-edit-reqs">—</div><div class="adm-stat-lbl">Pending Cover Edits</div></div>
-        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-items">—</div><div class="adm-stat-lbl">Item Codes</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-users">&#x2014;</div><div class="adm-stat-lbl">Total Users</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-credits">&#x2014;</div><div class="adm-stat-lbl">Credits Issued</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-auctions">&#x2014;</div><div class="adm-stat-lbl">Active Auctions</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-bids">&#x2014;</div><div class="adm-stat-lbl">Total Bids</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-edit-reqs">&#x2014;</div><div class="adm-stat-lbl">Pending Cover Edits</div></div>
+        <div class="adm-stat-card"><div class="adm-stat-val" id="ds-items">&#x2014;</div><div class="adm-stat-lbl">Item Codes</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px">
         <div>
@@ -92,14 +92,14 @@
 
     <!-- VAULT DROP AUCTIONS -->
     <div class="acc-panel" data-panel="auctions">
-      <div class="acc-panel-head"><h3>Vault Drop — Auctions</h3><button class="btn btn-primary" id="auction-new">+ Create Auction</button></div>
+      <div class="acc-panel-head"><h3>Vault Drop &#x2014; Auctions</h3><button class="btn btn-primary" id="auction-new">+ Create Auction</button></div>
       <p class="adm-hint">Schedule and manage Vault Drop auctions. Set the item, starting bid, credit rate, and timer. Launch when ready.</p>
       <div id="auction-admin-list" class="adm-list"></div>
       <!-- Create / Edit Auction form (hidden by default) -->
       <div id="auction-form-wrap" style="display:none; margin-top:24px; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:24px;">
         <h4 id="auction-form-title">New Auction</h4>
         <div class="adm-form-grid">
-          <label>Title<input type="text" id="af-title" placeholder="e.g. Chrome Nights — WAV Exclusive" /></label>
+          <label>Title<input type="text" id="af-title" placeholder="e.g. Chrome Nights &#x2014; WAV Exclusive" /></label>
           <label>Item type
             <select id="af-type">
               <option value="beat">Beat</option>
@@ -122,8 +122,8 @@
           <label>Description<textarea id="af-desc" rows="3" placeholder="What makes this piece special…"></textarea></label>
           <label>Starting bid (credits)<input type="number" id="af-start-bid" value="50" min="10" /></label>
           <label>Bid increment (credits)<input type="number" id="af-increment" value="5" min="1" /></label>
-          <label>Credit rate (cr per £1)<input type="number" id="af-rate" value="10" min="1" /></label>
-          <label>Min price floor (£ GBP — leave blank for no reserve)<input type="number" id="af-min-price" placeholder="e.g. 150 for exclusive beat" min="0" step="0.01" /></label>
+          <label>Credit rate (cr per &#xA3;1)<input type="number" id="af-rate" value="10" min="1" /></label>
+          <label>Min price floor (&#xA3; GBP &#x2014; leave blank for no reserve)<input type="number" id="af-min-price" placeholder="e.g. 150 for exclusive beat" min="0" step="0.01" /></label>
           <label>Item code (e.g. AWA-CVR-003)<input type="text" id="af-item-code" placeholder="AWA-BT-001" /></label>
           <label>Opens at<input type="datetime-local" id="af-opens" /></label>
           <label>Closes at<input type="datetime-local" id="af-closes" /></label>
@@ -139,14 +139,14 @@
 
     <!-- CREDITS ADMIN -->
     <div class="acc-panel" data-panel="credits">
-      <div class="acc-panel-head"><h3>AWA Credits — Overview</h3></div>
-      <p class="adm-hint">Credit ledger is automatic. Monthly grants run via Supabase function: <b>free users get 20 cr/month</b>, <b>Insider members (£4.99/mo) get 50 cr/month</b> — all credits accumulate and never expire. Purchased credits are added on payment confirmation. Use the form below to manually adjust a user's balance (e.g. refund, bonus, membership activation).</p>
+      <div class="acc-panel-head"><h3>AWA Credits &#x2014; Overview</h3></div>
+      <p class="adm-hint">Credit ledger is automatic. Monthly grants run via Supabase function: <b>free users get 20 cr/month</b>, <b>Insider members (&#xA3;4.99/mo) get 50 cr/month</b> &#x2014; all credits accumulate and never expire. Purchased credits are added on payment confirmation. Use the form below to manually adjust a user's balance (e.g. refund, bonus, membership activation).</p>
       <div style="background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:24px; margin-top:16px; max-width:480px;">
         <h4>Manual credit adjustment</h4>
         <div class="adm-form-grid">
           <label>User email<input type="email" id="cr-email" placeholder="user@email.com" /></label>
           <label>Amount (positive = add, negative = deduct)<input type="number" id="cr-amount" placeholder="e.g. 50 or -10" /></label>
-          <label>Note (shown in ledger)<input type="text" id="cr-note" placeholder="e.g. Refund — auction cancelled" /></label>
+          <label>Note (shown in ledger)<input type="text" id="cr-note" placeholder="e.g. Refund &#x2014; auction cancelled" /></label>
         </div>
         <button class="btn btn-primary" id="cr-adjust-btn" style="margin-top:16px">Apply adjustment</button>
         <p id="cr-adjust-result" class="adm-hint" style="margin-top:10px"></p>
@@ -167,9 +167,9 @@
         <h4 style="margin-bottom:12px">Credit pack pay links</h4>
         <p class="adm-hint">Paste the GoDaddy Pay Links for each credit pack into <code>assets/js/config.js</code> under <code>creditPayLinks</code>. Credits are added manually or via webhook when payment is confirmed.</p>
         <table class="license-meta" style="margin-top:12px;width:auto">
-          <tr><td>100 cr / £8</td><td><code>creditPayLinks[100]</code></td></tr>
-          <tr><td>250 cr / £18</td><td><code>creditPayLinks[250]</code></td></tr>
-          <tr><td>500 cr / £30</td><td><code>creditPayLinks[500]</code></td></tr>
+          <tr><td>100 cr / &#xA3;8</td><td><code>creditPayLinks[100]</code></td></tr>
+          <tr><td>250 cr / &#xA3;18</td><td><code>creditPayLinks[250]</code></td></tr>
+          <tr><td>500 cr / &#xA3;30</td><td><code>creditPayLinks[500]</code></td></tr>
         </table>
       </div>
     </div>
@@ -214,10 +214,10 @@
       <div class="adm-guide">
         <h3>How this works</h3>
         <ol>
-          <li><b>Beats</b> — add, edit or remove any beat in the store. Set the title, BPM, key, tags, cover image and the GoDaddy Pay Link for each license. Changes go live instantly, no code.</li>
-          <li><b>Cover images</b> — paste an image URL, or upload one if you created a public <code>covers</code> storage bucket in Supabase.</li>
-          <li><b>Site Text</b> — edit headlines and copy that are tagged on the pages. Add a new block with the exact <code>key</code> that a page uses.</li>
-          <li><b>Pay Links</b> — create a GoDaddy Pay Link per license, then paste it into the beat. Empty links fall back to an email enquiry.</li>
+          <li><b>Beats</b> &#x2014; add, edit or remove any beat in the store. Set the title, BPM, key, tags, cover image and the GoDaddy Pay Link for each license. Changes go live instantly, no code.</li>
+          <li><b>Cover images</b> &#x2014; paste an image URL, or upload one if you created a public <code>covers</code> storage bucket in Supabase.</li>
+          <li><b>Site Text</b> &#x2014; edit headlines and copy that are tagged on the pages. Add a new block with the exact <code>key</code> that a page uses.</li>
+          <li><b>Pay Links</b> &#x2014; create a GoDaddy Pay Link per license, then paste it into the beat. Empty links fall back to an email enquiry.</li>
         </ol>
         <p class="adm-hint">First-time setup: run <code>supabase-schema.sql</code> in Supabase, then mark yourself admin (see the note at the bottom of that file).</p>
       </div>
@@ -247,11 +247,11 @@
       <div class="adm-upload"><input type="file" id="cover-file" accept="image/*"><button type="button" class="btn btn-ghost" id="cover-upload-btn">Upload to Supabase</button><span id="cover-upload-status"></span></div>
       <label>Preview audio URL (optional) <input name="preview_url" placeholder="https://…mp3"></label>
       <div class="adm-row">
-        <label>Pay Link · MP3 £30 <input name="pay_mp3" placeholder="GoDaddy Pay Link"></label>
-        <label>Pay Link · WAV £45 <input name="pay_wav" placeholder="GoDaddy Pay Link"></label>
+        <label>Pay Link &#xB7; MP3 &#xA3;30 <input name="pay_mp3" placeholder="GoDaddy Pay Link"></label>
+        <label>Pay Link &#xB7; WAV &#xA3;45 <input name="pay_wav" placeholder="GoDaddy Pay Link"></label>
       </div>
       <div class="adm-row">
-        <label>Pay Link · Trackout £145 <input name="pay_trackout" placeholder="GoDaddy Pay Link"></label>
+        <label>Pay Link &#xB7; Trackout &#xA3;145 <input name="pay_trackout" placeholder="GoDaddy Pay Link"></label>
         <label class="adm-check">Active <input name="active" type="checkbox" checked></label>
       </div>
       <p class="auth-error" id="beat-form-error"></p>
@@ -263,7 +263,7 @@
   </div>
 </div>
 
-<footer><div class="wrap"><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds — Admin</span><span><a href="index.html">Back to site</a></span></div></div></footer>
+<footer><div class="wrap"><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds &#x2014; Admin</span><span><a href="index.html">Back to site</a></span></div></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/config.js"></script>

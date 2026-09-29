@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Lyric Studio â€” Members Only | Awa Sounds</title>
+<title>Lyric Studio &#x2014; Members Only | Awa Sounds</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css"/>
 <style>
 :root {
-  --bg:#07070f;--bg2:#0e0e1c;--bg3:#151526;--bg4:#1c1c32;
+  --bg:#000000;--bg2:#0a0a0a;--bg3:#111111;--bg4:#1a1a1a;
   --line:#222238;--muted:#3a3a60;--silver:#7070a0;
   --text:#b0b0d0;--hi:#e0e0f0;--gold:#e0a030;--gold2:rgba(224,160,48,.12);
   --green:#4ecf7f;--red:#e87070;--purple:#9060e0;
@@ -18,15 +18,15 @@ html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px}
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 
-/* â”€â”€ Gate (members only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-#gate{position:fixed;inset:0;background:rgba(7,7,15,.97);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;text-align:center;padding:24px}
+/* â"€â"€ Gate (members only) â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+#gate{position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;text-align:center;padding:24px}
 #gate h2{font-size:22px}
 #gate p{color:var(--silver);max-width:360px;line-height:1.6;font-size:13px}
 .g-btn-gold{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:9px;padding:12px 26px;cursor:pointer;text-decoration:none;display:inline-block}
 .g-btn-ghost{background:none;border:1px solid var(--line);color:var(--silver);font-size:12px;border-radius:8px;padding:9px 18px;cursor:pointer;text-decoration:none;display:inline-block}
 
-/* â”€â”€ Mobile portrait gate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-#rotate-gate{display:none;position:fixed;inset:0;background:#07070f;z-index:1000;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:30px}
+/* â"€â"€ Mobile portrait gate â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+#rotate-gate{display:none;position:fixed;inset:0;background:#000000;z-index:1000;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:30px}
 #rotate-gate .ico{font-size:56px;animation:rotpulse 2s ease-in-out infinite}
 @keyframes rotpulse{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
 #rotate-gate h2{font-size:20px;font-family:'Space Grotesk',sans-serif;color:var(--hi)}
@@ -35,7 +35,7 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
   #rotate-gate{display:flex}
 }
 
-/* â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Nav â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 .nav{background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:10px 18px;height:46px;flex-shrink:0}
 .nav-back{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.04em;font-family:'Space Grotesk',sans-serif;font-weight:600;padding:4px 10px;border:1px solid var(--line);border-radius:7px;transition:.15s;flex-shrink:0}
 .nav-back:hover{color:var(--hi);border-color:var(--silver)}
@@ -45,7 +45,7 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 .badge-member{font-size:9px;background:rgba(144,96,224,.15);color:var(--purple);border:1px solid rgba(144,96,224,.3);border-radius:100px;padding:3px 9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 
-/* â”€â”€ Split Panel Guide â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Split Panel Guide â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 .split-guide{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg2);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px 32px;max-width:480px;width:calc(100% - 40px);z-index:800;box-shadow:0 24px 80px rgba(0,0,0,.85);display:none}
 .split-guide.show{display:block}
 .split-guide-head{display:flex;align-items:center;gap:10px;margin-bottom:18px}
@@ -63,10 +63,10 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 .btn-preview:hover,.btn-preview.active{border-color:var(--gold);color:var(--gold)}
 .btn-export{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;border:none;border-radius:7px;padding:7px 14px;font-size:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
 
-/* â”€â”€ Shell â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Shell â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 .shell{display:flex;height:calc(100vh - 82px);overflow:hidden}
 
-/* â”€â”€ Panels â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Panels â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 .panel{background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;flex-shrink:0}
 .panel::-webkit-scrollbar{width:4px}
 .panel::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
@@ -142,7 +142,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .hf-copy{margin-top:7px;background:none;border:1px solid rgba(144,96,224,.25);color:var(--purple);border-radius:5px;padding:5px 10px;font-size:10px;cursor:pointer;font-weight:600;width:100%;transition:.15s}
 .hf-copy:hover{background:rgba(144,96,224,.1)}
 
-/* â”€â”€ Canvas area â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Canvas area â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 .canvas-area{flex:1;display:flex;flex-direction:column;align-items:center;background:#000;position:relative;overflow:hidden}
 .cw{width:100%;max-width:800px;position:relative;margin:auto}
 #cv{width:100%;display:block;background:#000}
@@ -163,7 +163,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .toast{position:fixed;bottom:18px;right:18px;background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12px;color:var(--hi);box-shadow:0 6px 24px rgba(0,0,0,.6);z-index:500;transform:translateY(120%);opacity:0;transition:.3s cubic-bezier(.2,2,.4,1)}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* â”€â”€ Save / Project bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Save / Project bar â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 .proj-bar{background:var(--bg3);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 18px;height:36px;flex-shrink:0;font-size:11px;margin-top:46px}
 .proj-name{font-weight:600;color:var(--hi);cursor:pointer;border:1px solid transparent;border-radius:5px;padding:2px 7px;transition:.15s;background:none;font-family:'Space Grotesk',sans-serif;font-size:12px}
 .proj-name:hover{border-color:var(--line);background:var(--bg2)}
@@ -189,7 +189,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .save-nudge.show{transform:translateY(0);opacity:1;pointer-events:auto}
 .save-nudge button{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;border:none;border-radius:6px;padding:5px 11px;font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;flex-shrink:0}
 
-/* â”€â”€ Video playlist â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Video playlist â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 .vid-list{display:flex;flex-direction:column;gap:4px;margin-top:8px}
 .vid-item{display:flex;align-items:center;gap:7px;background:var(--bg4);border:1px solid var(--line);border-radius:7px;padding:6px 8px;font-size:10px;color:var(--silver);cursor:pointer;transition:.15s}
 .vid-item:hover{border-color:var(--silver)}
@@ -201,7 +201,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .vid-loop-row{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:10px;color:var(--muted)}
 .vid-loop-row label{cursor:pointer;display:flex;align-items:center;gap:4px}
 
-/* â”€â”€ Exit confirmation modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Exit confirmation modal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 .exit-modal{position:fixed;inset:0;background:rgba(7,7,15,.88);backdrop-filter:blur(8px);z-index:900;display:none;align-items:center;justify-content:center}
 .exit-modal.show{display:flex}
 .exit-box{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:28px 30px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.7)}
@@ -224,13 +224,13 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 <!-- Gate -->
 <!-- Mobile rotate gate (portrait on small screens) -->
 <div id="rotate-gate">
-  <div class="ico">ðŸ“±</div>
+  <div class="ico">📱</div>
   <h2>Rotate Your Phone</h2>
   <p>Lyric Studio requires landscape orientation (16:9) to use all tools. Rotate your phone sideways to continue.</p>
 </div>
 
 <div id="gate">
-  <div style="font-size:36px;margin-bottom:4px">ðŸŽ¬</div>
+  <div style="font-size:36px;margin-bottom:4px">🎬</div>
   <h2 id="gate-title">Insider Members Only</h2>
   <p id="gate-desc">Lyric Studio is exclusive to Awa Sounds Insider members. Create your free account, then upgrade to unlock everything.</p>
 
@@ -238,12 +238,12 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px 20px;max-width:400px;text-align:left;margin:4px 0">
     <div style="font-size:10px;letter-spacing:.1em;color:#7070a0;text-transform:uppercase;margin-bottom:10px;font-weight:600">What's inside</div>
     <div style="display:flex;flex-direction:column;gap:7px">
-      <div style="font-size:12.5px;color:#b0b0d0">ðŸŽµ <b style="color:#e0e0f0">Beat-reactive lyric videos</b> â€” text pulses on every kick</div>
-      <div style="font-size:12.5px;color:#b0b0d0">ðŸŽ¨ <b style="color:#e0e0f0">10 animation styles</b> â€” Impact, Kinetic, Glitch, Karaoke + more</div>
-      <div style="font-size:12.5px;color:#b0b0d0">ðŸ”Š <b style="color:#e0e0f0">3-layer audio mixer</b> â€” stack beat, vocals and ambience</div>
-      <div style="font-size:12.5px;color:#b0b0d0">ðŸ“¤ <b style="color:#e0e0f0">HD export</b> â€” 1280Ã—720 ready to post on any platform</div>
-      <div style="font-size:12.5px;color:#b0b0d0">ðŸ’¾ <b style="color:#e0e0f0">4 saved projects</b> â€” auto-backup included</div>
-      <div style="font-size:12.5px;color:#b0b0d0">âœ… <b style="color:#e0e0f0">No downloads. No apps.</b> Runs entirely in your browser.</div>
+      <div style="font-size:12.5px;color:#b0b0d0">🎵 <b style="color:#e0e0f0">Beat-reactive lyric videos</b> &#x2014; text pulses on every kick</div>
+      <div style="font-size:12.5px;color:#b0b0d0">🎨 <b style="color:#e0e0f0">10 animation styles</b> &#x2014; Impact, Kinetic, Glitch, Karaoke + more</div>
+      <div style="font-size:12.5px;color:#b0b0d0">📊 <b style="color:#e0e0f0">3-layer audio mixer</b> &#x2014; stack beat, vocals and ambience</div>
+      <div style="font-size:12.5px;color:#b0b0d0">📤 <b style="color:#e0e0f0">HD export</b> &#x2014; 1280×720 ready to post on any platform</div>
+      <div style="font-size:12.5px;color:#b0b0d0">💾 <b style="color:#e0e0f0">4 saved projects</b> &#x2014; auto-backup included</div>
+      <div style="font-size:12.5px;color:#b0b0d0">✅ <b style="color:#e0e0f0">No downloads. No apps.</b> Runs entirely in your browser.</div>
     </div>
   </div>
 
@@ -256,11 +256,11 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <div style="display:flex;gap:10px;max-width:400px;margin:0 0 8px">
     <div style="text-align:center;flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 8px">
       <div style="font-size:18px;font-weight:800;color:#e0a030;font-family:'Space Grotesk',sans-serif">1</div>
-      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4">Create your <b style="color:#e0e0f0">free account</b> â€” takes 30 seconds</div>
+      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4">Create your <b style="color:#e0e0f0">free account</b> &#x2014; takes 30 seconds</div>
     </div>
     <div style="text-align:center;flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 8px">
       <div style="font-size:18px;font-weight:800;color:#e0a030;font-family:'Space Grotesk',sans-serif">2</div>
-      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4">Upgrade to <b style="color:#e0e0f0">Insider</b> for Â£4.99/mo</div>
+      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4">Upgrade to <b style="color:#e0e0f0">Insider</b> for &#xA3;4.99/mo</div>
     </div>
     <div style="text-align:center;flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 8px">
       <div style="font-size:18px;font-weight:800;color:#e0a030;font-family:'Space Grotesk',sans-serif">3</div>
@@ -268,8 +268,11 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     </div>
   </div>
 
-  <a href="account.html#membership" class="g-btn-gold" id="gate-cta-primary">Upgrade â€” Â£4.99/mo</a>
+  <a href="account.html#membership" class="g-btn-gold" id="gate-cta-primary">Upgrade &#x2014; &#xA3;4.99/mo</a>
   <a href="#" class="g-btn-ghost" id="gate-cta-secondary" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Lyric Studio.')">Create Free Account</a>
+
+  <!-- Escape link &#x2014; visible to ALL users so nobody is trapped -->
+  <a href="index.html" style="display:block;margin-top:18px;font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;letter-spacing:.05em;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">← Back to Awa Sounds</a>
 </div>
 
 <!-- Nav -->
@@ -278,7 +281,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     Awa Sounds
   </a>
-  <span class="nav-brand" style="display:none" id="nav-brand-sep">Â·</span>
+  <span class="nav-brand" style="display:none" id="nav-brand-sep">&#xB7;</span>
   <span class="nav-title">Lyric Studio</span>
   <span class="badge-member">Insider</span>
   <div class="nav-right">
@@ -297,18 +300,18 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <div class="split-guide-steps">
     <div class="sg-step">
       <div class="sg-step-num">1</div>
-      <div class="sg-step-txt"><b>Left panel</b> â€” your cover art or video, fully visible. <b>Drag</b> it anywhere and <b>resize</b> using the corner handles to find your perfect layout.</div>
+      <div class="sg-step-txt"><b>Left panel</b> &#x2014; your cover art or video, fully visible. <b>Drag</b> it anywhere and <b>resize</b> using the corner handles to find your perfect layout.</div>
     </div>
     <div class="sg-step">
       <div class="sg-step-num">2</div>
-      <div class="sg-step-txt"><b>Right panel</b> â€” your lyrics, animated beat-by-beat. The same media plays blurred behind them for a seamless aesthetic.</div>
+      <div class="sg-step-txt"><b>Right panel</b> &#x2014; your lyrics, animated beat-by-beat. The same media plays blurred behind them for a seamless aesthetic.</div>
     </div>
     <div class="sg-step">
       <div class="sg-step-num">3</div>
-      <div class="sg-step-txt"><b>Best use</b> â€” upload a square cover art for the left panel. Works best with an instrumental beat playing. Hit Export when your lyric video is ready to post.</div>
+      <div class="sg-step-txt"><b>Best use</b> &#x2014; upload a square cover art for the left panel. Works best with an instrumental beat playing. Hit Export when your lyric video is ready to post.</div>
     </div>
   </div>
-  <button class="split-guide-close" id="split-guide-close">Got it â€” Start Creating</button>
+  <button class="split-guide-close" id="split-guide-close">Got it &#x2014; Start Creating</button>
   <p class="split-guide-tip">Tip: pause playback to see the drag handles on your media</p>
 </div>
 
@@ -346,11 +349,11 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       <div class="esp" id="esp-2" data-slot="2">Slot 3</div>
       <div class="esp" id="esp-3" data-slot="3">Slot 4</div>
     </div>
-    <div class="exit-saved-tag" id="exit-saved-tag">âœ“ Saved! You can now leave safely.</div>
+    <div class="exit-saved-tag" id="exit-saved-tag">âœ" Saved! You can now leave safely.</div>
     <div class="exit-btns">
       <button class="ebtn ebtn-save" id="ebtn-save">Save &amp; Stay</button>
       <button class="ebtn ebtn-leave" id="ebtn-leave">Leave Without Saving</button>
-      <button class="ebtn ebtn-stay" id="ebtn-stay">Cancel â€” Keep Editing</button>
+      <button class="ebtn ebtn-stay" id="ebtn-stay">Cancel &#x2014; Keep Editing</button>
     </div>
   </div>
 </div>
@@ -366,7 +369,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <div class="sec-lbl">Background Media</div>
     <div class="upzone" id="bg-zone">
       <input type="file" id="bg-file" accept="video/*,image/*" multiple/>
-      <div class="uz-icon">ðŸŽ¬</div>
+      <div class="uz-icon">🎬</div>
       <div class="uz-txt"><b>Drop video or image</b><br>MP4, MOV, JPG, PNG</div>
       <div class="uz-loaded" id="bg-loaded" style="display:none"></div>
     </div>
@@ -375,7 +378,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       <label><input type="checkbox" id="vid-loop-all" checked/> Loop playlist</label>
     </div>
     <select class="ls-sel" id="cover-sel">
-      <option value="">â€” Or pick a purchased cover â€”</option>
+      <option value="">&#x2014; Or pick a purchased cover &#x2014;</option>
     </select>
   </div>
 
@@ -391,8 +394,8 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       </div>
       <div class="upzone upzone-sm" id="beat-zone">
         <input type="file" id="beat-file" accept="audio/*"/>
-        <div class="uz-icon" style="font-size:14px">ðŸŽµ</div>
-        <div class="uz-txt" style="font-size:10px"><b>Drop beat</b> Â· MP3, WAV, FLAC</div>
+        <div class="uz-icon" style="font-size:14px">🎵</div>
+        <div class="uz-txt" style="font-size:10px"><b>Drop beat</b> &#xB7; MP3, WAV, FLAC</div>
         <div class="uz-loaded" id="beat-loaded" style="display:none"></div>
       </div>
       <div class="beat-list" id="beat-list"></div>
@@ -407,8 +410,8 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       </div>
       <div class="upzone upzone-sm" id="vocal-zone">
         <input type="file" id="vocal-file" accept="audio/*"/>
-        <div class="uz-icon" style="font-size:14px">ðŸŽ¤</div>
-        <div class="uz-txt" style="font-size:10px"><b>Drop vocals</b> Â· MP3, WAV, FLAC</div>
+        <div class="uz-icon" style="font-size:14px">🎤</div>
+        <div class="uz-txt" style="font-size:10px"><b>Drop vocals</b> &#xB7; MP3, WAV, FLAC</div>
         <div class="uz-loaded" id="vocal-loaded" style="display:none"></div>
       </div>
       <div class="al-vol"><label style="font-size:9px;color:var(--muted);letter-spacing:.08em">VOL</label><input type="range" class="al-vol-range" data-layer="1" min="0" max="1" step="0.05" value="0.8"/></div>
@@ -422,8 +425,8 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       </div>
       <div class="upzone upzone-sm" id="amb-zone">
         <input type="file" id="amb-file" accept="audio/*"/>
-        <div class="uz-icon" style="font-size:14px">ðŸŒŠ</div>
-        <div class="uz-txt" style="font-size:10px"><b>Drop ambience</b> Â· MP3, WAV, FLAC</div>
+        <div class="uz-icon" style="font-size:14px">🌊</div>
+        <div class="uz-txt" style="font-size:10px"><b>Drop ambience</b> &#xB7; MP3, WAV, FLAC</div>
         <div class="uz-loaded" id="amb-loaded" style="display:none"></div>
       </div>
       <div class="al-vol"><label style="font-size:9px;color:var(--muted);letter-spacing:.08em">VOL</label><input type="range" class="al-vol-range" data-layer="2" min="0" max="1" step="0.05" value="0.4"/></div>
@@ -435,7 +438,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <div class="sec-lbl">Lyrics <span id="lyr-count" style="color:var(--muted);font-size:9px">0 lines</span></div>
     <textarea class="lyrics-ta" id="lyr-ta" placeholder="Not a template. Beat-reactive, your lyrics, your track.
 
-Paste your lyrics here â€” one line per row.
+Paste your lyrics here &#x2014; one line per row.
 
 [Verse 1]
 I been moving through the chrome
@@ -446,7 +449,7 @@ Every note a cornerstone
 Feel the waves feel the pull
 Every second getting full
 ..."></textarea>
-    <div class="lyr-meta" id="lyr-meta">0 lines Â· 0 words</div>
+    <div class="lyr-meta" id="lyr-meta">0 lines &#xB7; 0 words</div>
   </div>
 
   <!-- Sync -->
@@ -473,12 +476,12 @@ Every second getting full
   <div class="cw" id="cw">
     <canvas id="cv" width="1280" height="720"></canvas>
     <div class="transport">
-      <button class="tb" id="restart-btn">â®</button>
-      <button class="tb" id="play-tb">â–¶</button>
+      <button class="tb" id="restart-btn">⏮</button>
+      <button class="tb" id="play-tb">▶</button>
       <span class="t-time" id="t-time">0:00 / 0:00</span>
       <div class="beat-ind">
         <div class="bdot" id="bdot"></div>
-        <span id="bpm-lbl">â€” BPM</span>
+        <span id="bpm-lbl">&#x2014; BPM</span>
       </div>
     </div>
   </div>
@@ -558,7 +561,7 @@ Every second getting full
     <div class="hf-box">
       <div class="hf-lbl">Higgsfield Background Prompt</div>
       <div class="hf-txt" id="hf-txt">Select a style to generate your free Unlimited prompt.</div>
-      <button class="hf-copy" id="hf-copy">Copy â†’ Paste in Higgsfield Unlimited</button>
+      <button class="hf-copy" id="hf-copy">Copy â†' Paste in Higgsfield Unlimited</button>
     </div>
   </div>
 
@@ -574,17 +577,17 @@ Every second getting full
 (function(){
 "use strict";
 
-/* â”€â”€ Slot constants (must be before checkAccess) â”€â”€ */
+/* â"€â"€ Slot constants (must be before checkAccess) â"€â"€ */
 const MAX_SLOTS_FREE      = 4;
 const MAX_SLOTS_UNLIMITED = 20;
 const MAX_SLOTS = (window.AWA_PROFILE && window.AWA_PROFILE.studio_unlimited) ? MAX_SLOTS_UNLIMITED : MAX_SLOTS_FREE;
 const STORE_PREFIX = 'awa_ls_slot_';
 
-/* â”€â”€ Access gate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Access gate â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function checkAccess(){
   const gate = document.getElementById('gate');
   if(!window.AWA_SESSION){
-    // Not logged in â€” show full onboarding gate
+    // Not logged in &#x2014; show full onboarding gate
     const title = document.getElementById('gate-title');
     const desc = document.getElementById('gate-desc');
     const ctaP = document.getElementById('gate-cta-primary');
@@ -598,7 +601,7 @@ function checkAccess(){
   const p = window.AWA_PROFILE;
   // Lyric Studio requires Insider membership
   if(p && !p.is_member){
-    // Logged in but free account â€” show upgrade gate
+    // Logged in but free account &#x2014; show upgrade gate
     const title = document.getElementById('gate-title');
     const desc = document.getElementById('gate-desc');
     const ctaP = document.getElementById('gate-cta-primary');
@@ -625,7 +628,7 @@ setTimeout(() => {
   }
 }, 0);
 
-/* â”€â”€ State â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ State â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 const cv    = document.getElementById('cv');
 const ctx   = cv.getContext('2d');
 const W = 1280, H = 720;
@@ -647,12 +650,12 @@ let tickerOffset = 0;
 let glitchT = 0;
 let kinScale = 1, kinAngle = 0;
 
-/* â”€â”€ Styles definition â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Styles definition â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 const STYLES = [
   { id:'impact',    name:'Impact Word', sub:'One word, full frame', hf:'Ultra close-up slow-motion water droplets on glass, cinematic film grain, dark silver and charcoal palette, seamless loop, 4K, no text, premium music video backing' },
   { id:'mirror',    name:'Mirror Flip', sub:'Text + reflection', hf:'Dark concrete texture with subtle iridescent sheen, wet floor reflection, deep charcoal and steel blue, seamless loop, 4K, no text, underground hip-hop aesthetic' },
   { id:'ticker',    name:'Ticker Band', sub:'Full-width repeat scroll', hf:'Abstract ink bleeding into dark water, monochrome with silver highlight, seamless loop, 4K, no text, cinematic slow drip' },
-  { id:'split',     name:'Split Panel', sub:'Cover left Â· lyrics right', hf:'Soft gradient purple-to-indigo bokeh, warm ambient glow, seamless loop, 4K, no text, Spotify Canvas mood' },
+  { id:'split',     name:'Split Panel', sub:'Cover left &#xB7; lyrics right', hf:'Soft gradient purple-to-indigo bokeh, warm ambient glow, seamless loop, 4K, no text, Spotify Canvas mood' },
   { id:'kinetic',   name:'Kinetic',    sub:'Scale & rotate on beat', hf:'Geometric chrome lattice shifting in 3D space, silver and gunmetal, slow rotation, seamless loop, 4K, no text, luxury motion design' },
   { id:'karaoke',   name:'Karaoke',    sub:'Word highlight + glow', hf:'Liquid silver paint pouring in slow motion, metallic ripples, ultra HD, seamless loop, 4K, no text, Awa Sounds chrome palette' },
   { id:'neon',      name:'Neon Glow',  sub:'Beat-reactive halos', hf:'Neon tube signs in empty dark room, electric purple and gold, lens flare bokeh, seamless loop, 4K, no text, night city premium' },
@@ -667,7 +670,7 @@ const STYLE_COLORS = {
   glitch:'#180000',minimal:'#080808'
 };
 
-/* â”€â”€ Build style grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Build style grid â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function buildStyleGrid(){
   const grid = document.getElementById('style-grid');
   grid.innerHTML = STYLES.map(s => `
@@ -716,7 +719,7 @@ function drawThumbs(){
   });
 }
 
-/* â”€â”€ Init â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Init â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function init(){
   buildStyleGrid();
   fillCovers();
@@ -757,12 +760,12 @@ async function fillBeats(){
   }
 
   if(!bts.length){ list.innerHTML='<div style="font-size:10px;color:var(--muted);padding:4px 0">'+(isAdmin?'No beats in store yet.':'Purchase a beat to load it here.')+'</div>'; return; }
-  list.innerHTML = (isAdmin?'<div style="font-size:9px;color:var(--gold);padding:2px 0 6px;letter-spacing:.06em">ADMIN â€” ALL STORE BEATS</div>':'')+bts.map(b=>`
+  list.innerHTML = (isAdmin?'<div style="font-size:9px;color:var(--gold);padding:2px 0 6px;letter-spacing:.06em">ADMIN &#x2014; ALL STORE BEATS</div>':'')+bts.map(b=>`
     <div class="bi" data-id="${b.id}" data-src="${b.preview||''}">
-      <span style="font-size:13px">ðŸŽµ</span>
+      <span style="font-size:13px">🎵</span>
       <div style="min-width:0;flex:1">
         <div class="bi-name">${b.title}</div>
-        <div class="bi-meta">${b.bpm?b.bpm+' BPM':''}${b.key?' Â· '+b.key:''}</div>
+        <div class="bi-meta">${b.bpm?b.bpm+' BPM':''}${b.key?' &#xB7; '+b.key:''}</div>
       </div>
     </div>`).join('');
   list.querySelectorAll('.bi').forEach(el=>{
@@ -776,7 +779,7 @@ async function fillBeats(){
   });
 }
 
-/* â”€â”€ Wire UI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Wire UI â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function wireUI(){
   // Drag-over visual feedback for all upload zones
   document.querySelectorAll('.upzone').forEach(zone=>{
@@ -788,7 +791,7 @@ function wireUI(){
     });
   });
 
-  // BG â€” video playlist + image support
+  // BG &#x2014; video playlist + image support
   let bgVideos = []; // { name, url, el }
   let bgVideoIdx = 0;
 
@@ -799,9 +802,9 @@ function wireUI(){
     list.style.display='flex'; loopRow.style.display='flex';
     list.innerHTML = bgVideos.map((v,i)=>`
       <div class="vid-item${i===bgVideoIdx?' vid-active':''}" data-idx="${i}">
-        <span class="vid-item-icon">${i===bgVideoIdx?'â–¶':'ðŸŽ¬'}</span>
+        <span class="vid-item-icon">${i===bgVideoIdx?'▶':'🎬'}</span>
         <span class="vid-item-name">${v.name}</span>
-        <button class="vid-item-rm" data-rm="${i}" title="Remove">Ã—</button>
+        <button class="vid-item-rm" data-rm="${i}" title="Remove">&times;</button>
       </div>`).join('');
     list.querySelectorAll('.vid-item[data-idx]').forEach(el=>{
       el.addEventListener('click', e=>{ if(e.target.closest('[data-rm]')) return; activateBgVideo(+el.dataset.idx); });
@@ -951,8 +954,8 @@ function wireUI(){
   });
 }
 
-/* â”€â”€ Audio â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-/* â”€â”€ Multi-layer audio (layers 1 + 2 are secondary, no BPM analysis) â”€â”€ */
+/* â"€â"€ Audio â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* â"€â"€ Multi-layer audio (layers 1 + 2 are secondary, no BPM analysis) â"€â"€ */
 const layerAudios = [null, null, null]; // indices 0=beat(primary), 1=vocals, 2=amb
 const layerMuted  = [false, false, false];
 
@@ -1069,7 +1072,7 @@ function syncLyric(){
   lyricIdx = Math.min(Math.floor(audio.currentTime/(audio.duration||1)*lyrics.length), lyrics.length-1);
 }
 
-/* â”€â”€ Playback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Playback â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function togglePlay(){
   if(!audio){ toast('Load a beat first','info'); return; }
   if(isPlaying){ pause(); } else { play(); }
@@ -1094,7 +1097,7 @@ function setPlayBtns(p){
 
 function loop(){ if(!isPlaying)return; drawFrame(); raf=requestAnimationFrame(loop); }
 
-/* â”€â”€ Get amplitude â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Get amplitude â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function getAmp(){
   if(!analyser||!isPlaying) return 0;
   analyser.getByteFrequencyData(freqArr);
@@ -1103,7 +1106,7 @@ function getAmp(){
   return { bass, full, avg: (bass*0.7+full*0.3) };
 }
 
-/* â”€â”€ Draw â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Draw â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawFrame(){
   const amp = getAmp();
   const a = amp.avg||0;
@@ -1137,7 +1140,7 @@ function drawFrame(){
   if(bassA>0.35) bdot.classList.add('on'); else bdot.classList.remove('on');
 }
 
-/* â”€â”€ Background â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Background â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawBG(amp){
   ctx.save();
   if(bgEl){
@@ -1180,7 +1183,7 @@ function drawVignette(){
   ctx.fillStyle=vg; ctx.fillRect(0,0,W,H);
 }
 
-/* â”€â”€ Line helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Line helpers â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function line(off=0){ return lyrics[Math.min(Math.max(lyricIdx+off,0),lyrics.length-1)]||'AWA SOUNDS'; }
 function setFont(size,alpha){ ctx.font=`${fWeight} ${size}px ${fFont}`; ctx.globalAlpha=alpha*fOpacity; ctx.textAlign='center'; ctx.textBaseline='middle'; }
 function drawText(txt,x,y,col,scale=1){
@@ -1191,7 +1194,7 @@ function drawText(txt,x,y,col,scale=1){
   ctx.restore();
 }
 
-/* â”€â”€ STYLE: Impact Word â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Impact Word â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawImpact(a, bass){
   const txt = line();
   const words = txt.split(/\s+/);
@@ -1213,7 +1216,7 @@ function drawImpact(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â”€â”€ STYLE: Mirror Flip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Mirror Flip â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawMirror(a, bass){
   const txt = line().toUpperCase();
   const scale = 1 + bass*0.08;
@@ -1239,7 +1242,7 @@ function drawMirror(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â”€â”€ STYLE: Ticker Band â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Ticker Band â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawTicker(a){
   const txt = (' '+line().toUpperCase()+' \u2726').repeat(12);
   const sz = Math.round(fSize*0.9);
@@ -1250,14 +1253,14 @@ function drawTicker(a){
   const metrics = ctx.measureText(line().toUpperCase()+' \u2726 ');
   const unitW = metrics.width;
   if(Math.abs(tickerOffset) > unitW) tickerOffset += unitW;
-  // Band 1 â€” center
+  // Band 1 &#x2014; center
   ctx.save();
   ctx.fillStyle='rgba(0,0,0,0.35)';
   ctx.fillRect(0, H/2-sz*0.8, W, sz*1.6);
   if(strokeW>0){ ctx.strokeStyle=strokeColor; ctx.lineWidth=strokeW; ctx.strokeText(txt, tickerOffset, H/2); }
   ctx.fillStyle=txColor; ctx.fillText(txt, tickerOffset, H/2);
   ctx.restore();
-  // Band 2 â€” top (reverse, smaller)
+  // Band 2 &#x2014; top (reverse, smaller)
   ctx.save();
   ctx.fillStyle='rgba(0,0,0,0.2)'; ctx.fillRect(0,80,W,sz*0.9);
   ctx.globalAlpha=0.5*fOpacity; setFont(Math.round(sz*0.65),0.5);
@@ -1265,7 +1268,7 @@ function drawTicker(a){
   ctx.restore(); ctx.globalAlpha=1;
 }
 
-/* â”€â”€ STYLE: Split Panel state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Split Panel state â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 let splitMedia = { x:40, y:60, w:Math.round(W*0.44), h:H-120, dragging:false, resizing:false, dragOX:0, dragOY:0 };
 let splitGuideShown = false;
 
@@ -1366,7 +1369,7 @@ function drawSplit(a, bass){
   cv.addEventListener('touchstart',onDown,{passive:false});cv.addEventListener('touchmove',onMove,{passive:false});cv.addEventListener('touchend',onUp);
 })();
 
-/* â”€â”€ STYLE: Kinetic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Kinetic â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawKinetic(a, bass){
   const txt = line();
   kinScale += ((1+bass*0.3)-kinScale)*0.15;
@@ -1389,7 +1392,7 @@ function drawKinetic(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â”€â”€ STYLE: Karaoke â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Karaoke â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawKaraoke(a, bass){
   const prev=line(-1), cur=line(), next=line(1);
   const sc=1+bass*0.1;
@@ -1407,7 +1410,7 @@ function drawKaraoke(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â”€â”€ STYLE: Neon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Neon â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawNeon(a, bass){
   if(bass>0.25){
     for(let r=0;r<3;r++){
@@ -1424,7 +1427,7 @@ function drawNeon(a, bass){
   ctx.shadowBlur=0;
 }
 
-/* â”€â”€ STYLE: Cinematic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Cinematic â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawCinematic(a){
   const txt=line();
   const spacing = fSpacing + a*18;
@@ -1446,7 +1449,7 @@ function drawCinematic(a){
   ctx.globalAlpha=1;
 }
 
-/* â”€â”€ STYLE: Glitch â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Glitch â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawGlitch(a){
   glitchT++;
   const txt = line().toUpperCase();
@@ -1464,7 +1467,7 @@ function drawGlitch(a){
   }
 }
 
-/* â”€â”€ STYLE: Minimal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ STYLE: Minimal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function drawMinimal(a){
   const txt=line().toUpperCase();
   const alpha=(0.45+a*0.55)*fOpacity;
@@ -1476,7 +1479,7 @@ function drawMinimal(a){
   ctx.globalAlpha=1;
 }
 
-/* â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Helpers â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function parseLyrics(txt){
   const raw=txt.split('\n').map(l=>l.trim()).filter(l=>l&&!l.startsWith('['));
   lyrics=raw;
@@ -1570,7 +1573,7 @@ function startExportRec(){
       const webmBlob = new Blob(recChunks, { type: 'video/webm' });
       const er = document.getElementById('exp-recording');
       const ec = document.getElementById('exp-controls');
-      if(er) er.innerHTML = '<div style="text-align:center;padding:16px 0"><div style="font-size:28px;margin-bottom:8px">&#x231B;</div><div style="color:var(--gold);font-weight:700;font-family:\'Space Grotesk\',sans-serif;font-size:14px">Converting to MP4&hellip;</div><div style="font-size:11px;color:var(--silver);margin-top:4px">Encoding locally â€” no upload needed</div></div>';
+      if(er) er.innerHTML = '<div style="text-align:center;padding:16px 0"><div style="font-size:28px;margin-bottom:8px">&#x231B;</div><div style="color:var(--gold);font-weight:700;font-family:\'Space Grotesk\',sans-serif;font-size:14px">Converting to MP4&hellip;</div><div style="font-size:11px;color:var(--silver);margin-top:4px">Encoding locally &#x2014; no upload needed</div></div>';
       if(recAudioDest){ try{ if(analyser) analyser.disconnect(recAudioDest); }catch(e){} recAudioDest=null; }
       try {
         const mp4Blob = await convertWebmToMp4(webmBlob);
@@ -1578,7 +1581,7 @@ function startExportRec(){
       } catch(e) {
         console.warn('MP4 conversion failed, using WebM:', e);
         downloadLyricVideo(webmBlob, 'webm');
-        toast('Saved as .webm â€” MP4 conversion unavailable in this browser','info');
+        toast('Saved as .webm &#x2014; MP4 conversion unavailable in this browser','info');
       }
       if(ec) ec.style.display = '';
       if(er) er.style.display = 'none';
@@ -1644,11 +1647,11 @@ function toast(msg, type){
 
 // Slot constants declared at IIFE top so checkAccess() can reference them
 let isDirty = false;       // true after any user edit
-let activeSlot = null;     // 0 or 1 â€” slot currently loaded/saved into
+let activeSlot = null;     // 0 or 1 &#x2014; slot currently loaded/saved into
 let autoBackupTimer = null;
 let exitPendingCb = null;  // resolve fn from beforeunload intercept
 
-/* â”€â”€ Save button state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Save button state â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 let nudgeTimer = null;
 function updateSaveBtn(){
   const btn = document.getElementById('btn-save-proj');
@@ -1670,7 +1673,7 @@ function updateSaveBtn(){
   }
 }
 
-/* â”€â”€ Ctrl+S shortcut â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Ctrl+S shortcut â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 document.addEventListener('keydown', e=>{
   if((e.ctrlKey||e.metaKey) && e.key==='s'){
     e.preventDefault();
@@ -1678,7 +1681,7 @@ document.addEventListener('keydown', e=>{
   }
 });
 
-/* â”€â”€ Serialise / restore â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Serialise / restore â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function serialiseProject(){
   return JSON.stringify({
     v: 2,
@@ -1725,7 +1728,7 @@ function restoreProject(data){
   } catch(e){ return false; }
 }
 
-/* â”€â”€ Slot UI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Slot UI â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function refreshSlotUI(){
   for(let i=0;i<MAX_SLOTS;i++){
     const raw = localStorage.getItem(STORE_PREFIX+i);
@@ -1760,7 +1763,7 @@ function refreshSlotUI(){
   }
 }
 
-/* â”€â”€ Save to slot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Save to slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function saveToSlot(slot, silent){
   const payload = serialiseProject();
   localStorage.setItem(STORE_PREFIX+slot, payload);
@@ -1771,7 +1774,7 @@ function saveToSlot(slot, silent){
   if(!silent) toast('Saved to Slot '+(slot+1),'ok');
 }
 
-/* â”€â”€ Load from slot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Load from slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function loadFromSlot(slot){
   const raw = localStorage.getItem(STORE_PREFIX+slot);
   if(!raw){ toast('Slot '+(slot+1)+' is empty','info'); return; }
@@ -1782,7 +1785,7 @@ function loadFromSlot(slot){
   } else { toast('Could not read slot data',''); }
 }
 
-/* â”€â”€ Wire slot pills â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Wire slot pills â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 for(let i=0;i<MAX_SLOTS;i++){
   document.getElementById('slot-'+i).addEventListener('click',()=>{
     const raw = localStorage.getItem(STORE_PREFIX+i);
@@ -1791,7 +1794,7 @@ for(let i=0;i<MAX_SLOTS;i++){
   });
 }
 
-/* â”€â”€ Save button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Save button â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 document.getElementById('btn-save-proj').addEventListener('click',()=>{
   if(activeSlot!==null){ saveToSlot(activeSlot); return; }
   const allSlots = Array.from({length:MAX_SLOTS_FREE},(_,i)=>i);
@@ -1800,10 +1803,10 @@ document.getElementById('btn-save-proj').addEventListener('click',()=>{
   saveToSlot(target);
 });
 
-/* â”€â”€ Project name editable â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Project name editable â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 document.getElementById('proj-name').addEventListener('change',()=>{ isDirty=true; updateSaveBtn(); });
 
-/* â”€â”€ Mark dirty on any UI change â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Mark dirty on any UI change â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 ['lyr-ta','fsize','fweight','fspacing','fopacity','bg-blur','bg-dim',
  'bg-vig','bg-sat','tint-op','stroke-w','font-pick','sync-mode','lyr-offset',
  'custom-clr','flash-clr','stroke-clr','tint-clr'].forEach(id=>{
@@ -1814,7 +1817,7 @@ document.getElementById('style-grid').addEventListener('click',()=>{ isDirty=tru
 document.getElementById('bg-file').addEventListener('change',()=>{ isDirty=true; });
 document.getElementById('beat-file').addEventListener('change',()=>{ isDirty=true; });
 
-/* â”€â”€ Auto-backup every 2 min â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Auto-backup every 2 min â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 function startAutoBackup(){
   if(autoBackupTimer) clearInterval(autoBackupTimer);
   autoBackupTimer = setInterval(()=>{
@@ -1830,7 +1833,7 @@ function startAutoBackup(){
 }
 startAutoBackup();
 
-/* â”€â”€ Exit confirmation modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Exit confirmation modal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 let exitModalSaveSlot = activeSlot!==null ? activeSlot : 0;
 
 function showExitModal(onLeave){
@@ -1878,10 +1881,10 @@ document.getElementById('ebtn-stay').addEventListener('click',()=>{
   document.getElementById('ebtn-leave').style.color='var(--red)';
 });
 
-/* â”€â”€ beforeunload / page close/reload â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ beforeunload / page close/reload â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 window.addEventListener('beforeunload', e=>{
   if(!isDirty) return;
-  // Show the browser's native dialog (required â€” we cannot override this)
+  // Show the browser's native dialog (required &#x2014; we cannot override this)
   e.preventDefault();
   e.returnValue=''; // triggers browser default "Leave site?" dialog
   // Also show our custom modal for the user to save from
@@ -1891,7 +1894,7 @@ window.addEventListener('beforeunload', e=>{
   }, 300);
 });
 
-/* â”€â”€ Intercept in-site navigation links â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Intercept in-site navigation links â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 document.addEventListener('click', e=>{
   const a=e.target.closest('a[href]');
   if(!a||!isDirty) return;
@@ -1901,7 +1904,7 @@ document.addEventListener('click', e=>{
   showExitModal(()=>{ window.location.href=href; });
 });
 
-/* â”€â”€ On page load â€” restore last slot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ On page load &#x2014; restore last slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 (function loadMostRecent(){
   let newest=-1, newestSlot=null;
   for(let i=0;i<MAX_SLOTS;i++){
@@ -1917,7 +1920,7 @@ document.addEventListener('click', e=>{
   updateSaveBtn();
 })();
 
-// Idle animation loop â€” pause when auth gate is visible (prevents JS thread blocking)
+// Idle animation loop &#x2014; pause when auth gate is visible (prevents JS thread blocking)
 (function idle(){
   const g = document.getElementById('gate');
   if(!isPlaying && (!g || g.style.display === 'none')) drawFrame();

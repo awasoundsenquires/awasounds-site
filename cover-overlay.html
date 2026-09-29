@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Make It Mine — Cover Art Personaliser | Awa Sounds</title>
+<title>Make It Mine &#x2014; Cover Art Personaliser | Awa Sounds</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,700&family=Oswald:wght@600&family=Dancing+Script:wght@700&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css"/>
 <style>
@@ -114,7 +114,7 @@ input[type=range]{accent-color:var(--gold);width:100%;cursor:pointer;margin-top:
 <div id="gate" style="display:none">
   <div style="font-size:32px">✦</div>
   <h2>Members Only</h2>
-  <p>The Cover Personaliser is available to all registered Awa Sounds members. Sign up free — no membership required.</p>
+  <p>The Cover Personaliser is available to all registered Awa Sounds members. Sign up free &#x2014; no membership required.</p>
   <a href="account.html" class="g-btn-gold">Sign In / Register</a>
   <a href="cover-store.html" class="g-btn-ghost">Browse Covers</a>
 </div>
@@ -140,7 +140,7 @@ input[type=range]{accent-color:var(--gold);width:100%;cursor:pointer;margin-top:
       <div class="upzone" id="upzone">
         <input type="file" id="img-input" accept="image/*">
         <div class="uz-ico">🖼️</div>
-        <div class="uz-txt">Drop your cover art here<br><b>or click to upload</b><br><span style="font-size:9px;opacity:.6">JPG, PNG, WEBP · up to 20MB</span></div>
+        <div class="uz-txt">Drop your cover art here<br><b>or click to upload</b><br><span style="font-size:9px;opacity:.6">JPG, PNG, WEBP &#xB7; up to 20MB</span></div>
         <div class="uz-loaded" id="uz-ok" style="display:none">✓ Image loaded</div>
       </div>
       <img id="cover-thumb" class="cover-thumb" alt="">
@@ -164,8 +164,8 @@ input[type=range]{accent-color:var(--gold);width:100%;cursor:pointer;margin-top:
     <!-- Style match enquiry -->
     <div class="enq-banner">
       <h4>Want the original style?</h4>
-      <p>Our covers come with bespoke typography and treatment. To get your artist name and song title rendered in the <em>exact same style</em> as the original design — matching fonts, effects, spacing — request a custom text addition from our team.</p>
-      <p style="margin-top:6px;margin-bottom:10px;font-size:10px;color:rgba(224,160,48,.6)">This is a paid service. Pricing depends on complexity (usually £10–25). Turnaround: 24–48h.</p>
+      <p>Our covers come with bespoke typography and treatment. To get your artist name and song title rendered in the <em>exact same style</em> as the original design &#x2014; matching fonts, effects, spacing &#x2014; request a custom text addition from our team.</p>
+      <p style="margin-top:6px;margin-bottom:10px;font-size:10px;color:rgba(224,160,48,.6)">This is a paid service. Pricing depends on complexity (usually &#xA3;10–25). Turnaround: 24–48h.</p>
       <a href="contact.html?subject=Custom+Text+Addition&body=Cover+ID:+[your+cover]%0AArtist+Name:+%0ASong+Title:+" class="btn-gold btn-sm" style="display:block;text-align:center;text-decoration:none;font-size:11px;padding:9px;border-radius:7px;letter-spacing:.05em;text-transform:uppercase">Request Custom Text →</a>
     </div>
   </div>
@@ -179,7 +179,7 @@ input[type=range]{accent-color:var(--gold);width:100%;cursor:pointer;margin-top:
         <p>Upload your cover to begin</p>
       </div>
     </div>
-    <div class="drag-hint" id="drag-hint" style="display:none">Drag text layers to reposition · Scroll to resize</div>
+    <div class="drag-hint" id="drag-hint" style="display:none">Drag text layers to reposition &#xB7; Scroll to resize</div>
   </div>
 </div>
 
@@ -500,7 +500,7 @@ function renderSlots(){
 
   const note=document.getElementById("slots-upgrade-note");
   if(slots.length >= MAX_FREE_SLOTS && !window.AWA_UNLIMITED_STUDIO){
-    note.innerHTML=`Using ${slots.length}/${MAX_FREE_SLOTS} slots. <a href="account.html#studio-addon">Unlock unlimited slots</a> — add-on available in your account.`;
+    note.innerHTML=`Using ${slots.length}/${MAX_FREE_SLOTS} slots. <a href="account.html#studio-addon">Unlock unlimited slots</a> &#x2014; add-on available in your account.`;
   } else {
     note.textContent=`${slots.length}/${maxSlots==="999"?"∞":maxSlots} slots used`;
   }
