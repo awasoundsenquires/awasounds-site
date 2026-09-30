@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="stylesheet" href="assets/css/roulette.css"/>
 <style>
-/* â"€â"€ Cover Store page overrides â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Cover Store page overrides √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 /* -- Cover Intro Cinema Sequence ----------------------------------- */
 #cover-intro-seq {
   position: relative;
@@ -60,27 +60,6 @@
   color: #e8e8f2;
   margin: 0;
 }
-.cis-bars { display: flex; gap: 6px; }
-.cis-bar {
-  flex: 1;
-  height: 2px;
-  background: rgba(232,232,242,.18);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-.cis-bar.cis-done { background: rgba(200,168,75,.6); }
-.cis-bar.cis-active { background: rgba(232,232,242,.18); overflow: hidden; }
-.cis-bar.cis-active::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #c8a84b;
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: cis-fill var(--cis-dur, 12s) linear forwards;
-}
-@keyframes cis-fill { to { transform: scaleX(1); } }
 .cis-skip {
   position: absolute;
   bottom: 22px;
@@ -161,7 +140,7 @@
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* === SVS — Section Video Strip === */
+/* === SVS ‚Äî Section Video Strip === */
 .svs { position: relative; width: 100%; height: 220px; overflow: hidden; background: #050508; }
 .svs video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .5; }
 .svs-cover { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--bg) 0%, transparent 28%, transparent 72%, var(--bg) 100%); }
@@ -180,11 +159,6 @@
   <video id="cis-vid" muted playsinline preload="auto"></video>
   <div class="cis-overlay">
     <div class="cis-text" id="cis-text"></div>
-    <div class="cis-bars" id="cis-bars">
-      <div class="cis-bar"></div>
-      <div class="cis-bar"></div>
-      <div class="cis-bar"></div>
-    </div>
   </div>
   <button class="cis-skip" id="cis-skip">View Collection &#x2193;</button>
 </section>
@@ -198,10 +172,9 @@
   var cur = 0;
   var vidEl  = document.getElementById('cis-vid');
   var textEl = document.getElementById('cis-text');
-  var barsEl = document.getElementById('cis-bars');
   var skipBtn = document.getElementById('cis-skip');
-  var bars = Array.from(barsEl.children);
   function scrollToGrid(){
+    try { localStorage.setItem('awa_cis_seen','1'); } catch(e){}
     var g = document.getElementById('cover-grid');
     if(g) g.scrollIntoView({ behavior:'smooth' });
     else   window.scrollBy({ top: window.innerHeight, behavior:'smooth' });
@@ -213,13 +186,6 @@
     vidEl.classList.remove('cis-playing');
     vidEl.src = c.src;
     vidEl.load();
-    vidEl.oncanplay = function(){
-      bars.forEach(function(b,i){
-        b.className = 'cis-bar';
-        if(i < idx) b.classList.add('cis-done');
-        if(i === idx){ b.classList.add('cis-active'); b.style.setProperty('--cis-dur', (vidEl.duration||12)+'s'); }
-      });
-    };
     vidEl.play().then(function(){ vidEl.classList.add('cis-playing'); }).catch(scrollToGrid);
   }
   vidEl.addEventListener('ended', function(){
@@ -227,13 +193,16 @@
     else setTimeout(scrollToGrid, 500);
   });
   skipBtn.addEventListener('click', scrollToGrid);
+  try {
+    if(localStorage.getItem('awa_cis_seen')) { scrollToGrid(); return; }
+  } catch(e){}
   playClip(0);
 })();
 </script>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      MEMBER BANNER
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
 <section class="section" style="padding-top:32px"><div class="wrap">
   <div class="sub-banner" data-reveal>
     <div>
@@ -244,13 +213,13 @@
   </div>
 </div></section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      ACTIVE COVERS &#x2014; Series filter + pair grid
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
 <div class="svs" aria-hidden="true">
   <video autoplay muted loop playsinline preload="none" src="assets/img/svs-covers-01.mp4"></video>
   <div class="svs-cover"></div>
-  <p class="svs-label">Premium Cover Art · Chrome · Void · Gold · Earth</p>
+  <p class="svs-label">Premium Cover Art ¬∑ Chrome ¬∑ Void ¬∑ Gold ¬∑ Earth</p>
 </div>
 <section class="section" id="cover-grid" style="padding-top:0"><div class="wrap">
   <div class="section-head">
@@ -289,13 +258,13 @@
   <p class="lede" data-reveal style="text-align:center;margin:44px auto 0;font-size:14px">Each piece is sold once and retired. Save your favourites to your account. New pairs added every week.</p>
 </div></section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      COMING SOON
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
 <div class="svs" aria-hidden="true">
   <video autoplay muted loop playsinline preload="none" src="assets/img/svs-covers-02.mp4"></video>
   <div class="svs-cover"></div>
-  <p class="svs-label">First to See · Vault Collection · Dropping Soon</p>
+  <p class="svs-label">First to See ¬∑ Vault Collection ¬∑ Dropping Soon</p>
 </div>
 <section class="section" style="padding-top:0"><div class="wrap">
   <div class="section-head">
@@ -308,13 +277,13 @@
   <div id="coming-soon-list"></div>
 </div></section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      ALBUM PACKS
-     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
 <div class="svs" aria-hidden="true">
   <video autoplay muted loop playsinline preload="none" src="assets/img/svs-covers-03.mp4"></video>
   <div class="svs-cover"></div>
-  <p class="svs-label">Full Collections · Album Series · One Visual World</p>
+  <p class="svs-label">Full Collections ¬∑ Album Series ¬∑ One Visual World</p>
 </div>
 <section class="section" id="album-packs" style="padding-top:0"><div class="wrap">
   <div class="section-head">
@@ -322,14 +291,14 @@
       <span class="eyebrow" data-reveal>Album Art Packs</span>
       <h2 class="section-title chrome" data-reveal data-reveal-delay="1">Full album collections</h2>
     </div>
-    <span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">Themed packs of 8â€"13 coordinated covers &#x2014; each delivered as clean + titled pairs, plus two motion files per piece. One visual world, built to release as a body of work.</span>
+    <span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">Themed packs of 8√¢‚Ç¨"13 coordinated covers &#x2014; each delivered as clean + titled pairs, plus two motion files per piece. One visual world, built to release as a body of work.</span>
   </div>
   <div class="pack-grid">
 
     <!-- Chrome Universe Vol. 1 &#x2014; 9 covers, 18 pairs -->
     <div class="pack-card" data-reveal>
       <div class="pack-img-wrap">
-        <!-- 8 pair thumbnails (4 covers Ã&#x2014; clean + titled) + "+10 more" -->
+        <!-- 8 pair thumbnails (4 covers √É&#x2014; clean + titled) + "+10 more" -->
         <div class="pack-pair-strip">
           <div class="pack-pair-thumb"><img src="assets/img/gen-cover-blue.png" alt="Mercury clean" loading="lazy"></div>
           <div class="pack-pair-thumb"><img src="assets/img/gen-cover-blue.png" alt="Mercury titled" loading="lazy"></div>
@@ -464,7 +433,7 @@
   <div class="foot-col"><h5>Explore</h5><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="gallery.html">Gallery</a></div>
   <div class="foot-col"><h5>Divisions</h5><a href="studio.html">Recording Studio</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="contact.html">Sync &amp; Licensing</a></div>
   <div class="foot-col"><h5>Contact</h5><a href="mailto:awasoundsenquires@gmail.com">awasoundsenquires@gmail.com</a><a href="tel:+440000000000">+44 (0) 000 000 000</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
-</div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;&#xB7;&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;&#xB7;&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
+</div><div class="foot-bottom"><span>¬© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;&#xB7;&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;&#xB7;&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
