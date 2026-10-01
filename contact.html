@@ -44,7 +44,7 @@
       </div>
       <div class="row">
         <div class="field"><label>Genre</label><select name="genre"><option>R&amp;B / Soul</option><option>Afrobeats</option><option>Hip-Hop / Rap</option><option>Pop</option><option>Alt / Electronic</option><option>Other</option></select></div>
-        <div class="field"><label>Reason</label><select name="reason"><option>Submit a demo</option><option>Book the studio</option><option>License a beat</option><option>Distribution / Sync</option><option>General enquiry</option></select></div>
+        <div class="field"><label>Reason</label><select name="reason"><option>Submit a demo</option><option>Book the studio</option><option>License a beat</option><option>Distribution / Sync</option><option>General enquiry</option><option>Custom Beat Request</option></select></div>
       </div>
       <div class="field"><label>Link to your music</label><input type="url" name="music_link" placeholder="SoundCloud / Drive / Dropbox link"></div>
       <div class="field"><label>Message</label><textarea name="message" placeholder="Tell us about you and what you're working on..."></textarea></div>
@@ -110,6 +110,9 @@
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/premium-fx.js"></script>
+<script>
+(function(){var p=new URLSearchParams(window.location.search),r=p.get('reason');if(!r)return;var s=document.querySelector('[name="reason"]');if(!s)return;var m={'custom-beat':'Custom Beat Request'},l=m[r];if(!l)return;for(var i=0;i<s.options.length;i++)if(s.options[i].value===l||s.options[i].text===l){s.selectedIndex=i;break;}var f=document.getElementById('demo-form');if(f)setTimeout(function(){f.scrollIntoView({behavior:'smooth',block:'center'});},400);})();
+</script>
 </body></html>
 
 

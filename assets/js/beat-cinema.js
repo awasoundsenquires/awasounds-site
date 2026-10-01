@@ -27,7 +27,7 @@
         body:    "It's a sound waiting for the right artist. Every beat in this store was made in-house — no loops, no stock, no licensing to six other artists. Find yours.",
         tags:    ['MP3 Lease', 'WAV Lease', 'Trackout', 'Exclusive'],
         cta: {
-          primary:   { label: 'Browse Beats', href: '#beat-list' },
+                primary:   { label: 'Get a Custom Beat', href: 'contact.html?reason=custom-beat#demo-form' },
           secondary: { label: 'Sell Your Beats', href: 'contact.html' }
         }
       }

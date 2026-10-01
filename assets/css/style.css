@@ -62,7 +62,7 @@ body::before{
     radial-gradient(80% 60% at 100% 100%, rgba(120,90,80,.06), transparent 60%);
 }
 
-a{color:inherit;text-decoration:none}.sw-btn--primary{color:#050506;}
+a{color:inherit;text-decoration:none}.sw-btn--primary{color:#050506;}.sw-root .sw-copy__tags li{background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1.5px solid rgba(217,195,143,.55);color:#d9c38f;min-width:105px;text-align:center;white-space:nowrap;}
 img{max-width:100%;display:block}
 ::selection{background:rgba(200,210,225,.25);color:#fff}
 
