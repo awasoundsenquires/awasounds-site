@@ -95,35 +95,22 @@
 
   /* ── 4. Word-split text reveals ─────────────────────────────────────────── */
   function initTextReveals() {
-    if (reduce || !window.gsap || !window.ScrollTrigger) return;
-
-    const targets = document.querySelectorAll(
-      'h1, h2.section-title, .display, .lede, .hero-title, .hero-sub'
-    );
-
-    targets.forEach(el => {
-      if (el.closest('.sw-root, #cover-world')) return;
-
-      const text = el.innerHTML;
-      const wrapped = text.replace(/(<[^>]+>)|([^<]+)/g, (m, tag, words) => {
-        if (tag) return tag;
-        return words.split(' ').map(w =>
-          `<span class="pfx-word"><span class="pfx-word-inner">${w}</span></span>`
-        ).join(' ');
-      });
-      el.innerHTML = wrapped;
-
-      const inners = el.querySelectorAll('.pfx-word-inner');
-      gsap.from(inners, {
-        yPercent: 110,
-        opacity: 0,
-        duration: 0.85,
-        ease: 'power3.out',
-        stagger: 0.045,
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-      });
+  if (reduce || !window.gsap || !window.ScrollTrigger) return;
+  const targets = document.querySelectorAll(
+    'h1, h2.section-title, .display, .lede, .hero-title, .hero-sub'
+  );
+  targets.forEach(el => {
+    if (el.closest('.sw-root, #cover-world')) return;
+    if (el.hasAttribute('data-reveal')) return;
+    gsap.from(el, {
+      opacity: 0,
+      y: 20,
+      duration: 0.85,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
     });
-  }
+  });
+}
 
   /* ── 5. Grid stagger ─────────────────────────────────────────────────────── */
   function initGridStagger() {
@@ -134,9 +121,9 @@
     );
 
     grids.forEach(grid => {
-      const items = grid.querySelectorAll(
+      const items = Array.from(grid.querySelectorAll(
         '.cover-card, .artist, .beat-card, .pack-item, .store-item, .service'
-      );
+      )).filter(el => !el.hasAttribute('data-reveal'));
       if (!items.length) return;
 
       gsap.from(items, {
