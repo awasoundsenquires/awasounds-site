@@ -13,7 +13,7 @@
 
   --silver:#c9ced6;
   --silver-hi:#f6f8fb;
-  --silver-lo:#7d838d
+  --silver-lo:#7d838d;
   --ink:#e9ecf1;
   --muted:#adb4be;
   --faint:#868d98;
@@ -62,7 +62,7 @@ body::before{
     radial-gradient(80% 60% at 100% 100%, rgba(120,90,80,.06), transparent 60%);
 }
 
-a{color:inherit;text-decoration:none}
+a{color:inherit;text-decoration:none}.sw-btn--primary{color:#050506;}
 img{max-width:100%;display:block}
 ::selection{background:rgba(200,210,225,.25);color:#fff}
 
@@ -124,7 +124,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;lette
 .brand:hover .mark{filter:brightness(0) invert(1) drop-shadow(0 0 6px rgba(247,236,199,.7)) drop-shadow(0 0 16px rgba(217,195,143,.6))}
 .brand b{background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent}
 .nav-links{display:flex;align-items:center;gap:30px}
-.nav-links a{font-size:13.5px;letter-spacing:.04em;color:var(--muted);transition:color .3s;position:relative}
+.nav-links a{white-space:nowrap;font-size:13.5px;letter-spacing:.04em;color:var(--muted);transition:color .3s;position:relative}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--silver);transition:width .35s var(--ease-out)}
 .nav-links a:hover{color:var(--ink)}
 .nav-links a:hover::after{width:100%}
