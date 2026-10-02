@@ -12,7 +12,7 @@ window.AWA = {
 
   /* --- Contact / demo form --- */
   web3formsKey: "eb514f46-d5ae-43ff-9ffc-933f8041340c",
-  enquiryEmail: "awasound.music@gmail.com",
+  enquiryEmail: "awasoundsenquires@gmail.com",
 
   /* --- Membership --- */
   membershipPayLink: "https://buy.stripe.com/4gM14m76d3mD05SbtSawo03",
@@ -29,7 +29,6 @@ window.AWA = {
 
   /* --- Cover art pay links per tier --- */
   coverPayLink:          "https://buy.stripe.com/7sYcN4629f5l3i49lKawo09",  /* ¬£15 Lifestyle */
-  coverMidPayLink:       "https://buy.stripe.com/00w6oGfCJ2izg4QapOawo04", /* ¬£19 Standard   */
   coverAnimatedPayLink:  "https://buy.stripe.com/3cIfZggGNbT9f0M1Tiawo0a",  /* ¬£25 Editorial  */
   coverPremiumPayLink:   "https://buy.stripe.com/14A5kCgGNaP5f0M0Peawo06",  /* ¬£35 Standard   */
   coverCinematicPayLink: "https://buy.stripe.com/aFabJ0629g9p19W0Peawo07",  /* ¬£40 Cinematic  */
@@ -79,9 +78,9 @@ window.AWA = {
 
   albumPacks: [
     {
-      id:            "chrome-universe-vol1",
+      id:            "chrome-reign-vol1",
       code:          "AWA-PACK-001",
-      title:         "Chrome Universe Vol. 1",
+      title:         "Chrome Reign Vol. 1",
       subtitle:      "9 covers ‚Äî same metallic universe, 9 distinct worlds",
       mood:          "Silver, chrome, liquid metal aesthetics",
       coverIds:      ["mercury","ember-fold","violet-drift","shatter","champagne","gunmetal","chrome-smoke","harmattan","foundry"],
@@ -91,21 +90,21 @@ window.AWA = {
       tag:           "Best Value"
     },
     {
-      id:            "void-series-vol1",
+      id:            "dark-matter-vol1",
       code:          "AWA-PACK-002",
-      title:         "Void Series Vol. 1",
-      subtitle:      "10 Vault Drop exclusives ‚Äî darkness with identity",
+      title:         "Dark Matter Vol. 1",
+      subtitle:      "10 covers ‚Äî darkness with identity",
       mood:          "Deep space, psychedelic chrome, unknown terrain",
-      coverIds:      ["onyx","void-drift","phantom","eclipse","midnight-fold","null","abyss","dark-arc","shadow-chrome","undertow"],
+      coverIds:      ["onyx","void-drift","phantom","eclipse","midnight-fold","null-field","abyss","dark-arc","shadow-chrome","undertow"],
       priceGBP:      50,
       memberPriceGBP:35,
       available:     5,
       tag:           "Limited"
     },
     {
-      id:            "gold-season-vol1",
+      id:            "golden-hour-vol1",
       code:          "AWA-PACK-003",
-      title:         "Gold Season Vol. 1",
+      title:         "Golden Hour Vol. 1",
       subtitle:      "8 covers ‚Äî warm gold, royal chrome, amber haze",
       mood:          "Gold, amber, bronze ‚Äî premium warm palette",
       coverIds:      ["amber","gilded","bronze-arc","oro","sovereign","sun-chrome","heat","amber-smoke"],
@@ -151,299 +150,98 @@ window.AWA = {
 
   /* ‚îÄ‚îÄ COVER ART CATALOGUE ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
      Fields:
-       series:       used for filter tabs ‚Äî "chrome-universe" | "void" | "gold-season" | "flux" | "earth-chrome"
+       series:       used for filter tabs ‚Äî "chrome-reign" | "dark-matter" | "golden-hour" | "street-cinema" | "roots-chrome"
        img:          path to artwork (currently same image serves as both clean base)
        imgClean:     explicit clean version path (same as img until separate clean renders exist)
        comingSoon:   true ‚Üí not purchasable; releaseDate shows countdown
        releaseDate:  ISO date "YYYY-MM-DD" for coming-soon countdown
        auctionOnly:  true ‚Üí never shown in store, only in Vault Drop
+     Active catalogue: 51 covers (11+12+9+8+11) ‚Äî comingSoon not counted
      ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
   covers: [
 
-  /* ‚îÄ‚îÄ CHROME REIGN (11) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
-  { id:"chain-drop", series:"chrome-reign", title:"Chain Drop", sub:"Chrome links",
-    img:"assets/img/covers/CHAIN-DROP-with-title.webp",
-    imgClean:"assets/img/covers/CHAIN-DROP-no-title.png",
-    videos:["assets/video/covers/CHAIN-DROP.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
+    /* ‚îÄ‚îÄ CHROME REIGN SERIES (11) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"mercury",      series:"chrome-reign", title:"Mercury",      sub:"Liquid chrome",    img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:["assets/img/cover-blue-1.mp4","assets/img/cover-blue-2.mp4"],        price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"ember-fold",   series:"chrome-reign", title:"Ember Fold",   sub:"Molten silver",    img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:["assets/img/cover-ember-1.mp4","assets/img/cover-ember-2.mp4"],      price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"violet-drift", series:"chrome-reign", title:"Violet Drift", sub:"Rippled chrome",   img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:["assets/img/cover-violet-1.mp4","assets/img/cover-violet-2.mp4"],    price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"shatter",      series:"chrome-reign", title:"Shatter",      sub:"Steel shards",     img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:["assets/img/cover-shards-1.mp4","assets/img/cover-shards-2.mp4"],    price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"champagne",    series:"chrome-reign", title:"Champagne",    sub:"Gold chrome",      img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:["assets/img/cover-gold-1.mp4","assets/img/cover-gold-2.mp4"],        price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"gunmetal",     series:"chrome-reign", title:"Gunmetal",     sub:"Faceted metal",    img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:["assets/img/cover-gunmetal-1.mp4","assets/img/cover-gunmetal-2.mp4"],price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"chrome-smoke", series:"chrome-reign", title:"Chrome Smoke", sub:"Smoke & metal",    img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:["assets/img/cover-smoke-1.mp4","assets/img/cover-smoke-2.mp4"],      price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"harmattan",    series:"chrome-reign", title:"Harmattan",    sub:"Dusty silver",     img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:["assets/img/cover-sand-1.mp4","assets/img/cover-sand-2.mp4"],        price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"foundry",      series:"chrome-reign", title:"Foundry",      sub:"Molten steel",     img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[],                                                                    price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"silver-peak",  series:"chrome-reign", title:"Silver Peak",  sub:"Mountain chrome",  img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"liquid-arc",   series:"chrome-reign", title:"Liquid Arc",   sub:"Flowing silver",   img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
 
-  { id:"clear-chain", series:"chrome-reign", title:"Clear Chain", sub:"Crystal chrome",
-    img:"assets/img/covers/CLEAR-CHAIN-with-title.webp",
-    imgClean:"assets/img/covers/CLEAR-CHAIN-no-title.png",
-    videos:["assets/video/covers/CLEAR-CHAIN.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
+    /* ‚îÄ‚îÄ DARK MATTER SERIES (12) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"onyx",          series:"dark-matter", title:"Onyx",          sub:"Pure void",        img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"void-drift",    series:"dark-matter", title:"Void Drift",    sub:"Chrome void",      img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"phantom",       series:"dark-matter", title:"Phantom",       sub:"Ghost metal",      img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"eclipse",       series:"dark-matter", title:"Eclipse",       sub:"Total dark",       img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"midnight-fold", series:"dark-matter", title:"Midnight Fold", sub:"Night metal",      img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"null-field",    series:"dark-matter", title:"Null",          sub:"Zero signal",      img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"abyss",         series:"dark-matter", title:"Abyss",         sub:"Deep void",        img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"dark-arc",      series:"dark-matter", title:"Dark Arc",      sub:"Curved void",      img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"shadow-chrome", series:"dark-matter", title:"Shadow Chrome", sub:"Matte void",       img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"undertow",      series:"dark-matter", title:"Undertow",      sub:"Slow void",        img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"deep-null",     series:"dark-matter", title:"Deep Null",     sub:"Absolute dark",    img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"void-prism",    series:"dark-matter", title:"Void Prism",    sub:"Dark refraction",  img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
 
-  { id:"glass", series:"chrome-reign", title:"Glass", sub:"Mirror still",
-    img:"assets/img/covers/GLASS-with-title.webp",
-    imgClean:"assets/img/covers/GLASS-no-title.webp",
-    videos:["assets/video/covers/GLASS.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
+    /* ‚îÄ‚îÄ GOLDEN HOUR SERIES (9) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"amber",        series:"golden-hour", title:"Amber",        sub:"Warm gold",       img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"gilded",       series:"golden-hour", title:"Gilded",       sub:"Pure gold",       img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"bronze-arc",   series:"golden-hour", title:"Bronze Arc",   sub:"Copper chrome",   img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"oro",          series:"golden-hour", title:"Oro",          sub:"Spanish gold",    img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"sovereign",    series:"golden-hour", title:"Sovereign",    sub:"Royal gold",      img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"sun-chrome",   series:"golden-hour", title:"Sun Chrome",   sub:"Golden light",    img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"heat",         series:"golden-hour", title:"Heat",         sub:"Summer gold",     img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"amber-smoke",  series:"golden-hour", title:"Amber Smoke",  sub:"Golden haze",     img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"rose-gold",    series:"golden-hour", title:"Rose Gold",    sub:"Blush chrome",    img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
 
-  { id:"shattered-chrome", series:"chrome-reign", title:"Shattered Chrome", sub:"Broken mirror",
-    img:"assets/img/covers/SHATTERED-CHROME-with-title.webp",
-    imgClean:"assets/img/covers/SHATTERED-CHROME-no-title.webp",
-    videos:["assets/video/covers/SHATTERED-CHROME-V1.mp4","assets/video/covers/SHATTERED-CHROME-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
+    /* ‚îÄ‚îÄ STREET CINEMA SERIES (8) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"signal",       series:"street-cinema", title:"Signal",       sub:"Radio static",    img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"current",      series:"street-cinema", title:"Current",      sub:"Electric chrome", img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"wave",         series:"street-cinema", title:"Wave",         sub:"Chrome ripple",   img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"frequency",    series:"street-cinema", title:"Frequency",    sub:"Signal chrome",   img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"static",       series:"street-cinema", title:"Static",       sub:"White noise",     img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"pulse",        series:"street-cinema", title:"Pulse",        sub:"Chrome beat",     img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"arc-surge",    series:"street-cinema", title:"Arc Surge",    sub:"Electric arc",    img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"surge",        series:"street-cinema", title:"Surge",        sub:"Power chrome",    img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
 
-  { id:"silver-lava", series:"chrome-reign", title:"Silver Lava", sub:"Liquid metal",
-    img:"assets/img/covers/SILVER-LAVA-with-title.webp",
-    imgClean:"assets/img/covers/SILVER-LAVA-no-title.webp",
-    videos:["assets/video/covers/SILVER-LAVA-V1.mp4","assets/video/covers/SILVER-LAVA-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
+    /* ‚îÄ‚îÄ ROOTS & CHROME SERIES (11) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"terracotta",    series:"roots-chrome", title:"Terracotta",    sub:"Earth metal",     img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"clay",          series:"roots-chrome", title:"Clay",          sub:"Warm earth",      img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"sienna",        series:"roots-chrome", title:"Sienna",        sub:"Red earth",       img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"desert-chrome", series:"roots-chrome", title:"Desert Chrome", sub:"Arid metal",      img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"ochre",         series:"roots-chrome", title:"Ochre",         sub:"Yellow earth",    img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"loam",          series:"roots-chrome", title:"Loam",          sub:"Dark earth",      img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"fossil",        series:"roots-chrome", title:"Fossil",        sub:"Ancient chrome",  img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
+    { id:"flint",         series:"roots-chrome", title:"Flint",         sub:"Struck metal",    img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
+    { id:"dune-chrome",   series:"roots-chrome", title:"Dune Chrome",   sub:"Sand-swept metal",img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"titan",         series:"roots-chrome", title:"Titan",         sub:"Heavy metal",     img:"assets/img/gen-cover-sand.png",     imgClean:"assets/img/gen-cover-sand.png",     videos:[], price:35, premium:true,  auctionOnly:false, subPrice:24, pay:"" },
+    { id:"iron-summit",   series:"roots-chrome", title:"Iron Summit",   sub:"Peak metal",      img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:15, premium:false, auctionOnly:false, pay:"" },
 
-  { id:"silver-wave", series:"chrome-reign", title:"Silver Wave", sub:"Flowing chrome",
-    img:"assets/img/covers/SILVER-WAVE-with-title.webp",
-    imgClean:"assets/img/covers/SILVER-WAVE-no-title.webp",
-    videos:["assets/video/covers/SILVER-WAVE-V1.mp4","assets/video/covers/SILVER-WAVE-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
+    /* ‚îÄ‚îÄ COMING SOON ‚Äî Batch 3: 10 Oct 2026 ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"crimson",   series:"golden-hour",  title:"Crimson",     sub:"Red chrome",      img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:15, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-10-10", pay:"" },
+    { id:"ruby",      series:"golden-hour",  title:"Ruby",        sub:"Gem chrome",      img:"assets/img/gen-cover-ember.png",    imgClean:"assets/img/gen-cover-ember.png",    videos:[], price:35, premium:true,  auctionOnly:false, comingSoon:true, releaseDate:"2026-10-10", subPrice:24, pay:"" },
+    { id:"scarlet",   series:"golden-hour",  title:"Scarlet",     sub:"Vivid red",       img:"assets/img/gen-cover-shards.png",   imgClean:"assets/img/gen-cover-shards.png",   videos:[], price:15, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-10-10", pay:"" },
+    { id:"blood-arc", series:"dark-matter",  title:"Blood Arc",   sub:"Deep red void",   img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:[], price:35, premium:true,  auctionOnly:false, comingSoon:true, releaseDate:"2026-10-10", subPrice:24, pay:"" },
 
-  { id:"smoke-chain", series:"chrome-reign", title:"Smoke Chain", sub:"Haze and links",
-    img:"assets/img/covers/SMOKE-CHAIN-with-title.webp",
-    imgClean:"assets/img/covers/SMOKE-CHAIN-no-title.png",
-    videos:["assets/video/covers/SMOKE-CHAIN.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
+    /* ‚îÄ‚îÄ COMING SOON ‚Äî Batch 4: 24 Oct 2026 ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"steel-rain",  series:"roots-chrome", title:"Steel Rain",  sub:"Metal fall",      img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:15, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-10-24", pay:"" },
+    { id:"void-matrix", series:"dark-matter",  title:"Void Matrix", sub:"Digital void",    img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:35, premium:true,  auctionOnly:false, comingSoon:true, releaseDate:"2026-10-24", subPrice:24, pay:"" },
 
-  { id:"blue-queen", series:"chrome-reign", title:"Blue Queen", sub:"Ice royalty",
-    img:"assets/img/covers/BLUE-QUEEN-with-title.webp",
-    imgClean:"assets/img/covers/BLUE-QUEEN-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
+    /* ‚îÄ‚îÄ COMING SOON ‚Äî Batch 5: 7 Nov 2026 ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"chrome-forest",series:"roots-chrome",title:"Chrome Forest",sub:"Nature metal",   img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:15, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-11-07", pay:"" },
+    { id:"jade-chrome",  series:"roots-chrome",title:"Jade Chrome",  sub:"Green metal",    img:"assets/img/gen-cover-blue.png",     imgClean:"assets/img/gen-cover-blue.png",     videos:[], price:15, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-11-07", pay:"" },
+    { id:"emerald",      series:"roots-chrome",title:"Emerald",      sub:"Pure gem chrome",img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:35, premium:true,  auctionOnly:false, comingSoon:true, releaseDate:"2026-11-07", subPrice:24, pay:"" },
+    { id:"ice-fold",     series:"chrome-reign",title:"Ice Fold",     sub:"Crystal cold",   img:"assets/img/gen-cover-gunmetal.png", imgClean:"assets/img/gen-cover-gunmetal.png", videos:[], price:15, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-11-07", pay:"" },
+    { id:"void-signal",  series:"dark-matter", title:"Void Signal",  sub:"Static dark",    img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:15, premium:false, auctionOnly:false, comingSoon:true, releaseDate:"2026-11-07", pay:"" },
 
-  { id:"blue-queen-ii", series:"chrome-reign", title:"Blue Queen II", sub:"Crown reloaded",
-    img:"assets/img/covers/BLUE-QUEEN-II-with-title.webp",
-    imgClean:"assets/img/covers/BLUE-QUEEN-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"blue-silhouette", series:"chrome-reign", title:"Blue Silhouette", sub:"Dark presence",
-    img:"assets/img/covers/BLUE-SILHOUETTE-with-title.webp",
-    imgClean:"assets/img/covers/BLUE-SILHOUETTE-no-title.png",
-    videos:["assets/video/covers/BLUE-SILHOUETTE-V1.mp4","assets/video/covers/BLUE-SILHOUETTE-V2.mp4","assets/video/covers/BLUE-SILHOUETTE-V3.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"blue-window", series:"chrome-reign", title:"Blue Window", sub:"Through the glass",
-    img:"assets/img/covers/BLUE-WINDOW-with-title.webp",
-    imgClean:"assets/img/covers/BLUE-WINDOW-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  /* ‚îÄ‚îÄ DARK MATTER (12) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
-  { id:"3am", series:"dark-matter", title:"3AM", sub:"Late night pulse",
-    img:"assets/img/covers/3AM-with-title.webp",
-    imgClean:"assets/img/covers/3AM-no-title.webp",
-    videos:["assets/video/covers/3AM.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"balaclava", series:"dark-matter", title:"Balaclava", sub:"Masked up",
-    img:"assets/img/covers/BALACLAVA-with-title.webp",
-    imgClean:"assets/img/covers/BALACLAVA-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"balaclava-ii", series:"dark-matter", title:"Balaclava II", sub:"Double mask",
-    img:"assets/img/covers/BALACLAVA-II-with-title.webp",
-    imgClean:"assets/img/covers/BALACLAVA-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"close-eyes", series:"dark-matter", title:"Close Eyes", sub:"Still within",
-    img:"assets/img/covers/CLOSE-EYES-with-title.png",
-    imgClean:"assets/img/covers/CLOSE-EYES-no-title.png",
-    videos:["assets/video/covers/CLOSE-EYES.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"creation", series:"dark-matter", title:"Creation", sub:"Born from nothing",
-    img:"assets/img/covers/CREATION-with-title.webp",
-    imgClean:"assets/img/covers/CREATION-no-title.webp",
-    videos:["assets/video/covers/CREATION.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"dark-crystal", series:"dark-matter", title:"Dark Crystal", sub:"Underground gem",
-    img:"assets/img/covers/DARK-CRYSTAL-with-title.webp",
-    imgClean:"assets/img/covers/DARK-CRYSTAL-no-title.webp",
-    videos:["assets/video/covers/DARK-CRYSTAL-V1.mp4","assets/video/covers/DARK-CRYSTAL-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"dark-hood", series:"dark-matter", title:"Dark Hood", sub:"Streets at midnight",
-    img:"assets/img/covers/DARK-HOOD-with-title.webp",
-    imgClean:"assets/img/covers/DARK-HOOD-no-title.png",
-    videos:["assets/video/covers/DARK-HOOD.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"lava", series:"dark-matter", title:"Lava", sub:"Slow burn",
-    img:"assets/img/covers/LAVA-with-title.webp",
-    imgClean:"assets/img/covers/LAVA-no-title.webp",
-    videos:["assets/video/covers/LAVA.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"lightning-burst", series:"dark-matter", title:"Lightning Burst", sub:"Electric pulse",
-    img:"assets/img/covers/LIGHTNING-BURST-with-title.webp",
-    imgClean:"assets/img/covers/LIGHTNING-BURST-no-title.webp",
-    videos:["assets/video/covers/LIGHTNING-BURST.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"red-lava", series:"dark-matter", title:"Red Lava", sub:"Fire rising",
-    img:"assets/img/covers/RED-LAVA-with-title.webp",
-    imgClean:"assets/img/covers/RED-LAVA-no-title.webp",
-    videos:["assets/video/covers/RED-LAVA-V1.mp4","assets/video/covers/RED-LAVA-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"solo", series:"dark-matter", title:"Solo", sub:"City rain",
-    img:"assets/img/covers/SOLO-with-title.webp",
-    imgClean:"assets/img/covers/SOLO-no-title.webp",
-    videos:["assets/video/covers/SOLO.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"the-purple-wave", series:"dark-matter", title:"The Purple Wave", sub:"Cosmic surge",
-    img:"assets/img/covers/THE-PURPLE-WAVE-with-title.webp",
-    imgClean:"assets/img/covers/THE-PURPLE-WAVE-no-title.webp",
-    videos:["assets/video/covers/THE-PURPLE-WAVE-V1.mp4","assets/video/covers/THE-PURPLE-WAVE-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  /* ‚îÄ‚îÄ GOLDEN HOUR (9) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
-  { id:"after-hours", series:"golden-hour", title:"After Hours", sub:"Golden glow",
-    img:"assets/img/covers/AFTER-HOURS-with-title.png",
-    imgClean:"assets/img/covers/AFTER-HOURS-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"after-hours-ii", series:"golden-hour", title:"After Hours II", sub:"Late glow",
-    img:"assets/img/covers/AFTER-HOURS-II-with-title.png",
-    imgClean:"assets/img/covers/AFTER-HOURS-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"beach-party", series:"golden-hour", title:"Beach Party", sub:"Summer waves",
-    img:"assets/img/covers/BEACH-PARTY-with-title.webp",
-    imgClean:"assets/img/covers/BEACH-PARTY-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"beetle-sunset", series:"golden-hour", title:"Beetle Sunset", sub:"Golden ride",
-    img:"assets/img/covers/BEETLE-SUNSET-with-title.webp",
-    imgClean:"assets/img/covers/BEETLE-SUNSET-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"beetle-sunset-ii", series:"golden-hour", title:"Beetle Sunset II", sub:"Dusk again",
-    img:"assets/img/covers/BEETLE-SUNSET-II-with-title.webp",
-    imgClean:"assets/img/covers/BEETLE-SUNSET-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"bonfire", series:"golden-hour", title:"Bonfire", sub:"Warm flames",
-    img:"assets/img/covers/BONFIRE-with-title.webp",
-    imgClean:"assets/img/covers/BONFIRE-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"gold-vinyl", series:"golden-hour", title:"Gold Vinyl", sub:"Classic press",
-    img:"assets/img/covers/GOLD-VINYL-with-title.webp",
-    imgClean:"assets/img/covers/GOLD-VINYL-no-title.webp",
-    videos:["assets/video/covers/GOLD-VINYL.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"lagos", series:"golden-hour", title:"Lagos", sub:"City at dusk",
-    img:"assets/img/covers/LAGOS-with-title.webp",
-    imgClean:"assets/img/covers/LAGOS-no-title.webp",
-    videos:["assets/video/covers/LAGOS-V1.mp4","assets/video/covers/LAGOS-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"the-gold-wave", series:"golden-hour", title:"The Gold Wave", sub:"Amber rush",
-    img:"assets/img/covers/THE-GOLD-WAVE-with-title.webp",
-    imgClean:"assets/img/covers/THE-GOLD-WAVE-no-title.webp",
-    videos:["assets/video/covers/THE-GOLD-WAVE-V1.mp4","assets/video/covers/THE-GOLD-WAVE-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  /* ‚îÄ‚îÄ STREET CINEMA (8) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
-  { id:"anime-rooftop", series:"street-cinema", title:"Anime Rooftop", sub:"High frames",
-    img:"assets/img/covers/ANIME-ROOFTOP-with-title.webp",
-    imgClean:"assets/img/covers/ANIME-ROOFTOP-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"bentley-night", series:"street-cinema", title:"Bentley Night", sub:"Midnight drive",
-    img:"assets/img/covers/BENTLEY-NIGHT-with-title.webp",
-    imgClean:"assets/img/covers/BENTLEY-NIGHT-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"bentley-night-ii", series:"street-cinema", title:"Bentley Night II", sub:"Another lap",
-    img:"assets/img/covers/BENTLEY-NIGHT-II-with-title.webp",
-    imgClean:"assets/img/covers/BENTLEY-NIGHT-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"black-coupe", series:"street-cinema", title:"Black Coup√©", sub:"Clean lines",
-    img:"assets/img/covers/BLACK-COUPE-with-title.webp",
-    imgClean:"assets/img/covers/BLACK-COUPE-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"bodega-cat", series:"street-cinema", title:"Bodega Cat", sub:"Corner store vibes",
-    img:"assets/img/covers/BODEGA-CAT-with-title.webp",
-    imgClean:"assets/img/covers/BODEGA-CAT-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"she", series:"street-cinema", title:"She", sub:"In frame",
-    img:"assets/img/covers/SHE-with-title.webp",
-    imgClean:"assets/img/covers/SHE-no-title.png",
-    videos:["assets/video/covers/SHE.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"smoker", series:"street-cinema", title:"Smoker", sub:"Street haze",
-    img:"assets/img/covers/SMOKER-with-title.webp",
-    imgClean:"assets/img/covers/SMOKER-no-title.webp",
-    videos:["assets/video/covers/SMOKER-V1.mp4","assets/video/covers/SMOKER-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  { id:"waves", series:"street-cinema", title:"Waves", sub:"Flow state",
-    img:"assets/img/covers/WAVES-with-title.webp",
-    imgClean:"assets/img/covers/WAVES-no-title.webp",
-    videos:["assets/video/covers/WAVES-V1.mp4","assets/video/covers/WAVES-V2.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" },
-
-  /* ‚îÄ‚îÄ ROOTS & CHROME (11) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
-  { id:"adinkra-chrome", series:"roots-chrome", title:"Adinkra Chrome", sub:"Symbol and steel",
-    img:"assets/img/covers/ADINKRA-CHROME-with-title.webp",
-    imgClean:"assets/img/covers/ADINKRA-CHROME-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"adinkra-chrome-ii", series:"roots-chrome", title:"Adinkra Chrome II", sub:"Heritage reloaded",
-    img:"assets/img/covers/ADINKRA-CHROME-II-with-title.webp",
-    imgClean:"assets/img/covers/ADINKRA-CHROME-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"african-king", series:"roots-chrome", title:"African King", sub:"Crown and earth",
-    img:"assets/img/covers/AFRICAN-KING-with-title.webp",
-    imgClean:"assets/img/covers/AFRICAN-KING-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"afro-fusion", series:"roots-chrome", title:"Afro Fusion", sub:"Blend of worlds",
-    img:"assets/img/covers/AFRO-FUSION-with-title.webp",
-    imgClean:"assets/img/covers/AFRO-FUSION-no-title.png",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"afronaut", series:"roots-chrome", title:"Afronaut", sub:"Stars and roots",
-    img:"assets/img/covers/AFRONAUT-with-title.webp",
-    imgClean:"assets/img/covers/AFRONAUT-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"afronaut-ii", series:"roots-chrome", title:"Afronaut II", sub:"Next orbit",
-    img:"assets/img/covers/AFRONAUT-II-with-title.webp",
-    imgClean:"assets/img/covers/AFRONAUT-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"ankara-dance", series:"roots-chrome", title:"Ankara Dance", sub:"Print in motion",
-    img:"assets/img/covers/ANKARA-DANCE-with-title.webp",
-    imgClean:"assets/img/covers/ANKARA-DANCE-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"ankara-dance-ii", series:"roots-chrome", title:"Ankara Dance II", sub:"Second step",
-    img:"assets/img/covers/ANKARA-DANCE-II-with-title.webp",
-    imgClean:"assets/img/covers/ANKARA-DANCE-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"ankara-rooftop", series:"roots-chrome", title:"Ankara Rooftop", sub:"City heritage",
-    img:"assets/img/covers/ANKARA-ROOFTOP-with-title.webp",
-    imgClean:"assets/img/covers/ANKARA-ROOFTOP-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"ankara-rooftop-ii", series:"roots-chrome", title:"Ankara Rooftop II", sub:"Higher ground",
-    img:"assets/img/covers/ANKARA-ROOFTOP-II-with-title.webp",
-    imgClean:"assets/img/covers/ANKARA-ROOFTOP-II-no-title.webp",
-    videos:[], price:25, premium:false, auctionOnly:false, pay:"" },
-
-  { id:"tribal", series:"roots-chrome", title:"Tribal", sub:"Ancient signal",
-    img:"assets/img/covers/TRIBAL-with-title.webp",
-    imgClean:"assets/img/covers/TRIBAL-no-title.webp",
-    videos:["assets/video/covers/TRIBAL.mp4"],
-    price:35, premium:true, auctionOnly:false, pay:"" }
-
+    /* ‚îÄ‚îÄ AUCTION ONLY (Vault Drop exclusive ‚Äî never shown in store) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    { id:"onyx-rain",    title:"Onyx Rain",    sub:"Vault Drop exclusive", img:"assets/img/gen-cover-smoke.png",    imgClean:"assets/img/gen-cover-smoke.png",    videos:[], price:null, auctionOnly:true, pay:"" },
+    { id:"sol-chrome",   title:"Sol Chrome",   sub:"Vault Drop exclusive", img:"assets/img/gen-cover-gold.png",     imgClean:"assets/img/gen-cover-gold.png",     videos:[], price:null, auctionOnly:true, pay:"" },
+    { id:"iron-bloom",   title:"Iron Bloom",   sub:"Vault Drop exclusive", img:"assets/img/gen-cover-foundry.png",  imgClean:"assets/img/gen-cover-foundry.png",  videos:[], price:null, auctionOnly:true, pay:"" },
+    { id:"midnight-arc", title:"Midnight Arc", sub:"Vault Drop exclusive", img:"assets/img/gen-cover-violet.png",   imgClean:"assets/img/gen-cover-violet.png",   videos:[], price:null, auctionOnly:true, pay:"" }
   ]
 };
