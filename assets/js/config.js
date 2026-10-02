@@ -19,6 +19,7 @@ window.AWA = {
   membershipPrice: 4.99,
   memberDiscount: 0.15,
   coverMemberDiscount: 0.30,
+     coverMidPayLink: "https://buy.stripe.com/28E3cubmtcXdg4Q69yawo0f",
 
   /* --- Beat store global pay links (Stripe ‚Äî one per tier, same for all beats) --- */
   beatPayLinks: {
