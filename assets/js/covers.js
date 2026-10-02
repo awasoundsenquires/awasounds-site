@@ -1,4 +1,4 @@
-﻿/* AWA SOUNDS \u2014 Cover Art store v3
+Ôªø/* AWA SOUNDS \u2014 Cover Art store v3
    Features:
    - Pair card display (clean | titled side-by-side always visible in grid)
    - Cinema scroll rail (horizontal film strip pinned by GSAP, driven by scroll)
@@ -7,7 +7,7 @@
    - GG watermark canvas overlay on all preview images (anti-piracy)
    - Side-by-side modal with video previews
    - Receipt FX animation wired to buy flow
-   ─────────────────────────────────────────────────────────────────────── */
+   ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
 (function () {
   "use strict";
 
@@ -27,21 +27,21 @@
   const daysUntil  = d  => Math.max(0, Math.ceil((new Date(d) - Date.now()) / 864e5));
 
   const SERIES_LABELS = {
-    "chrome-universe": "Chrome Universe",
-    "void":            "Void Series",
-    "gold-season":     "Gold Season",
-    "flux":            "Flux",
-    "earth-chrome":    "Earth Chrome"
+    "chrome-reign":  "Chrome Reign",
+    "dark-matter":   "Dark Matter",
+    "golden-hour":   "Golden Hour",
+    "street-cinema": "Street Cinema",
+    "roots-chrome":  "Roots & Chrome"
   };
 
   let likeSet    = new Set();
   let activeSeries = "all";
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      CSS \u2014 pair cards + cinema rail + series filter + coming-soon
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   const STYLE = `
-  /* ── Cinema Rail ───────────────────────────────────────────── */
+  /* ‚îÄ‚îÄ Cinema Rail ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
   .cover-cinema-section{position:relative;height:100vh;min-height:600px;overflow:hidden;background:#000;display:flex;flex-direction:column;justify-content:flex-end}
   .cinema-top-strip{flex:1;display:flex;align-items:center;overflow:hidden;position:relative}
   .cinema-track{display:flex;gap:10px;padding:0 40px;will-change:transform;flex-shrink:0}
@@ -65,14 +65,14 @@
   @keyframes scrollDot{0%{transform:translateX(0);opacity:1}70%{transform:translateX(28px);opacity:1}100%{transform:translateX(36px);opacity:0}}
   .cinema-scroll-hint span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;color:var(--muted,#9aa1ab)}
 
-  /* ── Series Filter ─────────────────────────────────────────── */
+  /* ‚îÄ‚îÄ Series Filter ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
   .series-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
   .series-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--panel,#111318);border:1px solid var(--line);border-radius:8px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#9aa1ab);cursor:pointer;transition:.15s;white-space:nowrap}
   .series-btn:hover{border-color:rgba(224,160,48,.4);color:var(--hi,#e0e0f0)}
   .series-btn.active{background:rgba(224,160,48,.08);border-color:rgba(224,160,48,.5);color:var(--gold,#e0a030)}
   .series-btn .s-count{font-size:9px;background:rgba(255,255,255,.08);border-radius:4px;padding:1px 5px;margin-left:2px;font-weight:600;letter-spacing:.04em}
 
-  /* ── Pair Grid ────────────────────────────────────────────── */
+  /* ‚îÄ‚îÄ Pair Grid ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
   .pair-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
   .pair-card{background:var(--panel,#111318);border:1px solid var(--line,#222238);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
   .pair-card:hover{border-color:rgba(224,160,48,.3);transform:translateY(-2px)}
@@ -108,7 +108,7 @@
   .pair-btns{display:flex;gap:6px}
   .btn-xs{padding:5px 10px !important;font-size:11px !important}
 
-  /* ── Coming Soon Pair Grid ─────────────────────────────────── */
+  /* ‚îÄ‚îÄ Coming Soon Pair Grid ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
   .cs-pair-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px}
   .cs-pair-card{background:var(--panel,#111318);border:1px solid var(--line,#222238);border-radius:12px;overflow:hidden}
   .cs-pair-images{display:grid;grid-template-columns:1fr 1fr;gap:2px;position:relative}
@@ -127,7 +127,7 @@
   .cs-notify:hover{background:rgba(218,165,32,.12);border-color:rgba(218,165,32,.7)}
   .cs-notify.notified{border-color:rgba(218,165,32,.2);color:var(--muted);cursor:default}
 
-  /* ── Detail Modal ──────────────────────────────────────────── */
+  /* ‚îÄ‚îÄ Detail Modal ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
   .cover-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;padding:20px}
   .cover-modal.open{opacity:1;pointer-events:all}
   .cover-card-lg{background:var(--bg2,#0e0e1c);border:1px solid var(--line,#222238);border-radius:14px;width:100%;max-width:860px;max-height:92vh;overflow-y:auto;position:relative;padding:24px}
@@ -154,7 +154,7 @@
   .cov-save-lg:hover,.cov-save-lg.on{border-color:var(--gold,#e0a030);color:var(--gold,#e0a030)}
   @media(max-width:600px){.cov-pair,.pair-images{grid-template-columns:1fr}.pair-divider{display:none}.pair-grid{grid-template-columns:1fr}.cs-pair-grid{grid-template-columns:1fr}}
 
-  /* ── SOLD State ────────────────────────────────────────────── */
+  /* ‚îÄ‚îÄ SOLD State ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
   .pair-card--sold{cursor:default}
   .pair-card--sold .pair-art{filter:grayscale(.35) brightness(.72)}
   .pair-card--sold:hover{transform:none !important;border-color:var(--line,#222238) !important}
@@ -218,14 +218,14 @@
   styleEl.textContent = STYLE;
   document.head.appendChild(styleEl);
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      Cinema Scroll Rail
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   function initCinemaRail() {
     const track = document.getElementById("coverCinemaTrack");
     if (!track) return;
 
-    // Insert cover pair thumbnails × 2 (for enough scroll travel)
+    // Insert cover pair thumbnails √ó 2 (for enough scroll travel)
     const pool = [...COVERS, ...COVERS];
     pool.forEach(c => {
       const thumb = document.createElement("div");
@@ -297,9 +297,9 @@
     }
   }
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      Series Filter
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   function initSeriesFilter() {
     const filterEl = document.getElementById("seriesFilter");
     if (!filterEl) return;
@@ -316,9 +316,9 @@
     });
   }
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      GG Watermark
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   function applyWatermark(artEl) {
     if (artEl.querySelector(".wm-canvas")) return;
     const cv = document.createElement("canvas");
@@ -355,14 +355,14 @@
     new ResizeObserver(drawWM).observe(artEl);
   }
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      Pair Card
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   function pairCard(c) {
     const el = document.createElement("article");
     el.className = "pair-card" + (c.sold ? " pair-card--sold" : "");
     el.dataset.id = c.id;
-    el.dataset.series = c.series || "chrome-universe";
+    el.dataset.series = c.series || "chrome-reign";
     el.dataset.videos = (c.videos || []).join(",");
 
     const memPx = c.premium && c.subPrice != null
@@ -391,7 +391,7 @@
 
         <div class="pair-divider">
           <div class="pair-divider-line"></div>
-          <div class="pair-divider-icon">⟷</div>
+          <div class="pair-divider-icon">‚ü∑</div>
           <div class="pair-divider-line"></div>
         </div>
 
@@ -411,7 +411,7 @@
       <div class="pair-footer">
         <div class="pair-info">
           <h4 class="pair-title-name">${esc(c.title)}</h4>
-          <div class="pair-sub">${esc(c.sub)} \u00B7 3000×3000 + 2 videos</div>
+          <div class="pair-sub">${esc(c.sub)} \u00B7 3000√ó3000 + 2 videos</div>
         </div>
         <div class="pair-price-actions">
           <div class="pair-price-stack">
@@ -445,9 +445,9 @@
   // Render pair grid
   COVERS.forEach(c => list.appendChild(pairCard(c)));
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      Save / Auth
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   function toggleSave(cardEl) {
     AWAAuth.requireAuth(async () => {
       const id = cardEl.dataset.id, btn = cardEl.querySelector(".cover-save");
@@ -471,9 +471,9 @@
     });
   });
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      Detail Modal
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   let dm = null, current = null;
 
   function buildModal() {
@@ -517,7 +517,7 @@
 
     const c = current;
     dm.querySelector(".cover-title").textContent = c.title;
-    dm.querySelector(".cover-sub").textContent   = c.sub + " \u00B7 3000×3000 + 2 motion files";
+    dm.querySelector(".cover-sub").textContent   = c.sub + " \u00B7 3000√ó3000 + 2 motion files";
 
     const cleanSide = document.getElementById("cov-clean-side");
     const titledSide = document.getElementById("cov-titled-side");
@@ -586,9 +586,9 @@
     dm.querySelectorAll("video").forEach(v => v.pause());
   }
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      Receipt FX + Buy
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   function triggerBuy(c, member, memPx) {
     const priceVal = member && memPx ? memPx : c.price;
     if (window.AWAReceiptFX) {
@@ -629,9 +629,9 @@
     }, "Sign in to save cover art.");
   }
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      Coming Soon \u2014 Pair View
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   (function renderComingSoon() {
     const container = document.getElementById("coming-soon-list");
     if (!container || !COMING_SOON.length) return;
@@ -675,7 +675,7 @@
       el.querySelector(".cs-notify").addEventListener("click", function() {
         if (this.classList.contains("notified")) return;
         this.classList.add("notified");
-        this.textContent = "Notified ✓";
+        this.textContent = "Notified ‚úì";
       });
 
       grid.appendChild(el);
@@ -684,10 +684,10 @@
     container.appendChild(grid);
   })();
 
-  /* ══════════════════════════════════════════════════════════════════
+  /* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
      GSAP animations for pair cards (via scroll-cinema.js already
      handles section titles; we add pair card reveals here)
-     ══════════════════════════════════════════════════════════════════ */
+     ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
   function initPairCardAnimations() {
     if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
     if (matchMedia("(prefers-reduced-motion:reduce)").matches) return;
@@ -711,7 +711,7 @@
     });
   }
 
-  /* ── Init ─────────────────────────────────────────────────── */
+  /* ‚îÄ‚îÄ Init ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
   initCinemaRail();
   initSeriesFilter();
   initPairCardAnimations();
