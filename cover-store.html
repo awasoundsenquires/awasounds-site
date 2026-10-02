@@ -172,6 +172,31 @@
   color: var(--muted, #9aa1ab);
   font-family: 'Space Grotesk', sans-serif;
 }
+.pack-view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all .2s;
+  margin-bottom: 10px;
+}
+.pack-view-btn:hover {
+  border-color: #c8a84b;
+  color: #c8a84b;
+  background: rgba(200,168,75,.06);
+}
 </style>
 </head>
 <body>
@@ -325,7 +350,7 @@
   <div class="pack-grid">
 
     <!-- Chrome Universe Vol. 1 &#x2014; 9 covers, 18 pairs -->
-    <div class="pack-card" data-reveal>
+    <div class="pack-card" data-pack-id="chrome-reign-vol1" data-reveal>
       <div class="pack-img-wrap">
         <!-- 8 pair thumbnails (4 covers √É&#x2014; clean + titled) + "+10 more" -->
         <div class="pack-pair-strip">
@@ -345,6 +370,7 @@
         <div class="pack-vol">Chrome Universe &#xB7; Vol. 01</div>
         <h3 class="pack-title">Chrome Universe</h3>
         <p class="pack-desc">Liquid chrome, mercury pools, and deep-space metallics. Each cover delivered as a clean and a titled pair &#x2014; 18 total assets. Built for trap, electronic, and dark R&B artists who want a cold, cinematic identity.</p>
+        <button class="pack-view-btn">Preview Pack <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
         <div class="pack-price-row">
           <div class="pack-price-block"><span class="pack-price">&#xA3;249</span><span class="pack-price-member">Members &#xA3;174</span></div>
           <a href="contact.html" class="btn btn-primary btn-sm">Buy Pack <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -353,7 +379,7 @@
     </div>
 
     <!-- Void Series Vol. 1 &#x2014; 10 covers, 20 pairs -->
-    <div class="pack-card" data-reveal data-reveal-delay="1">
+    <div class="pack-card" data-pack-id="dark-matter-vol1" data-reveal data-reveal-delay="1">
       <div class="pack-img-wrap">
         <div class="pack-pair-strip">
           <div class="pack-pair-thumb"><img src="assets/img/gen-cover-violet.png" alt="Obsidian clean" loading="lazy"></div>
@@ -372,6 +398,7 @@
         <div class="pack-vol">Void Series &#xB7; Vol. 01</div>
         <h3 class="pack-title">Void Series</h3>
         <p class="pack-desc">Deep blacks, obsidian surfaces, fractured light. Twenty assets (clean + titled per cover) delivering a unified dark universe for ambient, metal, neo-soul, and noir hip-hop releases.</p>
+        <button class="pack-view-btn">Preview Pack <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
         <div class="pack-price-row">
           <div class="pack-price-block"><span class="pack-price">&#xA3;275</span><span class="pack-price-member">Members &#xA3;193</span></div>
           <a href="contact.html" class="btn btn-primary btn-sm">Buy Pack <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -380,7 +407,7 @@
     </div>
 
     <!-- Gold Season Vol. 1 &#x2014; 8 covers, 16 pairs -->
-    <div class="pack-card" data-reveal data-reveal-delay="2">
+    <div class="pack-card" data-pack-id="golden-hour-vol1" data-reveal data-reveal-delay="2">
       <div class="pack-img-wrap">
         <div class="pack-pair-strip">
           <div class="pack-pair-thumb"><img src="assets/img/gen-cover-gold.png" alt="Champagne clean" loading="lazy"></div>
@@ -399,6 +426,7 @@
         <div class="pack-vol">Gold Season &#xB7; Vol. 01</div>
         <h3 class="pack-title">Gold Season</h3>
         <p class="pack-desc">Warm amber, champagne, and burnished gold. Sixteen assets spanning desert heat to warm-room intimacy. Built for Afrobeats, jazz-fusion, and soul artists who want luxury without pretence.</p>
+        <button class="pack-view-btn">Preview Pack <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
         <div class="pack-price-row">
           <div class="pack-price-block"><span class="pack-price">&#xA3;225</span><span class="pack-price-member">Members &#xA3;158</span></div>
           <a href="contact.html" class="btn btn-primary btn-sm">Buy Pack <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -475,4 +503,3 @@
 <script src="assets/js/main.js"></script>
 <script src="assets/js/premium-fx.js"></script>
 </body></html>
-273
