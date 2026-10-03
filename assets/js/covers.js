@@ -82,8 +82,9 @@ const STYLE = `
 .pair-header-right{display:flex;align-items:center;gap:8px}
 .pair-premium{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold,#e0a030);background:rgba(224,160,48,.1);border:1px solid rgba(224,160,48,.25);border-radius:4px;padding:2px 7px;font-family:'Space Grotesk',sans-serif}
 .pair-vid-badge{font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:2px 7px;font-family:'Space Grotesk',sans-serif}
-.cover-save{background:none;border:none;cursor:pointer;color:var(--muted,#9aa1ab);transition:color .15s;padding:4px;display:flex;align-items:center;justify-content:center}
-.cover-save:hover,.cover-save.on{color:var(--gold,#e0a030)}
+.cover-save{background:none;border:1px solid transparent;border-radius:6px;cursor:pointer;color:rgba(255,255,255,.38);transition:color .15s,border-color .15s,background .15s;padding:5px;display:flex;align-items:center;justify-content:center}
+.cover-save:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.75)}
+.cover-save.on{color:var(--gold,#e0a030);background:rgba(224,160,48,.08);border-color:rgba(224,160,48,.2)}
 
 .pair-images{display:grid;grid-template-columns:1fr 24px 1fr;gap:0;padding:0 14px 4px}
 .pair-slot{display:flex;flex-direction:column;gap:0}
@@ -363,8 +364,8 @@ el.innerHTML = `
 <div class="pair-header-right">
 ${c.premium ? '<span class="pair-premium">Premium</span>' : ""}
 ${hasVideo ? '<span class="pair-vid-badge">‚ñ∫ Video</span>' : ""}
-<button class="cover-save ib-like" aria-label="Save" title="Save to wishlist">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.5 2 5 5.2 5 7.3 5 8.7 6.2 12 9c3.3-2.8 4.7-4 6.8-4 3.2 0 4.8 3.5 3.2 6.8C19.5 16.4 12 21 12 21z"/></svg>
+<button class="cover-save ib-like" aria-label="Save to wishlist" title="Save to wishlist">
+<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.5 2 5 5.2 5 7.3 5 8.7 6.2 12 9c3.3-2.8 4.7-4 6.8-4 3.2 0 4.8 3.5 3.2 6.8C19.5 16.4 12 21 12 21z"/></svg>
 </button>
 </div>
 </div>
