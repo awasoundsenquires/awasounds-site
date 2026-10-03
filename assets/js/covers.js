@@ -18,7 +18,7 @@ if (!list) return;
 const COVERS = (CFG.covers || []).filter(c => !c.auctionOnly && !c.comingSoon);
 const COMING_SOON = (CFG.covers || []).filter(c => !c.auctionOnly && c.comingSoon);
 
-const money = n => "¬£" + Number(n).toFixed(0);
+const money = n => String.fromCharCode(163) + Number(n).toFixed(0);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const coverDisc = CFG.coverMemberDiscount != null ? CFG.coverMemberDiscount : (CFG.memberDiscount || 0);
 const memberPrice = n => Math.round(n * (1 - coverDisc));
@@ -390,7 +390,7 @@ ${c.sold ? '<div class="sold-tape-wrap"><div class="sold-tape sold-tape-1"></div
 <img src="${esc(c.img)}" alt="${esc(c.title)} titled" loading="lazy">
 <div class="pair-title-overlay">
 <span class="pair-title-text">${esc(c.title).toUpperCase()}</span>
-<span class="pair-artist-text">AWA SOUNDS</span>
+<span class="pair-artist-text">YOUR NAME</span>
 </div>
 ${c.sold ? '<div class="sold-tape-wrap"><div class="sold-tape sold-tape-1"></div><div class="sold-tape sold-tape-2"></div></div>' : ""}
 </div>
@@ -838,7 +838,7 @@ el.innerHTML = `
 <img src="${esc(c.img)}" alt="${esc(c.title)} titled" loading="lazy">
 <div class="pair-title-overlay">
 <span class="pair-title-text">${esc(c.title).toUpperCase()}</span>
-<span class="pair-artist-text">AWA SOUNDS</span>
+<span class="pair-artist-text">YOUR NAME</span>
 </div>
 <span class="ct-label">Titled</span>
 </div>
