@@ -321,12 +321,12 @@ cv.width = W; cv.height = H;
 const ctx = cv.getContext("2d");
 ctx.clearRect(0, 0, W, H);
 ctx.save();
-ctx.globalAlpha = 0.16;
+ctx.globalAlpha = 0.11;
 ctx.fillStyle = "#ffffff";
 ctx.font = `bold ${Math.max(12, W * 0.055)}px 'Space Grotesk',Arial,sans-serif`;
 ctx.textAlign = "center";
 ctx.textBaseline = "middle";
-const step = W * 0.32, angle = -28 * Math.PI / 180;
+const step = W * 0.45, angle = -28 * Math.PI / 180;
 for (let y = -step; y < H + step; y += step * 0.65) {
 for (let x = -step; x < W + step; x += step) {
 ctx.save();
@@ -489,7 +489,7 @@ lb.innerHTML = `
 <div class="cover-lb-breadcrumb" id="lbBreadcrumb" style="display:none">&#x2190; Back to Pack</div>
 <div class="cover-lb-img-frame" id="lbImgFrame">
 <img id="lbImg" src="" alt="" />
-<video id="lbVid" muted loop playsinline style="opacity:0" class="lb-fade-hide"></video>
+<video id="lbVid" muted loop playsinline class="lb-fade-hide"></video>
 <button class="lb-play-btn lb-fade-hide" id="lbPlayBtn" aria-label="Play video">&#9654;</button>
 </div>
 <div class="cover-lb-pills" id="lbPills">
