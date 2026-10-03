@@ -1,140 +1,341 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>My Account, Awa Sounds</title>
-<meta name="description" content="Your Awa Sounds account. Save beats, build playlists, write lyrics and manage your Insider membership." />
-<meta name="robots" content="noindex" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>My Studio ‚Äî Awa Sounds</title>
+<meta name="description" content="Your creative command centre. Manage your Awa Sounds profile, posts, Signal page and membership."/>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="assets/css/style.css"/>
 <link rel="stylesheet" href="assets/css/roulette.css"/>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
-<nav class="nav"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a>
-<div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="vault-drop.html">Vault Drop</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
-<div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+<nav class="nav">
+  <a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
+  <div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div>
+</nav>
 
-<section class="page-hero" style="padding-bottom:24px"><div class="wrap">
-  <div class="breadcrumb"><a href="index.html">Home</a> / Account</div>
-  <span class="eyebrow" data-reveal>Your Space</span>
-  <h1 class="display chrome" data-reveal data-reveal-delay="1">My Account</h1>
-</div></section>
+<!-- Logged-out state -->
+<div id="acc-guest" class="acc-guest" hidden style="padding:140px 24px 80px">
+  <div class="acc-guest-card">
+    <h3>Sign in to your Awa Sounds account</h3>
+    <p>Build your Studio profile, create posts, set up your Signal page and manage your Insider membership.</p>
+    <button class="btn btn-primary" id="acc-signin">Sign in / Create account</button>
+  </div>
+</div>
 
-<section class="section" style="padding-top:0"><div class="wrap">
-  <!-- Logged-out state -->
-  <div id="acc-guest" class="acc-guest" hidden>
-    <div class="acc-guest-card">
-      <h3>Sign in to your Awa Sounds account</h3>
-      <p>Save beats, build playlists, write lyrics to any beat, and unlock Insider pricing across the store.</p>
-      <button class="btn btn-primary" id="acc-signin">Sign in / Create account</button>
+<!-- Loading -->
+<div id="acc-loading" class="acc-guest" style="padding:140px 24px 80px">
+  <div class="acc-guest-card"><p>Loading your Studio‚Ä¶</p></div>
+</div>
+
+<!-- ‚îÄ‚îÄ STUDIO APP ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
+<div id="acc-app" hidden>
+
+  <!-- COVER BANNER -->
+  <div class="studio-banner-wrap" id="studio-banner-wrap">
+    <div class="studio-banner-bg" id="studio-banner-bg"></div>
+    <div class="studio-banner-overlay"></div>
+    <label class="studio-banner-edit" title="Change cover banner" for="banner-file-input">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      Change cover
+    </label>
+    <input type="file" id="banner-file-input" accept="image/*" hidden>
+  </div>
+
+  <!-- PROFILE IDENTITY -->
+  <div class="studio-identity wrap">
+    <div class="studio-avatar-wrap">
+      <div class="studio-avatar" id="studio-avatar-el">A</div>
+      <label class="studio-avatar-edit" title="Change profile photo" for="avatar-file-input">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </label>
+      <input type="file" id="avatar-file-input" accept="image/*" hidden>
+    </div>
+    <div class="studio-info">
+      <div class="studio-name" id="studio-name-el">‚Äî</div>
+      <div class="studio-handle" id="studio-handle-el"></div>
+      <div class="studio-genre-row" id="studio-genre-row"></div>
+      <div class="studio-bio-el" id="studio-bio-el"></div>
+      <div class="studio-links-row" id="studio-links-row"></div>
+    </div>
+    <div class="studio-head-actions">
+      <div class="acc-status" id="acc-status"></div>
+      <button class="btn btn-ghost studio-edit-btn" id="studio-edit-toggle">Edit Profile</button>
+      <a class="btn btn-primary" href="#" id="studio-signal-btn">My Signal ‚Üí</a>
     </div>
   </div>
 
-  <!-- Loading / not-configured -->
-  <div id="acc-loading" class="acc-guest"><div class="acc-guest-card"><p>Loading your account…</p></div></div>
-
-  <!-- Logged-in state -->
-  <div id="acc-app" hidden>
-    <header class="acc-head">
-      <div class="acc-avatar" id="acc-avatar">&#x2014;</div>
-      <div class="acc-id">
-        <div class="acc-greet" id="acc-greet">Welcome back</div>
-        <div class="acc-name" id="acc-name">&#x2014;</div>
-        <div class="acc-tagline" id="acc-tagline"></div>
-        <div class="acc-status" id="acc-status"></div>
-      </div>
-      <div class="acc-head-cta" id="acc-head-cta"></div>
-      <button class="btn btn-ghost" id="acc-signout">Sign out</button>
-    </header>
-
+  <!-- STATS + UPSELL + QUICK -->
+  <div class="wrap" style="margin-top:32px">
     <div class="acc-stats" id="acc-stats"></div>
     <div class="acc-upsell" id="acc-upsell"></div>
 
-    <div class="acc-quick-wrap">
-      <div class="acc-quick-head"><span class="eyebrow" id="acc-quick-eyebrow">For you</span></div>
-      <div class="acc-quick" id="acc-quick"></div>
-    </div>
-
-    <!-- Streak + Credits quick bar -->
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px">
+    <!-- Streak + credits -->
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px">
       <div class="streak-widget">
-        <span class="streak-fire">🔥</span>
-        <div><div class="streak-val" id="streak-value">&#x2014;</div><div class="streak-label">day streak</div></div>
+        <span class="streak-fire">üî•</span>
+        <div><div class="streak-val" id="streak-value">‚Äî</div><div class="streak-label">day streak</div></div>
       </div>
       <div class="streak-widget" style="flex:1;min-width:160px">
-        <span style="font-size:20px">⚡</span>
-        <div><div class="streak-val" id="acc-credit-balance">&#x2014;</div><div class="streak-label">AWA Credits</div></div>
+        <span style="font-size:20px">‚ö°</span>
+        <div><div class="streak-val" id="acc-credit-balance">‚Äî</div><div class="streak-label">AWA Credits</div></div>
       </div>
-      <a href="album-packs.html" class="btn btn-ghost" style="align-self:center">Album Packs →</a>
+      <button class="btn btn-ghost" id="acc-signout" style="align-self:center">Sign out</button>
     </div>
 
+    <!-- Tabs -->
     <div class="acc-tabs">
-      <button class="on" data-panel="profile">Profile</button>
-      <button data-panel="credits">Credits</button>
+      <button class="on" data-panel="posts">Studio</button>
+      <button data-panel="signal">My Signal</button>
+      <button data-panel="cover-art">Cover Art</button>
+      <button data-panel="saved">Saved</button>
       <button data-panel="lyrics">Lyrics</button>
-      <button data-panel="likes">Saved</button>
       <button data-panel="playlists">Playlists</button>
       <button data-panel="membership">Membership</button>
+      <button data-panel="settings">Settings</button>
+      <button data-panel="credits">Credits</button>
       <button data-panel="referral">Refer &amp; Earn</button>
     </div>
 
-    <div class="acc-panel on" data-panel="profile">
-      <div class="acc-panel-head"><h3>Your profile</h3></div>
-      <form class="acc-profile" id="acc-profile-form">
-        <div class="acc-prow">
-          <label>Display name<input name="display_name" maxlength="40" placeholder="How we greet you"></label>
-          <label>Artist / creator name<input name="artist_name" maxlength="60" placeholder="Your stage name (optional)"></label>
+    <!-- ‚îÄ‚îÄ STUDIO POSTS PANEL ‚îÄ‚îÄ -->
+    <div class="acc-panel on" data-panel="posts">
+      <!-- Post Composer -->
+      <div class="post-composer" id="post-composer">
+        <div class="post-composer-top">
+          <div class="post-composer-avatar" id="composer-avatar">A</div>
+          <textarea class="post-composer-text" id="post-text" placeholder="What's on your mind? Share an update, a thought, a link‚Ä¶" maxlength="1000" rows="3"></textarea>
         </div>
-        <div class="acc-prow">
-          <label>I'm here as<select name="role">
-            <option value="">Choose…</option>
-            <option>Artist</option><option>Producer</option><option>Songwriter</option><option>Fan</option><option>Manager / Label</option>
-          </select></label>
-          <label>Favourite genre<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&B, Drill"></label>
+        <div class="post-composer-media" id="post-media-preview" hidden></div>
+        <div class="post-composer-link" id="post-link-row" hidden>
+          <input type="url" id="post-link-url" placeholder="Paste a link‚Ä¶" class="post-link-input">
+          <input type="text" id="post-link-title" placeholder="Link label (optional)" class="post-link-input">
         </div>
-        <label>Short bio<textarea name="bio" rows="3" maxlength="240" placeholder="A line or two about you and your sound"></textarea></label>
-        <div class="acc-profile-actions"><span class="acc-profile-note" id="acc-profile-note"></span><button type="submit" class="btn btn-primary">Save profile</button></div>
-      </form>
+        <div class="post-composer-actions">
+          <div class="post-composer-tools">
+            <label class="post-tool-btn" id="image-upload-label" title="Add image" for="post-image-input">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </label>
+            <input type="file" id="post-image-input" accept="image/*" hidden>
+            <button class="post-tool-btn" id="link-toggle-btn" title="Add link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <label class="post-show-likes-toggle" title="Show like count publicly">
+              <input type="checkbox" id="post-show-likes" checked>
+              <span>Show likes</span>
+            </label>
+            <button class="btn btn-primary" id="post-submit" style="--pad:10px 22px;font-size:13px">Post</button>
+          </div>
+        </div>
+        <div class="post-composer-note" id="post-composer-note"></div>
+      </div>
+
+      <!-- Posts Feed -->
+      <div class="posts-feed" id="posts-feed">
+        <div class="post-loading">Loading posts‚Ä¶</div>
+      </div>
     </div>
 
+    <!-- ‚îÄ‚îÄ THE SIGNAL PANEL ‚îÄ‚îÄ -->
+    <div class="acc-panel" data-panel="signal">
+      <div class="acc-panel-head">
+        <div>
+          <h3>The Signal</h3>
+          <p class="adm-hint" style="margin-top:4px">Your personalised link-in-bio page. Share it with the world.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <span class="signal-status-badge" id="signal-status-badge"></span>
+          <button class="btn btn-ghost" id="signal-preview-btn" style="--pad:9px 18px;font-size:13px">Preview ‚Üí</button>
+          <button class="btn btn-primary" id="signal-publish-btn" style="--pad:9px 18px;font-size:13px">Publish</button>
+        </div>
+      </div>
+
+      <!-- Signal URL display -->
+      <div class="signal-url-bar" id="signal-url-bar" hidden>
+        <span id="signal-url-text"></span>
+        <button class="btn btn-ghost" id="signal-copy-btn" style="--pad:6px 14px;font-size:12px">Copy</button>
+      </div>
+
+      <!-- Template Picker -->
+      <div class="signal-section">
+        <div class="signal-section-label">Template</div>
+        <div class="signal-templates" id="signal-templates">
+          <button class="signal-tpl on" data-tpl="the-drop">
+            <div class="signal-tpl-icon">‚ö°</div>
+            <div class="signal-tpl-name">The Drop</div>
+            <div class="signal-tpl-desc">Release day</div>
+          </button>
+          <button class="signal-tpl" data-tpl="the-press-kit">
+            <div class="signal-tpl-icon">üìã</div>
+            <div class="signal-tpl-name">Press Kit</div>
+            <div class="signal-tpl-desc">Industry ready</div>
+          </button>
+          <button class="signal-tpl" data-tpl="the-reel">
+            <div class="signal-tpl-icon">üé•</div>
+            <div class="signal-tpl-name">The Reel</div>
+            <div class="signal-tpl-desc">Video first</div>
+          </button>
+          <button class="signal-tpl" data-tpl="the-outliner">
+            <div class="signal-tpl-icon">‚ú¶</div>
+            <div class="signal-tpl-name">The Outliner</div>
+            <div class="signal-tpl-desc">Minimal. Bold.</div>
+          </button>
+          <button class="signal-tpl" data-tpl="the-wave">
+            <div class="signal-tpl-icon">üåä</div>
+            <div class="signal-tpl-name">The Wave</div>
+            <div class="signal-tpl-desc">Fan-facing</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Accent Colour -->
+      <div class="signal-section">
+        <div class="signal-section-label">Accent colour</div>
+        <div class="signal-colors" id="signal-colors">
+          <button class="sig-col on" data-color="#d9c38f" style="background:#d9c38f" title="Champagne Gold"></button>
+          <button class="sig-col" data-color="#e8637a" style="background:#e8637a" title="Crimson Rose"></button>
+          <button class="sig-col" data-color="#5b9cf6" style="background:#5b9cf6" title="Electric Blue"></button>
+          <button class="sig-col" data-color="#60e8a0" style="background:#60e8a0" title="Neon Mint"></button>
+          <button class="sig-col" data-color="#c77dff" style="background:#c77dff" title="Violet"></button>
+          <button class="sig-col" data-color="#ff9f1c" style="background:#ff9f1c" title="Amber"></button>
+          <button class="sig-col" data-color="#f25c54" style="background:#f25c54" title="Coral"></button>
+          <button class="sig-col" data-color="#00d4aa" style="background:#00d4aa" title="Teal"></button>
+          <button class="sig-col" data-color="#f8f9fa" style="background:#f8f9fa" title="White"></button>
+          <button class="sig-col" data-color="#ff6b35" style="background:#ff6b35" title="Sunset"></button>
+          <button class="sig-col" data-color="#a8dadc" style="background:#a8dadc" title="Ice"></button>
+          <button class="sig-col" data-color="#ffd166" style="background:#ffd166" title="Lemon"></button>
+        </div>
+      </div>
+
+      <!-- Blocks Builder -->
+      <div class="signal-section">
+        <div class="signal-section-label" style="display:flex;justify-content:space-between;align-items:center">
+          <span>Content blocks</span>
+          <div class="signal-add-menu-wrap">
+            <button class="btn btn-ghost" id="signal-add-block" style="--pad:8px 16px;font-size:12px">+ Add block</button>
+            <div class="signal-add-menu" id="signal-add-menu" hidden>
+              <button data-btype="hero_image">üñº Hero Image</button>
+              <button data-btype="text">üìù Text Block</button>
+              <button data-btype="link_button">üîó Link Button</button>
+              <button data-btype="youtube">‚ñ∂Ô∏è YouTube Embed</button>
+              <button data-btype="spotify">üéµ Spotify Embed</button>
+              <button data-btype="social_row">üì± Social Row</button>
+            </div>
+          </div>
+        </div>
+        <div class="signal-blocks-list" id="signal-blocks-list">
+          <div class="signal-empty-blocks">No blocks yet. Add one above to start building your Signal.</div>
+        </div>
+      </div>
+
+      <!-- Signal Analytics (published signals only) -->
+      <div class="signal-section" id="signal-analytics-section" hidden>
+        <div class="signal-section-label">Analytics (last 30 days)</div>
+        <div class="signal-analytics-grid" id="signal-analytics-grid"></div>
+      </div>
+
+      <!-- Member gate message -->
+      <div class="signal-member-gate" id="signal-member-gate" hidden>
+        <div class="signal-gate-inner">
+          <div style="font-size:32px">‚ö°</div>
+          <h4>The Signal is an Insider benefit</h4>
+          <p>Publish your personalised link-in-bio page, get click analytics and keep your Signal live ‚Äî all included with Insider membership.</p>
+          <button class="btn btn-primary" id="signal-gate-upgrade">Become an Insider ¬∑ ¬£4.99/mo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ‚îÄ‚îÄ COVER ART PANEL ‚îÄ‚îÄ -->
+    <div class="acc-panel" data-panel="cover-art">
+      <div class="acc-panel-head"><h3>Your Cover Art Portfolio</h3><a class="btn btn-ghost" href="cover-store.html">Browse more ‚Üí</a></div>
+      <p style="color:var(--muted);font-size:13.5px;margin-bottom:20px">Covers you've saved or purchased from the store. They appear in your Signal page when you add a Cover Art block.</p>
+      <div class="acc-beatgrid" id="cover-art-list"></div>
+    </div>
+
+    <!-- ‚îÄ‚îÄ SAVED PANEL ‚îÄ‚îÄ -->
+    <div class="acc-panel" data-panel="saved">
+      <div class="acc-panel-head"><h3>Saved beats</h3><a class="btn btn-ghost" href="beat-store.html">Browse beats ‚Üí</a></div>
+      <div class="acc-beatgrid" id="like-list"></div>
+    </div>
+
+    <!-- ‚îÄ‚îÄ LYRICS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="lyrics">
       <div class="acc-panel-head"><h3>Your lyrics</h3><button class="btn btn-primary" id="ly-new">New draft</button></div>
       <div class="acc-lyrics" id="ly-list"></div>
     </div>
 
-    <div class="acc-panel" data-panel="likes">
-      <div class="acc-panel-head"><h3>Saved items</h3><a class="btn btn-ghost" href="cover-store.html">Browse covers</a></div>
-      <div class="acc-beatgrid" id="like-list"></div>
-    </div>
-
+    <!-- ‚îÄ‚îÄ PLAYLISTS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="playlists">
       <div class="acc-panel-head"><h3>Playlists</h3><button class="btn btn-primary" id="pl-new">New playlist</button></div>
       <div class="acc-playlists" id="pl-list"></div>
     </div>
 
+    <!-- ‚îÄ‚îÄ MEMBERSHIP PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="membership">
       <div class="acc-panel-head"><h3>Insider membership</h3></div>
       <div class="acc-member" id="member-box"></div>
-            <div id="insider-join-cta" style="margin-top:24px;text-align:center;padding:24px;border:1px solid rgba(217,195,143,.2);border-radius:12px;background:rgba(217,195,143,.04)"><p style="color:var(--muted);margin-bottom:16px">Get 30% off all cover art and 15% off every beat license, mix, and studio session.</p><a href="https://buy.stripe.com/4gM14m76d3mD05SbtSawo03" target="_blank" rel="noopener" class="btn btn-primary">Join Insider — £4.99 / month <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     </div>
 
-    <!-- CREDITS PANEL -->
+    <!-- ‚îÄ‚îÄ SETTINGS PANEL ‚îÄ‚îÄ -->
+    <div class="acc-panel" data-panel="settings">
+      <div class="acc-panel-head"><h3>Studio settings</h3></div>
+      <form class="acc-profile" id="acc-profile-form" style="max-width:680px">
+        <div class="acc-prow">
+          <label>Display name<input name="display_name" maxlength="40" placeholder="How we greet you"></label>
+          <label>Artist / creator name<input name="artist_name" maxlength="60" placeholder="Your stage name (optional)"></label>
+        </div>
+        <div class="acc-prow">
+          <label>Signal username<input name="username" maxlength="32" placeholder="e.g. awakings" pattern="[a-z0-9\-]+" title="Lowercase letters, numbers, hyphens only"></label>
+          <label>I'm here as<select name="role">
+            <option value="">Choose‚Ä¶</option>
+            <option>Artist</option><option>Producer</option><option>Songwriter</option><option>Fan</option><option>Manager / Label</option>
+          </select></label>
+        </div>
+        <div class="acc-prow">
+          <label>Genre 1<input name="genre_1" maxlength="30" placeholder="e.g. Afrobeats"></label>
+          <label>Genre 2<input name="genre_2" maxlength="30" placeholder="e.g. R&B"></label>
+        </div>
+        <div class="acc-prow">
+          <label>Genre 3 (optional)<input name="genre_3" maxlength="30" placeholder="e.g. Trap"></label>
+          <label>Favourite genre (legacy)<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&B, Drill"></label>
+        </div>
+        <label>Short bio<textarea name="bio" rows="3" maxlength="240" placeholder="2‚Äì3 lines about you and your sound"></textarea></label>
+        <p class="signal-section-label" style="margin-top:8px;margin-bottom:0">Social links</p>
+        <div class="acc-prow">
+          <label>Instagram URL<input name="instagram" type="url" placeholder="https://instagram.com/‚Ä¶"></label>
+          <label>YouTube URL<input name="youtube" type="url" placeholder="https://youtube.com/‚Ä¶"></label>
+        </div>
+        <div class="acc-prow">
+          <label>Spotify URL<input name="spotify" type="url" placeholder="https://open.spotify.com/‚Ä¶"></label>
+          <label>Apple Music URL<input name="apple_music" type="url" placeholder="https://music.apple.com/‚Ä¶"></label>
+        </div>
+        <div class="acc-prow">
+          <label>TikTok URL<input name="tiktok" type="url" placeholder="https://tiktok.com/@‚Ä¶"></label>
+          <label>Booking / contact<input name="booking" type="url" placeholder="https://‚Ä¶"></label>
+        </div>
+        <div class="acc-profile-actions"><span class="acc-profile-note" id="acc-profile-note"></span><button type="submit" class="btn btn-primary">Save settings</button></div>
+      </form>
+    </div>
+
+    <!-- ‚îÄ‚îÄ CREDITS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="credits">
       <div class="acc-panel-head"><h3>AWA Credits</h3></div>
-      <p class="adm-hint">Credits accumulate and never expire. Use them to bid in auctions or get discounts in the store (free: 20 cr = &#xA3;1 off &#xB7; Insider: 15 cr = &#xA3;1 off, max 35% off).</p>
-      <div id="acc-credit-history" style="margin-top:20px">
-        <div style="text-align:center;padding:40px;color:var(--muted)">Loading credit history…</div>
-      </div>
+      <p class="adm-hint">Credits accumulate and never expire. Use them to bid in auctions or get discounts in the store (free: 20 cr = ¬£1 off ¬∑ Insider: 15 cr = ¬£1 off, max 35% off).</p>
+      <div id="acc-credit-history" style="margin-top:20px"><div style="text-align:center;padding:40px;color:var(--muted)">Loading credit history‚Ä¶</div></div>
     </div>
 
-    <!-- REFERRAL PANEL -->
+    <!-- ‚îÄ‚îÄ REFERRAL PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="referral">
       <div class="acc-panel-head"><h3>Refer &amp; Earn</h3></div>
-      <p class="adm-hint">Share your link. When a friend makes their first purchase, you both get <b>25 AWA Credits</b> &#x2014; no limit on referrals.</p>
-      <div id="referral-code-display" style="margin-top:20px">Loading…</div>
+      <p class="adm-hint">Share your link. When a friend makes their first purchase, you both get <b>25 AWA Credits</b> ‚Äî no limit on referrals.</p>
+      <div id="referral-code-display" style="margin-top:20px">Loading‚Ä¶</div>
       <div style="margin-top:32px">
         <h4 style="margin-bottom:8px">Have a promo code?</h4>
         <div class="promo-input-section">
@@ -147,15 +348,15 @@
       </div>
     </div>
 
-  </div>
-</div></section>
+  </div><!-- /wrap -->
+</div><!-- /acc-app -->
 
 <footer><div class="wrap"><div class="foot-grid">
   <div class="foot-brand"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a><p>An independent UK record label built for the next generation of sound. Sign. Develop. Release.</p></div>
   <div class="foot-col"><h5>Explore</h5><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="gallery.html">Gallery</a></div>
   <div class="foot-col"><h5>Divisions</h5><a href="studio.html">Recording Studio</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="contact.html">Distribution</a></div>
-  <div class="foot-col"><h5>Contact</h5><a href="mailto:awasoundsenquires@gmail.com">awasoundsenquires@gmail.com</a><a href="account.html">My Account</a><a href="#">United Kingdom</a><a href="contact.html">Submit a Demo</a></div>
-</div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;&#xB7;&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;&#xB7;&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
+  <div class="foot-col"><h5>Contact</h5><a href="mailto:awasoundsenquires@gmail.com">awasoundsenquires@gmail.com</a><a href="account.html">My Studio</a><a href="contact.html">Submit a Demo</a></div>
+</div><div class="foot-bottom"><span>¬© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;¬∑&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;¬∑&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/config.js"></script>
@@ -165,8 +366,5 @@
 <script src="assets/js/roulette.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
-</body></html>
-
-
-
-
+</body>
+</html>
