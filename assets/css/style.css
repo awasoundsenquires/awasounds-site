@@ -895,3 +895,6 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-16px)}
 .cup-price{font-size:11px;color:var(--gold,#e0a030);margin-top:2px}
 .cup-browse{display:inline-block;font-size:12px;color:var(--gold,#e0a030);text-decoration:none;font-weight:700;letter-spacing:.04em}
 .cup-browse:hover{text-decoration:underline}
+
+/* ── Cinematic engine topbar suppressed (site nav handles brand/nav) ── */
+.sw-topbar{display:none!important}
