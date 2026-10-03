@@ -1,11 +1,11 @@
-/* AWA SOUNDS — interactions (no dependencies) */
+/* AWA SOUNDS ‚Äî interactions (no dependencies) */
 (function () {
   "use strict";
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-  /* Preloader — skip on return visits in the same session; only show on first load */
+  /* Preloader ‚Äî skip on return visits in the same session; only show on first load */
   const hidePreload = () => { const p = $(".preload"); if (p) p.classList.add("done"); };
   try {
     if (sessionStorage.getItem("awa_visited")) {
@@ -42,7 +42,7 @@
     $$(".nav-links a").forEach(a => a.addEventListener("click", () => links.classList.remove("open")));
   }
 
-  /* Scroll direction */
+  /* Scroll direction ‚Äî drives the reversed reveal on the way up */
   let lastY = window.scrollY;
   document.body.classList.add("dir-down");
   window.addEventListener("scroll", () => {
@@ -55,7 +55,7 @@
     }
   }, { passive: true });
 
-  /* Reveal on scroll */
+  /* Reveal on scroll ‚Äî bidirectional: replays entering, reverses leaving (locked loop) */
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => e.target.classList.toggle("in", e.isIntersecting));
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
@@ -103,6 +103,8 @@
       });
       btn.addEventListener("mouseleave", () => { btn.style.transform = ""; });
     });
+
+    /* Service spotlight follow */
     $$(".service").forEach(s => {
       s.addEventListener("mousemove", (e) => {
         const r = s.getBoundingClientRect();
@@ -110,6 +112,8 @@
         s.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
       });
     });
+
+    /* Cursor glow */
     const glow = document.createElement("div");
     glow.className = "cursor-glow";
     document.body.appendChild(glow);
@@ -130,7 +134,7 @@
     }, { passive: true });
   }
 
-  /* Audio toggle */
+  /* Audio toggle ‚Äî controls hero video sound */
   const toggle = $(".audio-toggle"), vid = $(".hero-media video");
   if (toggle && vid) {
     toggle.classList.add("muted");
@@ -141,7 +145,7 @@
     });
   }
 
-  /* Demo play buttons */
+  /* Demo play buttons ‚Äî visual feedback only (placeholder for real audio) */
   $$("[data-play]").forEach(el => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
@@ -168,7 +172,7 @@
     });
   }
 
-  /* Store card: cycle video previews on hover */
+  /* Store card: cycle 2 video previews on hover */
   $$(".store-card.has-motion").forEach(card => {
     const vid = $(".media-video", card);
     const dots = $$(".previews span", card);
@@ -202,17 +206,89 @@
   /* Year in footer */
   $$("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 
+  /* ‚îÄ‚îÄ Awa Tools dropdown ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+  (function injectAwaTools() {
+    const navLinks = $(".nav-links");
+    if (!navLinks) return;
+
+    /* Find the Studio / Lyric Studio links and replace with dropdown */
+    const allLinks = $$("a", navLinks);
+    const studioLink = allLinks.find(a => a.href && a.href.includes("studio.html") && !a.href.includes("lyric"));
+    const lyricLink  = allLinks.find(a => a.href && a.href.includes("lyric-studio.html"));
+
+    const wrap = document.createElement("div");
+    wrap.className = "awa-tools-wrap";
+    wrap.innerHTML = `
+      <button class="awa-tools-btn" aria-expanded="false" aria-haspopup="true">
+        Awa Tools <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="awa-tools-menu" role="menu">
+        <a href="account.html" role="menuitem">
+          <span class="atm-icon">‚óà</span>
+          <span><b>My Studio</b><small>Profile, posts &amp; Signal</small></span>
+        </a>
+        <a href="account.html#signal" role="menuitem" class="atm-member-hint">
+          <span class="atm-icon">‚ö°</span>
+          <span><b>The Signal</b><small>Your link-in-bio page</small></span>
+        </a>
+        <a href="lyric-studio.html" role="menuitem">
+          <span class="atm-icon">‚úç</span>
+          <span><b>Lyric Studio</b><small>Write to any beat</small></span>
+        </a>
+        <a href="studio.html" role="menuitem">
+          <span class="atm-icon">üéô</span>
+          <span><b>Recording Studio</b><small>Book a session</small></span>
+        </a>
+        <div class="atm-coming">
+          <span class="atm-icon">‚ú¶</span>
+          <span><b>More tools coming</b><small>Beat builder, mixer &amp; more</small></span>
+        </div>
+      </div>`;
+
+    /* Insert before the Studio link, remove both old links */
+    if (studioLink) { navLinks.insertBefore(wrap, studioLink); studioLink.remove(); }
+    else navLinks.appendChild(wrap);
+    if (lyricLink) lyricLink.remove();
+
+    const btn  = wrap.querySelector(".awa-tools-btn");
+    const menu = wrap.querySelector(".awa-tools-menu");
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = menu.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", () => { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); });
+    menu.addEventListener("click", (e) => e.stopPropagation());
+
+    /* Close on nav link click (mobile) */
+    $$("a", menu).forEach(a => a.addEventListener("click", () => {
+      menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false");
+      if (navLinks.classList.contains("open")) navLinks.classList.remove("open");
+    }));
+
+    /* Signal link ‚Äî go to account page then select Signal tab */
+    const sigLink = menu.querySelector('[href="account.html#signal"]');
+    if (sigLink) {
+      sigLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = "account.html";
+        sessionStorage.setItem("awa_open_tab", "signal");
+      });
+    }
+  })();
+
   /* Cookie consent banner */
   (function() {
     if (localStorage.getItem("cookie_consent")) return;
     const banner = document.createElement("div");
     banner.id = "cookie-banner";
     banner.innerHTML = `
-      <p>We use strictly necessary cookies to keep you logged in. <a href="/cookie-policy.html">Cookie Policy<\/a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy<\/a><\/p>
+      <p>We use strictly necessary cookies to keep you logged in. <a href="/cookie-policy.html">Cookie Policy</a> &nbsp;¬∑&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
       <div class="cookie-btns">
-        <button id="cookie-accept" class="btn btn-gold btn-sm">Accept<\/button>
-        <button id="cookie-decline" class="btn btn-ghost btn-sm">Decline<\/button>
-      <\/div>`;
+        <button id="cookie-accept" class="btn btn-gold btn-sm">Accept</button>
+        <button id="cookie-decline" class="btn btn-ghost btn-sm">Decline</button>
+      </div>`;
     document.body.appendChild(banner);
     document.getElementById("cookie-accept").addEventListener("click", () => {
       localStorage.setItem("cookie_consent", "accepted");
