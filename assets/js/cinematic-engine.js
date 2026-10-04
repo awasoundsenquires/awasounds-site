@@ -449,11 +449,8 @@ function injectCinemaCSS() {
   .sw-copy__body{margin-top:18px;font-size:clamp(1rem,1.25vw,1.14rem);line-height:1.55;
     color:rgba(233,236,241,.90);max-width:40ch;text-shadow:0 1px 20px rgba(5,5,6,.95)}
   .sw-copy__tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0;padding:0}
-  .sw-copy__tags li{font-size:.82rem;font-weight:600;
-    color:color-mix(in srgb,var(--sw-accent) 80%,#fff);
-    padding:7px 14px;border-radius:999px;
-    background:rgba(201,206,214,.08);
-    border:1px solid rgba(201,206,214,.2)}
+  .sw-copy__tags li{font-size:.82rem;font-weight:600;color:rgba(233,236,241,.9);padding:7px 16px;border-radius:999px;background:rgba(8,8,12,.52);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px) saturate(120%);-webkit-backdrop-filter:blur(10px) saturate(120%);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 4px 12px rgba(4,4,6,.2);transition:background .2s,border-color .2s,color .2s}
+  .sw-copy__tags li:hover{background:rgba(217,195,143,.12);border-color:rgba(217,195,143,.3);color:rgba(217,195,143,.95)}
   .sw-copy__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;pointer-events:auto}
   .sw-btn{text-decoration:none;font-weight:600;font-size:.95rem;padding:13px 24px;
     border-radius:999px;transition:transform .2s,box-shadow .2s}
