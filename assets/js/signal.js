@@ -1,4 +1,4 @@
-/* AWA SOUNDS ‚Äî The Signal (signal.js)
+/* AWA SOUNDS — The Signal (signal.js)
    Public link-in-bio renderer for signal.html?u=USERNAME
    Reads signal_pages + profiles from Supabase. No auth required for viewing. */
 (function () {
@@ -199,7 +199,7 @@
     loading.style.display = "none";
     root.style.display = "";
     root.innerHTML = `<div class="sig-not-found">
-      <div style="font-size:48px">‚ö°</div>
+      <div style="font-size:48px">&#x26A1;</div>
       <h2>Signal not found</h2>
       <p>${esc(msg)}</p>
       <a class="btn btn-ghost" href="index.html" style="margin-top:20px;display:inline-flex">Back to Awa Sounds</a>
