@@ -113,6 +113,42 @@ window.AWA = {
       memberPriceGBP:35,
       available:     8,
       tag:           "Popular"
+    },
+    {
+      id:            "tribe-vol1",
+      code:          "AWA-PACK-004",
+      title:         "Tribe Vol. 01",
+      subtitle:      "13 covers — African identity, black & gold presence",
+      mood:          "Minimalist African line art, black and gold on clean ground",
+      coverIds:      ["adinkra-chrome","adinkra-chrome-ii","african-king","afronaut","afronaut-ii","afro-fusion","lagos","tribal","solo","bentley-night-ii","smoke-chain"],
+      priceGBP:      49,
+      memberPriceGBP:34,
+      available:     10,
+      tag:           "Legacy"
+    },
+    {
+      id:            "afro-japan-vol2",
+      code:          "AWA-PACK-005",
+      title:         "Afro Japan Vol. 02",
+      subtitle:      "9 covers — Afrofuturist meets ukiyo-e",
+      mood:          "Deep amber, vermilion, wave compositions, high contrast illustration",
+      coverIds:      ["anime-rooftop","ankara-rooftop","ankara-rooftop-ii","ankara-dance","ankara-dance-ii","beach-party","bentley-night","black-coupe"],
+      priceGBP:      39,
+      memberPriceGBP:27,
+      available:     8,
+      tag:           "Legacy"
+    },
+    {
+      id:            "bathroom-love-vol3",
+      code:          "AWA-PACK-006",
+      title:         "Bathroom Love Vol. 03",
+      subtitle:      "8 covers — intimate, hazy, candlelit",
+      mood:          "Steam, mirrors, rose petals — emotional realism for R&B and soul",
+      coverIds:      ["bonfire","beetle-sunset","beetle-sunset-ii","close-eyes","clear-chain","she","creation","gold-vinyl"],
+      priceGBP:      35,
+      memberPriceGBP:25,
+      available:     8,
+      tag:           "Legacy"
     }
   ],
 
