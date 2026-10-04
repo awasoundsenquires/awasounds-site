@@ -1,11 +1,11 @@
-/* AWA SOUNDS ‚Äî interactions (no dependencies) */
+/* AWA SOUNDS — interactions (no dependencies) */
 (function () {
   "use strict";
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-  /* Preloader ‚Äî skip on return visits in the same session; only show on first load */
+  /* Preloader — skip on return visits in the same session; only show on first load */
   const hidePreload = () => { const p = $(".preload"); if (p) p.classList.add("done"); };
   try {
     if (sessionStorage.getItem("awa_visited")) {
@@ -42,7 +42,7 @@
     $$(".nav-links a").forEach(a => a.addEventListener("click", () => links.classList.remove("open")));
   }
 
-  /* Scroll direction ‚Äî drives the reversed reveal on the way up */
+  /* Scroll direction — drives the reversed reveal on the way up */
   let lastY = window.scrollY;
   document.body.classList.add("dir-down");
   window.addEventListener("scroll", () => {
@@ -55,7 +55,7 @@
     }
   }, { passive: true });
 
-  /* Reveal on scroll ‚Äî bidirectional: replays entering, reverses leaving (locked loop) */
+  /* Reveal on scroll — bidirectional: replays entering, reverses leaving (locked loop) */
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => e.target.classList.toggle("in", e.isIntersecting));
   }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
@@ -130,11 +130,11 @@
   if (!reduce) {
     const media = $(".hero-media");
     if (media) window.addEventListener("scroll", () => {
-      media.style.transform = `translateY(${window.scrollY * 0.18}px)`;
+      media.style.transform = `translateY(${window.scrollY * 0.18}py)`;
     }, { passive: true });
   }
 
-  /* Audio toggle ‚Äî controls hero video sound */
+  /* Audio toggle — controls hero video sound */
   const toggle = $(".audio-toggle"), vid = $(".hero-media video");
   if (toggle && vid) {
     toggle.classList.add("muted");
@@ -145,7 +145,7 @@
     });
   }
 
-  /* Demo play buttons ‚Äî visual feedback only (placeholder for real audio) */
+  /* Demo play buttons — visual feedback only (placeholder for real audio) */
   $$("[data-play]").forEach(el => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
@@ -206,7 +206,7 @@
   /* Year in footer */
   $$("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 
-  /* ‚îÄ‚îÄ Awa Tools dropdown ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+  /* ── Awa Tools dropdown ─────────────────────────────────────── */
   (function injectAwaTools() {
     const navLinks = $(".nav-links");
     if (!navLinks) return;
@@ -224,23 +224,23 @@
       </button>
       <div class="awa-tools-menu" role="menu">
         <a href="account.html" role="menuitem">
-          <span class="atm-icon">‚óà</span>
+          <span class="atm-icon">&#x25C8;</span>
           <span><b>My Studio</b><small>Profile, posts &amp; Signal</small></span>
         </a>
         <a href="account.html#signal" role="menuitem" class="atm-member-hint">
-          <span class="atm-icon">‚ö°</span>
+          <span class="atm-icon">&#x26A1;</span>
           <span><b>The Signal</b><small>Your link-in-bio page</small></span>
         </a>
         <a href="lyric-studio.html" role="menuitem">
-          <span class="atm-icon">‚úç</span>
-          <span><b>Lyric Studio</b><small>Write to any beat</small></span>
+          <span class="atm-icon">&#x270D;</span>
+          <span><b>Lyric Studio</b><smallWrite to any beat</small></span>
         </a>
         <a href="studio.html" role="menuitem">
-          <span class="atm-icon">üéô</span>
+          <span class="atm-icon">&#x1F399;</span>
           <span><b>Recording Studio</b><small>Book a session</small></span>
         </a>
         <div class="atm-coming">
-          <span class="atm-icon">‚ú¶</span>
+          <span class="atm-icon">&#x2726;</span>
           <span><b>More tools coming</b><small>Beat builder, mixer &amp; more</small></span>
         </div>
       </div>`;
@@ -251,7 +251,7 @@
     if (lyricLink) lyricLink.remove();
 
     const btn  = wrap.querySelector(".awa-tools-btn");
-    const menu = wrap.querySelector(".awa-tools-menu");
+    const menu = wrap.querySelector(.awa-tools-menu");
 
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -267,7 +267,7 @@
       if (navLinks.classList.contains("open")) navLinks.classList.remove("open");
     }));
 
-    /* Signal link ‚Äî go to account page then select Signal tab */
+    /* Signal link — go to account page then select Signal tab */
     const sigLink = menu.querySelector('[href="account.html#signal"]');
     if (sigLink) {
       sigLink.addEventListener("click", (e) => {
@@ -284,7 +284,7 @@
     const banner = document.createElement("div");
     banner.id = "cookie-banner";
     banner.innerHTML = `
-      <p>We use strictly necessary cookies to keep you logged in. <a href="/cookie-policy.html">Cookie Policy</a> &nbsp;¬∑&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
+      <p>We use strictly necessary cookies to keep you logged in. <a href="/cookie-policy.html">Cookie Policy</a> &nbsp;&#xB7;&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
       <div class="cookie-btns">
         <button id="cookie-accept" class="btn btn-gold btn-sm">Accept</button>
         <button id="cookie-decline" class="btn btn-ghost btn-sm">Decline</button>
