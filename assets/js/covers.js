@@ -1,10 +1,10 @@
-/* AWA SOUNDS ‚Äî Cover Art store v4
+/* AWA SOUNDS — Cover Art store v4
 Features:
 - Pair card display (clean | titled side-by-side always visible in grid)
 - Cinema scroll rail (horizontal film strip pinned by GSAP, driven by scroll)
 - Series filter tabs
 - Premium Lightbox: WITH TITLE / CLEAN / VIDEO toggle pills, fullscreen zoom, keyboard nav
-- Pack Viewer: click album pack ‚Üí see all covers, click through to lightbox
+- Pack Viewer: click album pack → see all covers, click through to lightbox
 - GG watermark canvas overlay on all preview images (anti-piracy)
 - Receipt FX animation wired to buy flow
 ========================================================================= */
@@ -37,11 +37,11 @@ const SERIES_LABELS = {
 let likeSet = new Set();
 let activeSeries = "all";
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-CSS ‚Äî pair cards + cinema rail + series filter + lightbox + pack viewer
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ═══════════════════════════════════════════════════════════════════════════
+CSS — pair cards + cinema rail + series filter + lightbox + pack viewer
+═══════════════════════════════════════════════════════════════════════════ */
 const STYLE = `
-/* ‚îÄ‚îÄ Cinema Rail ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ── Cinema Rail ──────────────────────────────────────────────────────────── */
 .cover-cinema-section{position:relative;height:100vh;min-height:600px;overflow:hidden;background:#000;display:flex;flex-direction:column;justify-content:flex-end}
 .cinema-top-strip{flex:1;display:flex;align-items:center;overflow:hidden;position:relative}
 .cinema-track{display:flex;gap:10px;padding:0 40px;will-change:transform;flex-shrink:0}
@@ -65,14 +65,14 @@ const STYLE = `
 @keyframes scrollDot{0%{transform:translateX(0);opacity:1}70%{transform:translateX(28px);opacity:1}100%{transform:translateX(36px);opacity:0}}
 .cinema-scroll-hint span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;color:var(--muted,#9aa1ab)}
 
-/* ‚îÄ‚îÄ Series Filter ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ── Series Filter ─────────────────────────────────────────────────────────── */
 .series-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:28px}
 .series-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--panel,#111318);border:1px solid var(--line);border-radius:8px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--muted,#9aa1ab);cursor:pointer;transition:.15s;white-space:nowrap}
 .series-btn:hover{border-color:rgba(224,160,48,.4);color:var(--hi,#e0e0f0)}
 .series-btn.active{background:rgba(224,160,48,.08);border-color:rgba(224,160,48,.5);color:var(--gold,#e0a030)}
 .series-btn .s-count{font-size:9px;background:rgba(255,255,255,.08);border-radius:4px;padding:1px 5px;margin-left:2px;font-weight:600;letter-spacing:.04em}
 
-/* ‚îÄ‚îÄ Pair Grid ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ── Pair Grid ─────────────────────────────────────────────────────────────── */
 .pair-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
 .pair-card{background:var(--panel,#111318);border:1px solid var(--line,#222238);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
 .pair-card:hover{border-color:rgba(224,160,48,.3);transform:translateY(-2px)}
@@ -111,7 +111,7 @@ h4.pair-title-name{font-family:'Space Grotesk',sans-serif;font-size:14px;font-we
 .pair-btns{display:flex;gap:6px}
 .btn-xs{padding:5px 10px !important;font-size:11px !important}
 
-/* ‚îÄ‚îÄ Coming Soon Pair Grid ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ── Coming Soon Pair Grid ──────────────────────────────────────────────────── */
 .cs-pair-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px}
 .cs-pair-card{background:var(--panel,#111318);border:1px solid var(--line,#222238);border-radius:12px;overflow:hidden}
 .cs-pair-images{display:grid;grid-template-columns:1fr 1fr;gap:2px;position:relative}
@@ -130,7 +130,7 @@ h4.pair-title-name{font-family:'Space Grotesk',sans-serif;font-size:14px;font-we
 .cs-notify:hover{background:rgba(218,165,32,.12);border-color:rgba(218,165,32,.7)}
 .cs-notify.notified{border-color:rgba(218,165,32,.2);color:var(--muted);cursor:default}
 
-/* ‚îÄ‚îÄ Premium Lightbox ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ── Premium Lightbox ─────────────────────────────────────────────────────── */
 .cover-lb{position:fixed;inset:0;background:rgba(3,3,10,.97);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;overflow:hidden}
 .cover-lb.open{opacity:1;pointer-events:all}
 .cover-lb-close{position:fixed;top:18px;right:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.65);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;line-height:1;transition:all .2s;z-index:9002;padding:0}
@@ -163,7 +163,7 @@ h4.pair-title-name{font-family:'Space Grotesk',sans-serif;font-size:14px;font-we
 .lb-play-btn:hover{background:rgba(200,168,75,.6);border-color:#c8a84b}
 .lb-play-btn.lb-fade-hide{opacity:0;pointer-events:none}
 
-/* ‚îÄ‚îÄ Pack Viewer ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ── Pack Viewer ──────────────────────────────────────────────────────────── */
 .pack-viewer{position:fixed;inset:0;background:rgba(3,3,10,.95);z-index:8900;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .25s}
 .pack-viewer.open{opacity:1;pointer-events:all}
 .pack-viewer-inner{max-width:1000px;margin:0 auto;padding:64px 24px 80px}
@@ -179,7 +179,7 @@ h4.pair-title-name{font-family:'Space Grotesk',sans-serif;font-size:14px;font-we
 .pv-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
 .pv-card-label{padding:8px 10px;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;color:#9aa1ab;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* ‚îÄ‚îÄ SOLD State ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ── SOLD State ──────────────────────────────────────────────────────────── */
 .pair-card--sold{cursor:default}
 .pair-card--sold .pair-art{filter:grayscale(.35) brightness(.72)}
 .pair-card--sold:hover{transform:none !important;border-color:var(--line,#222238) !important}
@@ -210,9 +210,9 @@ styleEl.id = "covers-v4-css";
 styleEl.textContent = STYLE;
 document.head.appendChild(styleEl);
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 Cinema Scroll Rail
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 function initCinemaRail() {
 const track = document.getElementById("coverCinemaTrack");
 if (!track) return;
@@ -285,9 +285,9 @@ document.head.appendChild(styleF);
 }
 }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 Series Filter
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 function initSeriesFilter() {
 const filterEl = document.getElementById("seriesFilter");
 if (!filterEl) return;
@@ -304,9 +304,9 @@ card.style.display = show ? "" : "none";
 });
 }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 GG Watermark
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 function applyWatermark(artEl) {
 if (artEl.querySelector(".wm-canvas")) return;
 const cv = document.createElement("canvas");
@@ -343,9 +343,9 @@ drawWM();
 new ResizeObserver(drawWM).observe(artEl);
 }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 Pair Card
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 function pairCard(c) {
 const el = document.createElement("article");
 el.className = "pair-card" + (c.sold ? " pair-card--sold" : "");
@@ -363,7 +363,7 @@ el.innerHTML = `
 <span class="pair-series-tag">${esc(SERIES_LABELS[c.series] || "Cover Art")}</span>
 <div class="pair-header-right">
 ${c.premium ? '<span class="pair-premium">Premium</span>' : ""}
-${hasVideo ? '<span class="pair-vid-badge">‚ñ∫ Video</span>' : ""}
+${hasVideo ? '<span class="pair-vid-badge">&#x25BA; Video</span>' : ""}
 <button class="cover-save ib-like" aria-label="Save to wishlist" title="Save to wishlist">
 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.5 2 5 5.2 5 7.3 5 8.7 6.2 12 9c3.3-2.8 4.7-4 6.8-4 3.2 0 4.8 3.5 3.2 6.8C19.5 16.4 12 21 12 21z"/></svg>
 </button>
@@ -401,7 +401,7 @@ ${c.sold ? '<div class="sold-tape-wrap"><div class="sold-tape sold-tape-1"></div
 <div class="pair-footer">
 <div class="pair-info">
 <h4 class="pair-title-name">${esc(c.title)}</h4>
-<div class="pair-sub">${esc(c.sub)} ¬∑ 3000√ó3000 + 2 videos</div>
+<div class="pair-sub">${esc(c.sub)} &#xB7; 3000&#xD7;3000 + 2 videos</div>
 </div>
 <div class="pair-price-actions">
 <div class="pair-price-stack">
@@ -443,9 +443,9 @@ return el;
 // Render pair grid
 COVERS.forEach(c => list.appendChild(pairCard(c)));
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 Save / Auth
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 function toggleSave(cardEl) {
 AWAAuth.requireAuth(async () => {
 const id = cardEl.dataset.id, btn = cardEl.querySelector(".cover-save");
@@ -469,9 +469,9 @@ if (b) b.classList.add("on");
 });
 });
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 Premium Lightbox
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 let lb = null;
 let lbCurrentId = null;
 let lbCurrentView = "titled"; // "titled" | "clean" | "video"
@@ -514,7 +514,7 @@ document.body.appendChild(lb);
 // Apply AWA watermark over the lightbox frame (covers both img and video previews)
 applyWatermark(document.getElementById("lbImgFrame"));
 
-// Close on overlay click or √ó button
+// Close on overlay click or × button
 lb.addEventListener("click", e => {
 if (e.target === lb) closeLightbox();
 });
@@ -620,7 +620,7 @@ lbFromPack = fromPack || null;
 
 // Title + sub
 document.getElementById("lbTitle").textContent = c.title;
-document.getElementById("lbSub").textContent = c.sub + " ¬∑ 3000√ó3000px + motion files";
+document.getElementById("lbSub").textContent = c.sub + " \u00B7 3000\u00D73000px + motion files";
 
 // Show/hide video pill
 const vidPill = document.getElementById("lbVideoPill");
@@ -630,7 +630,7 @@ if (vidPill) vidPill.style.display = (c.videos && c.videos.length) ? "" : "none"
 const bread = document.getElementById("lbBreadcrumb");
 if (fromPack) {
 const pack = (CFG.albumPacks || []).find(p => p.id === fromPack);
-bread.textContent = "‚Üê Back to " + (pack ? pack.title : "Pack");
+bread.textContent = "← Back to " + (pack ? pack.title : "Pack");
 bread.style.display = "";
 } else {
 bread.style.display = "none";
@@ -646,7 +646,7 @@ buyBtn.disabled = true;
 buyBtn.textContent = "Sold";
 } else {
 buyBtn.disabled = false;
-buyBtn.textContent = "Get This Cover ‚Üí " + priceLabel;
+buyBtn.textContent = "Get This Cover → " + priceLabel;
 buyBtn.onclick = () => triggerBuy(c, member, memPx);
 }
 
@@ -674,7 +674,7 @@ if (vid) vid.pause();
 lbCurrentId = null;
 }
 
-/* Keyboard: ESC = close, ‚Üê ‚Üí = navigate */
+/* Keyboard: ESC = close, ← → = navigate */
 document.addEventListener("keydown", e => {
 if (!lb || !lb.classList.contains("open")) return;
 if (e.key === "Escape") { closeLightbox(); return; }
@@ -682,9 +682,9 @@ if (e.key === "ArrowLeft") { lbNavigate(-1); return; }
 if (e.key === "ArrowRight") { lbNavigate(1); return; }
 });
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 Receipt FX + Buy
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 function triggerBuy(c, member, memPx) {
 const priceVal = member && memPx ? memPx : c.price;
 if (window.AWAReceiptFX) {
@@ -708,7 +708,7 @@ else if (c.price >= 35 && CFG.coverPremiumPayLink) globalLink = CFG.coverPremium
 else if (c.price >= 25 && CFG.coverAnimatedPayLink) globalLink = CFG.coverAnimatedPayLink;
 if (globalLink) { window.open(globalLink, "_blank", "noopener"); return; }
 const to = CFG.enquiryEmail || "awasoundsenquires@gmail.com";
-const subj = encodeURIComponent(`Cover art enquiry ‚Äî ${c.title}`);
+const subj = encodeURIComponent(`Cover art enquiry — ${c.title}`);
 const body = encodeURIComponent(`Hi Awa Sounds,\n\nI'd like to buy the "${c.title}" cover (${c.sub}).\n\nName:\nRelease title:\n\nThanks.`);
 window.location.href = `mailto:${to}?subject=${subj}&body=${body}`;
 }
@@ -724,9 +724,9 @@ else { likeSet.delete(id); await client.from("likes").delete().match({ user_id: 
 }, "Sign in to save cover art.");
 }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 Pack Viewer
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 let pv = null;
 
 function buildPackViewer() {
@@ -790,9 +790,9 @@ document.addEventListener("keydown", e => {
 if (pv && pv.classList.contains("open") && e.key === "Escape") closePackViewer();
 });
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-Album Pack Card ‚Äî wire "View Pack" buttons
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ═══════════════════════════════════════════════════════════════════════════
+Album Pack Card — wire "View Pack" buttons
+═══════════════════════════════════════════════════════════════════════════ */
 function initPackViewer() {
 // Wire up HTML pack cards that have data-pack-id
 document.querySelectorAll(".pack-card[data-pack-id]").forEach(card => {
@@ -814,9 +814,9 @@ strip.addEventListener("click", () => openPackViewer(packId));
 });
 }
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
-Coming Soon ‚Äî Pair View
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+/* ═══════════════════════════════════════════════════════════════════════════
+Coming Soon — Pair View
+═══════════════════════════════════════════════════════════════════════════ */
 (function renderComingSoon() {
 const container = document.getElementById("coming-soon-list");
 if (!container || !COMING_SOON.length) return;
@@ -860,7 +860,7 @@ el.innerHTML = `
 el.querySelector(".cs-notify").addEventListener("click", function() {
 if (this.classList.contains("notified")) return;
 this.classList.add("notified");
-this.textContent = "Notified ‚úì";
+this.textContent = "Notified ✓";
 });
 
 grid.appendChild(el);
@@ -869,9 +869,9 @@ grid.appendChild(el);
 container.appendChild(grid);
 })();
 
-/* ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê
+/* ═══════════════════════════════════════════════════════════════════════════
 GSAP pair card reveal animations
-‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê */
+═══════════════════════════════════════════════════════════════════════════ */
 function initPairCardAnimations() {
 if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
 if (matchMedia("(prefers-reduced-motion:reduce)").matches) return;
@@ -895,7 +895,7 @@ ease: "expo.out"
 });
 }
 
-/* ‚îÄ‚îÄ Init ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+/* ── Init ─────────────────────────────────────────────────────────────────── */
 initCinemaRail();
 initSeriesFilter();
 initPackViewer();
