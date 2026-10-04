@@ -25,7 +25,7 @@
         eyebrow: 'Independent Record Label \u00B7 United Kingdom',
         title:   'Independent.\nCinematic.\nPermanent.',
         body:    'The industry stopped developing artists and started renting them distribution. We do it the old way and the new way at once — real A&R, real studio time, real strategy, then release it everywhere that matters.',
-        tags:    ['Artist Development', 'Distribution', 'Beat Store', 'Cover Art'],
+        tags:    ['Beats', 'Cover Art', 'Releases', 'Insider'],
         cta: {
           primary:   { label: 'Submit Your Demo', href: 'contact.html' },
           secondary: { label: 'Explore the Label', href: 'roster.html' }
