@@ -130,7 +130,7 @@
   if (!reduce) {
     const media = $(".hero-media");
     if (media) window.addEventListener("scroll", () => {
-      media.style.transform = `translateY(${window.scrollY * 0.18}py)`;
+      media.style.transform = `translateY(${window.scrollY * 0.18}px)`;
     }, { passive: true });
   }
 
@@ -233,7 +233,7 @@
         </a>
         <a href="lyric-studio.html" role="menuitem">
           <span class="atm-icon">&#x270D;</span>
-          <span><b>Lyric Studio</b><smallWrite to any beat</small></span>
+          <span><b>Lyric Studio</b><small>Write to any beat</small></span>
         </a>
         <a href="studio.html" role="menuitem">
           <span class="atm-icon">&#x1F399;</span>
@@ -251,7 +251,7 @@
     if (lyricLink) lyricLink.remove();
 
     const btn  = wrap.querySelector(".awa-tools-btn");
-    const menu = wrap.querySelector(.awa-tools-menu");
+    const menu = wrap.querySelector(".awa-tools-menu");
 
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
