@@ -178,6 +178,11 @@ h4.pair-title-name{font-family:'Space Grotesk',sans-serif;font-size:14px;font-we
 .pv-card:hover{transform:translateY(-3px);border-color:rgba(200,168,75,.35)}
 .pv-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
 .pv-card-label{padding:8px 10px;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;color:#9aa1ab;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pv-card img.pv-img-hidden{display:none!important}
+.pv-toggle-bar{display:flex;gap:6px;margin-bottom:16px}
+.pv-toggle-btn{padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#9aa1ab;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;cursor:pointer;transition:all .2s}
+.pv-toggle-btn:hover{background:rgba(255,255,255,.08);color:#d9c38f}
+.pv-toggle-btn.pv-toggle-btn--active{background:rgba(217,195,143,.15);border-color:rgba(217,195,143,.4);color:#d9c38f}
 
 /* ── SOLD State ──────────────────────────────────────────────────────────── */
 .pair-card--sold{cursor:default}
@@ -741,11 +746,24 @@ pv.innerHTML = `
 <h2 class="pack-viewer-title" id="pvTitle"></h2>
 <p class="pack-viewer-desc" id="pvDesc"></p>
 </div>
+<div class="pv-toggle-bar" id="pvToggleBar">
+<button class="pv-toggle-btn pv-toggle-btn--active" data-view="titled">WITH TITLE</button>
+<button class="pv-toggle-btn" data-view="clean">CLEAN</button>
+</div>
 <div class="pv-grid" id="pvGrid"></div>
 </div>`;
 document.body.appendChild(pv);
 document.getElementById("pvClose").addEventListener("click", closePackViewer);
 pv.addEventListener("click", e => { if (e.target === pv) closePackViewer(); });
+document.querySelectorAll("#pvToggleBar .pv-toggle-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var view = this.dataset.view;
+    document.querySelectorAll("#pvToggleBar .pv-toggle-btn").forEach(function(b) { b.classList.toggle("pv-toggle-btn--active", b === btn); });
+    var grid = document.getElementById("pvGrid");
+    grid.querySelectorAll("img.pv-img--titled").forEach(function(i) { i.classList.toggle("pv-img-hidden", view === "clean"); });
+    grid.querySelectorAll("img.pv-img--clean").forEach(function(i) { i.classList.toggle("pv-img-hidden", view !== "clean"); });
+  });
+});
 }
 
 function openPackViewer(packId) {
@@ -761,13 +779,15 @@ document.getElementById("pvDesc").textContent = pack.desc || ("Includes " + pack
 
 const grid = document.getElementById("pvGrid");
 grid.innerHTML = "";
+document.querySelectorAll("#pvToggleBar .pv-toggle-btn").forEach(function(b) { b.classList.toggle("pv-toggle-btn--active", b.dataset.view === "titled"); });
 
 pack.coverIds.forEach(cid => {
 const c = COVERS.find(x => x.id === cid) || (CFG.covers || []).find(x => x.id === cid);
 if (!c) return;
 const card = document.createElement("div");
 card.className = "pv-card";
-card.innerHTML = `<img src="${esc(c.img)}" alt="${esc(c.title)}" loading="lazy"><div class="pv-card-label">${esc(c.title)}</div>`;
+const cleanSrc = esc(c.imgClean || c.img);
+card.innerHTML = `<img class="pv-img--titled" src="${esc(c.img)}" alt="${esc(c.title)}" loading="lazy"><img class="pv-img--clean pv-img-hidden" src="${cleanSrc}" alt="${esc(c.title)}" loading="lazy"><div class="pv-card-label">${esc(c.title)}</div>`;
 card.addEventListener("click", () => {
 closePackViewer();
 setTimeout(() => openDetail(c.id, "titled", packId), 50);
