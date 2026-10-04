@@ -169,7 +169,7 @@
       </div>
       <div class="bcard-body">
         <h3 class="bcard-title">${esc(b.title)}</h3>
-        <div class="bcard-sub">Prod. ${esc(b.producer)} · ${b.bpm} BPM · ${esc(b.key)}</div>
+        <div class="bcard-sub">Prod. ${esc(b.producer)} &#xB7; ${b.bpm} BPM &#xB7; ${esc(b.key)}</div>
         <div class="bcard-tags">${(b.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
         <div class="bcard-actions">
           <span class="bcard-from">from <b>${money(CFG.licenses.mp3.price)}</b></span>
@@ -193,7 +193,7 @@
       </div>
       <div class="bcard-body">
         <h3 class="bcard-title">${esc(b.title)}</h3>
-        <div class="bcard-sub">Prod. ${esc(b.producer)} · ${b.bpm} BPM · ${esc(b.key)}</div>
+        <div class="bcard-sub">Prod. ${esc(b.producer)} &#xB7; ${b.bpm} BPM &#xB7; ${esc(b.key)}</div>
         <div class="bcard-waveform-wrap">
           <canvas class="bcard-waveform" data-bid="${esc(b.id)}" width="200" height="32"></canvas>
           <span class="bcard-wf-time">0:00</span>
@@ -223,7 +223,7 @@
       </div>
       <div class="bcard-body">
         <h3 class="bcard-title">${esc(b.title)}</h3>
-        <div class="bcard-sub">Prod. ${esc(b.producer)} · ${b.bpm} BPM · ${esc(b.key)}</div>
+        <div class="bcard-sub">Prod. ${esc(b.producer)} &#xB7; ${b.bpm} BPM &#xB7; ${esc(b.key)}</div>
         <div class="bcard-tags">${(b.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
         <div class="bcard-actions">
           <span class="bcard-from">from <b>${money(CFG.licenses.mp3.price)}</b></span>
@@ -437,7 +437,7 @@
     return `<div class="lic-tier">
       <div class="lic-tier-main">
         <b>${L.name}</b>
-        <small>${L.streams==="Unlimited"?"Unlimited streams · you own it":"Up to "+L.streams+" streams"}</small>
+        <small>${L.streams==="Unlimited"?"Unlimited streams &#xB7; you own it":"Up to "+L.streams+" streams"}</small>
         <a class="lic-view" href="${L.doc}" target="_blank" rel="noopener">View contract</a>
       </div>
       <div class="lic-tier-buy">
@@ -464,7 +464,7 @@
   function checkout(key,link) {
     const L=CFG.licenses[key];
     if (link) { window.open(link,"_blank","noopener"); closeLicense(); setTimeout(()=>showCoverUpsell(currentBeat),1200); return; }
-    const to=CFG.enquiryEmail||"awasound.music@gmail.com";
+    const to=CFG.enquiryEmail||"awasoundsenquires@gmail.com";
     const subj=encodeURIComponent(`Beat enquiry — ${currentBeat.title} (${L.name})`);
     const body=encodeURIComponent(`Hi Awa Sounds,\n\nI'd like the ${L.name} license for "${currentBeat.title}" (Prod. ${currentBeat.producer}).\n\nName:\nArtist name:\n\nThanks.`);
     window.location.href=`mailto:${to}?subject=${subj}&body=${body}`;
