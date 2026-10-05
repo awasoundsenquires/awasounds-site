@@ -38,7 +38,7 @@ function mountScrollWorld(container, config) {
   SECTIONS.forEach((s, i) => {
     const dive = { kind:'dive', si:i, clip:s.clip, clipM:s.clipMobile,
                    still:s.still, stillM:s.stillMobile, accent:s.accent,
-                   w:s.scroll || DIVE_W, linger:s.linger || 0 };
+                   w:s.scroll || DIVE_W, linger:s.linger || 0, reverse:s.reverse||false };
     SEGMENTS.push(dive); s._seg = dive;
     if (i < N - 1 && CONNECTORS[i]) {
       SEGMENTS.push({ kind:'conn', si:i, clip:CONNECTORS[i], clipM:CONNECTORS_M[i],
@@ -236,9 +236,10 @@ function mountScrollWorld(container, config) {
       const pr  = clamp((y-seg.start)/(seg.end-seg.start), 0, 1);
       const before = y<seg.start, after = y>seg.end;
       let cop;
-      if (i===0)     cop = after ? 0 : smooth(1-pr/0.62);
-      else if (i===N-1) cop = before ? 0 : smooth(pr/0.4);
-      else              cop = (before||after) ? 0 : smooth(1-Math.abs(pr-0.5)/0.5);
+      if (i===0 && seg.reverse) cop = (before||after) ? 0 : smooth((pr-0.6)/0.4);
+      else if (i===0)           cop = after ? 0 : smooth(1-pr/0.62);
+      else if (i===N-1)         cop = before ? 0 : smooth(pr/0.4);
+      else                      cop = (before||after) ? 0 : smooth(1-Math.abs(pr-0.5)/0.5);
 
       const c = copies[i];
       c.style.opacity   = cop;
@@ -275,7 +276,7 @@ function mountScrollWorld(container, config) {
       const lerpK = s.visible ? 0.22 : 0.15;
       s.cur += (s.target-s.cur) * (reduce ? 1 : lerpK);
       const dur = s.video.duration || 1;
-      const t   = clamp(s.cur, 0, 0.999) * dur;
+      const t   = s.reverse ? (1 - clamp(s.cur, 0.001, 1)) * dur : clamp(s.cur, 0, 0.999) * dur;
       if (Math.abs(s.video.currentTime-t) > eps) {
         try { s.video.currentTime = t; } catch(e) {}
       }
