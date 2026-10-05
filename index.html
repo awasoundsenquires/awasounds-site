@@ -156,8 +156,8 @@
 .split-media--logo { overflow: visible !important; }
 .logo-reveal-wrap { overflow: visible !important; }
 .logo-reveal-img { max-height: none !important; }
-/* Reverse video direction: camera starts right, moves left as user scrolls */
-#home-world video { transform: scaleX(-1); }
+/* Logo: prevent cover crop from .split-media img rule in style.css (specificity 0,1,1 overrides 0,1,0) */
+.split-media--logo .logo-reveal-img { object-fit: contain !important; filter: none !important; }
 
 /* Phase 4: protagonists strip + price tease */
 .hero-sub-strip { display:flex; align-items:center; gap:16px; margin-top:20px; flex-wrap:wrap; }
