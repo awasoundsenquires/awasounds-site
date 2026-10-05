@@ -129,14 +129,33 @@
   align-items: center;
   justify-content: center;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px;
+  font-size: 15px;
   letter-spacing: .26em;
   text-transform: uppercase;
-  color: rgba(200,168,75,.6);
+  color: rgba(200,168,75,.85);
   font-weight: 600;
   pointer-events: none;
 }
 @media (max-width: 640px) { .svs { height: 140px; } }
+/* Suppress scroll-cinema nav route dots and section counter */
+.sw-route { display: none !important; }
+.sw-copy__num { display: none !important; }
+/* Liquid glass — copy panel: video shows through glass, text stays readable */
+.sw-copy {
+  background: rgba(5,5,6,.28) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255,255,255,.11) !important;
+  border-radius: 16px !important;
+  padding: 32px 36px !important;
+}
+.sw-copylayer::before {
+  background: linear-gradient(90deg,rgba(5,5,6,.22) 0%,rgba(5,5,6,.10) 40%,transparent 100%) !important;
+}
+/* Logo panel: prevent cropping on all sides */
+.split-media--logo { overflow: visible !important; aspect-ratio: auto !important; }
+.logo-reveal-wrap { overflow: visible !important; }
+.logo-reveal-img { max-height: none !important; }
 
 /* Phase 4: protagonists strip + price tease */
 .hero-sub-strip { display:flex; align-items:center; gap:16px; margin-top:20px; flex-wrap:wrap; }
@@ -415,7 +434,7 @@
 <div class="svs" aria-hidden="true">
   <video autoplay muted loop playsinline preload="none" src="assets/img/svs-home-05.mp4"></video>
   <div class="svs-cover"></div>
-  <p class="svs-label">Visual Identity &nbsp;·&nbsp; Cover Art &nbsp;·&nbsp; Your Sound Made Visible</p>
+  <p class="svs-label">Premium Artwork &nbsp;·&nbsp; Sold Once &nbsp;·&nbsp; Retired Forever</p>
 </div>
 <!-- Cover Art Store teaser -->
 <section class="section" id="store-teaser">
@@ -442,7 +461,7 @@
 <div class="svs" aria-hidden="true">
   <video autoplay muted loop playsinline preload="none" src="assets/img/svs-home-06.mp4"></video>
   <div class="svs-cover"></div>
-  <p class="svs-label">Premium Artwork &nbsp;·&nbsp; Sold Once &nbsp;·&nbsp; Retired Forever</p>
+  <p class="svs-label">Visual Identity &nbsp;·&nbsp; Cover Art &nbsp;·&nbsp; Your Sound Made Visible</p>
 </div>
 <!-- Testimonials -->
 <section class="section">
