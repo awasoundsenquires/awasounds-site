@@ -153,9 +153,11 @@
   background: linear-gradient(90deg,rgba(5,5,6,.22) 0%,rgba(5,5,6,.10) 40%,transparent 100%) !important;
 }
 /* Logo panel: prevent cropping on all sides */
-.split-media--logo { overflow: visible !important; aspect-ratio: auto !important; }
+.split-media--logo { overflow: visible !important; }
 .logo-reveal-wrap { overflow: visible !important; }
 .logo-reveal-img { max-height: none !important; }
+/* Reverse video direction: camera starts right, moves left as user scrolls */
+#home-world video { transform: scaleX(-1); }
 
 /* Phase 4: protagonists strip + price tease */
 .hero-sub-strip { display:flex; align-items:center; gap:16px; margin-top:20px; flex-wrap:wrap; }
@@ -434,7 +436,7 @@
 <div class="svs" aria-hidden="true">
   <video autoplay muted loop playsinline preload="none" src="assets/img/svs-home-05.mp4"></video>
   <div class="svs-cover"></div>
-  <p class="svs-label">Premium Artwork &nbsp;·&nbsp; Sold Once &nbsp;·&nbsp; Retired Forever</p>
+  <p class="svs-label">Visual Identity &nbsp;·&nbsp; Cover Art &nbsp;·&nbsp; Your Sound Made Visible</p>
 </div>
 <!-- Cover Art Store teaser -->
 <section class="section" id="store-teaser">
@@ -461,7 +463,7 @@
 <div class="svs" aria-hidden="true">
   <video autoplay muted loop playsinline preload="none" src="assets/img/svs-home-06.mp4"></video>
   <div class="svs-cover"></div>
-  <p class="svs-label">Visual Identity &nbsp;·&nbsp; Cover Art &nbsp;·&nbsp; Your Sound Made Visible</p>
+  <p class="svs-label">Premium Artwork &nbsp;·&nbsp; Sold Once &nbsp;·&nbsp; Retired Forever</p>
 </div>
 <!-- Testimonials -->
 <section class="section">
