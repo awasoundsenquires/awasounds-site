@@ -81,13 +81,18 @@ img{max-width:100%;display:block}
 h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;letter-spacing:-.02em}
 .display{
   font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:clamp(48px,7.5vw,90px);font-weight:400;font-style:italic;line-height:1.02;letter-spacing:-.01em;
+  font-size:clamp(48px,7.5vw,90px);font-weight:400;font-style:italic;line-height:1.1;letter-spacing:-.01em;
 }
 .chrome{
   background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 2px 20px rgba(180,200,230,.12));
 }
-.section-title{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(30px,5vw,60px);letter-spacing:-.01em}
+.section-title{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(30px,5vw,60px);line-height:1.08;letter-spacing:-.01em}
+.display.chrome,.section-title.chrome{
+  background:linear-gradient(180deg,#ffffff 0%,#f3e8c8 40%,#d9c38f 75%,#b9975a 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 24px rgba(217,195,143,.18));
+}
 .lede{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:56ch}
 
 /* ---------- Buttons ---------- */
