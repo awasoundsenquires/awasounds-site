@@ -90,6 +90,7 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;lette
 .section-title{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(30px,5vw,60px);line-height:1.08;letter-spacing:-.01em}
 .display.chrome,.section-title.chrome{
   background:linear-gradient(180deg,#ffffff 0%,#f3e8c8 40%,#d9c38f 75%,#b9975a 100%);
+  background-size:100% 1lh;background-repeat:repeat-y;
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 2px 24px rgba(217,195,143,.18));
 }
