@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
 /* ============================================================
    AWA SOUNDS — Design System
    Near-black canvas · liquid chrome · cinematic motion
@@ -78,13 +80,14 @@ img{max-width:100%;display:block}
 
 h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;letter-spacing:-.02em}
 .display{
-  font-size:clamp(44px,8vw,116px);font-weight:600;line-height:.94;letter-spacing:-.03em;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(44px,8vw,116px);font-weight:700;line-height:.94;letter-spacing:-.03em;
 }
 .chrome{
   background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 2px 20px rgba(180,200,230,.12));
 }
-.section-title{font-size:clamp(30px,5vw,60px);letter-spacing:-.03em}
+.section-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(30px,5vw,60px);letter-spacing:-.03em}
 .lede{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:56ch}
 
 /* ---------- Buttons ---------- */
