@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 /* ============================================================
    AWA SOUNDS — Design System
@@ -80,14 +80,14 @@ img{max-width:100%;display:block}
 
 h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;letter-spacing:-.02em}
 .display{
-  font-family:'Playfair Display',Georgia,serif;
-  font-size:clamp(44px,8vw,116px);font-weight:700;line-height:.94;letter-spacing:-.03em;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(48px,7.5vw,90px);font-weight:400;font-style:italic;line-height:1.02;letter-spacing:-.01em;
 }
 .chrome{
   background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 2px 20px rgba(180,200,230,.12));
 }
-.section-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(30px,5vw,60px);letter-spacing:-.03em}
+.section-title{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(30px,5vw,60px);letter-spacing:-.01em}
 .lede{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:56ch}
 
 /* ---------- Buttons ---------- */
