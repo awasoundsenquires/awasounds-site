@@ -23,7 +23,7 @@
         clipMobile:  'assets/img/studio-ambiance.mp4',
         scroll: 1.8, linger: 0.4, reverse: true,
         accent:  '#c9ced6',
-        eyebrow: 'Independent Record Label \u00B7 United Kingdom',
+        eyebrow: 'Independent Record Label · United Kingdom',
         title:   'Independent.\nCinematic.\nPermanent.',
         cta: {
           primary:   { label: 'Submit Your Demo',  href: 'contact.html' },

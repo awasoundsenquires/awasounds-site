@@ -235,6 +235,10 @@
           <span class="atm-icon">&#x270D;</span>
           <span><b>Lyric Studio</b><small>Write to any beat</small></span>
         </a>
+        <a href="press-room/index.html" role="menuitem">
+          <span class="atm-icon">&#x1F3AC;</span>
+          <span><b>Press Room</b><small>Beat-reactive video effects</small></span>
+        </a>
         <a href="studio.html" role="menuitem">
           <span class="atm-icon">&#x1F399;</span>
           <span><b>Recording Studio</b><small>Book a session</small></span>
