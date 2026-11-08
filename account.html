@@ -11,6 +11,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css"/>
 <link rel="stylesheet" href="assets/css/roulette.css"/>
+<style>
+/* ── Insider feature tabs ─────────────────────────────────────── */
+.insider-features{margin-top:36px;border-top:1px solid rgba(255,255,255,.07);padding-top:28px}
+.insider-features-head{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.insider-feat-tabs{display:flex;gap:4px;flex-wrap:nowrap;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.07);scrollbar-width:none}
+.insider-feat-tabs::-webkit-scrollbar{display:none}
+.insider-feat-tab{background:transparent;border:none;border-bottom:2px solid transparent;padding:10px 16px;font:500 13px/1 "Space Grotesk",sans-serif;color:var(--muted);cursor:pointer;transition:color .18s,border-color .18s;margin-bottom:-1px;white-space:nowrap;flex-shrink:0}
+.insider-feat-tab:hover{color:#fff}
+.insider-feat-tab.ift-on{color:var(--gold,#d9c38f);border-bottom-color:var(--gold,#d9c38f)}
+.insider-feat-panel{display:none;padding:28px 0 4px;gap:24px;align-items:flex-start}
+.insider-feat-panel.ift-on{display:flex}
+.insider-feat-icon{font-size:34px;flex-shrink:0;margin-top:3px}
+.insider-feat-body{flex:1;min-width:0}
+.insider-feat-body h4{font:600 16px/1.2 "Space Grotesk",sans-serif;color:#fff;margin:0 0 4px}
+.insider-feat-perk{font-size:12.5px;font-weight:600;color:var(--gold,#d9c38f);margin:0 0 10px;letter-spacing:.02em}
+.insider-feat-body>p{font-size:13.5px;line-height:1.65;color:var(--muted);margin:0 0 14px}
+.insider-feat-tip{background:rgba(217,195,143,.06);border-left:2px solid var(--gold,#d9c38f);padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.5;color:rgba(255,255,255,.7);margin-bottom:16px}
+.ift-tip-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold,#d9c38f);display:block;margin-bottom:3px}
+.insider-feat-actions{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:600px){.insider-feat-panel.ift-on{flex-direction:column;gap:14px}.insider-feat-icon{font-size:26px}}
+</style>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
@@ -282,6 +303,88 @@
     <div class="acc-panel" data-panel="membership">
       <div class="acc-panel-head"><h3>Insider membership</h3></div>
       <div class="acc-member" id="member-box"></div>
+
+      <!-- Interactive feature tabs -->
+      <div class="insider-features">
+        <div class="insider-features-head">What&#39;s included</div>
+        <div class="insider-feat-tabs" role="tablist" id="insider-feat-tabs">
+          <button class="insider-feat-tab ift-on" data-feat="beats">Beat Store</button>
+          <button class="insider-feat-tab" data-feat="covers">Cover Art</button>
+          <button class="insider-feat-tab" data-feat="lyric">Lyric Studio</button>
+          <button class="insider-feat-tab" data-feat="press">Press Room</button>
+          <button class="insider-feat-tab" data-feat="first">First Listen</button>
+          <button class="insider-feat-tab" data-feat="vault">Vault Drop</button>
+        </div>
+        <div id="insider-feat-panels">
+
+          <div class="insider-feat-panel ift-on" data-feat="beats">
+            <div class="insider-feat-icon">&#127925;</div>
+            <div class="insider-feat-body">
+              <h4>Beat Store</h4>
+              <p class="insider-feat-perk">15% off every beat license</p>
+              <p>Browse 100+ in-house beats, save to playlists and license your sound in one click. Your Insider discount applies automatically at checkout.</p>
+              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Hit the heart on any beat to save it to your library. Build a shortlist playlist before you buy so you can compare the whole selection side by side.</div>
+              <div class="insider-feat-actions"><a class="btn btn-ghost" href="beat-store.html" style="font-size:13px;--pad:9px 18px">Go to Beat Store &#8594;</a></div>
+            </div>
+          </div>
+
+          <div class="insider-feat-panel" data-feat="covers">
+            <div class="insider-feat-icon">&#127912;</div>
+            <div class="insider-feat-body">
+              <h4>Cover Art</h4>
+              <p class="insider-feat-perk">30% off all cover art and album packs</p>
+              <p>Pre-made covers, art packs, and collection sets. Every piece is sold once and retired &#8212; your artwork stays exclusive.</p>
+              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Use the WITH TITLE / CLEAN toggle in the pack viewer to preview the cover without text &#8212; great for checking how it looks before you decide.</div>
+              <div class="insider-feat-actions"><a class="btn btn-ghost" href="cover-store.html" style="font-size:13px;--pad:9px 18px">Browse Cover Art &#8594;</a></div>
+            </div>
+          </div>
+
+          <div class="insider-feat-panel" data-feat="lyric">
+            <div class="insider-feat-icon">&#9998;&#65039;</div>
+            <div class="insider-feat-body">
+              <h4>Lyric Studio</h4>
+              <p class="insider-feat-perk">Unlimited drafts, auto-save, structured export</p>
+              <p>Write, store and format your lyrics. Sections are structured so you can export clean and import directly into Press Room for animated lyric videos.</p>
+              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Use section markers (Verse, Hook, Bridge) in your draft &#8212; Press Room reads these when you sync your lyrics to the visual timeline.</div>
+              <div class="insider-feat-actions"><a class="btn btn-ghost" href="lyric-studio.html" style="font-size:13px;--pad:9px 18px">Open Lyric Studio &#8594;</a></div>
+            </div>
+          </div>
+
+          <div class="insider-feat-panel" data-feat="press">
+            <div class="insider-feat-icon">&#127909;</div>
+            <div class="insider-feat-body">
+              <h4>Press Room</h4>
+              <p class="insider-feat-perk">Exclusive Insider-only tool</p>
+              <p>WebGL beat-reactive video effects studio. Add AI depth layers, an animated lyric timeline, 3D camera motion and export in 4K &#8212; no plugins, runs in your browser.</p>
+              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Start by picking a Pressing (top-left panel) then explore the Surfaces panel to dial in your visual look before you drop any footage.</div>
+              <div class="insider-feat-actions"><a class="btn btn-ghost" href="press-room/index.html" style="font-size:13px;--pad:9px 18px">Open Press Room &#8594;</a></div>
+            </div>
+          </div>
+
+          <div class="insider-feat-panel" data-feat="first">
+            <div class="insider-feat-icon">&#9889;</div>
+            <div class="insider-feat-body">
+              <h4>First Listen</h4>
+              <p class="insider-feat-perk">Every release 48 hours before the public</p>
+              <p>Every new Awa Sounds release lands in your Releases feed two days early. Stream, share privately and get your feedback in before anyone else hears it.</p>
+              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Check the Releases page on Thursdays &#8212; First Listen drops usually go live at noon. Early listens show a gold ring around the cover art.</div>
+              <div class="insider-feat-actions"><a class="btn btn-ghost" href="releases.html" style="font-size:13px;--pad:9px 18px">View Releases &#8594;</a></div>
+            </div>
+          </div>
+
+          <div class="insider-feat-panel" data-feat="vault">
+            <div class="insider-feat-icon">&#128274;</div>
+            <div class="insider-feat-body">
+              <h4>Vault Drop</h4>
+              <p class="insider-feat-perk">First access to 1-of-1 exclusive drops</p>
+              <p>Vault releases are sold once and retired forever. Insiders get access and a notification window before each drop goes public &#8212; most sell in under 24 hours.</p>
+              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Allow browser notifications when prompted &#8212; Vault windows open without warning and close fast. If you miss it, it&#39;s gone.</div>
+              <div class="insider-feat-actions"><a class="btn btn-ghost" href="cover-store.html" style="font-size:13px;--pad:9px 18px">View Vault Drops &#8594;</a></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
     <!-- ── SETTINGS PANEL ── -->
@@ -367,5 +470,20 @@
 <script src="assets/js/roulette.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.insider-feat-tab');
+  if(!tabs.length)return;
+  tabs.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      tabs.forEach(function(t){t.classList.remove('ift-on');});
+      document.querySelectorAll('.insider-feat-panel').forEach(function(p){p.classList.remove('ift-on');});
+      btn.classList.add('ift-on');
+      var panel=document.querySelector('.insider-feat-panel[data-feat="'+btn.getAttribute('data-feat')+'"]');
+      if(panel)panel.classList.add('ift-on');
+    });
+  });
+})();
+</script>
 </body>
 </html>
