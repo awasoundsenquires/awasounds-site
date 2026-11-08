@@ -492,6 +492,7 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-16px)}
   .beat{grid-template-columns:auto 1fr;row-gap:12px}
   .gallery{columns:1}
   .section-head{flex-direction:column;align-items:flex-start}
+  .nav-insider-cta{display:none!important}
 }
 
 /* ---------- Custom cursor glow (desktop) ---------- */
