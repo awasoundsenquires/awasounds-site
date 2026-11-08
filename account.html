@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="assets/css/style.css"/>
 <link rel="stylesheet" href="assets/css/roulette.css"/>
 <style>
-/* ── Insider feature tabs ─────────────────────────────────────── */
+/* ── Insider feature tabs ────────────────────────────────────────────── */
 .insider-features{margin-top:36px;border-top:1px solid rgba(255,255,255,.07);padding-top:28px}
 .insider-features-head{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 .insider-feat-tabs{display:flex;gap:4px;flex-wrap:nowrap;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.07);scrollbar-width:none}
@@ -31,6 +31,9 @@
 .ift-tip-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold,#d9c38f);display:block;margin-bottom:3px}
 .insider-feat-actions{display:flex;gap:10px;flex-wrap:wrap}
 @media(max-width:600px){.insider-feat-panel.ift-on{flex-direction:column;gap:14px}.insider-feat-icon{font-size:26px}}
+.acc-member:empty+.insider-features{margin-top:20px}
+.insider-feat-tabs-wrap{position:relative}
+.insider-feat-tabs-wrap::after{content:'';position:absolute;right:0;top:0;bottom:1px;width:40px;background:linear-gradient(to right,transparent,#050506);pointer-events:none}
 </style>
 </head>
 <body>
@@ -55,7 +58,7 @@
   <div class="acc-guest-card"><p>Loading your Studio…</p></div>
 </div>
 
-<!-- ── STUDIO APP ──────────────────────────────────────────────────────── -->
+<!-- ── STUDIO APP ──────────────────────────────────────────────────────────────────────── -->
 <div id="acc-app" hidden>
 
   <!-- COVER BANNER -->
@@ -204,7 +207,7 @@
             <div class="signal-tpl-desc">Video first</div>
           </button>
           <button class="signal-tpl" data-tpl="the-outliner">
-            <div class="signal-tpl-icon">✦</div>
+            <div class="signal-tpl-icon">✶</div>
             <div class="signal-tpl-name">The Outliner</div>
             <div class="signal-tpl-desc">Minimal. Bold.</div>
           </button>
@@ -307,14 +310,14 @@
       <!-- Interactive feature tabs -->
       <div class="insider-features">
         <div class="insider-features-head">What&#39;s included</div>
-        <div class="insider-feat-tabs" role="tablist" id="insider-feat-tabs">
+        <div class="insider-feat-tabs-wrap"><div class="insider-feat-tabs" role="tablist" id="insider-feat-tabs">
           <button class="insider-feat-tab ift-on" data-feat="beats">Beat Store</button>
           <button class="insider-feat-tab" data-feat="covers">Cover Art</button>
           <button class="insider-feat-tab" data-feat="lyric">Lyric Studio</button>
           <button class="insider-feat-tab" data-feat="press">Press Room</button>
           <button class="insider-feat-tab" data-feat="first">First Listen</button>
           <button class="insider-feat-tab" data-feat="vault">Vault Drop</button>
-        </div>
+        </div></div>
         <div id="insider-feat-panels">
 
           <div class="insider-feat-panel ift-on" data-feat="beats">
@@ -355,7 +358,7 @@
             <div class="insider-feat-body">
               <h4>Press Room</h4>
               <p class="insider-feat-perk">Exclusive Insider-only tool</p>
-              <p>WebGL beat-reactive video effects studio. Add AI depth layers, an animated lyric timeline, 3D camera motion and export in 4K &#8212; no plugins, runs in your browser.</p>
+              <p>WebGL beat-reactive video effects studio. Add cinematic depth layers, an animated lyric timeline, 3D camera motion and export in 4K &#8212; no plugins, runs in your browser.</p>
               <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Start by picking a Pressing (top-left panel) then explore the Surfaces panel to dial in your visual look before you drop any footage.</div>
               <div class="insider-feat-actions"><a class="btn btn-ghost" href="press-room/index.html" style="font-size:13px;--pad:9px 18px">Open Press Room &#8594;</a></div>
             </div>
@@ -404,11 +407,11 @@
         </div>
         <div class="acc-prow">
           <label>Genre 1<input name="genre_1" maxlength="30" placeholder="e.g. Afrobeats"></label>
-          <label>Genre 2<input name="genre_2" maxlength="30" placeholder="e.g. R&B"></label>
+          <label>Genre 2<input name="genre_2" maxlength="30" placeholder="e.g. R&amp;B"></label>
         </div>
         <div class="acc-prow">
           <label>Genre 3 (optional)<input name="genre_3" maxlength="30" placeholder="e.g. Trap"></label>
-          <label>Favourite genre (legacy)<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&B, Drill"></label>
+          <label>Favourite genre (legacy)<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&amp;B, Drill"></label>
         </div>
         <label>Short bio<textarea name="bio" rows="3" maxlength="240" placeholder="2–3 lines about you and your sound"></textarea></label>
         <p class="signal-section-label" style="margin-top:8px;margin-bottom:0">Social links</p>
