@@ -89,6 +89,21 @@
       el.textContent = "Sign in";
       el.onclick = (e) => { e.preventDefault(); openModal(); };
     }
+    // Desktop Insider CTA (non-members only)
+    let insiderCta = right.querySelector(".nav-insider-cta");
+    if (!API.isMember()) {
+      if (!insiderCta) {
+        insiderCta = document.createElement("a");
+        insiderCta.className = "btn btn-ghost nav-insider-cta";
+        insiderCta.href = "account.html";
+        insiderCta.style.cssText = "font-size:.82rem;padding:8px 16px;border-color:rgba(217,195,143,.35);color:#d9c38f;white-space:nowrap";
+        right.insertBefore(insiderCta, el);
+      }
+      insiderCta.textContent = "Become an Insider";
+      insiderCta.style.display = "";
+    } else if (insiderCta) {
+      insiderCta.style.display = "none";
+    }
     // Sync mobile drawer — add Insider CTA or My Account link
     const navLinks = document.querySelector(".nav-links");
     if (navLinks) {
@@ -103,7 +118,7 @@
         mobileAcct.textContent = "My Account";
       } else {
         mobileAcct.href = "#";
-        mobileAcct.textContent = "Become an Insider \u2192";
+        mobileAcct.textContent = "Become an Insider →";
         mobileAcct.onclick = (e) => { e.preventDefault(); openModal("Join Awa Sounds. Unlock Insider pricing, save beats and submit demos."); };
       }
     }

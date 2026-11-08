@@ -218,15 +218,18 @@ function mountScrollWorld(container, config) {
       if (y < s.start) outside = s.start - y;
       else if (y > s.end) outside = y - s.end;
       const op = smooth(1 - outside/fade);
-      s.el.style.opacity = op;
+      const opStr = op.toFixed(4);
+      if (s._lastOp !== opStr) { s.el.style.opacity = opStr; s._lastOp = opStr; }
       s.visible = op > 0.001;
-      s.el.style.zIndex = (i===ci) ? '120' : String(100+Math.round(op*10));
+      const newZ = (i===ci) ? '120' : String(100+Math.round(op*10));
+      if (s._lastZ !== newZ) { s.el.style.zIndex = newZ; s._lastZ = newZ; }
 
       if (!s.hasClip || !s.ready) {
         // Ken Burns handled by CSS animation; keep the scale drift as subtle extra
         if (!reduce) {
           const sc = 1.03 + local*0.06;
-          s.img.style.transform = `translateX(${stageX-2}vw) scale(${sc.toFixed(3)})`;
+          const tStr = `translateX(${stageX-2}vw) scale(${sc.toFixed(3)})`;
+          if (s._lastImgT !== tStr) { s.img.style.transform = tStr; s._lastImgT = tStr; }
         }
       }
     }
@@ -242,8 +245,10 @@ function mountScrollWorld(container, config) {
       else                      cop = (before||after) ? 0 : smooth(1-Math.abs(pr-0.5)/0.5);
 
       const c = copies[i];
-      c.style.opacity   = cop;
-      c.style.transform = reduce ? 'none' : `translateY(${(0.5-pr)*4}vh)`;
+      const copStr = cop.toFixed(4);
+      if (c._lastOp !== copStr) { c.style.opacity = copStr; c._lastOp = copStr; }
+      const copyT = reduce ? 'none' : `translateY(${((0.5-pr)*4).toFixed(2)}vh)`;
+      if (c._lastT !== copyT) { c.style.transform = copyT; c._lastT = copyT; }
       c.style.pointerEvents = cop>0.5 ? 'auto' : 'none';
     }
 
@@ -400,7 +405,7 @@ function injectCinemaCSS() {
 
   /* stage */
   .sw-stage{position:fixed;inset:0;z-index:10;pointer-events:none;transition:opacity .5s}
-  .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity}
+  .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity;contain:content}
 
   /* stills with Ken Burns ambient animation */
   .sw-scene__still{
@@ -427,6 +432,7 @@ function injectCinemaCSS() {
   .sw-scene__video{
     position:absolute;inset:0;width:100%;height:100%;
     object-fit:cover;object-position:center 42%;z-index:1;
+    will-change:transform;transform:translateZ(0);
   }
 
   /* Hide the still once video is rendering */
@@ -523,6 +529,8 @@ function injectCinemaCSS() {
   @media(hover:none) and (pointer:coarse){
     .sw-route{padding:14px 6px} .sw-route__dot{width:28px;height:28px}
     .sw-btn{padding:15px 26px}
+    .sw-copy__tags li{backdrop-filter:none;-webkit-backdrop-filter:none}
+    .sw-route__label{backdrop-filter:none;-webkit-backdrop-filter:none}
   }
   @media(prefers-reduced-motion:reduce){
     .sw-hint i::after{animation:none}

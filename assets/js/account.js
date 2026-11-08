@@ -157,7 +157,8 @@
       upsell.style.display = "";
       upsell.innerHTML = `<div class="acc-upsell-in">
         <div><b>You're one step from Insider.</b> 30% off cover art, 15% off beats and services, early access to drops, and full Signal customisation.</div>
-        <button class="btn btn-primary" id="acc-upsell-btn">Become an Insider &middot; ${money(CFG.membershipPrice || 4.99)}/mo</button>
+        <button class="btn btn-primary" id="acc-upsell-btn">Become an Insider &middot; <s style="opacity:.6">£9.99</s>&nbsp;£${CFG.membershipPrice || 4.99}/mo</button>
+        <small style="display:block;margin-top:6px;opacity:.6;font-size:.78rem">Price reduced for the first 100 Insiders</small>
       </div>`;
       $("#acc-upsell-btn").addEventListener("click", startMembership);
     }
@@ -599,7 +600,8 @@
       box.innerHTML = `<div class="member-active"><span class="acc-badge member">Insider &middot; active</span><p>You save 30% on cover art and 15% on every beat license and service.${since ? " Member since " + since + "." : ""}</p></div>`;
     } else {
       box.innerHTML = `<div class="member-offer">
-        <div class="member-price">${money(CFG.membershipPrice || 4.99)}<small>/month</small></div>
+        <div class="member-price"><s style="opacity:.5;font-size:.75em">£9.99</s>&nbsp;£${CFG.membershipPrice || 4.99}<small>/month</small></div>
+        <small style="display:block;color:var(--gold,#d9c38f);opacity:.85;font-size:.78rem;margin-bottom:8px">Price reduced for the first 100 Insiders</small>
         <ul>
           <li><b>30% off all cover art</b></li>
           <li>15% off every beat license</li>
