@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Press Room &mdash; Awa Sounds</title>
+<title>Motion Studio &mdash; Awa Sounds</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Fredoka:wght@700&family=JetBrains+Mono:wght@700&family=Monoton&family=Oswald:wght@700&family=Pacifico&family=Permanent+Marker&family=Playfair+Display:wght@800&family=Press+Start+2P&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#07080b;--panel:#0f1014;--line:#23252c;--ink:#eceef2;--dim:#8a8f9a;--acc:#cfd6e0;--accText:#0a0b0e}
-html[data-mode=gold]{--bg:#070605;--panel:#100e0a;--line:#2a2418;--ink:#f3ecd9;--dim:#9a9078;--acc:#f2c14e;--accText:#1a1204}
+html[data-mod=gold]{--bg:#070605;--panel:#100e0a;--line:#2a2418;--ink:#f3ecd9;--dim:#9a9078;--acc:#f2c14e;--accText:#1a1204}
 html[data-mode=studio]{--bg:#09090b;--panel:#111114;--line:#26262c;--ink:#f1f0ee;--dim:#8f8e96;--acc:#ff6a4d;--accText:#180502}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-sans-serif,system-ui,sans-serif}
@@ -85,8 +85,8 @@ small,.note{color:var(--dim);font-size:12px}
 <!-- Awa Sounds access gate -->
 <div id="pr-gate" style="position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:24px;text-align:center;font-family:'Space Grotesk',ui-sans-serif,sans-serif">
   <div style="font-size:36px">&#x1F3AC;</div>
-  <h2 id="prg-title" style="margin:0;font-size:22px;color:#f1f0ee">Press Room &#x2014; Insider Access</h2>
-  <p id="prg-desc" style="color:#8a8f9a;max-width:360px;line-height:1.6;font-size:13px;margin:0">Press Room is Insider-only. Create a free account to get started &#x2014; upgrade when you&#x2019;re ready.</p>
+  <h2 id="prg-title" style="margin:0;font-size:22px;color:#f1f0ee">Motion Studio &#x2014; Insider Access</h2>
+  <p id="prg-desc" style="color:#8a8f9a;max-width:360px;line-height:1.6;font-size:13px;margin:0">Motion Studio is Insider-only. Create a free account to get started &#x2014; upgrade when you&#x2019;re ready.</p>
   <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px 20px;max-width:400px;text-align:left">
     <div style="font-size:10px;letter-spacing:.1em;color:#7070a0;text-transform:uppercase;margin-bottom:10px;font-weight:600">What you get</div>
     <div style="display:flex;flex-direction:column;gap:7px">
@@ -98,13 +98,13 @@ small,.note{color:var(--dim);font-size:12px}
     </div>
   </div>
   <a id="prg-cta-p" href="../account.html#membership" style="display:inline-block;background:#e0a030;color:#0a0806;border-radius:999px;padding:12px 28px;font-weight:700;font-size:14px;text-decoration:none;letter-spacing:.04em;margin-top:4px">Upgrade &#x2014; &#xA3;4.99/mo</a>
-  <a id="prg-cta-s" href="#" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Press Room.')" style="display:inline-block;border:1px solid rgba(255,255,255,.25);color:#e0e0f0;border-radius:999px;padding:10px 24px;font-size:13px;text-decoration:none;margin-top:2px">Create Free Account</a>
+  <a id="prg-cta-s" href="#" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Motion Studio.')" style="display:inline-block;border:1px solid rgba(255,255,255,.25);color:#e0e0f0;border-radius:999px;padding:10px 24px;font-size:13px;text-decoration:none;margin-top:2px">Create Free Account</a>
   <a href="../index.html" style="display:block;margin-top:14px;font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;letter-spacing:.05em" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">&#x2190; Back to Awa Sounds</a>
 </div>
 
 <header>
  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;color:#8a8f9a;text-decoration:none;font-size:12px;letter-spacing:.04em;margin-right:8px" onmouseover="this.style.color='#f1f0ee'" onmouseout="this.style.color='#8a8f9a'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> AWA</a>
- <b>PRESS ROOM</b><span id="tag"></span>
+ <b>Motion Studio</b><span id="tag"></span>
  <button id="tutBtn">Tutorials</button>
  <div class="seg" id="modeSeg"><button data-m="studio" class="on">Studio</button><button data-m="chrome">Chrome</button><button data-m="gold">Gold</button></div>
 </header>
@@ -663,7 +663,7 @@ const toLRC=()=>S.lines.map(l=>`[${lrcT(l.t)}] ${l.s}`).join('\n'),toSRT=()=>S.l
 $('xlrc').onclick=()=>dl('lyrics.lrc',toLRC(),'text/plain');$('xsrt').onclick=()=>dl('lyrics.srt',toSRT(),'text/plain');
 const projOut=()=>JSON.stringify({v:1,clips:S.clips,lines:S.lines,mode:S.mode,look:S.look,home:S.home,p:S.p,palIdx:S.palIdx,inv:S.inv,gset:S.gset,motion:S.motion,l2:S.l2,ratio:S.ratio,x:window.__X?{...__X,showd:false}:{}},null,1);
 function projIn(d){clipDeselect();S.lines=d.lines||[];S.clips=d.clips||[];if(d.mode&&d.mode!==S.mode)setMode(d.mode);Object.assign(S,{look:d.look,home:d.home,p:d.p,palIdx:d.palIdx,inv:d.inv,gset:d.gset,motion:d.motion,l2:d.l2});if(window.__X)Object.assign(__X,d.x||{});LE.sel=-1;LE.edited=true;textKey='';renderPresets();syncSliders();renderPals();markLooks();syncExtras();renderLine();buildPlan()}
-$('psave').onclick=()=>dl('press-room-project.json',projOut(),'application/json');$('popen').onclick=()=>$('pin').click();$('pin').onchange=async e=>{const f=e.target.files[0];if(f)try{projIn(JSON.parse(await f.text()));msg('Project opened. Add your song and artwork again.')}catch(err){msg('That file is not a Press Room project.')}};
+$('psave').onclick=()=>dl('press-room-project.json',projOut(),'application/json');$('popen').onclick=()=>$('pin').click();$('pin').onchange=async e=>{const f=e.target.files[0];if(f)try{projIn(JSON.parse(await f.text()));msg('Project opened. Add your song and artwork again.')}catch(err){msg('That file is not a Motion Studio project.')}};
 document.fonts.ready.then(()=>{LE.fontTick=1;textKey=''});FONTS.forEach((f,i)=>{if(i)document.fonts.load(fontCss(i,40)).then(()=>{LE.fontTick=(LE.fontTick||0)+1;textKey=''})});
 cv.addEventListener('pointerdown',e=>{if(LE.drag&&LE.sel>=0)pushUndo()});
 cv.addEventListener('pointermove',e=>{if(e.buttons&&LE.drag&&LE.sel>=0){const r=cv.getBoundingClientRect();edit(l=>{l.x=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));l.y=Math.min(1,Math.max(0,(e.clientY-r.top)/r.height))},true)}});
@@ -1003,7 +1003,7 @@ const TABS=[['Media',['SONG','ARTWORK']],['Lyrics',['LYRICS']],['Effects',['EFFE
 function setTab(n){document.querySelectorAll('.sec').forEach(d=>d.classList.toggle('on',d.dataset.n===n));[...$('tabs').children].forEach(b=>b.classList.toggle('on',b.dataset.t===n));const a=document.querySelector('aside');if(a)a.scrollTop=0}
 
 // ================= ? help =================
-const HELP={SONG:'Load your track. Press Room reads the tempo, beats, drops and sections so visuals can follow the music.',ARTWORK:'The picture or video your effects are applied to. Videos loop automatically.',LYRICS:'Paste your lyrics. Add times like [0:12.5] at the start of a line, or leave them out and spread them evenly, then fix them on the timeline.',
+const HELP={SONG:'Load your track. Motion Studio reads the tempo, beats, drops and sections so visuals can follow the music.',ARTWORK:'The picture or video your effects are applied to. Videos loop automatically.',LYRICS:'Paste your lyrics. Add times like [0:12.5] at the start of a line, or leave them out and spread them evenly, then fix them on the timeline.',
 'SELECTED LINE':'Everything here changes only the lyric block you clicked.',LAYER:'In front shows the words over everything. Behind subject passes them behind the person. Behind needs Make 3D first.','TEXT STYLE':'Choose the font for this line. Use "Style all lines like this" to copy it to every line.',ANIMATION:'How this line arrives. Karaoke fills in as it is sung. Beat bounce pulses on the kick.','ALL LINES':'Change every line at once, export your timing, or save the whole project.',
 'EFFECT TIMELINE':'Like CapCut or Premiere: effects sit on tracks above your video. Drag to move, drag edges to change length. Clips on different rows at the same time stack together, top row on top.',RECIPES:'Finished looks in one click. Press + on a card to put that look on the timeline at the playhead.','HERO PRESSINGS':'Signature looks built around the music: they react separately to kick, mids and highs.',SURFACES:'Texture looks. Each has its own presets, and all react to the song.',PRESETS:'Starting points for the selected look. Tweak them below to make them yours.',PALETTE:'The colours used by the look. Chrome and Gold modes keep their own colour families.','LAYER 2':'Stacks a second look over the first for the whole song. For one section only, use the Effects tab.','MOTION + GLYPHS':'Motion moves your picture gently. Glyphs change the character set used by ASCII and Matrix looks.',TWEAK:'Fine control over the selected look.',
 'DEPTH':'Make 3D works out what is near and far, so the camera can move through your picture. It runs in your browser and your files stay on your device.',CAMERA:'The camera move. Drag on the picture to steer it yourself.',SEPARATE:'Splits the subject from the background so each can move, or be styled, on its own.','GLASS':'Adds glass objects inside the scene that bend the light behind them. Orbs and Big lens pulse with the kick.',FRAME:'The shape of your video: 16:9 for YouTube, 9:16 for TikTok and Reels, 1:1 for square posts.',EXPORT:'Export renders your video frame by frame with your song, so it comes out perfectly smooth. Keep this tab open while it runs.',
@@ -1030,7 +1030,7 @@ $('bysub').onclick=()=>{X.bysub=!X.bysub;lblSet('bysub','Separate by: '+(X.bysub
 // ================= tutorials =================
 const TOURS=[
 {id:'first',n:'Your first video',lvl:'Beginner',min:'3 min',steps:[
- ['Media','#songBtn','Load your song','Start here. Press Room reads the tempo, beats and drops for you.'],['Media','#artBtn','Add a picture or video','This is what your effects sit on. Videos loop on their own.'],['Lyrics','#lyr','Paste your lyrics','Paste them here. Lines become blocks on the timeline, ready to adjust.'],['Lyrics','#lt','Fix the timing','Drag a block to move a line, or drag its edge to change how long it stays. Click a block to style it.'],['Look','#recipes','Pick a look','Click any recipe to see it on your video. This is the fastest way to a finished result.'],['Effects','#et','Change looks across the song','Press + on a recipe to place it on this track, for just the part of the song you want.'],['Stage','#play','Watch it','Press Play, or the space bar. Everything reacts to the music.'],['Export','#xgo','Save your video','Choose your frame shape and quality, then press Export MP4. Every frame is rendered, so it comes out smooth.']]},
+ ['Media','#songBtn','Load your song','Start here. Motion Studio reads the tempo, beats and drops for you.'],['Media','#artBtn','Add a picture or video','This is what your effects sit on. Videos loop on their own.'],['Lyrics','#lyr','Paste your lyrics','Paste them here. Lines become blocks on the timeline, ready to adjust.'],['Lyrics','#lt','Fix the timing','Drag a block to move a line, or drag its edge to change how long it stays. Click a block to style it.'],['Look','#recipes','Pick a look','Click any recipe to see it on your video. This is the fastest way to a finished result.'],['Effects','#et','Change looks across the song','Press + on a recipe to place it on this track, for just the part of the song you want.'],['Stage','#play','Watch it','Press Play, or the space bar. Everything reacts to the music.'],['Export','#xgo','Save your video','Choose your frame shape and quality, then press Export MP4. Every frame is rendered, so it comes out smooth.']]},
 {id:'lyrics',n:'Lyrics and text',lvl:'Going further',min:'3 min',steps:[
  ['Lyrics','#lyr','Add timing','Start a line with [0:12.5] to set its time, or leave times out and fix them on the timeline.'],['Lyrics','#lt','Edit on the timeline','Drag blocks to move lines. Double-click empty space to add one. Use the Zoom slider for fine work.'],['Lyrics','#snap','Snap to beat','Keeps lines on the beat. Hold Alt while dragging for free placement.'],['Lyrics','#llayer','Front or behind','Click a block first. Each line can sit in front of the artist or pass behind them. Behind needs Make 3D.'],['Lyrics','#fonts','Text style','Twelve styles, chosen per line. Use "Style all lines like this" to copy one to the whole song.'],['Lyrics','#lanim','Animation','Rise, Pop, Typewriter, Karaoke and more, per line.'],['Lyrics','#xsrt','Take your timing with you','Export LRC or SRT to reuse your timed lyrics elsewhere.']]},
 {id:'effects',n:'Effect timeline',lvl:'Going further',min:'3 min',steps:[
@@ -1044,7 +1044,7 @@ const TOURS=[
 const shade=$('shade'),modal=$('modal'),hole=$('hole'),tcard=$('tcard');let tour=null,ti=0;
 function closeModal(){shade.style.display='none'}
 function seen(){try{localStorage.setItem('pr_seen','1')}catch(e){}}
-function welcome(){modal.innerHTML='<h2>Welcome to Press Room</h2><p>Turn your song into a lyric video or music video that moves with the beat.</p><div class="row"><button class="pri" id="wTour">Show me how (3 min)</button><button id="wGo">Start creating</button></div><p style="margin:12px 0 0;font-size:12px">You can reopen tutorials any time from the button at the top.</p>';shade.style.display='flex';$('wTour').onclick=()=>{seen();closeModal();startTour('first')};$('wGo').onclick=()=>{seen();closeModal()}}
+function welcome(){modal.innerHTML='<h2>Welcome to Motion Studio</h2><p>Turn your song into a lyric video or music video that moves with the beat.</p><div class="row"><button class="pri" id="wTour">Show me how (3 min)</button><button id="wGo">Start creating</button></div><p style="margin:12px 0 0;font-size:12px">You can reopen tutorials any time from the button at the top.</p>';shade.style.display='flex';$('wTour').onclick=()=>{seen();closeModal();startTour('first')};$('wGo').onclick=()=>{seen();closeModal()}}
 function tutMenu(){modal.innerHTML='<h2>Tutorials</h2><p>Start with the basics, then go deeper when you need to.</p>'+TOURS.map(t=>`<button class="tcard" data-id="${t.id}"><b>${t.n}</b><small>${t.lvl} · ${t.min} · ${t.steps.length} steps</small></button>`).join('')+'<div class="row" style="margin-top:8px"><button id="tClose">Close</button></div>';shade.style.display='flex';modal.querySelectorAll('.tcard').forEach(b=>b.onclick=()=>{closeModal();startTour(b.dataset.id)});$('tClose').onclick=closeModal}
 $('tutBtn').onclick=tutMenu;
 function startTour(id){tour=TOURS.find(t=>t.id===id);ti=0;tourStep()}
@@ -1116,7 +1116,7 @@ function drawFrame(tRaw,dt,now){const t0=performance.now();
  else beatIdx=now/600;
  const li=S.lines.length?lineAt(t):-1;let lyrIn=0,fx=null;
  if(li>=0){fx=lineFx(S.lines[li],t,A?A.T*.01:.5,R.k);lyrIn=fx.lyrIn}else if(!S.lines.length&&!A)lyrIn=.6+.4*Math.sin(now/900);
- if(!A&&!S.lines.length){const k='demo'+W+H;if(textKey!==k){textKey=k;txx.fillStyle='#000';txx.fillRect(0,0,W,H);txx.fillStyle='#f00';txx.textAlign='center';txx.textBaseline='middle';txx.font=`800 ${H*.1}px system-ui`;txx.fillText('PRESS ROOM',W/2,H*.82);gl.activeTexture(gl.TEXTURE1);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,txc)}}
+ if(!A&&!S.lines.length){const k='demo'+W+H;if(textKey!==k){textKey=k;txx.fillStyle='#000';txx.fillRect(0,0,W,H);txx.fillStyle='#f00';txx.textAlign='center';txx.textBaseline='middle';txx.font=`800 ${H*.1}px system-ui`;txx.fillText('Motion Studio',W/2,H*.82);gl.activeTexture(gl.TEXTURE1);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,txc)}}
  else renderText(li,big,t);
  drawBg(tv,R.k,R.m);uploadBg();if(++fcount%15===0)levels();
  const scn=D3.ready&&renderScene(tv,R.k,R.m);
@@ -1145,9 +1145,9 @@ window.__RECIPES=RECIPES;window.__recCfg=recCfg;window.__applyRecipe=applyRecipe
   function checkAccess(){
     if(!window.AWA_SESSION){
       var t=document.getElementById('prg-title'),d=document.getElementById('prg-desc'),cp=document.getElementById('prg-cta-p'),cs=document.getElementById('prg-cta-s');
-      if(t) t.textContent='Press Room — Insider Access';
-      if(d) d.textContent='Press Room is Insider-only. Create a free account to get started — upgrade when you’re ready.';
-      if(cp){ cp.textContent='Create Free Account'; cp.href='#'; cp.onclick=function(e){e.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Press Room.'); }; }
+      if(t) t.textContent='Motion Studio — Insider Access';
+      if(d) d.textContent='Motion Studio is Insider-only. Create a free account to get started — upgrade when you’re ready.';
+      if(cp){ cp.textContent='Create Free Account'; cp.href='#'; cp.onclick=function(e){e.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Motion Studio.'); }; }
       if(cs){ cs.textContent='Already have an account? Sign in'; cs.href='#'; cs.onclick=function(e){e.preventDefault();window.AWAAuth&&window.AWAAuth.openModal(); }; }
       gate.style.display='flex'; return false;
     }
@@ -1155,7 +1155,7 @@ window.__RECIPES=RECIPES;window.__recCfg=recCfg;window.__applyRecipe=applyRecipe
     if(p&&!p.is_member){
       var t=document.getElementById('prg-title'),d=document.getElementById('prg-desc'),cp=document.getElementById('prg-cta-p'),cs=document.getElementById('prg-cta-s');
       if(t) t.textContent="You're In — Upgrade to Unlock";
-      if(d) d.textContent="You have a free account. Upgrade to Insider for £4.99/mo and get instant access to Press Room and everything else.";
+      if(d) d.textContent="You have a free account. Upgrade to Insider for £4.99/mo and get instant access to Motion Studio and everything else.";
       if(cp){ cp.textContent='Upgrade to Insider — £4.99/mo'; cp.href='../account.html#membership'; cp.onclick=null; }
       if(cs){ cs.textContent='What do I get?'; cs.href='../account.html#membership'; cs.onclick=null; }
       gate.style.display='flex'; return false;
