@@ -1328,7 +1328,7 @@ function drawSplit(a, bass){
   const lx=Math.max(divX+32,W*0.52);
   const lw=W-lx-32;
   ctx.globalAlpha=0.4;
-  ctx.font='700 '+Math.round(fSize*0.26)+""px 'Space Grotesk',sans-serif"";
+  ctx.font='700 '+Math.round(fSize*0.26)+"px 'Space Grotesk',sans-serif";
   ctx.textAlign='left'; ctx.textBaseline='top'; ctx.fillStyle=txColor;
   ctx.fillText((lyrics[0]||'AWA SOUNDS').toUpperCase(),lx,52);
   const startI=Math.max(0,lyricIdx-1);
@@ -1351,7 +1351,7 @@ function drawSplit(a, bass){
   const iconY=H-46;
   const platforms=[{l:'Spotify',c:'#1DB954'},{l:'Apple Music',c:'#fc3c44'},{l:'YouTube',c:'#FF0000'},{l:'SoundCloud',c:'#ff5500'}];
   let ix=lx;
-  ctx.font=""600 10px 'Space Grotesk',sans-serif""; ctx.textBaseline='middle';
+  ctx.font="600 10px 'Space Grotesk',sans-serif"; ctx.textBaseline='middle';
   platforms.forEach(function(p){
     ctx.fillStyle=p.c; ctx.beginPath(); ctx.arc(ix+5,iconY,5,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='rgba(255,255,255,0.72)'; ctx.textAlign='left';
