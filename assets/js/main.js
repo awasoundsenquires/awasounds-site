@@ -282,6 +282,21 @@
     }
   })();
 
+  /* Pause off-screen autoplay ambient videos to save CPU / bandwidth */
+  if (!reduce) {
+    const ambientVids = $$('.svs video, .svs-wrap video');
+    if (ambientVids.length) {
+      const aio = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          const v = e.target;
+          if (e.isIntersecting) v.play().catch(() => {});
+          else v.pause();
+        });
+      }, { threshold: 0.05 });
+      ambientVids.forEach(v => aio.observe(v));
+    }
+  }
+
   /* Cookie consent banner */
   (function() {
     if (localStorage.getItem("cookie_consent")) return;
