@@ -561,6 +561,391 @@
 <script src="assets/js/cinematic-engine.js"></script>
 <script src="assets/js/home-cinema.js"></script>
 <script src="assets/js/premium-fx.js"></script>
+<!-- ═══════════════════════════════════════════════════
+     AWA SOUNDS — AMBIENT RADIO PLAYER
+     Genres: Trap · R&B · Afrobeat · House · Deep House
+     Insert before </body> in index.html
+═══════════════════════════════════════════════════ -->
+<style>
+/* ── Radio Player ── */
+#awa-radio {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9900;
+  width: 272px;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+#awa-radio.rp-hidden { transform: translateY(calc(100% + 32px)); }
+
+#awa-radio-panel {
+  background: rgba(10,10,10,0.96);
+  border: 1px solid rgba(180,180,180,0.18);
+  border-radius: 14px;
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+}
+
+/* ── Genre tabs ── */
+#rp-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(180,180,180,0.1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#rp-tabs::-webkit-scrollbar { display: none; }
+.rp-tab {
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.rp-tab:hover { color: rgba(255,255,255,0.65); }
+.rp-tab.active { color: #c8c8c8; border-bottom: 2px solid #c8c8c8; }
+
+/* ── Now playing ── */
+#rp-now {
+  padding: 12px 14px 0;
+}
+#rp-track-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e8e8e8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+#rp-track-meta {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── Progress bar ── */
+#rp-progress-wrap {
+  padding: 10px 14px 0;
+}
+#rp-progress-bg {
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 1px;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+}
+#rp-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #a0a0a0, #d8d8d8);
+  border-radius: 1px;
+  width: 0%;
+  transition: width 0.4s linear;
+}
+
+/* ── Controls ── */
+#rp-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 12px;
+}
+.rp-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, transform 0.1s;
+  border-radius: 50%;
+}
+.rp-btn:hover { color: #d8d8d8; transform: scale(1.1); }
+.rp-btn:active { transform: scale(0.95); }
+#rp-play-btn {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(200,200,200,0.4);
+  color: #d8d8d8;
+  border-radius: 50%;
+}
+#rp-play-btn:hover { border-color: rgba(200,200,200,0.8); }
+
+#rp-vol-wrap { display: flex; align-items: center; gap: 5px; }
+#rp-vol-slider {
+  -webkit-appearance: none;
+  width: 52px;
+  height: 2px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 1px;
+  outline: none;
+  cursor: pointer;
+}
+#rp-vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #c0c0c0;
+  cursor: pointer;
+}
+
+/* ── Toggle pill ── */
+#awa-radio-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9901;
+  display: none;
+  background: rgba(10,10,10,0.92);
+  border: 1px solid rgba(180,180,180,0.25);
+  border-radius: 24px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #c0c0c0;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: background 0.2s, color 0.2s;
+  align-items: center;
+  gap: 7px;
+}
+#awa-radio-toggle:hover { background: rgba(30,30,30,0.95); color: #e8e8e8; }
+#awa-radio-toggle.visible { display: flex; }
+
+/* ── Dismiss ── */
+#rp-dismiss {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.25);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 2px 4px;
+  transition: color 0.15s;
+}
+#rp-dismiss:hover { color: rgba(255,255,255,0.6); }
+
+@media (max-width: 480px) {
+  #awa-radio { right: 12px; bottom: 16px; width: 240px; }
+}
+</style>
+
+<!-- Radio panel -->
+<div id="awa-radio">
+  <div id="awa-radio-panel">
+    <button id="rp-dismiss" aria-label="Minimise radio" title="Minimise">✕</button>
+
+    <!-- Genre tabs -->
+    <div id="rp-tabs">
+      <button class="rp-tab active" data-genre="all">All</button>
+      <button class="rp-tab" data-genre="trap">Trap</button>
+      <button class="rp-tab" data-genre="rnb">R&amp;B</button>
+      <button class="rp-tab" data-genre="afrobeat">Afrobeat</button>
+      <button class="rp-tab" data-genre="house">House</button>
+      <button class="rp-tab" data-genre="deep-house">Deep House</button>
+    </div>
+
+    <!-- Track info -->
+    <div id="rp-now">
+      <div id="rp-track-name">Night Shift</div>
+      <div id="rp-track-meta">Trap · 134 BPM</div>
+    </div>
+
+    <!-- Progress -->
+    <div id="rp-progress-wrap">
+      <div id="rp-progress-bg" id="rp-seek">
+        <div id="rp-progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div id="rp-controls">
+      <!-- Prev -->
+      <button class="rp-btn" id="rp-prev" aria-label="Previous track">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 2v12M13 3L7 8l6 5V3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <!-- Play/Pause -->
+      <button class="rp-btn" id="rp-play-btn" aria-label="Play / Pause">
+        <svg id="rp-icon-play" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3l9 5-9 5V3z" fill="currentColor"/></svg>
+        <svg id="rp-icon-pause" width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:none"><rect x="3" y="2" width="4" height="12" rx="1" fill="currentColor"/><rect x="9" y="2" width="4" height="12" rx="1" fill="currentColor"/></svg>
+      </button>
+      <!-- Next -->
+      <button class="rp-btn" id="rp-next" aria-label="Next track">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 2v12M3 3l6 5-6 5V3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <!-- Volume -->
+      <div id="rp-vol-wrap">
+        <button class="rp-btn" id="rp-mute-btn" aria-label="Mute">
+          <svg id="rp-vol-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5H5l3-3v10L5 9H2V5z" fill="currentColor"/><path d="M9 4a4 4 0 010 6M10.5 2.5a7 7 0 010 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg id="rp-mute-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:none"><path d="M2 5H5l3-3v10L5 9H2V5z" fill="currentColor"/><path d="M9 5l4 4M13 5l-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <input type="range" id="rp-vol-slider" min="0" max="100" value="70" aria-label="Volume"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toggle pill (shown when minimised) -->
+<button id="awa-radio-toggle" aria-label="Open radio player">
+  <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5L4.5 3v7L1 6.5zM7 4a4 4 0 010 5M9 2a7 7 0 010 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  Awa Radio
+</button>
+
+<script>
+(function() {
+  'use strict';
+
+  const TRACKS = [
+    { id:'bb5bd5ba', name:'Night Shift',      genre:'trap',      bpm:134, label:'Trap',      url:'https://cdn.acedata2.cloud/suno/mp3/bb5bd5ba-b8a9-4a2f-b6d0-33a8616b5e4d.mp3' },
+    { id:'48485fa3', name:'Chrome Dreams',    genre:'trap',      bpm:136, label:'Trap',      url:'https://cdn.acedata2.cloud/suno/mp3/48485fa3-4614-479e-8900-401ca72a75b3.mp3' },
+    { id:'6adacade', name:'Velvet Keys',      genre:'rnb',       bpm:90,  label:'R&B',       url:'https://cdn.acedata2.cloud/suno/mp3/6adacade-9991-40cc-a380-cd225864616a.mp3' },
+    { id:'01e6528f', name:'Golden Hour',      genre:'rnb',       bpm:88,  label:'R&B',       url:'https://cdn.acedata2.cloud/suno/mp3/01e6528f-d9a3-4127-bfa5-cc4c38936749.mp3' },
+    { id:'ea282291', name:'Lagos Flow',       genre:'afrobeat',  bpm:104, label:'Afrobeat',  url:'https://cdn.acedata2.cloud/suno/mp3/ea282291-1e17-446a-b9bc-95bde4cafe98.mp3' },
+    { id:'c97ed842', name:'Suncoast',         genre:'afrobeat',  bpm:106, label:'Afrobeat',  url:'https://cdn.acedata2.cloud/suno/mp3/c97ed842-22ac-449b-9135-5cd598382be8.mp3' },
+    { id:'469f3727', name:'River Dance',      genre:'afrobeat',  bpm:102, label:'Afrobeat',  url:'https://cdn.acedata2.cloud/suno/mp3/469f3727-1401-4524-a893-91c0fdd898e5.mp3' },
+    { id:'0b4308c5', name:'Sunday Morning',   genre:'house',     bpm:123, label:'House',     url:'https://cdn.acedata2.cloud/suno/mp3/0b4308c5-5472-4603-8bb7-384457b03824.mp3' },
+    { id:'efb59807', name:'Back to Basics',   genre:'house',     bpm:122, label:'House',     url:'https://cdn.acedata2.cloud/suno/mp3/efb59807-e85c-44b4-a241-3bec37e9d5d5.mp3' },
+    { id:'47dc9d72', name:'Depths',           genre:'deep-house',bpm:120, label:'Deep House',url:'https://cdn.acedata2.cloud/suno/mp3/47dc9d72-a53b-4077-8111-6fa0dad4ba19.mp3' },
+    { id:'a9ea6cf0', name:'Drift',            genre:'deep-house',bpm:119, label:'Deep House',url:'https://cdn.acedata2.cloud/suno/mp3/a9ea6cf0-179a-4995-bbea-9c9535a047a1.mp3' },
+  ];
+
+  let audio = new Audio();
+  audio.volume = 0.7;
+  audio.crossOrigin = 'anonymous';
+
+  let currentGenre = 'all';
+  let queue = [...TRACKS];
+  let idx = 0;
+  let playing = false;
+  let muted = false;
+
+  const panel   = document.getElementById('awa-radio');
+  const toggle  = document.getElementById('awa-radio-toggle');
+  const dismiss = document.getElementById('rp-dismiss');
+  const playBtn = document.getElementById('rp-play-btn');
+  const prevBtn = document.getElementById('rp-prev');
+  const nextBtn = document.getElementById('rp-next');
+  const muteBtn = document.getElementById('rp-mute-btn');
+  const volSlider  = document.getElementById('rp-vol-slider');
+  const progressFill = document.getElementById('rp-progress-fill');
+  const progressBg   = document.getElementById('rp-progress-bg');
+  const trackName  = document.getElementById('rp-track-name');
+  const trackMeta  = document.getElementById('rp-track-meta');
+  const iconPlay   = document.getElementById('rp-icon-play');
+  const iconPause  = document.getElementById('rp-icon-pause');
+  const volIcon    = document.getElementById('rp-vol-icon');
+  const muteIcon   = document.getElementById('rp-mute-icon');
+
+  function getQueue() {
+    return currentGenre === 'all' ? TRACKS : TRACKS.filter(t => t.genre === currentGenre);
+  }
+
+  function loadTrack(i, autoplay) {
+    queue = getQueue();
+    if (!queue.length) return;
+    idx = ((i % queue.length) + queue.length) % queue.length;
+    const t = queue[idx];
+    audio.src = t.url;
+    audio.load();
+    trackName.textContent = t.name;
+    trackMeta.textContent = t.label + ' · ' + t.bpm + ' BPM';
+    progressFill.style.width = '0%';
+    if (autoplay) { audio.play().then(() => setPlaying(true)).catch(() => {}); }
+  }
+
+  function setPlaying(state) {
+    playing = state;
+    iconPlay.style.display  = state ? 'none' : '';
+    iconPause.style.display = state ? '' : 'none';
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (!audio.src) { loadTrack(0, true); return; }
+    if (playing) { audio.pause(); setPlaying(false); }
+    else { audio.play().then(() => setPlaying(true)).catch(() => {}); }
+  });
+
+  prevBtn.addEventListener('click', () => loadTrack(idx - 1, playing));
+  nextBtn.addEventListener('click', () => loadTrack(idx + 1, playing));
+
+  audio.addEventListener('ended', () => { loadTrack(idx + 1, true); });
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    progressFill.style.width = (audio.currentTime / audio.duration * 100).toFixed(2) + '%';
+  });
+
+  progressBg.addEventListener('click', (e) => {
+    const rect = progressBg.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    if (audio.duration) audio.currentTime = pct * audio.duration;
+  });
+
+  volSlider.addEventListener('input', () => {
+    audio.volume = volSlider.value / 100;
+    if (muted && volSlider.value > 0) { muted = false; audio.muted = false; volIcon.style.display=''; muteIcon.style.display='none'; }
+  });
+
+  muteBtn.addEventListener('click', () => {
+    muted = !muted;
+    audio.muted = muted;
+    volIcon.style.display   = muted ? 'none' : '';
+    muteIcon.style.display  = muted ? '' : 'none';
+  });
+
+  document.querySelectorAll('.rp-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.rp-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentGenre = tab.dataset.genre;
+      loadTrack(0, playing);
+    });
+  });
+
+  dismiss.addEventListener('click', () => {
+    panel.classList.add('rp-hidden');
+    toggle.classList.add('visible');
+  });
+
+  toggle.addEventListener('click', () => {
+    panel.classList.remove('rp-hidden');
+    toggle.classList.remove('visible');
+    if (!audio.src) loadTrack(0, false);
+  });
+
+  // Auto-start muted after first user interaction
+  let started = false;
+  function tryAutoStart() {
+    if (started) return;
+    started = true;
+    loadTrack(0, false);
+    document.removeEventListener('click', tryAutoStart);
+    document.removeEventListener('scroll', tryAutoStart);
+  }
+  document.addEventListener('click', tryAutoStart, { once: true });
+  document.addEventListener('scroll', tryAutoStart, { once: true });
+
+})();
+</script>
 </body>
 </html>
 
