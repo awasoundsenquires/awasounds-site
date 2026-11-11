@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>My Studio — Awa Sounds</title>
+<title>My Studio ‚Äî Awa Sounds</title>
 <meta name="description" content="Your creative command centre. Manage your Awa Sounds profile, posts, Signal page and membership."/>
 <meta name="robots" content="noindex"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,30 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css"/>
 <link rel="stylesheet" href="assets/css/roulette.css"/>
-<style>
-/* ── Insider feature tabs ────────────────────────────────────────────── */
-.insider-features{margin-top:36px;border-top:1px solid rgba(255,255,255,.07);padding-top:28px}
-.insider-features-head{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-.insider-feat-tabs{display:flex;gap:4px;flex-wrap:nowrap;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.07);scrollbar-width:none}
-.insider-feat-tabs::-webkit-scrollbar{display:none}
-.insider-feat-tab{background:transparent;border:none;border-bottom:2px solid transparent;padding:10px 16px;font:500 13px/1 "Space Grotesk",sans-serif;color:var(--muted);cursor:pointer;transition:color .18s,border-color .18s;margin-bottom:-1px;white-space:nowrap;flex-shrink:0}
-.insider-feat-tab:hover{color:#fff}
-.insider-feat-tab.ift-on{color:var(--gold,#d9c38f);border-bottom-color:var(--gold,#d9c38f)}
-.insider-feat-panel{display:none;padding:28px 0 4px;gap:24px;align-items:flex-start}
-.insider-feat-panel.ift-on{display:flex}
-.insider-feat-icon{font-size:34px;flex-shrink:0;margin-top:3px}
-.insider-feat-body{flex:1;min-width:0}
-.insider-feat-body h4{font:600 16px/1.2 "Space Grotesk",sans-serif;color:#fff;margin:0 0 4px}
-.insider-feat-perk{font-size:12.5px;font-weight:600;color:var(--gold,#d9c38f);margin:0 0 10px;letter-spacing:.02em}
-.insider-feat-body>p{font-size:13.5px;line-height:1.65;color:var(--muted);margin:0 0 14px}
-.insider-feat-tip{background:rgba(217,195,143,.06);border-left:2px solid var(--gold,#d9c38f);padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.5;color:rgba(255,255,255,.7);margin-bottom:16px}
-.ift-tip-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold,#d9c38f);display:block;margin-bottom:3px}
-.insider-feat-actions{display:flex;gap:10px;flex-wrap:wrap}
-@media(max-width:600px){.insider-feat-panel.ift-on{flex-direction:column;gap:14px}.insider-feat-icon{font-size:26px}}
-.acc-member:empty+.insider-features{margin-top:20px}
-.insider-feat-tabs-wrap{position:relative}
-.insider-feat-tabs-wrap::after{content:'';position:absolute;right:0;top:0;bottom:1px;width:40px;background:linear-gradient(to right,transparent,#050506);pointer-events:none}
-</style>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
@@ -55,10 +31,10 @@
 
 <!-- Loading -->
 <div id="acc-loading" class="acc-guest" style="padding:140px 24px 80px">
-  <div class="acc-guest-card"><p>Loading your Studio…</p></div>
+  <div class="acc-guest-card"><p>Loading your Studio‚Ä¶</p></div>
 </div>
 
-<!-- ── STUDIO APP ──────────────────────────────────────────────────────────────────────── -->
+<!-- ‚îÄ‚îÄ STUDIO APP ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
 <div id="acc-app" hidden>
 
   <!-- COVER BANNER -->
@@ -82,7 +58,7 @@
       <input type="file" id="avatar-file-input" accept="image/*" hidden>
     </div>
     <div class="studio-info">
-      <div class="studio-name" id="studio-name-el">—</div>
+      <div class="studio-name" id="studio-name-el">‚Äî</div>
       <div class="studio-handle" id="studio-handle-el"></div>
       <div class="studio-genre-row" id="studio-genre-row"></div>
       <div class="studio-bio-el" id="studio-bio-el"></div>
@@ -91,7 +67,7 @@
     <div class="studio-head-actions">
       <div class="acc-status" id="acc-status"></div>
       <button class="btn btn-ghost studio-edit-btn" id="studio-edit-toggle">Edit Profile</button>
-      <a class="btn btn-primary" href="#" id="studio-signal-btn">My Signal →</a>
+      <a class="btn btn-primary" href="#" id="studio-signal-btn">My Signal ‚Üí</a>
     </div>
   </div>
 
@@ -103,21 +79,21 @@
     <!-- Streak + credits -->
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px">
       <div class="streak-widget">
-        <span class="streak-fire">🔥</span>
-        <div><div class="streak-val" id="streak-value">—</div><div class="streak-label">day streak</div></div>
+        <span class="streak-fire">üî•</span>
+        <div><div class="streak-val" id="streak-value">‚Äî</div><div class="streak-label">day streak</div></div>
       </div>
       <div class="streak-widget" style="flex:1;min-width:160px">
-        <span style="font-size:20px">⚡</span>
-        <div><div class="streak-val" id="acc-credit-balance">—</div><div class="streak-label">AWA Credits</div></div>
+        <span style="font-size:20px">‚ö°</span>
+        <div><div class="streak-val" id="acc-credit-balance">‚Äî</div><div class="streak-label">AWA Credits</div></div>
       </div>
       <button class="btn btn-ghost" id="acc-signout" style="align-self:center">Sign out</button>
     </div>
 
     <!-- Tabs -->
-    <div class="acc-tabs
+    <div class="acc-tabs">
       <button class="on" data-panel="posts">Studio</button>
       <button data-panel="signal">My Signal</button>
-      <button data-panel="cover-art">Cover Art/button>
+      <button data-panel="cover-art">Cover Art</button>
       <button data-panel="saved">Saved</button>
       <button data-panel="lyrics">Lyrics</button>
       <button data-panel="playlists">Playlists</button>
@@ -127,17 +103,17 @@
       <button data-panel="referral">Refer &amp; Earn</button>
     </div>
 
-    <!-- ── STUDIO POSTS PANEL ── -->
+    <!-- ‚îÄ‚îÄ STUDIO POSTS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel on" data-panel="posts">
       <!-- Post Composer -->
       <div class="post-composer" id="post-composer">
         <div class="post-composer-top">
           <div class="post-composer-avatar" id="composer-avatar">A</div>
-          <textarea class="post-composer-text" id="post-text" placeholder="What's on your mind? Share an update, a thought, a link…" maxlength="1000" rows="3"></textarea>
+          <textarea class="post-composer-text" id="post-text" placeholder="What's on your mind? Share an update, a thought, a link‚Ä¶" maxlength="1000" rows="3"></textarea>
         </div>
         <div class="post-composer-media" id="post-media-preview" hidden></div>
         <div class="post-composer-link" id="post-link-row" hidden>
-          <input type="url" id="post-link-url" placeholder="Paste a link…" class="post-link-input">
+          <input type="url" id="post-link-url" placeholder="Paste a link‚Ä¶" class="post-link-input">
           <input type="text" id="post-link-title" placeholder="Link label (optional)" class="post-link-input">
         </div>
         <div class="post-composer-actions">
@@ -163,11 +139,11 @@
 
       <!-- Posts Feed -->
       <div class="posts-feed" id="posts-feed">
-        <div class="post-loading">Loading posts…</div>
+        <div class="post-loading">Loading posts‚Ä¶</div>
       </div>
     </div>
 
-    <!-- ── THE SIGNAL PANEL ── -->
+    <!-- ‚îÄ‚îÄ THE SIGNAL PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="signal">
       <div class="acc-panel-head">
         <div>
@@ -176,7 +152,7 @@
         </div>
         <div style="display:flex;gap:10px;align-items:center">
           <span class="signal-status-badge" id="signal-status-badge"></span>
-          <button class="btn btn-ghost" id="signal-preview-btn" style="--pad:9px 18px;font-size:13px">Preview →</button>
+          <button class="btn btn-ghost" id="signal-preview-btn" style="--pad:9px 18px;font-size:13px">Preview ‚Üí</button>
           <button class="btn btn-primary" id="signal-publish-btn" style="--pad:9px 18px;font-size:13px">Publish</button>
         </div>
       </div>
@@ -192,27 +168,27 @@
         <div class="signal-section-label">Template</div>
         <div class="signal-templates" id="signal-templates">
           <button class="signal-tpl on" data-tpl="the-drop">
-            <div class="signal-tpl-icon">⚡</div>
+            <div class="signal-tpl-icon">‚ö°</div>
             <div class="signal-tpl-name">The Drop</div>
             <div class="signal-tpl-desc">Release day</div>
           </button>
           <button class="signal-tpl" data-tpl="the-press-kit">
-            <div class="signal-tpl-icon">📋</div>
+            <div class="signal-tpl-icon">üìã</div>
             <div class="signal-tpl-name">Press Kit</div>
             <div class="signal-tpl-desc">Industry ready</div>
           </button>
           <button class="signal-tpl" data-tpl="the-reel">
-            <div class="signal-tpl-icon">🎥</div>
+            <div class="signal-tpl-icon">üé•</div>
             <div class="signal-tpl-name">The Reel</div>
             <div class="signal-tpl-desc">Video first</div>
           </button>
           <button class="signal-tpl" data-tpl="the-outliner">
-            <div class="signal-tpl-icon">✶</div>
+            <div class="signal-tpl-icon">‚ú¶</div>
             <div class="signal-tpl-name">The Outliner</div>
             <div class="signal-tpl-desc">Minimal. Bold.</div>
           </button>
           <button class="signal-tpl" data-tpl="the-wave">
-            <div class="signal-tpl-icon">🌊</div>
+            <div class="signal-tpl-icon">üåä</div>
             <div class="signal-tpl-name">The Wave</div>
             <div class="signal-tpl-desc">Fan-facing</div>
           </button>
@@ -245,12 +221,12 @@
           <div class="signal-add-menu-wrap">
             <button class="btn btn-ghost" id="signal-add-block" style="--pad:8px 16px;font-size:12px">+ Add block</button>
             <div class="signal-add-menu" id="signal-add-menu" hidden>
-              <button data-btype="hero_image">🖼 Hero Image</button>
-              <button data-btype="text">📝 Text Block</button>
-              <button data-btype="link_button">🔗 Link Button</button>
-              <button data-btype="youtube">▶️ YouTube Embed</button>
-              <button data-btype="spotify">🎵 Spotify Embed</button>
-              <button data-btype="social_row">📱 Social Row</button>
+              <button data-btype="hero_image">üñº Hero Image</button>
+              <button data-btype="text">üìù Text Block</button>
+              <button data-btype="link_button">üîó Link Button</button>
+              <button data-btype="youtube">‚ñ∂Ô∏è YouTube Embed</button>
+              <button data-btype="spotify">üéµ Spotify Embed</button>
+              <button data-btype="social_row">üì± Social Row</button>
             </div>
           </div>
         </div>
@@ -268,129 +244,46 @@
       <!-- Member gate message -->
       <div class="signal-member-gate" id="signal-member-gate" hidden>
         <div class="signal-gate-inner">
-          <div style="font-size:32px">⚡</div>
+          <div style="font-size:32px">‚ö°</div>
           <h4>The Signal is an Insider benefit</h4>
-          <p>Publish your personalised link-in-bio page, get click analytics and keep your Signal live — all included with Insider membership.</p>
-          <button class="btn btn-primary" id="signal-gate-upgrade">Become an Insider &middot; <s style="opacity:.6">£9.99</s>&nbsp;£4.99/mo</button>
-          <small style="display:block;margin-top:8px;opacity:.6;font-size:.78rem">Price reduced for the first 100 Insiders</small>
+          <p>Publish your personalised link-in-bio page, get click analytics and keep your Signal live ‚Äî all included with Insider membership.</p>
+          <button class="btn btn-primary" id="signal-gate-upgrade">Become an Insider ¬∑ ¬£4.99/mo</button>
         </div>
       </div>
     </div>
 
-    <!-- ── COVER ART PANEL ── -->
+    <!-- ‚îÄ‚îÄ COVER ART PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="cover-art">
-      <div class="acc-panel-head"><h3>Your Cover Art Portfolio</h3><a class="btn btn-ghost" href="cover-store.html">Browse more →</a></div>
+      <div class="acc-panel-head"><h3>Your Cover Art Portfolio</h3><a class="btn btn-ghost" href="cover-store.html">Browse more ‚Üí</a></div>
       <p style="color:var(--muted);font-size:13.5px;margin-bottom:20px">Covers you've saved or purchased from the store. They appear in your Signal page when you add a Cover Art block.</p>
       <div class="acc-beatgrid" id="cover-art-list"></div>
     </div>
 
-    <!-- ── SAVED PANEL ── -->
+    <!-- ‚îÄ‚îÄ SAVED PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="saved">
-      <div class="acc-panel-head"><h3>Saved beats</h3><a class="btn btn-ghost" href="beat-store.html">Browse beats →</a></div>
+      <div class="acc-panel-head"><h3>Saved beats</h3><a class="btn btn-ghost" href="beat-store.html">Browse beats ‚Üí</a></div>
       <div class="acc-beatgrid" id="like-list"></div>
     </div>
 
-    <!-- ── LYRICS PANEL ── -->
+    <!-- ‚îÄ‚îÄ LYRICS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="lyrics">
       <div class="acc-panel-head"><h3>Your lyrics</h3><button class="btn btn-primary" id="ly-new">New draft</button></div>
       <div class="acc-lyrics" id="ly-list"></div>
     </div>
 
-    <!-- ── PLAYLISTS PANEL ── -->
+    <!-- ‚îÄ‚îÄ PLAYLISTS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="playlists">
       <div class="acc-panel-head"><h3>Playlists</h3><button class="btn btn-primary" id="pl-new">New playlist</button></div>
       <div class="acc-playlists" id="pl-list"></div>
     </div>
 
-    <!-- ── MEMBERSHIP PANEL ── -->
+    <!-- ‚îÄ‚îÄ MEMBERSHIP PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="membership">
       <div class="acc-panel-head"><h3>Insider membership</h3></div>
       <div class="acc-member" id="member-box"></div>
-
-      <!-- Interactive feature tabs -->
-      <div class="insider-features">
-        <div class="insider-features-head">What&#39;s included</div>
-        <div class="insider-feat-tabs-wrap"><div class="insider-feat-tabs" role="tablist" id="insider-feat-tabs">
-          <button class="insider-feat-tab ift-on" data-feat="beats">Beat Store</button>
-          <button class="insider-feat-tab" data-feat="covers">Cover Art</button>
-          <button class="insider-feat-tab" data-feat="lyric">Lyric Studio</button>
-          <button class="insider-feat-tab" data-feat="press">Motion Studio</button>
-          <button class="insider-feat-tab" data-feat="first">First Listen</button>
-          <button class="insider-feat-tab" data-feat="vault">Vault Drop</button>
-        </div></div>
-        <div id="insider-feat-panels">
-
-          <div class="insider-feat-panel ift-on" data-feat="beats">
-            <div class="insider-feat-icon">&#127925;</div>
-            <div class="insider-feat-body">
-              <h4>Beat Store</h4>
-              <p class="insider-feat-perk">15% off every beat license</p>
-              <p>Browse 100+ in-house beats, save to playlists and license your sound in one click. Your Insider discount applies automatically at checkout.</p>
-              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Hit the heart on any beat to save it to your library. Build a shortlist playlist before you buy so you can compare the whole selection side by side.</div>
-              <div class="insider-feat-actions"><a class="btn btn-ghost" href="beat-store.html" style="font-size:13px;--pad:9px 18px">Go to Beat Store &#8594;</a></div>
-            </div>
-          </div>
-
-          <div class="insider-feat-panel" data-feat="covers">
-            <div class="insider-feat-icon">&#127912;</div>
-            <div class="insider-feat-body">
-              <h4>Cover Art</h4>
-              <p class="insider-feat-perk">30% off all cover art and album packs</p>
-              <p>Pre-made covers, art packs, and collection sets. Every piece is sold once and retired &#8212; your artwork stays exclusive.</p>
-              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Use the WITH TITLE / CLEAN toggle in the pack viewer to preview the cover without text &#8212; great for checking how it looks before you decide.</div>
-              <div class="insider-feat-actions"><a class="btn btn-ghost" href="cover-store.html" style="font-size:13px;--pad:9px 18px">Browse Cover Art &#8594;</a></div>
-            </div>
-          </div>
-
-          <div class="insider-feat-panel" data-feat="lyric">
-            <div class="insider-feat-icon">&#9998;&#65039;</div>
-            <div class="insider-feat-body">
-              <h4>Lyric Studio</h4>
-              <p class="insider-feat-perk">Unlimited drafts, auto-save, structured export</p>
-              <p>Write, store and format your lyrics. Sections are structured so you can export clean and import directly into Motion Studio for animated lyric videos.</p>
-              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Use section markers (Verse, Hook, Bridge) in your draft &#8212; Motion Studio reads these when you sync your lyrics to the visual timeline.</div>
-              <div class="insider-feat-actions"><a class="btn btn-ghost" href="lyric-studio.html" style="font-size:13px;--pad:9px 18px">Open Lyric Studio &#8594;</a></div>
-            </div>
-          </div>
-
-          <div class="insider-feat-panel" data-feat="press">
-            <div class="insider-feat-icon">&#127909;</div>
-            <div class="insider-feat-body">
-              <h4>Motion Studio</h4>
-              <p class="insider-feat-perk">Exclusive Insider-only tool</p>
-              <p>WebGL beat-reactive video effects studio. Add cinematic depth layers, an animated lyric timeline, 3D camera motion and export in 4K &#8212; no plugins, runs in your browser.</p>
-              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Start by picking a Pressing (top-left panel) then explore the Surfaces panel to dial in your visual look before you drop any footage.</div>
-              <div class="insider-feat-actions"><a class="btn btn-ghost" href="press-room/index.html" style="font-size:13px;--pad:9px 18px">Open Motion Studio &#8594;</a></div>
-            </div>
-          </div>
-
-          <div class="insider-feat-panel" data-feat="first">
-            <div class="insider-feat-icon">&#9889;</div>
-            <div class="insider-feat-body">
-              <h4>First Listen</h4>
-              <p class="insider-feat-perk">Every release 48 hours before the public</p>
-              <p>Every new Awa Sounds release lands in your Releases feed two days early. Stream, share privately and get your feedback in before anyone else hears it.</p>
-              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Check the Releases page on Thursdays &#8212; First Listen drops usually go live at noon. Early listens show a gold ring around the cover art.</div>
-              <div class="insider-feat-actions"><a class="btn btn-ghost" href="releases.html" style="font-size:13px;--pad:9px 18px">View Releases &#8594;</a></div>
-            </div>
-          </div>
-
-          <div class="insider-feat-panel" data-feat="vault">
-            <div class="insider-feat-icon">&#128274;</div>
-            <div class="insider-feat-body">
-              <h4>Vault Drop</h4>
-              <p class="insider-feat-perk">First access to 1-of-1 exclusive drops</p>
-              <p>Vault releases are sold once and retired forever. Insiders get access and a notification window before each drop goes public &#8212; most sell in under 24 hours.</p>
-              <div class="insider-feat-tip"><span class="ift-tip-label">Tip</span>Allow browser notifications when prompted &#8212; Vault windows open without warning and close fast. If you miss it, it&#39;s gone.</div>
-              <div class="insider-feat-actions"><a class="btn btn-ghost" href="cover-store.html" style="font-size:13px;--pad:9px 18px">View Vault Drops &#8594;</a></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
     </div>
 
-    <!-- ── SETTINGS PANEL ── -->
+    <!-- ‚îÄ‚îÄ SETTINGS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="settings">
       <div class="acc-panel-head"><h3>Studio settings</h3></div>
       <form class="acc-profile" id="acc-profile-form" style="max-width:680px">
@@ -401,48 +294,48 @@
         <div class="acc-prow">
           <label>Signal username<input name="username" maxlength="32" placeholder="e.g. awakings" pattern="[a-z0-9\-]+" title="Lowercase letters, numbers, hyphens only"></label>
           <label>I'm here as<select name="role">
-            <option value="">Choose…</option>
+            <option value="">Choose‚Ä¶</option>
             <option>Artist</option><option>Producer</option><option>Songwriter</option><option>Fan</option><option>Manager / Label</option>
           </select></label>
         </div>
         <div class="acc-prow">
           <label>Genre 1<input name="genre_1" maxlength="30" placeholder="e.g. Afrobeats"></label>
-          <label>Genre 2<input name="genre_2" maxlength="30" placeholder="e.g. R&amp;B"></label>
+          <label>Genre 2<input name="genre_2" maxlength="30" placeholder="e.g. R&B"></label>
         </div>
         <div class="acc-prow">
           <label>Genre 3 (optional)<input name="genre_3" maxlength="30" placeholder="e.g. Trap"></label>
-          <label>Favourite genre (legacy)<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&amp;B, Drill"></label>
+          <label>Favourite genre (legacy)<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&B, Drill"></label>
         </div>
-        <label>Short bio<textarea name="bio" rows="3" maxlength="240" placeholder="2–3 lines about you and your sound"></textarea></label>
+        <label>Short bio<textarea name="bio" rows="3" maxlength="240" placeholder="2‚Äì3 lines about you and your sound"></textarea></label>
         <p class="signal-section-label" style="margin-top:8px;margin-bottom:0">Social links</p>
         <div class="acc-prow">
-          <label>Instagram URL<input name="instagram" type="url" placeholder="https://instagram.com/…"></label>
-          <label>YouTube URL<input name="youtube" type="url" placeholder="https://youtube.com/…"></label>
+          <label>Instagram URL<input name="instagram" type="url" placeholder="https://instagram.com/‚Ä¶"></label>
+          <label>YouTube URL<input name="youtube" type="url" placeholder="https://youtube.com/‚Ä¶"></label>
         </div>
         <div class="acc-prow">
-          <label>Spotify URL<input name="spotify" type="url" placeholder="https://open.spotify.com/…"></label>
-          <label>Apple Music URL<input name="apple_music" type="url" placeholder="https://music.apple.com/…"></label>
+          <label>Spotify URL<input name="spotify" type="url" placeholder="https://open.spotify.com/‚Ä¶"></label>
+          <label>Apple Music URL<input name="apple_music" type="url" placeholder="https://music.apple.com/‚Ä¶"></label>
         </div>
         <div class="acc-prow">
-          <label>TikTok URL<input name="tiktok" type="url" placeholder="https://tiktok.com/@…"></label>
-          <label>Booking / contact<input name="booking" type="url" placeholder="https://…"></label>
+          <label>TikTok URL<input name="tiktok" type="url" placeholder="https://tiktok.com/@‚Ä¶"></label>
+          <label>Booking / contact<input name="booking" type="url" placeholder="https://‚Ä¶"></label>
         </div>
         <div class="acc-profile-actions"><span class="acc-profile-note" id="acc-profile-note"></span><button type="submit" class="btn btn-primary">Save settings</button></div>
       </form>
     </div>
 
-    <!-- ── CREDITS PANEL ── -->
+    <!-- ‚îÄ‚îÄ CREDITS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="credits">
       <div class="acc-panel-head"><h3>AWA Credits</h3></div>
-      <p class="adm-hint">Credits accumulate and never expire. Use them to bid in auctions or get discounts in the store (free: 20 cr = £1 off · Insider: 15 cr = £1 off, max 35% off).</p>
-      <div id="acc-credit-history" style="margin-top:20px"><div style="text-align:center;padding:40px;color:var(--muted)">Loading credit history…</div></div>
+      <p class="adm-hint">Credits accumulate and never expire. Use them to bid in auctions or get discounts in the store (free: 20 cr = ¬£1 off ¬∑ Insider: 15 cr = ¬£1 off, max 35% off).</p>
+      <div id="acc-credit-history" style="margin-top:20px"><div style="text-align:center;padding:40px;color:var(--muted)">Loading credit history‚Ä¶</div></div>
     </div>
 
-    <!-- ── REFERRAL PANEL ── -->
+    <!-- ‚îÄ‚îÄ REFERRAL PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="referral">
       <div class="acc-panel-head"><h3>Refer &amp; Earn</h3></div>
-      <p class="adm-hint">Share your link. When a friend makes their first purchase, you both get <b>25 AWA Credits</b> — no limit on referrals.</p>
-      <div id="referral-code-display" style="margin-top:20px">Loading…</div>
+      <p class="adm-hint">Share your link. When a friend makes their first purchase, you both get <b>25 AWA Credits</b> ‚Äî no limit on referrals.</p>
+      <div id="referral-code-display" style="margin-top:20px">Loading‚Ä¶</div>
       <div style="margin-top:32px">
         <h4 style="margin-bottom:8px">Have a promo code?</h4>
         <div class="promo-input-section">
@@ -463,7 +356,7 @@
   <div class="foot-col"><h5>Explore</h5><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="gallery.html">Gallery</a></div>
   <div class="foot-col"><h5>Divisions</h5><a href="studio.html">Recording Studio</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="contact.html">Distribution</a></div>
   <div class="foot-col"><h5>Contact</h5><a href="mailto:awasoundsenquires@gmail.com">awasoundsenquires@gmail.com</a><a href="account.html">My Studio</a><a href="contact.html">Submit a Demo</a></div>
-</div><div class="foot-bottom"><span>© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;·&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
+</div><div class="foot-bottom"><span>¬© <span data-year>2026</span> Awa Sounds. All rights reserved.</span><span><a href="privacy-policy.html">Privacy Policy</a> &nbsp;¬∑&nbsp; <a href="terms.html">Terms &amp; Conditions</a> &nbsp;¬∑&nbsp; <a href="cookie-policy.html">Cookies</a></span></div></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="assets/js/config.js"></script>
@@ -473,20 +366,6 @@
 <script src="assets/js/roulette.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
-<script>
-(function(){
-  var tabs=document.querySelectorAll('.insider-feat-tab');
-  if(!tabs.length)return;
-  tabs.forEach(function(btn){
-    btn.addEventListener('click',function(){
-      tabs.forEach(function(t){t.classList.remove('ift-on');});
-      document.querySelectorAll('.insider-feat-panel').forEach(function(p){p.classList.remove('ift-on');});
-      btn.classList.add('ift-on');
-      var panel=document.querySelector('.insider-feat-panel[data-feat="'+btn.getAttribute('data-feat')+'"]');
-      if(panel)panel.classList.add('ift-on');
-    });
-  });
-})();
-</script>
+<script src="assets/js/radio-player.js"></script>
 </body>
 </html>

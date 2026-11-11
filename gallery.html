@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -8,11 +8,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
+<style>
+/* === SVS — Section Video Strip === */
+.svs { position: relative; width: 100%; height: 220px; overflow: hidden; background: #050508; }
+.svs video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .5; }
+.svs-cover { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--bg) 0%, transparent 28%, transparent 72%, var(--bg) 100%); }
+.svs-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: rgba(200,168,75,.6); font-weight: 600; pointer-events: none; }
+@media (max-width: 640px) { .svs { height: 140px; } }
+</style>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
 <nav class="nav"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a>
-<div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
+<div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="vault-drop.html">Vault Drop</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
 <div class="nav-right"><a href="contact.html" class="btn btn-ghost btn-inner nav-cta">Join the Inner Circle</a><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
 
 <section class="page-hero"><div class="wrap">
@@ -22,8 +30,13 @@
   <p class="lede" data-reveal data-reveal-delay="2">Inside the rooms where it happens, the studio, the sessions, the label.</p>
 </div></section>
 
+<div class="svs" aria-hidden="true">
+  <video autoplay muted loop playsinline preload="none" src="assets/img/svs-gallery-01.mp4"></video>
+  <div class="svs-cover"></div>
+  <p class="svs-label">Behind the Scenes · Studio Life · The Awa World</p>
+</div>
 <section class="section" style="padding-top:20px"><div class="wrap"><div class="gallery" data-reveal>
-  <figure><img src="assets/img/gen-studio-control.png" alt="Control room" fetchpriority="high"></figure>
+  <figure><img src="assets/img/gen-studio-control.png" alt="Control room"></figure>
   <figure><img src="assets/img/gen-mic.png" alt="Studio microphone"></figure>
   <figure><img src="assets/img/gen-cover-ember.png" alt="Cover art"></figure>
   <figure><img src="assets/img/gen-studio-booth.png" alt="Vocal booth"></figure>
@@ -37,6 +50,14 @@
   <figure><img src="assets/img/gen-sable.png" alt="Artist"></figure>
 </div></div></section>
 
+
+<!-- SVS interlude -->
+<div class="svs" aria-hidden="true">
+  <video autoplay muted loop playsinline preload="none" src="assets/img/awa-svs-gallery-02.mp4"></video>
+  <div class="svs-cover"></div>
+  <p class="svs-label">Artistry in Motion · Visual Identity · Behind the Art</p>
+</div>
+
 <footer><div class="wrap"><div class="foot-grid">
   <div class="foot-brand"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a><p>An independent UK record label built for the next generation of sound. Sign. Develop. Release.</p></div>
   <div class="foot-col"><h5>Explore</h5><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="gallery.html">Gallery</a></div>
@@ -48,6 +69,7 @@
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/radio-player.js"></script>
 </body></html>
 
 

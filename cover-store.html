@@ -8,109 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css" />
-<link rel="stylesheet" href="assets/css/roulette.css"/>
+
 <style>
-/* â"€â"€ Cover Store page overrides â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
-/* â"€â"€ Cover Intro Cinema Sequence â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
-#cover-intro-seq {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  max-height: 820px;
-  min-height: 400px;
-  overflow: hidden;
-  background: #050508;
-}
-#cis-vid {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity .7s ease;
-}
-#cis-vid.cis-playing { opacity: 1; }
-.cis-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(5,5,8,.12) 0%,
-    transparent 35%,
-    rgba(5,5,8,.55) 72%,
-    rgba(5,5,8,.97) 100%
-  );
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 40px 52px;
-  pointer-events: none;
-}
-.cis-text { margin-bottom: 22px; }
-.cis-eyebrow {
-  display: block;
-  font-size: 11px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: #c8a84b;
-  margin-bottom: 10px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 600;
-}
-.cis-headline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(24px, 5vw, 44px);
-  font-weight: 700;
-  line-height: 1.15;
-  color: #e8e8f2;
-  margin: 0;
-}
-.cis-bars {
-  display: flex;
-  gap: 6px;
-}
-.cis-bar {
-  flex: 1;
-  height: 2px;
-  background: rgba(232,232,242,.18);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-.cis-bar.cis-done { background: rgba(200,168,75,.6); }
-.cis-bar.cis-active {
-  background: rgba(232,232,242,.18);
-  overflow: hidden;
-}
-.cis-bar.cis-active::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: #c8a84b;
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: cis-fill var(--cis-dur, 12s) linear forwards;
-}
-@keyframes cis-fill { to { transform: scaleX(1); } }
-.cis-skip {
-  position: absolute;
-  bottom: 22px;
-  right: 28px;
-  background: rgba(200,168,75,.1);
-  border: 1px solid rgba(200,168,75,.28);
-  color: #c8a84b;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .06em;
-  padding: 8px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background .2s;
-  z-index: 2;
-}
-.cis-skip:hover { background: rgba(200,168,75,.2); }
+/* √¢"‚Ç¨√¢"‚Ç¨ Cover Store page overrides √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Cover Intro Cinema Sequence √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 @media (max-width: 640px) {
   #cover-intro-seq { height: 65vh; max-height: 520px; }
   .cis-overlay { padding: 0 20px 40px; }
@@ -203,37 +104,76 @@
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
 <nav class="nav"><a class="brand" href="index.html"><img class="mark" src="assets/img/logo-mark.png" alt="Awa Sounds"><span>AWA <b>SOUNDS</b></span></a>
 <div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="roster.html">Roster</a><a href="releases.html">Releases</a><a href="beat-store.html">Beat Store</a><a href="cover-store.html">Cover Art</a><a href="studio.html">Studio</a><a href="lyric-studio.html">Lyric Studio</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
-<div class="nav-right"><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+<div class="nav-right"><a href="contact.html" class="btn btn-ghost btn-inner nav-cta">Join the Inner Circle</a><a href="contact.html" class="btn btn-primary nav-cta">Submit Demo</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
 
-<!-- =
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      SCROLL-WORLD CINEMA &#x2014; driven by scrub-engine.js + cover-cinema.js
      Still images used now; swap in Higgsfield dive clips via config
-     = -->
-<section class="svs-wrap"><video autoplay muted loop playsinline preload="none" src="https://rhiwtvdtbdudgtdqgjkc.supabase.co/storage/v1/object/public/site-assets/studio-ambiance.mp4"></video><div class="svs-ticker"><span>PREMIUM COVER ART &nbsp;&middot;&nbsp; SOLD ONCE &nbsp;&middot;&nbsp; RETIRED FOREVER &nbsp;&middot;&nbsp; CHROME &nbsp;&middot;&nbsp; VOID &nbsp;&middot;&nbsp; GOLD &nbsp;&middot;&nbsp; EARTH &nbsp;&middot;&nbsp; AWA SOUNDS &nbsp;&middot;&nbsp; PREMIUM COVER ART &nbsp;&middot;&nbsp; SOLD ONCE &nbsp;&middot;&nbsp; RETIRED FOREVER &nbsp;&middot;&nbsp;</span></div></section>
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
+<!-- COVER ART CINEMA INTRO - 3 sequential autoplay videos chained end-to-end -->
+<script>
+(function(){
+  var clips = [
+    { src: 'assets/img/studio-ambiance.mp4', eyebrow: 'Chrome &#xB7; Void &#xB7; Gold &#xB7; Earth', head: 'Premium cover art,<br>built for your sound.' },
+    { src: 'assets/img/studio-ambiance.mp4', eyebrow: 'Exclusive &#xB7; Sold once &#xB7; Retired forever', head: 'Every piece is unique.<br>None are reprinted.' },
+    { src: 'assets/img/studio-ambiance.mp4', eyebrow: 'Your visual identity starts here', head: 'Scroll down to discover<br>the collection.' }
+  ];
+  var cur = 0;
+  var vidEl  = document.getElementById('cis-vid');
+  var textEl = document.getElementById('cis-text');
+  var barsEl = document.getElementById('cis-bars');
+  var skipBtn = document.getElementById('cis-skip');
+  var bars = Array.from(barsEl.children);
 
-<section class="page-hero"><div class="wrap">
-  <div class="breadcrumb"><a href="index.html">Home</a> / Cover Art</div>
-  <span class="eyebrow" data-reveal>The Collection</span>
-  <h1 class="display chrome" data-reveal data-reveal-delay="1">Premium cover art,<br>built for your sound.</h1>
-  <p class="lede" data-reveal data-reveal-delay="2">Every piece sold once, retired forever. Chrome, void, gold, earth &mdash; and the series we haven't named yet.</p>
-</div></section>
+  function scrollToGrid(){
+    var g = document.getElementById('cover-grid');
+    if(g) g.scrollIntoView({ behavior:'smooth' });
+    else   window.scrollBy({ top: window.innerHeight, behavior:'smooth' });
+  }
 
-<!-- =
+  function playClip(idx){
+    cur = idx;
+    var c = clips[idx];
+    textEl.innerHTML = '<span class="cis-eyebrow">'+c.eyebrow+'</span><h2 class="cis-headline chrome">'+c.head+'</h2>';
+    vidEl.classList.remove('cis-playing');
+    vidEl.src = c.src;
+    vidEl.load();
+    vidEl.oncanplay = function(){
+      bars.forEach(function(b,i){
+        b.className = 'cis-bar';
+        if(i < idx) b.classList.add('cis-done');
+        if(i === idx){ b.classList.add('cis-active'); b.style.setProperty('--cis-dur', (vidEl.duration||12)+'s'); }
+      });
+    };
+    vidEl.play().then(function(){ vidEl.classList.add('cis-playing'); }).catch(scrollToGrid);
+  }
+
+  vidEl.addEventListener('ended', function(){
+    if(cur < clips.length - 1) playClip(cur + 1);
+    else setTimeout(scrollToGrid, 500);
+  });
+
+  skipBtn.addEventListener('click', scrollToGrid);
+  playClip(0);
+})();
+</script>
+
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      MEMBER BANNER
-     = -->
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
 <section class="section" style="padding-top:32px"><div class="wrap">
   <div class="sub-banner" data-reveal>
     <div>
       <h3 class="chrome">Awa Sounds Members</h3>
-      <p>Insider members get <b>30% off all cover art</b>, plus 15% off beats, mixing, distribution and studio time. One <s style="opacity:.5">&#xA3;9.99</s>&nbsp;<b>&#xA3;4.99</b> membership — benefits spread across everything we do. <small style="color:var(--gold)">Price reduced for the first 100 Insiders.</small></p>
+      <p>Insider members get <b>30% off all cover art</b>, plus 15% off beats, mixing, distribution and studio time. One &#xA3;4.99 membership, benefits spread across everything we do.</p>
     </div>
     <a href="account.html" class="btn btn-primary">Become a Member <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
 </div></section>
 
-<!-- =
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      ACTIVE COVERS &#x2014; Series filter + pair grid
-     = -->
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
 <section class="section" id="cover-grid" style="padding-top:0"><div class="wrap">
   <div class="section-head">
     <div>
@@ -241,6 +181,12 @@
       <h2 class="section-title chrome" data-reveal data-reveal-delay="1">Pick your cover</h2>
     </div>
     <span class="lede" data-reveal data-reveal-delay="2" style="font-size:15px">Each cover comes as a pair &#x2014; clean (no text) and titled (with name overlay) &#x2014; plus two animated motion files. One-time exclusive: sold once, retired forever.</span>
+  </div>
+
+  <div class="vault-doctrine" data-reveal>
+    <span class="vault-doctrine-line">Sold once.</span>
+    <div class="vault-doctrine-sep"></div>
+    <span class="vault-doctrine-line">Retired forever.</span>
   </div>
 
   <!-- Series filter tabs &#x2014; populated statically; covers.js wires the click logic -->
@@ -271,9 +217,9 @@
   <p class="lede" data-reveal style="text-align:center;margin:44px auto 0;font-size:14px">Each piece is sold once and retired. Save your favourites to your account. New pairs added every week.</p>
 </div></section>
 
-<!-- =
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      COMING SOON
-     = -->
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
 <section class="section" style="padding-top:0"><div class="wrap">
   <div class="section-head">
     <div>
@@ -285,9 +231,9 @@
   <div id="coming-soon-list"></div>
 </div></section>
 
-<!-- =
+<!-- √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
      ALBUM PACKS
-     = -->
+     √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê -->
 <section class="section" id="album-packs" style="padding-top:0"><div class="wrap">
   <div class="section-head">
     <div>
@@ -301,7 +247,7 @@
     <!-- Chrome Universe Vol. 1 &#x2014; 9 covers, 18 pairs -->
     <div class="pack-card" data-pack-id="chrome-reign-vol1" data-reveal>
       <div class="pack-img-wrap">
-        <!-- 8 pair thumbnails (4 covers =&#x2014; clean + titled) + "+10 more" -->
+        <!-- 8 pair thumbnails (4 covers √É&#x2014; clean + titled) + "+10 more" -->
         <div class="pack-pair-strip">
           <div class="pack-pair-thumb"><img src="assets/img/gen-cover-blue.png" alt="Mercury clean" loading="lazy"></div>
           <div class="pack-pair-thumb"><img src="assets/img/gen-cover-blue.png" alt="Mercury titled" loading="lazy"></div>
@@ -384,8 +330,8 @@
     </div>
 
     <!-- Tribe (legacy pack) -->
-    <div class="pack-card" data-pack-id="tribe-vol1" data-reveal>
-      <div class="pack-img-wrap"><img src="assets/img/album-pack-vol1-preview.webp" alt="Vol 1 Tribe preview" loading="lazy"><div class="pack-badge">11 covers &#xB7; 22 pairs</div></div>
+    <div class="pack-card" data-reveal>
+      <div class="pack-img-wrap"><img src="assets/img/album-pack-vol1-preview.webp" alt="Vol 1 Tribe preview" loading="lazy"><div class="pack-badge">11 covers &#xB7; 22 pairsdiv></div>
       <div class="pack-body">
         <div class="pack-vol">Vol. 01</div>
         <h3 class="pack-title">Tribe</h3>
@@ -398,8 +344,8 @@
       </div>
     </div>
 
-    <div class="pack-card" data-pack-id="afro-japan-vol2" data-reveal data-reveal-delay="1">
-      <div class="pack-img-wrap"><img src="assets/img/album-pack-vol2-preview.webp" alt="Vol 2 Afro Japan preview" loading="lazy"><div class="pack-badge">8 covers &#xB7; 16 pairs</div></div>
+    <div class="pack-card" data-reveal data-reveal-delay="1">
+      <div class="pack-img-wrap"><img src="assets/img/album-pack-vol2-preview.webp" alt="Vol 2 Afro Japan preview" loading="lazy"><div class="pack-badge">8 covers &#xB7; 16 pairs/div></div>
       <div class="pack-body">
         <div class="pack-vol">Vol. 02</div>
         <h3 class="pack-title">Afro Japan</h3>
@@ -412,8 +358,8 @@
       </div>
     </div>
 
-    <div class="pack-card" data-pack-id="bathroom-love-vol3" data-reveal data-reveal-delay="2">
-      <div class="pack-img-wrap"><img src="assets/img/album-pack-vol3-preview.webp" alt="Vol 3 Bathroom Love preview" loading="lazy"><div class="pack-badge">8 covers &#xB7; 16 pairs</div></div>
+    <div class="pack-card" data-reveal data-reveal-delay="2">
+      <div class="pack-img-wrap"><img src="assets/img/album-pack-vol3-preview.webp" alt="Vol 3 Bathroom Love preview" loading="lazy"><div class="pack-badge">8 covers &#xB7; 16 pairs/div></div>
       <div class="pack-body">
         <div class="pack-vol">Vol. 03</div>
         <h3 class="pack-title">Bathroom Love</h3>
@@ -430,7 +376,7 @@
   <p class="lede" style="text-align:center;margin:32px auto 0;font-size:13px;color:var(--faint)">Packs are sold as complete sets or individual pieces. Insider members get 30% off all packs. <a href="contact.html" style="color:var(--silver)">Contact us</a> to reserve your volume.</p>
 </div></section>
 
-<section class="section"><div class="wrap"><div class="cta-banner" data-reveal><video src="https://rhiwtvdtbdudgtdqgjkc.supabase.co/storage/v1/object/public/site-assets/studio-ambiance.mp4" autoplay muted loop playsinline></video>
+<section class="section"><div class="wrap"><div class="cta-banner" data-reveal><video src="assets/img/studio-ambiance.mp4" autoplay muted loop playsinline></video>
   <span class="eyebrow" style="justify-content:center">Need something bespoke?</span>
   <h2 class="section-title chrome">Custom cover art,<br>built around your sound.</h2>
   <p class="lede" style="margin:18px auto 0;text-align:center">Nothing in the store fits? Our design team makes original artwork to brief, with the same two video motion package.</p>
@@ -450,8 +396,9 @@
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/receipt-fx.js"></script>
 <script src="assets/js/covers.js"></script>
-<script src="assets/js/roulette.js"></script>
+
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/premium-fx.js"></script>
+<script src="assets/js/radio-player.js"></script>
 </body></html>
