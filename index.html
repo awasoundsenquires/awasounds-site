@@ -25,11 +25,13 @@
 }
 #idx-scrub-video {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  left: 0;
   height: 100%;
+  width: 160%;
   object-fit: cover;
   display: block;
+  will-change: transform;
 }
 .idx-scrub-overlay {
   position: absolute;
@@ -561,6 +563,7 @@
 <script src="assets/js/cinematic-engine.js"></script>
 <script src="assets/js/home-cinema.js"></script>
 <script src="assets/js/premium-fx.js"></script>
+<script src="assets/js/scroll-cinema.js"></script>
 <!-- Awa Sounds Radio v3 — Beat-Reactive Sphere Player -->
 <style>
 /* ═══ Aura canvas behind panel ═══ */
@@ -1212,50 +1215,69 @@ function drawSphereFull(bass, energy, t) {
   const sphereR = SPHERE_R * (1 + bass * 0.07);
   sCtx.beginPath();
   sCtx.arc(S_CX + 2, S_CY + 3, sphereR + 1, 0, Math.PI * 2);
-  sCtx.fillStyle = 'rgba(0,0,0,0.5)';
+  sCtx.fillStyle = 'rgba(0,0,0,0.3)';
   sCtx.fill();
 
-  /* -- metallic sphere body -- */
-  const bodyGrad = sCtx.createRadialGradient(
-    S_CX - sphereR * 0.32, S_CY - sphereR * 0.32, 0,
+  /* -- glass sphere body -- */
+  const glassGrad = sCtx.createRadialGradient(
+    S_CX - sphereR * 0.3, S_CY - sphereR * 0.3, 0,
     S_CX, S_CY, sphereR
   );
-  bodyGrad.addColorStop(0.00, '#ffffffcc');
-  bodyGrad.addColorStop(0.12, '#e8d890');
-  bodyGrad.addColorStop(0.35, '#c9a84c');
-  bodyGrad.addColorStop(0.65, '#7a6020');
-  bodyGrad.addColorStop(1.00, '#1a1004');
+  const glassOp = 0.1 + energy * 0.08;
+  glassGrad.addColorStop(0.0, `rgba(255,255,255,${(glassOp * 2.5).toFixed(2)})`);
+  glassGrad.addColorStop(0.4, `rgba(180,210,255,${glassOp.toFixed(2)})`);
+  glassGrad.addColorStop(1.0, `rgba(60,100,200,${(glassOp * 0.4).toFixed(2)})`);
   sCtx.beginPath();
   sCtx.arc(S_CX, S_CY, sphereR, 0, Math.PI * 2);
-  sCtx.fillStyle = bodyGrad;
+  sCtx.fillStyle = glassGrad;
   sCtx.fill();
 
+  /* -- glass rim stroke -- */
+  const rimA = 0.25 + energy * 0.35;
+  sCtx.beginPath();
+  sCtx.arc(S_CX, S_CY, sphereR, 0, Math.PI * 2);
+  sCtx.strokeStyle = `rgba(255,255,255,${rimA.toFixed(2)})`;
+  sCtx.lineWidth = 1.5;
+  sCtx.stroke();
+
   /* -- specular highlight -- */
-  const specR = sphereR * 0.38;
   const specGrad = sCtx.createRadialGradient(
     S_CX - sphereR * 0.28, S_CY - sphereR * 0.28, 0,
-    S_CX - sphereR * 0.28, S_CY - sphereR * 0.28, specR
+    S_CX - sphereR * 0.28, S_CY - sphereR * 0.28, sphereR * 0.5
   );
-  specGrad.addColorStop(0, 'rgba(255,255,255,0.72)');
-  specGrad.addColorStop(0.4, 'rgba(255,255,255,0.15)');
+  specGrad.addColorStop(0, 'rgba(255,255,255,0.55)');
+  specGrad.addColorStop(0.5, 'rgba(255,255,255,0.08)');
   specGrad.addColorStop(1, 'rgba(255,255,255,0)');
   sCtx.beginPath();
   sCtx.arc(S_CX, S_CY, sphereR, 0, Math.PI * 2);
   sCtx.fillStyle = specGrad;
   sCtx.fill();
 
-  /* -- inner rim light (bottom) -- */
-  const rimGrad = sCtx.createRadialGradient(
-    S_CX + sphereR * 0.2, S_CY + sphereR * 0.65, 0,
-    S_CX, S_CY, sphereR
-  );
-  rimGrad.addColorStop(0, `rgba(201,168,76,${(energy * 0.4 + 0.1).toFixed(2)})`);
-  rimGrad.addColorStop(0.5, `rgba(201,168,76,0)`);
-  rimGrad.addColorStop(1, 'rgba(0,0,0,0)');
-  sCtx.beginPath();
-  sCtx.arc(S_CX, S_CY, sphereR, 0, Math.PI * 2);
-  sCtx.fillStyle = rimGrad;
-  sCtx.fill();
+  /* -- AWA text (beat-reactive) -- */
+  const tScale = 1 + bass * 0.38;
+  const tAlpha = 0.55 + energy * 0.45;
+  const fSize = Math.round(SPHERE_R * 0.52 * tScale);
+  sCtx.save();
+  sCtx.textAlign = 'center';
+  sCtx.textBaseline = 'middle';
+  sCtx.font = `700 ${fSize}px 'Space Grotesk',sans-serif`;
+  if (bass > 0.18) {
+    sCtx.shadowColor = bass > 0.4
+      ? `rgba(80,160,255,${((bass - 0.18) * 1.1).toFixed(2)})`
+      : `rgba(201,168,76,${((bass - 0.18) * 0.9).toFixed(2)})`;
+    sCtx.shadowBlur = 8 + bass * 18;
+  }
+  const tG = sCtx.createLinearGradient(S_CX - fSize, S_CY - fSize / 2, S_CX + fSize, S_CY + fSize / 2);
+  if (bass > 0.3) {
+    tG.addColorStop(0, `rgba(150,210,255,${tAlpha.toFixed(2)})`);
+    tG.addColorStop(1, `rgba(80,160,255,${tAlpha.toFixed(2)})`);
+  } else {
+    tG.addColorStop(0, `rgba(255,255,255,${tAlpha.toFixed(2)})`);
+    tG.addColorStop(1, `rgba(201,168,76,${tAlpha.toFixed(2)})`);
+  }
+  sCtx.fillStyle = tG;
+  sCtx.fillText('AWA', S_CX, S_CY);
+  sCtx.restore();
 }
 
 /* ═══════════════════════════════════════
