@@ -369,6 +369,12 @@ style.textContent = `
 .ar-collapsed #ar-pill { display: flex; }
 .ar-collapsed #awa-radio { pointer-events: none; opacity: 0; transform: translateY(16px); }
 
+/* Shuffle / Repeat */
+#ar-shuffle, #ar-repeat { opacity: .45; transition: opacity .2s, color .2s; }
+#ar-shuffle.ar-active, #ar-repeat.ar-active { color: #E0A030; opacity: 1 !important; }
+#ar-repeat { position: relative; }
+.ar-rep1 { position:absolute; font-size:7px; font-weight:700; bottom:1px; right:1px; line-height:1; display:none; }
+
 @media (max-width: 480px) {
   #awa-radio-wrap { right: 10px; bottom: 14px; }
   #awa-radio { width: 272px; }
@@ -421,6 +427,9 @@ wrap.innerHTML = `
       <span class="ar-time" id="ar-dur">-:--</span>
     </div>
     <div id="ar-controls">
+      <button class="ar-ctrl" id="ar-shuffle" aria-label="Shuffle">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1 4h2a6 6 0 016 6M1 11h2a6 6 0 006-6h2M11 2l2 2-2 2M11 9l2 2-2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
       <button class="ar-ctrl" id="ar-prev" aria-label="Previous">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 2v12M13 3L7 8l6 5V3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
@@ -430,6 +439,10 @@ wrap.innerHTML = `
       </button>
       <button class="ar-ctrl" id="ar-next" aria-label="Next">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 2v12M3 3l6 5-6 5V3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="ar-ctrl" id="ar-repeat" aria-label="Repeat">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h9a2 2 0 012 2v1M13 11H4a2 2 0 01-2-2V8M11 2l2 2-2 2M4 13l-2-2 2-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="ar-rep1">1</span>
       </button>
       <div class="ar-vol-row">
         <button class="ar-ctrl" id="ar-mute" aria-label="Mute">
@@ -498,6 +511,8 @@ let currentIdx = 0;
 let isPlaying = false;
 let activeGenre = 'all';
 let isDragging = false;
+let shuffleMode = false;
+let repeatMode = 'none'; // 'none' | 'all' | 'one'
 let audioCtx = null, analyser = null, sourceNode = null;
 let rafId = null;
 let bassSmoothed = 0, energySmoothed = 0;
@@ -508,11 +523,13 @@ const LS_KEY = 'awa-radio-state';
 function saveState() {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify({
-      idx:    currentIdx,
-      time:   audio.currentTime || 0,
-      vol:    audio.volume,
-      genre:  activeGenre,
-      playing: isPlaying
+      idx:     currentIdx,
+      time:    audio.currentTime || 0,
+      vol:     audio.volume,
+      genre:   activeGenre,
+      playing: isPlaying,
+      shuffle: shuffleMode,
+      repeat:  repeatMode
     }));
   } catch(e) {}
 }
@@ -541,10 +558,13 @@ const durEl   = document.getElementById('ar-dur');
 const playBtn = document.getElementById('ar-play');
 const prevBtn = document.getElementById('ar-prev');
 const nextBtn = document.getElementById('ar-next');
-const volEl   = document.getElementById('ar-vol');
-const muteBtn = document.getElementById('ar-mute');
-const volOnI  = document.getElementById('ar-vol-on');
-const volOffI = document.getElementById('ar-vol-off');
+const volEl     = document.getElementById('ar-vol');
+const muteBtn   = document.getElementById('ar-mute');
+const volOnI    = document.getElementById('ar-vol-on');
+const volOffI   = document.getElementById('ar-vol-off');
+const shuffleBtn = document.getElementById('ar-shuffle');
+const repeatBtn  = document.getElementById('ar-repeat');
+const rep1Span   = repeatBtn ? repeatBtn.querySelector('.ar-rep1') : null;
 
 /* ── Canvases ── */
 const auraEl = document.getElementById('awa-aura');
@@ -884,15 +904,48 @@ function seekTo(e) {
 }
 
 /* ═══════════════════════════════════════
+   SHUFFLE / REPEAT HELPERS
+═══════════════════════════════════════ */
+function randomTrack() {
+  const ft = filteredTracks();
+  if (ft.length <= 1) return findGlobalIdx(ft[0]);
+  let idx;
+  do { idx = Math.floor(Math.random() * ft.length); }
+  while (findGlobalIdx(ft[idx]) === currentIdx);
+  return findGlobalIdx(ft[idx]);
+}
+
+function updateShuffleBtn() {
+  if (!shuffleBtn) return;
+  shuffleBtn.classList.toggle('ar-active', shuffleMode);
+  shuffleBtn.setAttribute('aria-pressed', String(shuffleMode));
+}
+
+function updateRepeatBtn() {
+  if (!repeatBtn) return;
+  repeatBtn.classList.toggle('ar-active', repeatMode !== 'none');
+  if (rep1Span) rep1Span.style.display = repeatMode === 'one' ? '' : 'none';
+  const labels = { none: 'Repeat', all: 'Repeat all (on)', one: 'Repeat one (on)' };
+  repeatBtn.setAttribute('aria-label', labels[repeatMode]);
+}
+
+/* ═══════════════════════════════════════
    EVENTS
 ═══════════════════════════════════════ */
 audio.addEventListener('play',    () => setPlayState(true));
 audio.addEventListener('pause',   () => setPlayState(false));
 audio.addEventListener('ended',   () => {
-  const ft = filteredTracks();
-  const ci = ft.findIndex(t => findGlobalIdx(t) === currentIdx);
-  const next = ft[(ci + 1) % ft.length];
-  loadTrack(findGlobalIdx(next), true);
+  if (repeatMode === 'one') { audio.currentTime = 0; audio.play().catch(()=>{}); return; }
+  const nextIdx = shuffleMode ? randomTrack() : (() => {
+    const ft = filteredTracks();
+    const ci = ft.findIndex(t => findGlobalIdx(t) === currentIdx);
+    if (repeatMode === 'none' && ci >= ft.length - 1) { setPlayState(false); return currentIdx; }
+    return findGlobalIdx(ft[(ci + 1) % ft.length]);
+  })();
+  loadTrack(nextIdx, repeatMode !== 'none' || shuffleMode || (() => {
+    const ft = filteredTracks();
+    return ft.findIndex(t => findGlobalIdx(t) === currentIdx) < ft.length - 1;
+  })());
 });
 audio.addEventListener('timeupdate',     updateProgress);
 audio.addEventListener('loadedmetadata', () => { durEl.textContent = fmt(audio.duration); });
@@ -919,10 +972,24 @@ prevBtn.addEventListener('click', () => {
 });
 
 nextBtn.addEventListener('click', () => {
-  const ft = filteredTracks();
-  const ci = ft.findIndex(t => findGlobalIdx(t) === currentIdx);
-  const next = ft[(ci + 1) % ft.length];
-  loadTrack(findGlobalIdx(next), true);
+  const nextIdx = shuffleMode ? randomTrack() : (() => {
+    const ft = filteredTracks();
+    const ci = ft.findIndex(t => findGlobalIdx(t) === currentIdx);
+    return findGlobalIdx(ft[(ci + 1) % ft.length]);
+  })();
+  loadTrack(nextIdx, true);
+});
+
+shuffleBtn && shuffleBtn.addEventListener('click', () => {
+  shuffleMode = !shuffleMode;
+  updateShuffleBtn();
+  saveState();
+});
+
+repeatBtn && repeatBtn.addEventListener('click', () => {
+  repeatMode = repeatMode === 'none' ? 'all' : repeatMode === 'all' ? 'one' : 'none';
+  updateRepeatBtn();
+  saveState();
 });
 
 volEl.addEventListener('input', () => { audio.volume = parseFloat(volEl.value); });
@@ -989,6 +1056,10 @@ if (saved) {
     audio.volume = saved.vol;
     volEl.value  = saved.vol;
   }
+
+  /* restore shuffle / repeat */
+  if (saved.shuffle) { shuffleMode = true; updateShuffleBtn(); }
+  if (saved.repeat && ['all','one'].includes(saved.repeat)) { repeatMode = saved.repeat; updateRepeatBtn(); }
 
   /* restore track (preload only, don't autoplay — browsers block autoplay without gesture) */
   var restoreIdx = (typeof saved.idx === 'number' && saved.idx < TRACKS.length) ? saved.idx : 0;
