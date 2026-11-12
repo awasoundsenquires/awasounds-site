@@ -237,6 +237,13 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .esp:hover,.esp.on{border-color:var(--gold);color:var(--gold);background:var(--gold2)}
 .esp.disabled-slot{opacity:.45;pointer-events:none}
 .exit-saved-tag{font-size:10px;color:var(--green);font-weight:700;display:none;margin-top:8px}
+/* Demo media library */
+.demo-tile{border:1.5px solid var(--line);border-radius:7px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:16/9;background:var(--bg3);transition:.15s}
+.demo-tile:hover{border-color:var(--gold)}
+.demo-tile.demo-active{border-color:var(--gold);border-width:2px}
+.demo-tile video,.demo-tile img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.demo-tile-lbl{position:absolute;bottom:0;left:0;right:0;font-size:8px;color:rgba(255,255,255,.75);background:rgba(0,0,0,.6);padding:2px 5px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;letter-spacing:.03em}
+.demo-badge{font-size:7px;background:rgba(224,160,48,.85);color:#040200;border-radius:3px;padding:1px 4px;font-weight:700;letter-spacing:.04em;line-height:1.4}
 </style>
 </head>
 <body>
@@ -419,6 +426,16 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <select class="ls-sel" id="cover-sel">
       <option value="">&#x2014; Or pick a purchased cover &#x2014;</option>
     </select>
+  </div>
+
+  <!-- Demo Media Library -->
+  <div class="ps" id="demo-media-panel">
+    <div class="sec-lbl">Demo Library <span class="demo-badge" style="vertical-align:middle;margin-left:4px">SAMPLE</span></div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:8px;line-height:1.5">Click to preview. Upload your own above to replace.</div>
+    <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Video</div>
+    <div id="demo-vid-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px"></div>
+    <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Image</div>
+    <div id="demo-img-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px"></div>
   </div>
 
   <!-- Multi-layer Audio Mixer -->
@@ -764,6 +781,7 @@ function init(){
   fillCovers();
   fillBeats();
   wireUI();
+  initDemoMedia();
   drawFrame();
   updateHF();
   resizeCanvas();
@@ -2136,6 +2154,83 @@ document.addEventListener('click', e=>{
     if(tooltip) positionTooltip(rect, step.placement);
   });
 })();
+
+/* --- Demo media library --- */
+function initDemoMedia(){
+  var DEMO_VIDS=[
+    {src:'assets/img/demo/demo-vinyl-orbit.mp4',lbl:'Vinyl Orbit'},
+    {src:'assets/img/demo/demo-rooftop-rain.mp4',lbl:'Rooftop Rain'},
+    {src:'assets/img/demo/demo-liquid-metal.mp4',lbl:'Liquid Metal'},
+    {src:'assets/img/demo/demo-corridor.mp4',lbl:'Corridor'},
+  ];
+  var DEMO_IMGS=[
+    {src:'assets/img/demo/demo-awa-chrome.png',lbl:'Chrome'},
+    {src:'assets/img/demo/demo-beat-hands.png',lbl:'Hands'},
+    {src:'assets/img/demo/demo-beat-monitor.png',lbl:'Monitor'},
+    {src:'assets/img/demo/demo-cover-sleeve.png',lbl:'Sleeve'},
+    {src:'assets/img/demo/demo-lyric-artist.png',lbl:'Artist'},
+    {src:'assets/img/demo/demo-lyric-notebook.png',lbl:'Notebook'},
+    {src:'assets/img/demo/demo-rooftop-silhouettes.png',lbl:'Silhouettes'},
+    {src:'assets/img/demo/demo-roster-portrait.png',lbl:'Portrait'},
+    {src:'assets/img/demo/demo-studio-session.png',lbl:'Session'},
+    {src:'assets/img/demo/demo-vinyl-macro.png',lbl:'Vinyl'},
+  ];
+  var vidGrid=document.getElementById('demo-vid-grid');
+  if(vidGrid){
+    DEMO_VIDS.forEach(function(d){
+      var tile=document.createElement('div');
+      tile.className='demo-tile';
+      tile.innerHTML='<video src="'+d.src+'" muted loop playsinline preload="none"></video><div class="demo-tile-lbl">'+d.lbl+'</div><div class="demo-badge" style="position:absolute;top:3px;right:3px">MP4</div>';
+      tile.addEventListener('mouseenter',function(){tile.querySelector('video').play().catch(function(){});});
+      tile.addEventListener('mouseleave',function(){var v=tile.querySelector('video');v.pause();v.currentTime=0;});
+      tile.addEventListener('click',function(){
+        document.querySelectorAll('.demo-tile').forEach(function(t){t.classList.remove('demo-active');});
+        tile.classList.add('demo-active');
+        loadDemoVideo(d.src,d.lbl);
+      });
+      vidGrid.appendChild(tile);
+    });
+  }
+  var imgGrid=document.getElementById('demo-img-grid');
+  if(imgGrid){
+    DEMO_IMGS.forEach(function(d){
+      var tile=document.createElement('div');
+      tile.className='demo-tile';
+      tile.innerHTML='<img src="'+d.src+'" alt="'+d.lbl+'" loading="lazy"/><div class="demo-tile-lbl">'+d.lbl+'</div>';
+      tile.addEventListener('click',function(){
+        document.querySelectorAll('.demo-tile').forEach(function(t){t.classList.remove('demo-active');});
+        tile.classList.add('demo-active');
+        loadDemoImage(d.src,d.lbl);
+      });
+      imgGrid.appendChild(tile);
+    });
+  }
+}
+function loadDemoVideo(src,name){
+  if(bgEl&&bgEl.tagName==='VIDEO') bgEl.pause();
+  var v=document.createElement('video');
+  v.src=src; v.muted=true; v.loop=true; v.playsInline=true; v.preload='auto';
+  v.onloadeddata=function(){
+    bgEl=v;
+    if(isPlaying) v.play().catch(function(){});
+    else { v.currentTime=0; drawFrame(); }
+    var bl=document.getElementById('bg-loaded');
+    if(bl){bl.textContent='✓ Demo: '+name; bl.style.display='block';}
+    toast('Demo loaded — '+name,'ok');
+  };
+}
+function loadDemoImage(src,name){
+  if(bgEl&&bgEl.tagName==='VIDEO') bgEl.pause();
+  var img=new Image();
+  img.onload=function(){
+    bgEl=img;
+    if(!isPlaying) drawFrame();
+    var bl=document.getElementById('bg-loaded');
+    if(bl){bl.textContent='✓ Demo: '+name; bl.style.display='block';}
+    toast('Demo loaded — '+name,'ok');
+  };
+  img.src=src;
+}
 
 })();
 </script>
