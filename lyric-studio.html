@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+Ôªø<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -18,14 +18,14 @@ html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px}
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 
-/* â"€â"€ Gate (members only) â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Gate (members only) √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 #gate{position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;text-align:center;padding:24px}
 #gate h2{font-size:22px}
 #gate p{color:var(--silver);max-width:360px;line-height:1.6;font-size:13px}
 .g-btn-gold{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:9px;padding:12px 26px;cursor:pointer;text-decoration:none;display:inline-block}
 .g-btn-ghost{background:none;border:1px solid var(--line);color:var(--silver);font-size:12px;border-radius:8px;padding:9px 18px;cursor:pointer;text-decoration:none;display:inline-block}
 
-/* â"€â"€ Mobile portrait gate â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Mobile portrait gate √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 #rotate-gate{display:none;position:fixed;inset:0;background:#000000;z-index:1000;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:30px}
 #rotate-gate .ico{font-size:56px;animation:rotpulse 2s ease-in-out infinite}
 @keyframes rotpulse{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
@@ -35,7 +35,7 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
   #rotate-gate{display:flex}
 }
 
-/* â"€â"€ Nav â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Nav √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 .nav{background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:10px 18px;height:46px;flex-shrink:0}
 .nav-back{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.04em;font-family:'Space Grotesk',sans-serif;font-weight:600;padding:4px 10px;border:1px solid var(--line);border-radius:7px;transition:.15s;flex-shrink:0}
 .nav-back:hover{color:var(--hi);border-color:var(--silver)}
@@ -45,7 +45,7 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 .badge-member{font-size:9px;background:rgba(144,96,224,.15);color:var(--purple);border:1px solid rgba(144,96,224,.3);border-radius:100px;padding:3px 9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 
-/* â"€â"€ Split Panel Guide â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Split Panel Guide √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 .split-guide{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg2);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px 32px;max-width:480px;width:calc(100% - 40px);z-index:800;box-shadow:0 24px 80px rgba(0,0,0,.85);display:none}
 .split-guide.show{display:block}
 .split-guide-head{display:flex;align-items:center;gap:10px;margin-bottom:18px}
@@ -83,10 +83,10 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 .btn-preview:hover,.btn-preview.active{border-color:var(--gold);color:var(--gold)}
 .btn-export{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;border:none;border-radius:7px;padding:7px 14px;font-size:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
 
-/* â"€â"€ Shell â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Shell √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 .shell{display:flex;height:calc(100vh - 82px);overflow:hidden}
 
-/* â"€â"€ Panels â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Panels √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 .panel{background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;flex-shrink:0}
 .panel::-webkit-scrollbar{width:4px}
 .panel::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
@@ -162,7 +162,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .hf-copy{margin-top:7px;background:none;border:1px solid rgba(144,96,224,.25);color:var(--purple);border-radius:5px;padding:5px 10px;font-size:10px;cursor:pointer;font-weight:600;width:100%;transition:.15s}
 .hf-copy:hover{background:rgba(144,96,224,.1)}
 
-/* â"€â"€ Canvas area â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Canvas area √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 .canvas-area{flex:1;display:flex;flex-direction:column;align-items:center;background:#000;position:relative;overflow:hidden}
 .cw{width:100%;max-width:800px;position:relative;margin:auto}
 #cv{width:100%;display:block;background:#000}
@@ -183,7 +183,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .toast{position:fixed;bottom:18px;right:18px;background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12px;color:var(--hi);box-shadow:0 6px 24px rgba(0,0,0,.6);z-index:500;transform:translateY(120%);opacity:0;transition:.3s cubic-bezier(.2,2,.4,1)}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* â"€â"€ Save / Project bar â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Save / Project bar √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 .proj-bar{background:var(--bg3);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 18px;height:36px;flex-shrink:0;font-size:11px;margin-top:46px}
 .proj-name{font-weight:600;color:var(--hi);cursor:pointer;border:1px solid transparent;border-radius:5px;padding:2px 7px;transition:.15s;background:none;font-family:'Space Grotesk',sans-serif;font-size:12px}
 .proj-name:hover{border-color:var(--line);background:var(--bg2)}
@@ -209,7 +209,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .save-nudge.show{transform:translateY(0);opacity:1;pointer-events:auto}
 .save-nudge button{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;border:none;border-radius:6px;padding:5px 11px;font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;flex-shrink:0}
 
-/* â"€â"€ Video playlist â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Video playlist √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 .vid-list{display:flex;flex-direction:column;gap:4px;margin-top:8px}
 .vid-item{display:flex;align-items:center;gap:7px;background:var(--bg4);border:1px solid var(--line);border-radius:7px;padding:6px 8px;font-size:10px;color:var(--silver);cursor:pointer;transition:.15s}
 .vid-item:hover{border-color:var(--silver)}
@@ -221,7 +221,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .vid-loop-row{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:10px;color:var(--muted)}
 .vid-loop-row label{cursor:pointer;display:flex;align-items:center;gap:4px}
 
-/* â"€â"€ Exit confirmation modal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Exit confirmation modal √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 .exit-modal{position:fixed;inset:0;background:rgba(7,7,15,.88);backdrop-filter:blur(8px);z-index:900;display:none;align-items:center;justify-content:center}
 .exit-modal.show{display:flex}
 .exit-box{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:28px 30px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.7)}
@@ -251,13 +251,13 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 <!-- Gate -->
 <!-- Mobile rotate gate (portrait on small screens) -->
 <div id="rotate-gate">
-  <div class="ico">📱</div>
+  <div class="ico">üì±</div>
   <h2>Rotate Your Phone</h2>
   <p>Lyric Studio requires landscape orientation (16:9) to use all tools. Rotate your phone sideways to continue.</p>
 </div>
 
 <div id="gate">
-  <div style="font-size:36px;margin-bottom:4px">🎬</div>
+  <div style="font-size:36px;margin-bottom:4px">üé¨</div>
   <h2 id="gate-title">Insider Members Only</h2>
   <p id="gate-desc">Lyric Studio is exclusive to Awa Sounds Insider members. Create your free account, then upgrade to unlock everything.</p>
 
@@ -265,12 +265,12 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px 20px;max-width:400px;text-align:left;margin:4px 0">
     <div style="font-size:10px;letter-spacing:.1em;color:#7070a0;text-transform:uppercase;margin-bottom:10px;font-weight:600">What's inside</div>
     <div style="display:flex;flex-direction:column;gap:7px">
-      <div style="font-size:12.5px;color:#b0b0d0">🎵 <b style="color:#e0e0f0">Beat-reactive lyric videos</b> &#x2014; text pulses on every kick</div>
-      <div style="font-size:12.5px;color:#b0b0d0">🎨 <b style="color:#e0e0f0">10 animation styles</b> &#x2014; Impact, Kinetic, Glitch, Karaoke + more</div>
-      <div style="font-size:12.5px;color:#b0b0d0">📊 <b style="color:#e0e0f0">3-layer audio mixer</b> &#x2014; stack beat, vocals and ambience</div>
-      <div style="font-size:12.5px;color:#b0b0d0">📤 <b style="color:#e0e0f0">HD export</b> &#x2014; 1280×720 ready to post on any platform</div>
-      <div style="font-size:12.5px;color:#b0b0d0">💾 <b style="color:#e0e0f0">4 saved projects</b> &#x2014; auto-backup included</div>
-      <div style="font-size:12.5px;color:#b0b0d0">✅ <b style="color:#e0e0f0">No downloads. No apps.</b> Runs entirely in your browser.</div>
+      <div style="font-size:12.5px;color:#b0b0d0">üéµ <b style="color:#e0e0f0">Beat-reactive lyric videos</b> &#x2014; text pulses on every kick</div>
+      <div style="font-size:12.5px;color:#b0b0d0">üé® <b style="color:#e0e0f0">10 animation styles</b> &#x2014; Impact, Kinetic, Glitch, Karaoke + more</div>
+      <div style="font-size:12.5px;color:#b0b0d0">üìä <b style="color:#e0e0f0">3-layer audio mixer</b> &#x2014; stack beat, vocals and ambience</div>
+      <div style="font-size:12.5px;color:#b0b0d0">üì§ <b style="color:#e0e0f0">HD export</b> &#x2014; 1280√ó720 ready to post on any platform</div>
+      <div style="font-size:12.5px;color:#b0b0d0">üíæ <b style="color:#e0e0f0">4 saved projects</b> &#x2014; auto-backup included</div>
+      <div style="font-size:12.5px;color:#b0b0d0">‚úÖ <b style="color:#e0e0f0">No downloads. No apps.</b> Runs entirely in your browser.</div>
     </div>
   </div>
 
@@ -299,7 +299,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <a href="#" class="g-btn-ghost" id="gate-cta-secondary" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Lyric Studio.')">Create Free Account</a>
 
   <!-- Escape link &#x2014; visible to ALL users so nobody is trapped -->
-  <a href="index.html" style="display:block;margin-top:18px;font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;letter-spacing:.05em;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">← Back to Awa Sounds</a>
+  <a href="index.html" style="display:block;margin-top:18px;font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;letter-spacing:.05em;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">‚Üê Back to Awa Sounds</a>
 </div>
 
 <!-- Nav -->
@@ -340,7 +340,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   </div>
   <div class="split-guide-actions">
     <button class="split-guide-close" id="split-guide-close">Got it</button>
-    <button class="split-guide-tour-btn" id="split-guide-tour">Take Interactive Tour ›</button>
+    <button class="split-guide-tour-btn" id="split-guide-tour">Take Interactive Tour ‚Ä∫</button>
   </div>
   <p class="split-guide-tip">Tip: pause playback to see the drag handles on your media</p>
 </div>
@@ -356,7 +356,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <div class="tour-dots" id="tour-dots"></div>
     <div style="display:flex;gap:7px">
       <button class="tour-btn tour-btn-skip" id="tour-skip">Skip tour</button>
-      <button class="tour-btn tour-btn-next" id="tour-next">Next →</button>
+      <button class="tour-btn tour-btn-next" id="tour-next">Next ‚Üí</button>
     </div>
   </div>
 </div>
@@ -385,7 +385,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 <!-- Exit confirmation modal -->
 <div class="exit-modal" id="exit-modal">
   <div class="exit-box">
-    <div style="font-size:26px;margin-bottom:10px">âš ï¸</div>
+    <div style="font-size:26px;margin-bottom:10px">√¢≈°¬†√Ø¬∏¬è</div>
     <h3>Unsaved Changes</h3>
     <p>You have unsaved work in Lyric Studio. Save your project before leaving so you don't lose it.</p>
     <div style="font-size:11px;color:var(--muted);margin-bottom:14px">Save to which slot?</div>
@@ -395,7 +395,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       <div class="esp" id="esp-2" data-slot="2">Slot 3</div>
       <div class="esp" id="esp-3" data-slot="3">Slot 4</div>
     </div>
-    <div class="exit-saved-tag" id="exit-saved-tag">âœ" Saved! You can now leave safely.</div>
+    <div class="exit-saved-tag" id="exit-saved-tag">√¢≈ì" Saved! You can now leave safely.</div>
     <div class="exit-btns">
       <button class="ebtn ebtn-save" id="ebtn-save">Save &amp; Stay</button>
       <button class="ebtn ebtn-leave" id="ebtn-leave">Leave Without Saving</button>
@@ -415,7 +415,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <div class="sec-lbl">Background Media</div>
     <div class="upzone" id="bg-zone">
       <input type="file" id="bg-file" accept="video/*,image/*" multiple/>
-      <div class="uz-icon">🎬</div>
+      <div class="uz-icon">üé¨</div>
       <div class="uz-txt"><b>Drop video or image</b><br>MP4, MOV, JPG, PNG</div>
       <div class="uz-loaded" id="bg-loaded" style="display:none"></div>
     </div>
@@ -450,7 +450,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       </div>
       <div class="upzone upzone-sm" id="beat-zone">
         <input type="file" id="beat-file" accept="audio/*"/>
-        <div class="uz-icon" style="font-size:14px">🎵</div>
+        <div class="uz-icon" style="font-size:14px">üéµ</div>
         <div class="uz-txt" style="font-size:10px"><b>Drop beat</b> &#xB7; MP3, WAV, FLAC</div>
         <div class="uz-loaded" id="beat-loaded" style="display:none"></div>
       </div>
@@ -466,7 +466,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       </div>
       <div class="upzone upzone-sm" id="vocal-zone">
         <input type="file" id="vocal-file" accept="audio/*"/>
-        <div class="uz-icon" style="font-size:14px">🎤</div>
+        <div class="uz-icon" style="font-size:14px">üé§</div>
         <div class="uz-txt" style="font-size:10px"><b>Drop vocals</b> &#xB7; MP3, WAV, FLAC</div>
         <div class="uz-loaded" id="vocal-loaded" style="display:none"></div>
       </div>
@@ -481,7 +481,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       </div>
       <div class="upzone upzone-sm" id="amb-zone">
         <input type="file" id="amb-file" accept="audio/*"/>
-        <div class="uz-icon" style="font-size:14px">🌊</div>
+        <div class="uz-icon" style="font-size:14px">üåä</div>
         <div class="uz-txt" style="font-size:10px"><b>Drop ambience</b> &#xB7; MP3, WAV, FLAC</div>
         <div class="uz-loaded" id="amb-loaded" style="display:none"></div>
       </div>
@@ -532,8 +532,8 @@ Every second getting full
   <div class="cw" id="cw">
     <canvas id="cv" width="1280" height="720"></canvas>
     <div class="transport">
-      <button class="tb" id="restart-btn">⏮</button>
-      <button class="tb" id="play-tb">▶</button>
+      <button class="tb" id="restart-btn">‚èÆ</button>
+      <button class="tb" id="play-tb">‚ñ∂</button>
       <span class="t-time" id="t-time">0:00 / 0:00</span>
       <div class="beat-ind">
         <div class="bdot" id="bdot"></div>
@@ -617,7 +617,7 @@ Every second getting full
     <div class="hf-box">
       <div class="hf-lbl">Higgsfield Background Prompt</div>
       <div class="hf-txt" id="hf-txt">Select a style to generate your free Unlimited prompt.</div>
-      <button class="hf-copy" id="hf-copy">Copy â†' Paste in Higgsfield Unlimited</button>
+      <button class="hf-copy" id="hf-copy">Copy √¢‚Ä†' Paste in Higgsfield Unlimited</button>
     </div>
   </div>
 
@@ -633,13 +633,13 @@ Every second getting full
 (function(){
 "use strict";
 
-/* â"€â"€ Slot constants (must be before checkAccess) â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Slot constants (must be before checkAccess) √¢"‚Ç¨√¢"‚Ç¨ */
 const MAX_SLOTS_FREE      = 4;
 const MAX_SLOTS_UNLIMITED = 20;
 const MAX_SLOTS = (window.AWA_PROFILE && window.AWA_PROFILE.studio_unlimited) ? MAX_SLOTS_UNLIMITED : MAX_SLOTS_FREE;
 const STORE_PREFIX = 'awa_ls_slot_';
 
-/* â"€â"€ Access gate â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Access gate √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function checkAccess(){
   const gate = document.getElementById('gate');
   if(!window.AWA_SESSION){
@@ -684,7 +684,7 @@ setTimeout(() => {
   }
 }, 0);
 
-/* â"€â"€ State â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ State √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 const cv    = document.getElementById('cv');
 const ctx   = cv.getContext('2d');
 const W = 1280, H = 720;
@@ -706,7 +706,7 @@ let tickerOffset = 0;
 let glitchT = 0;
 let kinScale = 1, kinAngle = 0;
 
-/* â"€â"€ Styles definition â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Styles definition √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 const STYLES = [
   { id:'impact',    name:'Impact Word', sub:'One word, full frame', hf:'Ultra close-up slow-motion water droplets on glass, cinematic film grain, dark silver and charcoal palette, seamless loop, 4K, no text, premium music video backing' },
   { id:'mirror',    name:'Mirror Flip', sub:'Text + reflection', hf:'Dark concrete texture with subtle iridescent sheen, wet floor reflection, deep charcoal and steel blue, seamless loop, 4K, no text, underground hip-hop aesthetic' },
@@ -726,7 +726,7 @@ const STYLE_COLORS = {
   glitch:'#180000',minimal:'#080808'
 };
 
-/* â"€â"€ Build style grid â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Build style grid √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function buildStyleGrid(){
   const grid = document.getElementById('style-grid');
   grid.innerHTML = STYLES.map(s => `
@@ -775,7 +775,7 @@ function drawThumbs(){
   });
 }
 
-/* â"€â"€ Init â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Init √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function init(){
   buildStyleGrid();
   fillCovers();
@@ -819,7 +819,7 @@ async function fillBeats(){
   if(!bts.length){ list.innerHTML='<div style="font-size:10px;color:var(--muted);padding:4px 0">'+(isAdmin?'No beats in store yet.':'Purchase a beat to load it here.')+'</div>'; return; }
   list.innerHTML = (isAdmin?'<div style="font-size:9px;color:var(--gold);padding:2px 0 6px;letter-spacing:.06em">ADMIN &#x2014; ALL STORE BEATS</div>':'')+bts.map(b=>`
     <div class="bi" data-id="${b.id}" data-src="${b.preview||''}">
-      <span style="font-size:13px">🎵</span>
+      <span style="font-size:13px">üéµ</span>
       <div style="min-width:0;flex:1">
         <div class="bi-name">${b.title}</div>
         <div class="bi-meta">${b.bpm?b.bpm+' BPM':''}${b.key?' &#xB7; '+b.key:''}</div>
@@ -830,13 +830,13 @@ async function fillBeats(){
       list.querySelectorAll('.bi').forEach(b=>b.classList.remove('on'));
       el.classList.add('on');
       const src = el.dataset.src;
-      if(src) loadAudio(src, el.querySelector('.bi-name').textContent);
+      if(src){ demoBeatActive = false; loadAudio(src, el.querySelector('.bi-name').textContent); }
       else toast('No preview URL for this beat yet','info');
     });
   });
 }
 
-/* â"€â"€ Wire UI â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Wire UI √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function wireUI(){
   // Drag-over visual feedback for all upload zones
   document.querySelectorAll('.upzone').forEach(zone=>{
@@ -859,7 +859,7 @@ function wireUI(){
     list.style.display='flex'; loopRow.style.display='flex';
     list.innerHTML = bgVideos.map((v,i)=>`
       <div class="vid-item${i===bgVideoIdx?' vid-active':''}" data-idx="${i}">
-        <span class="vid-item-icon">${i===bgVideoIdx?'▶':'🎬'}</span>
+        <span class="vid-item-icon">${i===bgVideoIdx?'‚ñ∂':'üé¨'}</span>
         <span class="vid-item-name">${v.name}</span>
         <button class="vid-item-rm" data-rm="${i}" title="Remove">&times;</button>
       </div>`).join('');
@@ -914,6 +914,7 @@ function wireUI(){
   }
 
   document.getElementById('bg-file').addEventListener('change', e=>{
+    demoBgActive = false;
     const files = Array.from(e.target.files||e.target._files||[]);
     const bgZ = document.getElementById('bg-zone');
     files.forEach(f=>{
@@ -940,6 +941,7 @@ function wireUI(){
   });
   document.getElementById('beat-file').addEventListener('change', e=>{
     const f=e.target.files[0]; if(!f) return;
+    demoBeatActive = false;
     loadAudio(URL.createObjectURL(f), f.name);
   });
   // Layer 2: Vocals
@@ -967,6 +969,7 @@ function wireUI(){
     });
   });
   document.getElementById('cover-sel').addEventListener('change', e=>{
+    demoBgActive = false;
     const id=e.target.value; if(!id) return;
     const c=(window.AWA?.covers||[]).find(x=>x.id===id); if(!c) return;
     if(c.videos&&c.videos[0]){ const v=document.createElement('video'); v.src=c.videos[0]; v.loop=true; v.muted=true; v.playsInline=true; v.onloadeddata=()=>{ if(bgEl&&bgEl.tagName==='VIDEO')bgEl.pause(); bgEl=v; if(isPlaying)v.play().catch(()=>{}); else drawFrame(); toast('Cover video loaded','ok'); }; }
@@ -1003,7 +1006,7 @@ function wireUI(){
     audio.currentTime = ((e.clientX-r.left)/r.width)*audio.duration;
     syncLyric(); if(!isPlaying)drawFrame();
   });
-  document.getElementById('export-btn').addEventListener('click', showExport);
+  document.getElementById('export-btn').addEventListener('click', ()=>{ if(demoGuard()) return; showExport(); });
   document.getElementById('hf-copy').addEventListener('click',()=>{
     const t=document.getElementById('hf-txt').textContent;
     navigator.clipboard?.writeText(t).catch(()=>{});
@@ -1011,8 +1014,8 @@ function wireUI(){
   });
 }
 
-/* â"€â"€ Audio â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
-/* â"€â"€ Multi-layer audio (layers 1 + 2 are secondary, no BPM analysis) â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Audio √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Multi-layer audio (layers 1 + 2 are secondary, no BPM analysis) √¢"‚Ç¨√¢"‚Ç¨ */
 const layerAudios = [null, null, null]; // indices 0=beat(primary), 1=vocals, 2=amb
 const layerMuted  = [false, false, false];
 
@@ -1129,7 +1132,7 @@ function syncLyric(){
   lyricIdx = Math.min(Math.floor(audio.currentTime/(audio.duration||1)*lyrics.length), lyrics.length-1);
 }
 
-/* â"€â"€ Playback â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Playback √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function togglePlay(){
   if(!audio){ toast('Load a beat first','info'); return; }
   if(isPlaying){ pause(); } else { play(); }
@@ -1154,7 +1157,7 @@ function setPlayBtns(p){
 
 function loop(){ if(!isPlaying)return; drawFrame(); raf=requestAnimationFrame(loop); }
 
-/* â"€â"€ Get amplitude â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Get amplitude √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function getAmp(){
   if(!analyser||!isPlaying) return 0;
   analyser.getByteFrequencyData(freqArr);
@@ -1163,7 +1166,7 @@ function getAmp(){
   return { bass, full, avg: (bass*0.7+full*0.3) };
 }
 
-/* â"€â"€ Draw â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Draw √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawFrame(){
   const amp = getAmp();
   const a = amp.avg||0;
@@ -1197,7 +1200,7 @@ function drawFrame(){
   if(bassA>0.35) bdot.classList.add('on'); else bdot.classList.remove('on');
 }
 
-/* â"€â"€ Background â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Background √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawBG(amp){
   ctx.save();
   if(bgEl){
@@ -1240,7 +1243,7 @@ function drawVignette(){
   ctx.fillStyle=vg; ctx.fillRect(0,0,W,H);
 }
 
-/* â"€â"€ Line helpers â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Line helpers √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function line(off=0){ return lyrics[Math.min(Math.max(lyricIdx+off,0),lyrics.length-1)]||'AWA SOUNDS'; }
 function setFont(size,alpha){ ctx.font=`${fWeight} ${size}px ${fFont}`; ctx.globalAlpha=alpha*fOpacity; ctx.textAlign='center'; ctx.textBaseline='middle'; }
 function drawText(txt,x,y,col,scale=1){
@@ -1251,7 +1254,7 @@ function drawText(txt,x,y,col,scale=1){
   ctx.restore();
 }
 
-/* â"€â"€ STYLE: Impact Word â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Impact Word √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawImpact(a, bass){
   const txt = line();
   const words = txt.split(/\s+/);
@@ -1273,7 +1276,7 @@ function drawImpact(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Mirror Flip â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Mirror Flip √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawMirror(a, bass){
   const txt = line().toUpperCase();
   const scale = 1 + bass*0.08;
@@ -1299,7 +1302,7 @@ function drawMirror(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Ticker Band â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Ticker Band √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawTicker(a){
   const txt = (' '+line().toUpperCase()+' \u2726').repeat(12);
   const sz = Math.round(fSize*0.9);
@@ -1325,7 +1328,7 @@ function drawTicker(a){
   ctx.restore(); ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Split Panel state â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Split Panel state √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 let splitMedia = { x:40, y:60, w:Math.round(W*0.44), h:H-120, dragging:false, resizing:false, dragOX:0, dragOY:0 };
 let splitGuideShown = false;
 
@@ -1426,7 +1429,7 @@ function drawSplit(a, bass){
   cv.addEventListener('touchstart',onDown,{passive:false});cv.addEventListener('touchmove',onMove,{passive:false});cv.addEventListener('touchend',onUp);
 })();
 
-/* â"€â"€ STYLE: Kinetic â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Kinetic √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawKinetic(a, bass){
   const txt = line();
   kinScale += ((1+bass*0.3)-kinScale)*0.15;
@@ -1449,7 +1452,7 @@ function drawKinetic(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Karaoke â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Karaoke √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawKaraoke(a, bass){
   const prev=line(-1), cur=line(), next=line(1);
   const sc=1+bass*0.1;
@@ -1467,7 +1470,7 @@ function drawKaraoke(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Neon â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Neon √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawNeon(a, bass){
   if(bass>0.25){
     for(let r=0;r<3;r++){
@@ -1484,7 +1487,7 @@ function drawNeon(a, bass){
   ctx.shadowBlur=0;
 }
 
-/* â"€â"€ STYLE: Cinematic â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Cinematic √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawCinematic(a){
   const txt=line();
   const spacing = fSpacing + a*18;
@@ -1506,7 +1509,7 @@ function drawCinematic(a){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Glitch â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Glitch √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawGlitch(a){
   glitchT++;
   const txt = line().toUpperCase();
@@ -1524,7 +1527,7 @@ function drawGlitch(a){
   }
 }
 
-/* â"€â"€ STYLE: Minimal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ STYLE: Minimal √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function drawMinimal(a){
   const txt=line().toUpperCase();
   const alpha=(0.45+a*0.55)*fOpacity;
@@ -1536,7 +1539,7 @@ function drawMinimal(a){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ Helpers â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Helpers √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function parseLyrics(txt){
   const raw=txt.split('\n').map(l=>l.trim()).filter(l=>l&&!l.startsWith('['));
   lyrics=raw;
@@ -1696,19 +1699,26 @@ function toast(msg, type){
   clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),3800);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê
    PROJECT SAVE / LOAD / AUTO-BACKUP / EXIT GUARD
    Storage: localStorage (key: awa_ls_slot_N)
    Max 2 slots per profile.
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   √¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê√¢‚Ä¢¬ê */
 
 // Slot constants declared at IIFE top so checkAccess() can reference them
 let isDirty = false;       // true after any user edit
 let activeSlot = null;     // 0 or 1 &#x2014; slot currently loaded/saved into
 let autoBackupTimer = null;
 let exitPendingCb = null;  // resolve fn from beforeunload intercept
+let demoBgActive   = false;
+let demoBeatActive = false;
+function demoGuard(){
+  if(!demoBgActive && !demoBeatActive) return false;
+  toast('This is a demo ‚Äî upload your own media to export','info');
+  return true;
+}
 
-/* â"€â"€ Save button state â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Save button state √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 let nudgeTimer = null;
 function updateSaveBtn(){
   const btn = document.getElementById('btn-save-proj');
@@ -1730,7 +1740,7 @@ function updateSaveBtn(){
   }
 }
 
-/* â"€â"€ Ctrl+S shortcut â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Ctrl+S shortcut √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 document.addEventListener('keydown', e=>{
   if((e.ctrlKey||e.metaKey) && e.key==='s'){
     e.preventDefault();
@@ -1738,7 +1748,7 @@ document.addEventListener('keydown', e=>{
   }
 });
 
-/* â"€â"€ Serialise / restore â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Serialise / restore √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function serialiseProject(){
   return JSON.stringify({
     v: 2,
@@ -1785,7 +1795,7 @@ function restoreProject(data){
   } catch(e){ return false; }
 }
 
-/* â"€â"€ Slot UI â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Slot UI √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function refreshSlotUI(){
   for(let i=0;i<MAX_SLOTS;i++){
     const raw = localStorage.getItem(STORE_PREFIX+i);
@@ -1820,7 +1830,7 @@ function refreshSlotUI(){
   }
 }
 
-/* â"€â"€ Save to slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Save to slot √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function saveToSlot(slot, silent){
   const payload = serialiseProject();
   localStorage.setItem(STORE_PREFIX+slot, payload);
@@ -1831,7 +1841,7 @@ function saveToSlot(slot, silent){
   if(!silent) toast('Saved to Slot '+(slot+1),'ok');
 }
 
-/* â"€â"€ Load from slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Load from slot √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function loadFromSlot(slot){
   const raw = localStorage.getItem(STORE_PREFIX+slot);
   if(!raw){ toast('Slot '+(slot+1)+' is empty','info'); return; }
@@ -1842,7 +1852,7 @@ function loadFromSlot(slot){
   } else { toast('Could not read slot data',''); }
 }
 
-/* â"€â"€ Wire slot pills â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Wire slot pills √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 for(let i=0;i<MAX_SLOTS;i++){
   document.getElementById('slot-'+i).addEventListener('click',()=>{
     const raw = localStorage.getItem(STORE_PREFIX+i);
@@ -1851,8 +1861,9 @@ for(let i=0;i<MAX_SLOTS;i++){
   });
 }
 
-/* â"€â"€ Save button â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Save button √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 document.getElementById('btn-save-proj').addEventListener('click',()=>{
+  if(demoGuard()) return;
   if(activeSlot!==null){ saveToSlot(activeSlot); return; }
   const allSlots = Array.from({length:MAX_SLOTS_FREE},(_,i)=>i);
   const emptySlot = allSlots.find(i=>!localStorage.getItem(STORE_PREFIX+i));
@@ -1860,10 +1871,10 @@ document.getElementById('btn-save-proj').addEventListener('click',()=>{
   saveToSlot(target);
 });
 
-/* â"€â"€ Project name editable â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Project name editable √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 document.getElementById('proj-name').addEventListener('change',()=>{ isDirty=true; updateSaveBtn(); });
 
-/* â"€â"€ Mark dirty on any UI change â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Mark dirty on any UI change √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 ['lyr-ta','fsize','fweight','fspacing','fopacity','bg-blur','bg-dim',
  'bg-vig','bg-sat','tint-op','stroke-w','font-pick','sync-mode','lyr-offset',
  'custom-clr','flash-clr','stroke-clr','tint-clr'].forEach(id=>{
@@ -1874,7 +1885,7 @@ document.getElementById('style-grid').addEventListener('click',()=>{ isDirty=tru
 document.getElementById('bg-file').addEventListener('change',()=>{ isDirty=true; });
 document.getElementById('beat-file').addEventListener('change',()=>{ isDirty=true; });
 
-/* â"€â"€ Auto-backup every 2 min â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Auto-backup every 2 min √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 function startAutoBackup(){
   if(autoBackupTimer) clearInterval(autoBackupTimer);
   autoBackupTimer = setInterval(()=>{
@@ -1890,7 +1901,7 @@ function startAutoBackup(){
 }
 startAutoBackup();
 
-/* â"€â"€ Exit confirmation modal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Exit confirmation modal √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 let exitModalSaveSlot = activeSlot!==null ? activeSlot : 0;
 
 function showExitModal(onLeave){
@@ -1938,7 +1949,7 @@ document.getElementById('ebtn-stay').addEventListener('click',()=>{
   document.getElementById('ebtn-leave').style.color='var(--red)';
 });
 
-/* â"€â"€ beforeunload / page close/reload â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ beforeunload / page close/reload √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 window.addEventListener('beforeunload', e=>{
   if(!isDirty) return;
   // Show the browser's native dialog (required &#x2014; we cannot override this)
@@ -1951,7 +1962,7 @@ window.addEventListener('beforeunload', e=>{
   }, 300);
 });
 
-/* â"€â"€ Intercept in-site navigation links â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ Intercept in-site navigation links √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 document.addEventListener('click', e=>{
   const a=e.target.closest('a[href]');
   if(!a||!isDirty) return;
@@ -1961,7 +1972,7 @@ document.addEventListener('click', e=>{
   showExitModal(()=>{ window.location.href=href; });
 });
 
-/* â"€â"€ On page load &#x2014; restore last slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* √¢"‚Ç¨√¢"‚Ç¨ On page load &#x2014; restore last slot √¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨√¢"‚Ç¨ */
 (function loadMostRecent(){
   let newest=-1, newestSlot=null;
   for(let i=0;i<MAX_SLOTS;i++){
@@ -1984,7 +1995,7 @@ document.addEventListener('click', e=>{
   setTimeout(idle, 80);
 })();
 
-/* ── Split Guide wiring (dormant buttons now wired) ── */
+/* ‚îÄ‚îÄ Split Guide wiring (dormant buttons now wired) ‚îÄ‚îÄ */
 (function wireGuide(){
   const overlay = document.getElementById('split-guide-overlay');
   const guide   = document.getElementById('split-guide');
@@ -2010,13 +2021,13 @@ document.addEventListener('click', e=>{
   } catch(e){ showGuide(); }
 })();
 
-/* ── Interactive Product Tour ── */
+/* ‚îÄ‚îÄ Interactive Product Tour ‚îÄ‚îÄ */
 (function(){
   var STEPS = [
     {
       id:    'bg-zone',
       title: 'Upload Your Background',
-      body:  'Drag & drop your video or cover art here. This becomes the visual backdrop of your lyric video — blurred or sharp, your call.',
+      body:  'Drag & drop your video or cover art here. This becomes the visual backdrop of your lyric video ‚Äî blurred or sharp, your call.',
       placement: 'right'
     },
     {
@@ -2034,7 +2045,7 @@ document.addEventListener('click', e=>{
     {
       id:    'style-grid',
       title: 'Pick a Visual Style',
-      body:  'Choose from Impact, Neon, Cinematic, Minimal and more. Each preset controls font, shadow, colour and animation — live preview as you click.',
+      body:  'Choose from Impact, Neon, Cinematic, Minimal and more. Each preset controls font, shadow, colour and animation ‚Äî live preview as you click.',
       placement: 'left'
     },
     {
@@ -2114,7 +2125,7 @@ document.addEventListener('click', e=>{
       if(stepLabel) stepLabel.textContent = 'Step ' + (n+1) + ' of ' + STEPS.length;
       if(titleEl)   titleEl.textContent   = step.title;
       if(bodyEl)    bodyEl.textContent    = step.body;
-      if(nextBtn)   nextBtn.textContent   = (n === STEPS.length-1) ? 'Finish ✓' : 'Next →';
+      if(nextBtn)   nextBtn.textContent   = (n === STEPS.length-1) ? 'Finish ‚úì' : 'Next ‚Üí';
       buildDots();
       if(tooltip){ tooltip.style.display = ''; positionTooltip(rect, step.placement); }
     }, 200);
@@ -2205,29 +2216,61 @@ function initDemoMedia(){
       imgGrid.appendChild(tile);
     });
   }
+
+  // Demo beats ‚Äî a curated selection from the radio library
+  var DEMO_BEATS=[
+    {name:'Night Shift',    bpm:134, label:'Trap',       url:'https://cdn.acedata2.cloud/suno/mp3/bb5bd5ba-b8a9-4a2f-b6d0-33a8616b5e4d.mp3'},
+    {name:'Velvet Keys',    bpm:90,  label:'R&B',        url:'https://cdn.acedata2.cloud/suno/mp3/6adacade-9991-40cc-a380-cd225864616a.mp3'},
+    {name:'Lagos Flow',     bpm:104, label:'Afrobeat',   url:'https://cdn.acedata2.cloud/suno/mp3/ea282291-1e17-446a-b9bc-95bde4cafe98.mp3'},
+    {name:'Sunday Morning', bpm:123, label:'House',      url:'https://cdn.acedata2.cloud/suno/mp3/0b4308c5-5472-4603-8bb7-384457b03824.mp3'},
+    {name:'Regal',          bpm:140, label:'Drill',      url:'https://cdn.acedata2.cloud/suno/ba3cb1c0-ef9b-463c-9117-d4a0484395ee.mp3'},
+    {name:'Island Heat',    bpm:95,  label:'Dancehall',  url:'https://cdn.acedata2.cloud/suno/51577c6e-b24a-4920-a2d2-cb07aa575116.mp3'},
+    {name:'Johannesburg',   bpm:112, label:'Amapiano',   url:'https://cdn.acedata2.cloud/suno/03d7fe6d-9248-42e8-b053-63cd6268dfca.mp3'},
+  ];
+  var beatList=document.getElementById('beat-list');
+  if(beatList){
+    var hdr=document.createElement('div');
+    hdr.style.cssText='font-size:9px;color:var(--gold);padding:8px 0 5px;letter-spacing:.08em;border-top:1px solid var(--line);margin-top:6px';
+    hdr.innerHTML='DEMO BEATS <span class="demo-badge" style="vertical-align:middle;margin-left:3px">SAMPLE</span>';
+    beatList.appendChild(hdr);
+    DEMO_BEATS.forEach(function(b){
+      var el=document.createElement('div');
+      el.className='bi';
+      el.dataset.src=b.url;
+      el.dataset.demo='1';
+      el.innerHTML='<span style="font-size:13px">üéµ</span><div style="min-width:0;flex:1"><div class="bi-name">'+b.name+'</div><div class="bi-meta">'+b.bpm+' BPM &middot; '+b.label+' <span class="demo-badge" style="margin-left:3px">DEMO</span></div></div>';
+      el.addEventListener('click',function(){
+        beatList.querySelectorAll('.bi').forEach(function(x){x.classList.remove('on');});
+        el.classList.add('on');
+        demoBeatActive=true;
+        loadAudio(b.url, b.name+' (Demo)');
+      });
+      beatList.appendChild(el);
+    });
+  }
 }
 function loadDemoVideo(src,name){
   if(bgEl&&bgEl.tagName==='VIDEO') bgEl.pause();
   var v=document.createElement('video');
   v.src=src; v.muted=true; v.loop=true; v.playsInline=true; v.preload='auto';
   v.onloadeddata=function(){
-    bgEl=v;
+    bgEl=v; demoBgActive=true;
     if(isPlaying) v.play().catch(function(){});
     else { v.currentTime=0; drawFrame(); }
     var bl=document.getElementById('bg-loaded');
-    if(bl){bl.textContent='✓ Demo: '+name; bl.style.display='block';}
-    toast('Demo loaded — '+name,'ok');
+    if(bl){bl.textContent='‚úì Demo: '+name; bl.style.display='block';}
+    toast('Demo loaded ‚Äî '+name,'ok');
   };
 }
 function loadDemoImage(src,name){
   if(bgEl&&bgEl.tagName==='VIDEO') bgEl.pause();
   var img=new Image();
   img.onload=function(){
-    bgEl=img;
+    bgEl=img; demoBgActive=true;
     if(!isPlaying) drawFrame();
     var bl=document.getElementById('bg-loaded');
-    if(bl){bl.textContent='✓ Demo: '+name; bl.style.display='block';}
-    toast('Demo loaded — '+name,'ok');
+    if(bl){bl.textContent='‚úì Demo: '+name; bl.style.display='block';}
+    toast('Demo loaded ‚Äî '+name,'ok');
   };
   img.src=src;
 }
