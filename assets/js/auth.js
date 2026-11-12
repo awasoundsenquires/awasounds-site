@@ -85,24 +85,9 @@
       el.innerHTML = `<span class="dot${API.isMember() ? " member" : ""}"></span>${escapeHtml(name)}`;
       el.title = API.isMember() ? "Insider member" : "My account";
     } else {
-      el.href = "#";
-      el.textContent = "Sign in";
-      el.onclick = (e) => { e.preventDefault(); openModal(); };
-    }
-    // Desktop Insider CTA (non-members only)
-    let insiderCta = right.querySelector(".nav-insider-cta");
-    if (!API.isMember()) {
-      if (!insiderCta) {
-        insiderCta = document.createElement("a");
-        insiderCta.className = "btn btn-ghost nav-insider-cta";
-        insiderCta.href = "account.html";
-        insiderCta.style.cssText = "font-size:.82rem;padding:8px 16px;border-color:rgba(217,195,143,.35);color:#d9c38f;white-space:nowrap";
-        right.insertBefore(insiderCta, el);
-      }
-      insiderCta.textContent = "Become an Insider";
-      insiderCta.style.display = "";
-    } else if (insiderCta) {
-      insiderCta.style.display = "none";
+      el.href = "account.html";
+      el.textContent = "My Studio";
+      el.onclick = null;
     }
     // Sync mobile drawer — add Insider CTA or My Account link
     const navLinks = document.querySelector(".nav-links");
@@ -117,9 +102,9 @@
         mobileAcct.href = "account.html";
         mobileAcct.textContent = "My Account";
       } else {
-        mobileAcct.href = "#";
-        mobileAcct.textContent = "Become an Insider →";
-        mobileAcct.onclick = (e) => { e.preventDefault(); openModal("Join Awa Sounds. Unlock Insider pricing, save beats and submit demos."); };
+        mobileAcct.href = "account.html";
+        mobileAcct.textContent = "My Studio";
+        mobileAcct.onclick = null;
       }
     }
   }
