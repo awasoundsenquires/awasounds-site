@@ -70,6 +70,14 @@
   function notReady() { return { message: "Accounts are not configured yet." }; }
 
   /* ---------- Nav account control (injected site-wide) ---------- */
+  function injectNavDD() {
+    if (document.getElementById("nav-acct-css")) return;
+    const s = document.createElement("style");
+    s.id = "nav-acct-css";
+    s.textContent = ".nav-acct-wrap{position:relative;display:inline-flex;align-items:center}.nav-acct-dd{position:absolute;top:calc(100% + 8px);right:0;min-width:152px;background:rgba(8,8,12,.97);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:5px;z-index:9999;display:none;flex-direction:column;gap:1px;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.55)}.nav-acct-dd.open{display:flex}.nav-acct-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:7px;font-size:13px;color:rgba(232,232,240,.85);text-decoration:none;background:none;border:none;cursor:pointer;width:100%;text-align:left;font-family:inherit;transition:background .12s}.nav-acct-item:hover{background:rgba(255,255,255,.08);color:#fff}.nav-acct-so{color:rgba(255,100,100,.75)!important}.nav-acct-so:hover{background:rgba(255,60,60,.08)!important;color:#ff7070!important}";
+    document.head.appendChild(s);
+  }
+
   function renderNav() {
     const right = document.querySelector(".nav-right");
     if (!right) return;
@@ -81,10 +89,37 @@
     }
     if (session) {
       const name = (profile && profile.display_name) || session.user.email.split("@")[0];
-      el.href = "account.html";
       el.innerHTML = `<span class="dot${API.isMember() ? " member" : ""}"></span>${escapeHtml(name)}`;
       el.title = API.isMember() ? "Insider member" : "My account";
+      el.href = "#";
+      if (!el._ddWired) {
+        el._ddWired = true;
+        injectNavDD();
+        const wrap = document.createElement("div");
+        wrap.className = "nav-acct-wrap";
+        el.parentNode.insertBefore(wrap, el);
+        wrap.appendChild(el);
+        const dd = document.createElement("div");
+        dd.className = "nav-acct-dd";
+        dd.innerHTML = '<a href="account.html#profile" class="nav-acct-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Studio</a><button class="nav-acct-item nav-acct-so"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign out</button>';
+        wrap.appendChild(dd);
+        const clickH = e => { e.preventDefault(); dd.classList.toggle("open"); };
+        el._clickH = clickH;
+        el.addEventListener("click", clickH);
+        document.addEventListener("click", e => { if (!wrap.contains(e.target)) dd.classList.remove("open"); });
+        dd.querySelector(".nav-acct-so").addEventListener("click", async () => {
+          dd.classList.remove("open");
+          await API.signOut();
+          if (window.location.href.includes("account.html")) window.location.href = "index.html";
+        });
+      }
     } else {
+      if (el._ddWired) {
+        el._ddWired = false;
+        if (el._clickH) { el.removeEventListener("click", el._clickH); el._clickH = null; }
+        const wrap = right.querySelector(".nav-acct-wrap");
+        if (wrap) { wrap.parentNode.insertBefore(el, wrap); wrap.remove(); }
+      }
       el.href = "account.html";
       el.textContent = "My Studio";
       el.onclick = null;
