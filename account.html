@@ -11,6 +11,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css"/>
 <link rel="stylesheet" href="assets/css/roulette.css"/>
+<style>
+/* ── Profile identity enhancements ── */
+#profile { scroll-margin-top: 90px; }
+.studio-avatar { box-shadow: 0 0 0 3px var(--bg, #050508), 0 0 0 5px rgba(192,192,192,.3), 0 0 24px rgba(192,192,192,.1) !important; }
+.studio-name { font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 3.5vw, 32px); font-weight: 700; letter-spacing: -.01em; }
+.profile-insider-badge { display: inline-flex; align-items: center; font-size: 9.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(200,168,75,.95); border: 1px solid rgba(200,168,75,.3); border-radius: 20px; padding: 2px 9px; margin-left: 10px; vertical-align: middle; background: rgba(200,168,75,.06); }
+.profile-completion-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.profile-completion-track { flex: 1; max-width: 200px; height: 2px; background: rgba(255,255,255,.1); border-radius: 2px; overflow: hidden; }
+.profile-completion-fill { height: 100%; background: linear-gradient(90deg, rgba(192,192,192,.5), rgba(200,168,75,.8)); border-radius: 2px; transition: width .5s ease; }
+.profile-completion-pct { font-size: 11px; color: var(--muted); white-space: nowrap; }
+/* ── Profile form section cards ── */
+.acc-profile-section { background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 18px 18px 14px; margin-bottom: 14px; }
+.acc-profile-section-hd { font-family: 'Space Grotesk', sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; color: rgba(192,192,192,.6); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; gap: 7px; }
+.acc-profile-section-hd::before { content: ''; width: 3px; height: 11px; background: rgba(200,168,75,.65); border-radius: 2px; display: inline-block; }
+.profile-actions-bar { background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+</style>
 </head>
 <body>
 <div class="preload"><img class="mark" src="assets/img/logo-loader.png" alt=""></div>
@@ -49,7 +65,7 @@
   </div>
 
   <!-- PROFILE IDENTITY -->
-  <div class="studio-identity wrap">
+  <div class="studio-identity wrap" id="profile">
     <div class="studio-avatar-wrap">
       <div class="studio-avatar" id="studio-avatar-el">A</div>
       <label class="studio-avatar-edit" title="Change profile photo" for="avatar-file-input">
@@ -58,11 +74,15 @@
       <input type="file" id="avatar-file-input" accept="image/*" hidden>
     </div>
     <div class="studio-info">
-      <div class="studio-name" id="studio-name-el">‚Äî</div>
+      <div class="studio-name" id="studio-name-el">—<span id="profile-insider-badge" class="profile-insider-badge" hidden>INSIDER</span></div>
       <div class="studio-handle" id="studio-handle-el"></div>
       <div class="studio-genre-row" id="studio-genre-row"></div>
       <div class="studio-bio-el" id="studio-bio-el"></div>
       <div class="studio-links-row" id="studio-links-row"></div>
+      <div class="profile-completion-row" id="profile-completion-row" hidden>
+        <div class="profile-completion-track"><div class="profile-completion-fill" id="profile-completion-fill" style="width:0%"></div></div>
+        <span class="profile-completion-pct" id="profile-completion-pct">0% profile complete</span>
+      </div>
     </div>
     <div class="studio-head-actions">
       <div class="acc-status" id="acc-status"></div>
@@ -98,7 +118,7 @@
       <button data-panel="lyrics">Lyrics</button>
       <button data-panel="playlists">Playlists</button>
       <button data-panel="membership">Membership</button>
-      <button data-panel="settings">Settings</button>
+      <button data-panel="settings">Profile</button>
       <button data-panel="credits">Credits</button>
       <button data-panel="referral">Refer &amp; Earn</button>
     </div>
@@ -285,42 +305,50 @@
 
     <!-- ‚îÄ‚îÄ SETTINGS PANEL ‚îÄ‚îÄ -->
     <div class="acc-panel" data-panel="settings">
-      <div class="acc-panel-head"><h3>Studio settings</h3></div>
+      <div class="acc-panel-head"><h3>Artist Profile</h3></div>
       <form class="acc-profile" id="acc-profile-form" style="max-width:680px">
-        <div class="acc-prow">
-          <label>Display name<input name="display_name" maxlength="40" placeholder="How we greet you"></label>
-          <label>Artist / creator name<input name="artist_name" maxlength="60" placeholder="Your stage name (optional)"></label>
+        <div class="acc-profile-section">
+          <div class="acc-profile-section-hd">Identity</div>
+          <div class="acc-prow">
+            <label>Display name<input name="display_name" maxlength="40" placeholder="How we greet you"></label>
+            <label>Artist / creator name<input name="artist_name" maxlength="60" placeholder="Your stage name (optional)"></label>
+          </div>
+          <div class="acc-prow">
+            <label>Signal username<input name="username" maxlength="32" placeholder="e.g. awakings" pattern="[a-z0-9\-]+" title="Lowercase letters, numbers, hyphens only"></label>
+            <label>I'm here as<select name="role"><option value="">Choose...</option><option>Artist</option><option>Producer</option><option>Songwriter</option><option>Fan</option><option>Manager / Label</option></select></label>
+          </div>
         </div>
-        <div class="acc-prow">
-          <label>Signal username<input name="username" maxlength="32" placeholder="e.g. awakings" pattern="[a-z0-9\-]+" title="Lowercase letters, numbers, hyphens only"></label>
-          <label>I'm here as<select name="role">
-            <option value="">Choose‚Ä¶</option>
-            <option>Artist</option><option>Producer</option><option>Songwriter</option><option>Fan</option><option>Manager / Label</option>
-          </select></label>
+        <div class="acc-profile-section">
+          <div class="acc-profile-section-hd">Your Sound</div>
+          <div class="acc-prow">
+            <label>Genre 1<input name="genre_1" maxlength="30" placeholder="e.g. Afrobeats"></label>
+            <label>Genre 2<input name="genre_2" maxlength="30" placeholder="e.g. R&amp;B"></label>
+          </div>
+          <div class="acc-prow">
+            <label>Genre 3 (optional)<input name="genre_3" maxlength="30" placeholder="e.g. Trap"></label>
+            <label>Favourite genre (legacy)<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&amp;B, Drill"></label>
+          </div>
+          <label>Short bio<textarea name="bio" rows="3" maxlength="240" placeholder="2-3 lines about you and your sound"></textarea></label>
         </div>
-        <div class="acc-prow">
-          <label>Genre 1<input name="genre_1" maxlength="30" placeholder="e.g. Afrobeats"></label>
-          <label>Genre 2<input name="genre_2" maxlength="30" placeholder="e.g. R&B"></label>
+        <div class="acc-profile-section">
+          <div class="acc-profile-section-hd">Online Presence</div>
+          <div class="acc-prow">
+            <label>Instagram URL<input name="instagram" type="url" placeholder="https://instagram.com/..."></label>
+            <label>YouTube URL<input name="youtube" type="url" placeholder="https://youtube.com/..."></label>
+          </div>
+          <div class="acc-prow">
+            <label>Spotify URL<input name="spotify" type="url" placeholder="https://open.spotify.com/..."></label>
+            <label>Apple Music URL<input name="apple_music" type="url" placeholder="https://music.apple.com/..."></label>
+          </div>
+          <div class="acc-prow">
+            <label>TikTok URL<input name="tiktok" type="url" placeholder="https://tiktok.com/@..."></label>
+            <label>Booking / contact<input name="booking" type="url" placeholder="https://..."></label>
+          </div>
         </div>
-        <div class="acc-prow">
-          <label>Genre 3 (optional)<input name="genre_3" maxlength="30" placeholder="e.g. Trap"></label>
-          <label>Favourite genre (legacy)<input name="fav_genre" maxlength="40" placeholder="e.g. Afrobeats, R&B, Drill"></label>
+        <div class="profile-actions-bar">
+          <span class="acc-profile-note" id="acc-profile-note"></span>
+          <button type="submit" class="btn btn-primary">Save profile</button>
         </div>
-        <label>Short bio<textarea name="bio" rows="3" maxlength="240" placeholder="2‚Äì3 lines about you and your sound"></textarea></label>
-        <p class="signal-section-label" style="margin-top:8px;margin-bottom:0">Social links</p>
-        <div class="acc-prow">
-          <label>Instagram URL<input name="instagram" type="url" placeholder="https://instagram.com/‚Ä¶"></label>
-          <label>YouTube URL<input name="youtube" type="url" placeholder="https://youtube.com/‚Ä¶"></label>
-        </div>
-        <div class="acc-prow">
-          <label>Spotify URL<input name="spotify" type="url" placeholder="https://open.spotify.com/‚Ä¶"></label>
-          <label>Apple Music URL<input name="apple_music" type="url" placeholder="https://music.apple.com/‚Ä¶"></label>
-        </div>
-        <div class="acc-prow">
-          <label>TikTok URL<input name="tiktok" type="url" placeholder="https://tiktok.com/@‚Ä¶"></label>
-          <label>Booking / contact<input name="booking" type="url" placeholder="https://‚Ä¶"></label>
-        </div>
-        <div class="acc-profile-actions"><span class="acc-profile-note" id="acc-profile-note"></span><button type="submit" class="btn btn-primary">Save settings</button></div>
       </form>
     </div>
 
@@ -367,5 +395,43 @@
 <script src="assets/js/chatbot.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/radio-player.js"></script>
+<script>
+(function() {
+  if (window.location.hash === '#profile') {
+    document.addEventListener('DOMContentLoaded', function() {
+      var tab = document.querySelector('[data-panel="settings"]');
+      if (tab) tab.click();
+      var el = document.getElementById('profile');
+      if (el) setTimeout(function() { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+    });
+  }
+  function initProfileEnhancements() {
+    var sess = window.AWA_SESSION, prof = window.AWA_PROFILE;
+    if (!sess) return;
+    var badge = document.getElementById('profile-insider-badge');
+    if (badge) badge.hidden = !(prof && prof.is_member);
+    var compRow = document.getElementById('profile-completion-row');
+    var compFill = document.getElementById('profile-completion-fill');
+    var compPct = document.getElementById('profile-completion-pct');
+    if (compRow && compFill && compPct) {
+      compRow.hidden = false;
+      var fields = ['display_name', 'artist_name', 'username', 'bio', 'genre_1', 'instagram'];
+      var form = document.getElementById('acc-profile-form');
+      function calcCompletion() {
+        if (!form) return;
+        var filled = fields.filter(function(n) { return form[n] && form[n].value && form[n].value.trim(); }).length;
+        var pct = Math.round((filled / fields.length) * 100);
+        compFill.style.width = pct + '%';
+        compPct.textContent = pct + '% profile complete';
+      }
+      setTimeout(calcCompletion, 400);
+      if (form) form.addEventListener('input', calcCompletion);
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.AWAAuth) window.AWAAuth.onChange(initProfileEnhancements);
+  });
+})();
+</script>
 </body>
 </html>
