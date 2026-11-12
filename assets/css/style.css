@@ -44,7 +44,6 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-[hidden]{display:none!important}
 html{scroll-behavior:smooth;overflow-x:hidden}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -208,6 +207,13 @@ h1,h2,h3,h4{font-family:var(--ff-display);font-weight:600;line-height:1.02;lette
 .marquee span{font-family:var(--ff-display);font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:var(--silver-lo);display:inline-flex;align-items:center;gap:48px;white-space:nowrap}
 .marquee span::after{content:"◆";color:var(--line-strong);font-size:8px}
 @keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- SVS hero wrap (contact + roster intro) ---------- */
+.svs-wrap{position:relative;width:100%;overflow:hidden;background:#050508;display:flex;flex-direction:column;align-items:center}
+.svs-wrap>video{width:auto;max-width:280px;height:auto;max-height:200px;object-fit:contain;display:block;margin:20px auto 10px;opacity:.85}
+.svs-ticker{position:relative;width:100%;overflow:hidden;padding:14px 0;border-top:1px solid rgba(255,255,255,.08)}
+.svs-ticker span{display:inline-block;white-space:nowrap;font-family:var(--ff-display);font-size:12px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75);animation:marq 36s linear infinite}
+@media(max-width:640px){.svs-wrap>video{max-width:160px;max-height:140px}}
 
 /* ---------- Section shell ---------- */
 section{position:relative;z-index:1}
@@ -493,7 +499,6 @@ body.dir-up [data-reveal]:not(.in){transform:translateY(-16px)}
   .beat{grid-template-columns:auto 1fr;row-gap:12px}
   .gallery{columns:1}
   .section-head{flex-direction:column;align-items:flex-start}
-  .nav-insider-cta{display:none!important}
 }
 
 /* ---------- Custom cursor glow (desktop) ---------- */
