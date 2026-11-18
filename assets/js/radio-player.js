@@ -25,6 +25,7 @@ style.textContent = `
   position: fixed;
   bottom: 24px;
   right: 24px;
+  zoom: 0.75;
   z-index: 9900;
   display: flex;
   flex-direction: column;
@@ -53,7 +54,7 @@ style.textContent = `
 #awa-radio {
   box-shadow:
     0 12px 48px rgba(0,0,0,0.7),
-    0 0 calc(8px + var(--bass) * 40px) rgba(201,168,76, calc(var(--energy) * 0.6)),
+    0 0 calc(8px + var(--bass) * 40px) rgba(201,168,76, calc(var(--energy) * 0.18)),
     0 0 0 1px rgba(255,255,255,0.05) inset;
 }
 
@@ -64,7 +65,7 @@ style.textContent = `
   justify-content: center;
   align-items: center;
   padding: 16px 0 8px;
-  background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(201,168,76,0.018) 0%, transparent 70%);
 }
 #ar-sphere { display: block; border-radius: 50%; }
 
@@ -622,8 +623,8 @@ function drawSphereFull(bass, energy, t) {
   const glowR = SPHERE_R + 12 + bass * 28;
   const outerGlow = sCtx.createRadialGradient(S_CX, S_CY, SPHERE_R * 0.5, S_CX, S_CY, glowR + 30);
   const gc = bass > 0.3 ? `${Math.round(60 + bass*140)},${Math.round(100 + bass*68)},${Math.round(180 + bass*20)}` : '201,168,76';
-  outerGlow.addColorStop(0, `rgba(${gc},${(energy * 0.55 + 0.08).toFixed(2)})`);
-  outerGlow.addColorStop(0.5, `rgba(${gc},${(energy * 0.2).toFixed(2)})`);
+  outerGlow.addColorStop(0, `rgba(${gc},${(energy * 0.165 + 0.024).toFixed(2)})`);
+  outerGlow.addColorStop(0.5, `rgba(${gc},${(energy * 0.06).toFixed(2)})`);
   outerGlow.addColorStop(1, 'rgba(0,0,0,0)');
   sCtx.beginPath();
   sCtx.arc(S_CX, S_CY, glowR + 30, 0, Math.PI * 2);
