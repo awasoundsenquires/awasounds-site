@@ -777,6 +777,7 @@ function drawThumbs(){
 
 /* ── Init ────────────────────────────────────── */
 function init(){
+  if(window._lsInit) return; window._lsInit=true;
   buildStyleGrid();
   fillCovers();
   fillBeats();
@@ -2191,7 +2192,7 @@ function initDemoMedia(){
     DEMO_VIDS.forEach(function(d){
       var tile=document.createElement('div');
       tile.className='demo-tile';
-      tile.innerHTML='<video src="'+d.src+'" muted loop playsinline preload="none"></video><div class="demo-tile-lbl">'+d.lbl+'</div><div class="demo-badge" style="position:absolute;top:3px;right:3px">MP4</div>';
+      tile.innerHTML='<video src="'+d.src+'#t=0.1" muted loop playsinline preload="metadata"></video><div class="demo-tile-lbl">'+d.lbl+'</div><div class="demo-badge" style="position:absolute;top:3px;right:3px">MP4</div>';
       tile.addEventListener('mouseenter',function(){tile.querySelector('video').play().catch(function(){});});
       tile.addEventListener('mouseleave',function(){var v=tile.querySelector('video');v.pause();v.currentTime=0;});
       tile.addEventListener('click',function(){
@@ -2278,5 +2279,6 @@ function loadDemoImage(src,name){
 })();
 </script>
 <script src="assets/js/radio-player.js"></script>
+<script>(function(){function c(){var w=document.getElementById('awa-radio-wrap');if(w){w.classList.add('ar-collapsed');return true}return false}window.addEventListener('load',function(){if(!c())setTimeout(c,600)})})();</script>
 </body>
 </html>
