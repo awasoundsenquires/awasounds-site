@@ -1148,3 +1148,10 @@ footer{background:var(--bg-2);border-top:1px solid var(--line);padding:56px 0 36
 /* CTA gold override — sw-btn--primary uses --sw-ink which resolves to near-white for light accents */
 .sw-btn--primary{background:var(--gold,#d9c38f)!important;color:#050506!important;font-weight:700}
 .sw-btn--primary:hover{background:var(--gold-hi,#f3e4b8)!important;box-shadow:0 8px 24px rgba(217,195,143,.25)}
+
+/* nav polish: keep labels on one line, tighten spacing on laptop widths */
+.nav-links a,.awa-tools-btn,.nav-cta a,.nav-cta button{white-space:nowrap}
+@media (min-width:901px) and (max-width:1500px){.nav-links{gap:clamp(12px,1.4vw,22px)}.nav-links a,.awa-tools-btn{font-size:13px}}
+
+/* icons sit inline with text (the global img rule is display:block) */
+.aw-ico,img[src*="assets/img/icons/"]{display:inline-block}
