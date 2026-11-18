@@ -18,14 +18,14 @@ html,body{height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px}
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 
-/* â"€â"€ Gate (members only) â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Gate (members only) ───────────────────────────── */
 #gate{position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;text-align:center;padding:24px}
 #gate h2{font-size:22px}
 #gate p{color:var(--silver);max-width:360px;line-height:1.6;font-size:13px}
 .g-btn-gold{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:9px;padding:12px 26px;cursor:pointer;text-decoration:none;display:inline-block}
 .g-btn-ghost{background:none;border:1px solid var(--line);color:var(--silver);font-size:12px;border-radius:8px;padding:9px 18px;cursor:pointer;text-decoration:none;display:inline-block}
 
-/* â"€â"€ Mobile portrait gate â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Mobile portrait gate ──────────────────────────── */
 #rotate-gate{display:none;position:fixed;inset:0;background:#000000;z-index:1000;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:30px}
 #rotate-gate .ico{font-size:56px;animation:rotpulse 2s ease-in-out infinite}
 @keyframes rotpulse{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
@@ -35,7 +35,7 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
   #rotate-gate{display:flex}
 }
 
-/* â"€â"€ Nav â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Nav ───────────────────────────────────────────── */
 .nav{background:var(--bg2);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:10px 18px;height:46px;flex-shrink:0}
 .nav-back{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:.04em;font-family:'Space Grotesk',sans-serif;font-weight:600;padding:4px 10px;border:1px solid var(--line);border-radius:7px;transition:.15s;flex-shrink:0}
 .nav-back:hover{color:var(--hi);border-color:var(--silver)}
@@ -45,7 +45,7 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 .badge-member{font-size:9px;background:rgba(144,96,224,.15);color:var(--purple);border:1px solid rgba(144,96,224,.3);border-radius:100px;padding:3px 9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 
-/* â"€â"€ Split Panel Guide â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Split Panel Guide ─────────────────────────────── */
 .split-guide{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg2);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px 32px;max-width:480px;width:calc(100% - 40px);z-index:800;box-shadow:0 24px 80px rgba(0,0,0,.85);display:none}
 .split-guide.show{display:block}
 .split-guide-head{display:flex;align-items:center;gap:10px;margin-bottom:18px}
@@ -83,10 +83,10 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--hi)}
 .btn-preview:hover,.btn-preview.active{border-color:var(--gold);color:var(--gold)}
 .btn-export{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;border:none;border-radius:7px;padding:7px 14px;font-size:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
 
-/* â"€â"€ Shell â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Shell ─────────────────────────────────────────── */
 .shell{display:flex;height:calc(100vh - 82px);overflow:hidden}
 
-/* â"€â"€ Panels â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Panels ────────────────────────────────────────── */
 .panel{background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;flex-shrink:0}
 .panel::-webkit-scrollbar{width:4px}
 .panel::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
@@ -162,7 +162,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .hf-copy{margin-top:7px;background:none;border:1px solid rgba(144,96,224,.25);color:var(--purple);border-radius:5px;padding:5px 10px;font-size:10px;cursor:pointer;font-weight:600;width:100%;transition:.15s}
 .hf-copy:hover{background:rgba(144,96,224,.1)}
 
-/* â"€â"€ Canvas area â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Canvas area ───────────────────────────────────── */
 .canvas-area{flex:1;display:flex;flex-direction:column;align-items:center;background:#000;position:relative;overflow:hidden}
 .cw{width:100%;max-width:800px;position:relative;margin:auto}
 #cv{width:100%;display:block;background:#000}
@@ -183,7 +183,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .toast{position:fixed;bottom:18px;right:18px;background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12px;color:var(--hi);box-shadow:0 6px 24px rgba(0,0,0,.6);z-index:500;transform:translateY(120%);opacity:0;transition:.3s cubic-bezier(.2,2,.4,1)}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* â"€â"€ Save / Project bar â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Save / Project bar ─────────────────────── */
 .proj-bar{background:var(--bg3);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 18px;height:36px;flex-shrink:0;font-size:11px;margin-top:46px}
 .proj-name{font-weight:600;color:var(--hi);cursor:pointer;border:1px solid transparent;border-radius:5px;padding:2px 7px;transition:.15s;background:none;font-family:'Space Grotesk',sans-serif;font-size:12px}
 .proj-name:hover{border-color:var(--line);background:var(--bg2)}
@@ -209,7 +209,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .save-nudge.show{transform:translateY(0);opacity:1;pointer-events:auto}
 .save-nudge button{background:linear-gradient(135deg,#e0a030,#b07020);color:#040200;border:none;border-radius:6px;padding:5px 11px;font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;flex-shrink:0}
 
-/* â"€â"€ Video playlist â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Video playlist ─────────────────────────── */
 .vid-list{display:flex;flex-direction:column;gap:4px;margin-top:8px}
 .vid-item{display:flex;align-items:center;gap:7px;background:var(--bg4);border:1px solid var(--line);border-radius:7px;padding:6px 8px;font-size:10px;color:var(--silver);cursor:pointer;transition:.15s}
 .vid-item:hover{border-color:var(--silver)}
@@ -221,7 +221,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .vid-loop-row{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:10px;color:var(--muted)}
 .vid-loop-row label{cursor:pointer;display:flex;align-items:center;gap:4px}
 
-/* â"€â"€ Exit confirmation modal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Exit confirmation modal ────────────────── */
 .exit-modal{position:fixed;inset:0;background:rgba(7,7,15,.88);backdrop-filter:blur(8px);z-index:900;display:none;align-items:center;justify-content:center}
 .exit-modal.show{display:flex}
 .exit-box{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:28px 30px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.7)}
@@ -385,7 +385,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 <!-- Exit confirmation modal -->
 <div class="exit-modal" id="exit-modal">
   <div class="exit-box">
-    <div style="font-size:26px;margin-bottom:10px">âš ï¸</div>
+    <div style="font-size:26px;margin-bottom:10px">⚠️</div>
     <h3>Unsaved Changes</h3>
     <p>You have unsaved work in Lyric Studio. Save your project before leaving so you don't lose it.</p>
     <div style="font-size:11px;color:var(--muted);margin-bottom:14px">Save to which slot?</div>
@@ -395,7 +395,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       <div class="esp" id="esp-2" data-slot="2">Slot 3</div>
       <div class="esp" id="esp-3" data-slot="3">Slot 4</div>
     </div>
-    <div class="exit-saved-tag" id="exit-saved-tag">âœ" Saved! You can now leave safely.</div>
+    <div class="exit-saved-tag" id="exit-saved-tag">✔ Saved! You can now leave safely.</div>
     <div class="exit-btns">
       <button class="ebtn ebtn-save" id="ebtn-save">Save &amp; Stay</button>
       <button class="ebtn ebtn-leave" id="ebtn-leave">Leave Without Saving</button>
@@ -633,13 +633,13 @@ Every second getting full
 (function(){
 "use strict";
 
-/* â"€â"€ Slot constants (must be before checkAccess) â"€â"€ */
+/* ── Slot constants (must be before checkAccess) ── */
 const MAX_SLOTS_FREE      = 4;
 const MAX_SLOTS_UNLIMITED = 20;
 const MAX_SLOTS = (window.AWA_PROFILE && window.AWA_PROFILE.studio_unlimited) ? MAX_SLOTS_UNLIMITED : MAX_SLOTS_FREE;
 const STORE_PREFIX = 'awa_ls_slot_';
 
-/* â"€â"€ Access gate â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Access gate ─────────────────────────────── */
 function checkAccess(){
   const gate = document.getElementById('gate');
   if(!window.AWA_SESSION){
@@ -684,7 +684,7 @@ setTimeout(() => {
   }
 }, 0);
 
-/* â"€â"€ State â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── State ───────────────────────────────────── */
 const cv    = document.getElementById('cv');
 const ctx   = cv.getContext('2d');
 const W = 1280, H = 720;
@@ -706,7 +706,7 @@ let tickerOffset = 0;
 let glitchT = 0;
 let kinScale = 1, kinAngle = 0;
 
-/* â"€â"€ Styles definition â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Styles definition ───────────────────────── */
 const STYLES = [
   { id:'impact',    name:'Impact Word', sub:'One word, full frame', hf:'Ultra close-up slow-motion water droplets on glass, cinematic film grain, dark silver and charcoal palette, seamless loop, 4K, no text, premium music video backing' },
   { id:'mirror',    name:'Mirror Flip', sub:'Text + reflection', hf:'Dark concrete texture with subtle iridescent sheen, wet floor reflection, deep charcoal and steel blue, seamless loop, 4K, no text, underground hip-hop aesthetic' },
@@ -726,7 +726,7 @@ const STYLE_COLORS = {
   glitch:'#180000',minimal:'#080808'
 };
 
-/* â"€â"€ Build style grid â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Build style grid ────────────────────────── */
 function buildStyleGrid(){
   const grid = document.getElementById('style-grid');
   grid.innerHTML = STYLES.map(s => `
@@ -775,7 +775,7 @@ function drawThumbs(){
   });
 }
 
-/* â"€â"€ Init â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Init ────────────────────────────────────── */
 function init(){
   buildStyleGrid();
   fillCovers();
@@ -836,7 +836,7 @@ async function fillBeats(){
   });
 }
 
-/* â"€â"€ Wire UI â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Wire UI ─────────────────────────────────── */
 function wireUI(){
   // Drag-over visual feedback for all upload zones
   document.querySelectorAll('.upzone').forEach(zone=>{
@@ -1014,8 +1014,8 @@ function wireUI(){
   });
 }
 
-/* â"€â"€ Audio â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
-/* â"€â"€ Multi-layer audio (layers 1 + 2 are secondary, no BPM analysis) â"€â"€ */
+/* ── Audio ───────────────────────────────────── */
+/* ── Multi-layer audio (layers 1 + 2 are secondary, no BPM analysis) ── */
 const layerAudios = [null, null, null]; // indices 0=beat(primary), 1=vocals, 2=amb
 const layerMuted  = [false, false, false];
 
@@ -1132,7 +1132,7 @@ function syncLyric(){
   lyricIdx = Math.min(Math.floor(audio.currentTime/(audio.duration||1)*lyrics.length), lyrics.length-1);
 }
 
-/* â"€â"€ Playback â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Playback ─────────────────────────────────── */
 function togglePlay(){
   if(!audio){ toast('Load a beat first','info'); return; }
   if(isPlaying){ pause(); } else { play(); }
@@ -1157,7 +1157,7 @@ function setPlayBtns(p){
 
 function loop(){ if(!isPlaying)return; drawFrame(); raf=requestAnimationFrame(loop); }
 
-/* â"€â"€ Get amplitude â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Get amplitude ────────────────────────────── */
 function getAmp(){
   if(!analyser||!isPlaying) return 0;
   analyser.getByteFrequencyData(freqArr);
@@ -1166,7 +1166,7 @@ function getAmp(){
   return { bass, full, avg: (bass*0.7+full*0.3) };
 }
 
-/* â"€â"€ Draw â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Draw ─────────────────────────────────────── */
 function drawFrame(){
   const amp = getAmp();
   const a = amp.avg||0;
@@ -1200,7 +1200,7 @@ function drawFrame(){
   if(bassA>0.35) bdot.classList.add('on'); else bdot.classList.remove('on');
 }
 
-/* â"€â"€ Background â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Background ───────────────────────────────── */
 function drawBG(amp){
   ctx.save();
   if(bgEl){
@@ -1243,7 +1243,7 @@ function drawVignette(){
   ctx.fillStyle=vg; ctx.fillRect(0,0,W,H);
 }
 
-/* â"€â"€ Line helpers â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Line helpers ─────────────────────────────── */
 function line(off=0){ return lyrics[Math.min(Math.max(lyricIdx+off,0),lyrics.length-1)]||'AWA SOUNDS'; }
 function setFont(size,alpha){ ctx.font=`${fWeight} ${size}px ${fFont}`; ctx.globalAlpha=alpha*fOpacity; ctx.textAlign='center'; ctx.textBaseline='middle'; }
 function drawText(txt,x,y,col,scale=1){
@@ -1254,7 +1254,7 @@ function drawText(txt,x,y,col,scale=1){
   ctx.restore();
 }
 
-/* â"€â"€ STYLE: Impact Word â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Impact Word ───────────────────────── */
 function drawImpact(a, bass){
   const txt = line();
   const words = txt.split(/\s+/);
@@ -1276,7 +1276,7 @@ function drawImpact(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Mirror Flip â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Mirror Flip ───────────────────────── */
 function drawMirror(a, bass){
   const txt = line().toUpperCase();
   const scale = 1 + bass*0.08;
@@ -1302,7 +1302,7 @@ function drawMirror(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Ticker Band â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Ticker Band ───────────────────────── */
 function drawTicker(a){
   const txt = (' '+line().toUpperCase()+' \u2726').repeat(12);
   const sz = Math.round(fSize*0.9);
@@ -1328,7 +1328,7 @@ function drawTicker(a){
   ctx.restore(); ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Split Panel state â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Split Panel state ─────────────────── */
 let splitMedia = { x:40, y:60, w:Math.round(W*0.44), h:H-120, dragging:false, resizing:false, dragOX:0, dragOY:0 };
 let splitGuideShown = false;
 
@@ -1387,7 +1387,7 @@ function drawSplit(a, bass){
   const lx=Math.max(divX+32,W*0.52);
   const lw=W-lx-32;
   ctx.globalAlpha=0.4;
-  ctx.font='700 '+Math.round(fSize*0.26)+""px 'Space Grotesk',sans-serif"";
+  ctx.font='700 '+Math.round(fSize*0.26)+"px 'Space Grotesk',sans-serif";
   ctx.textAlign='left'; ctx.textBaseline='top'; ctx.fillStyle=txColor;
   ctx.fillText((lyrics[0]||'AWA SOUNDS').toUpperCase(),lx,52);
   const startI=Math.max(0,lyricIdx-1);
@@ -1410,7 +1410,7 @@ function drawSplit(a, bass){
   const iconY=H-46;
   const platforms=[{l:'Spotify',c:'#1DB954'},{l:'Apple Music',c:'#fc3c44'},{l:'YouTube',c:'#FF0000'},{l:'SoundCloud',c:'#ff5500'}];
   let ix=lx;
-  ctx.font=""600 10px 'Space Grotesk',sans-serif""; ctx.textBaseline='middle';
+  ctx.font="600 10px 'Space Grotesk',sans-serif"; ctx.textBaseline='middle';
   platforms.forEach(function(p){
     ctx.fillStyle=p.c; ctx.beginPath(); ctx.arc(ix+5,iconY,5,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='rgba(255,255,255,0.72)'; ctx.textAlign='left';
@@ -1429,7 +1429,7 @@ function drawSplit(a, bass){
   cv.addEventListener('touchstart',onDown,{passive:false});cv.addEventListener('touchmove',onMove,{passive:false});cv.addEventListener('touchend',onUp);
 })();
 
-/* â"€â"€ STYLE: Kinetic â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Kinetic ───────────────────────────── */
 function drawKinetic(a, bass){
   const txt = line();
   kinScale += ((1+bass*0.3)-kinScale)*0.15;
@@ -1452,7 +1452,7 @@ function drawKinetic(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Karaoke â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Karaoke ───────────────────────────── */
 function drawKaraoke(a, bass){
   const prev=line(-1), cur=line(), next=line(1);
   const sc=1+bass*0.1;
@@ -1470,7 +1470,7 @@ function drawKaraoke(a, bass){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Neon â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Neon ──────────────────────────────── */
 function drawNeon(a, bass){
   if(bass>0.25){
     for(let r=0;r<3;r++){
@@ -1487,7 +1487,7 @@ function drawNeon(a, bass){
   ctx.shadowBlur=0;
 }
 
-/* â"€â"€ STYLE: Cinematic â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Cinematic ────────────────────────── */
 function drawCinematic(a){
   const txt=line();
   const spacing = fSpacing + a*18;
@@ -1509,7 +1509,7 @@ function drawCinematic(a){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ STYLE: Glitch â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Glitch ───────────────────────────── */
 function drawGlitch(a){
   glitchT++;
   const txt = line().toUpperCase();
@@ -1527,7 +1527,7 @@ function drawGlitch(a){
   }
 }
 
-/* â"€â"€ STYLE: Minimal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── STYLE: Minimal ───────────────────────────── */
 function drawMinimal(a){
   const txt=line().toUpperCase();
   const alpha=(0.45+a*0.55)*fOpacity;
@@ -1539,7 +1539,7 @@ function drawMinimal(a){
   ctx.globalAlpha=1;
 }
 
-/* â"€â"€ Helpers â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Helpers ──────────────────────────────────── */
 function parseLyrics(txt){
   const raw=txt.split('\n').map(l=>l.trim()).filter(l=>l&&!l.startsWith('['));
   lyrics=raw;
@@ -1699,11 +1699,11 @@ function toast(msg, type){
   clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),3800);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════
    PROJECT SAVE / LOAD / AUTO-BACKUP / EXIT GUARD
    Storage: localStorage (key: awa_ls_slot_N)
    Max 2 slots per profile.
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ══════════════════════════════════════════════════ */
 
 // Slot constants declared at IIFE top so checkAccess() can reference them
 let isDirty = false;       // true after any user edit
@@ -1718,7 +1718,7 @@ function demoGuard(){
   return true;
 }
 
-/* â"€â"€ Save button state â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Save button state ────────────────────────────── */
 let nudgeTimer = null;
 function updateSaveBtn(){
   const btn = document.getElementById('btn-save-proj');
@@ -1740,7 +1740,7 @@ function updateSaveBtn(){
   }
 }
 
-/* â"€â"€ Ctrl+S shortcut â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Ctrl+S shortcut ──────────────────────────────── */
 document.addEventListener('keydown', e=>{
   if((e.ctrlKey||e.metaKey) && e.key==='s'){
     e.preventDefault();
@@ -1748,7 +1748,7 @@ document.addEventListener('keydown', e=>{
   }
 });
 
-/* â"€â"€ Serialise / restore â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Serialise / restore ──────────────────────────── */
 function serialiseProject(){
   return JSON.stringify({
     v: 2,
@@ -1795,7 +1795,7 @@ function restoreProject(data){
   } catch(e){ return false; }
 }
 
-/* â"€â"€ Slot UI â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Slot UI ──────────────────────────────────────── */
 function refreshSlotUI(){
   for(let i=0;i<MAX_SLOTS;i++){
     const raw = localStorage.getItem(STORE_PREFIX+i);
@@ -1830,7 +1830,7 @@ function refreshSlotUI(){
   }
 }
 
-/* â"€â"€ Save to slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Save to slot ─────────────────────────────────── */
 function saveToSlot(slot, silent){
   const payload = serialiseProject();
   localStorage.setItem(STORE_PREFIX+slot, payload);
@@ -1841,7 +1841,7 @@ function saveToSlot(slot, silent){
   if(!silent) toast('Saved to Slot '+(slot+1),'ok');
 }
 
-/* â"€â"€ Load from slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Load from slot ───────────────────────────────── */
 function loadFromSlot(slot){
   const raw = localStorage.getItem(STORE_PREFIX+slot);
   if(!raw){ toast('Slot '+(slot+1)+' is empty','info'); return; }
@@ -1852,7 +1852,7 @@ function loadFromSlot(slot){
   } else { toast('Could not read slot data',''); }
 }
 
-/* â"€â"€ Wire slot pills â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Wire slot pills ──────────────────────────────── */
 for(let i=0;i<MAX_SLOTS;i++){
   document.getElementById('slot-'+i).addEventListener('click',()=>{
     const raw = localStorage.getItem(STORE_PREFIX+i);
@@ -1861,7 +1861,7 @@ for(let i=0;i<MAX_SLOTS;i++){
   });
 }
 
-/* â"€â"€ Save button â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Save button ──────────────────────────────────── */
 document.getElementById('btn-save-proj').addEventListener('click',()=>{
   if(demoGuard()) return;
   if(activeSlot!==null){ saveToSlot(activeSlot); return; }
@@ -1871,10 +1871,10 @@ document.getElementById('btn-save-proj').addEventListener('click',()=>{
   saveToSlot(target);
 });
 
-/* â"€â"€ Project name editable â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Project name editable ────────────────────────── */
 document.getElementById('proj-name').addEventListener('change',()=>{ isDirty=true; updateSaveBtn(); });
 
-/* â"€â"€ Mark dirty on any UI change â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Mark dirty on any UI change ─────────────────── */
 ['lyr-ta','fsize','fweight','fspacing','fopacity','bg-blur','bg-dim',
  'bg-vig','bg-sat','tint-op','stroke-w','font-pick','sync-mode','lyr-offset',
  'custom-clr','flash-clr','stroke-clr','tint-clr'].forEach(id=>{
@@ -1885,7 +1885,7 @@ document.getElementById('style-grid').addEventListener('click',()=>{ isDirty=tru
 document.getElementById('bg-file').addEventListener('change',()=>{ isDirty=true; });
 document.getElementById('beat-file').addEventListener('change',()=>{ isDirty=true; });
 
-/* â"€â"€ Auto-backup every 2 min â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Auto-backup every 2 min ──────────────────────── */
 function startAutoBackup(){
   if(autoBackupTimer) clearInterval(autoBackupTimer);
   autoBackupTimer = setInterval(()=>{
@@ -1901,7 +1901,7 @@ function startAutoBackup(){
 }
 startAutoBackup();
 
-/* â"€â"€ Exit confirmation modal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Exit confirmation modal ──────────────────────── */
 let exitModalSaveSlot = activeSlot!==null ? activeSlot : 0;
 
 function showExitModal(onLeave){
@@ -1949,7 +1949,7 @@ document.getElementById('ebtn-stay').addEventListener('click',()=>{
   document.getElementById('ebtn-leave').style.color='var(--red)';
 });
 
-/* â"€â"€ beforeunload / page close/reload â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── beforeunload / page close/reload ─────────────── */
 window.addEventListener('beforeunload', e=>{
   if(!isDirty) return;
   // Show the browser's native dialog (required &#x2014; we cannot override this)
@@ -1962,7 +1962,7 @@ window.addEventListener('beforeunload', e=>{
   }, 300);
 });
 
-/* â"€â"€ Intercept in-site navigation links â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── Intercept in-site navigation links ──────────── */
 document.addEventListener('click', e=>{
   const a=e.target.closest('a[href]');
   if(!a||!isDirty) return;
@@ -1972,7 +1972,7 @@ document.addEventListener('click', e=>{
   showExitModal(()=>{ window.location.href=href; });
 });
 
-/* â"€â"€ On page load &#x2014; restore last slot â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* ── On page load &#x2014; restore last slot ────────────── */
 (function loadMostRecent(){
   let newest=-1, newestSlot=null;
   for(let i=0;i<MAX_SLOTS;i++){
