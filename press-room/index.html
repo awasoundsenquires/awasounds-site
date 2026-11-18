@@ -8,7 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Fredoka:wght@700&family=JetBrains+Mono:wght@700&family=Monoton&family=Oswald:wght@700&family=Pacifico&family=Permanent+Marker&family=Playfair+Display:wght@800&family=Press+Start+2P&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#07080b;--panel:#0f1014;--line:#23252c;--ink:#eceef2;--dim:#8a8f9a;--acc:#cfd6e0;--accText:#0a0b0e}
-html[data-mod=gold]{--bg:#070605;--panel:#100e0a;--line:#2a2418;--ink:#f3ecd9;--dim:#9a9078;--acc:#f2c14e;--accText:#1a1204}
+html[data-mode=gold]{--bg:#060504;--panel:#0d0b08;--line:#2b2417;--ink:#f6eedb;--dim:#a79a7c;--acc:#e0b765;--accText:#1a1204}
+html[data-mode=gold] header{background:linear-gradient(180deg,#140f07,#080604);border-bottom:1px solid #3a2f18}
+html[data-mode=gold] header b{background:linear-gradient(90deg,#f7e3a6,#d6a84c 55%,#f7e3a6);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-mode=gold] .seg button.on,html[data-mode=gold] button.pri,html[data-mode=gold] button.on{background:linear-gradient(180deg,#f4d98f,#c99a42);color:#1a1204;border-color:#e7c577;box-shadow:0 0 0 1px rgba(255,236,176,.25) inset,0 4px 14px rgba(214,168,76,.22)}
+html[data-mode=gold] button:hover{border-color:#e0b765;box-shadow:0 0 12px rgba(224,183,101,.18)}
+html[data-mode=gold] aside{background:linear-gradient(180deg,#0f0c08,#0a0806);border-left:1px solid #2b2417}
+html[data-mode=gold] h3,html[data-mode=gold] h4{color:#e0b765;letter-spacing:.14em}
+html[data-mode=gold] canvas#cv{border-color:#3a2f18;box-shadow:0 0 0 1px rgba(224,183,101,.15),0 18px 60px rgba(0,0,0,.65)}
+html[data-mode=gold] input[type=range]{accent-color:#d6a84c}
+#demoLockModal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px}#demoLockModal[hidden]{display:none}.dl-card{max-width:440px;background:var(--panel);border:1px solid var(--acc);border-radius:16px;padding:24px 26px;text-align:center;box-shadow:0 20px 70px rgba(0,0,0,.7)}.dl-card h2{margin:8px 0 6px;font-size:20px}.dl-card p{color:var(--dim);margin:6px 0;line-height:1.5}.dl-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}.dl-a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid var(--line);border-radius:6px;color:var(--ink);text-decoration:none}.dl-a:hover{border-color:var(--acc)}
+#demoBeats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0 8px}#demoBeats button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;padding:7px 9px;font-size:13px}#demoBeats button small{color:var(--dim);font-size:11px}#demoBeats button.on small{color:inherit;opacity:.75}#demoBeats button:last-child:nth-child(odd){grid-column:1/-1}
+body.demo #xgo,body.demo #png,body.demo #recAll{opacity:.5}#demoBox{border:1px solid var(--line);border-radius:10px;padding:2px 12px 12px;margin-bottom:6px}
 html[data-mode=studio]{--bg:#09090b;--panel:#111114;--line:#26262c;--ink:#f1f0ee;--dim:#8f8e96;--acc:#ff6a4d;--accText:#180502}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-sans-serif,system-ui,sans-serif}
@@ -84,17 +95,17 @@ small,.note{color:var(--dim);font-size:12px}
 
 <!-- Awa Sounds access gate -->
 <div id="pr-gate" style="position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:24px;text-align:center;font-family:'Space Grotesk',ui-sans-serif,sans-serif">
-  <div style="font-size:36px">&#x1F3AC;</div>
+  <div><img src="../assets/img/icons/media.png" alt="" style="width:56px;height:56px;vertical-align:-.3em;object-fit:contain"></div>
   <h2 id="prg-title" style="margin:0;font-size:22px;color:#f1f0ee">Motion Studio &#x2014; Insider Access</h2>
   <p id="prg-desc" style="color:#8a8f9a;max-width:360px;line-height:1.6;font-size:13px;margin:0">Motion Studio is Insider-only. Create a free account to get started &#x2014; upgrade when you&#x2019;re ready.</p>
   <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px 20px;max-width:400px;text-align:left">
     <div style="font-size:10px;letter-spacing:.1em;color:#7070a0;text-transform:uppercase;margin-bottom:10px;font-weight:600">What you get</div>
     <div style="display:flex;flex-direction:column;gap:7px">
-      <div style="font-size:12.5px;color:#b0b0d0">&#x1F3A5; <b style="color:#e0e0f0">Beat-reactive video effects</b> &#x2014; 4 Pressings + 15 Surface looks</div>
-      <div style="font-size:12.5px;color:#b0b0d0">&#x1F3A8; <b style="color:#e0e0f0">Lyric timeline editor</b> &#x2014; LRC / SRT import, drag &amp; resize</div>
-      <div style="font-size:12.5px;color:#b0b0d0">&#x1F4F9; <b style="color:#e0e0f0">Depth &amp; 3D camera</b> &#x2014; subject separation, glass elements</div>
-      <div style="font-size:12.5px;color:#b0b0d0">&#x1F4E4; <b style="color:#e0e0f0">HD &amp; 4K export</b> &#x2014; frame-perfect MP4, up to 4K</div>
-      <div style="font-size:12.5px;color:#b0b0d0">&#x2705; <b style="color:#e0e0f0">No downloads. No apps.</b> Runs in your browser.</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img src="../assets/img/icons/waves.png" alt="" style="width:1.25em;height:1.25em;vertical-align:-.3em;object-fit:contain"> <b style="color:#e0e0f0">Beat-reactive video effects</b> &#x2014; 4 Pressings + 15 Surface looks</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img src="../assets/img/icons/styles.png" alt="" style="width:1.25em;height:1.25em;vertical-align:-.3em;object-fit:contain"> <b style="color:#e0e0f0">Lyric timeline editor</b> &#x2014; LRC / SRT import, drag &amp; resize</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img src="../assets/img/icons/camera.png" alt="" style="width:1.25em;height:1.25em;vertical-align:-.3em;object-fit:contain"> <b style="color:#e0e0f0">Depth &amp; 3D camera</b> &#x2014; subject separation, glass elements</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img src="../assets/img/icons/export.png" alt="" style="width:1.25em;height:1.25em;vertical-align:-.3em;object-fit:contain"> <b style="color:#e0e0f0">HD &amp; 4K export</b> &#x2014; frame-perfect MP4, up to 4K</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img src="../assets/img/icons/check.png" alt="" style="width:1.25em;height:1.25em;vertical-align:-.3em;object-fit:contain"> <b style="color:#e0e0f0">No downloads. No apps.</b> Runs in your browser.</div>
     </div>
   </div>
   <a id="prg-cta-p" href="../account.html#membership" style="display:inline-block;background:#e0a030;color:#0a0806;border-radius:999px;padding:12px 28px;font-weight:700;font-size:14px;text-decoration:none;letter-spacing:.04em;margin-top:4px">Upgrade &#x2014; &#xA3;4.99/mo</a>
@@ -120,6 +131,13 @@ small,.note{color:var(--dim);font-size:12px}
 </div>
 <aside>
  <div id="tabs"></div>
+ <div id="demoBox">
+  <h3>TRY THE DEMO</h3>
+  <small class="note">No song yet? Pick one of five Awa Sounds beats and play with every tool.</small>
+  <div id="demoBeats"></div>
+  <div class="row"><button id="demoGo" class="pri">▶ Play demo</button></div>
+  <small class="note" id="demoNote"></small>
+ </div>
  <h3>1 · SONG</h3>
  <div class="row"><button id="songBtn" class="pri">Load your song</button><button id="liveBtn">Live mic</button></div>
  <input id="songIn" type="file" accept="audio/*" hidden>
@@ -127,7 +145,7 @@ small,.note{color:var(--dim);font-size:12px}
  <div class="row" style="margin-top:8px"><button id="markDrop">Mark drop here</button><button id="clearDrops">Clear drops</button></div>
 
  <h3>2 · ARTWORK</h3>
- <div class="row"><button id="artBtn">Artwork / video</button><button id="artReset">Demo</button></div>
+ <div class="row"><button id="artBtn">Artwork / video</button><button id="artReset">Default artwork</button></div>
  <input id="artIn" type="file" accept="image/*,video/*" hidden>
 
  <h3>3 · LYRICS</h3>
@@ -224,6 +242,7 @@ small,.note{color:var(--dim);font-size:12px}
 </aside>
 </main>
 <div id="tip"></div><div id="hole"></div><div id="tcard"></div><div id="shade"><div class="modal" id="modal"></div></div>
+<script src="../assets/js/demo-beats.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const cv=$('cv'),tl=$('tl'),tx=tl.getContext('2d');
@@ -242,8 +261,8 @@ const MODES={
   ['Mercury',['#04050a','#6f7a8a','#eef3fa','#cfe6ff']],['Graphite',['#030304','#3a3f48','#aab2bf','#ffffff']],
   ['Ice',['#02060c','#2f6288','#a9d7ff','#f2fbff']],['Platinum',['#0b0b0d','#8d8d92','#e9e9ec','#ffffff']],['Gunmetal',['#050608','#4a5666','#9db0c4','#d8f0ff']]]},
  gold:{tag:'Struck in gold, on the beat.',home:3,pals:[
-  ['Gold',['#040302','#7a5a14','#f2c14e','#fff0b8']],['Amber',['#070200','#8a3d00','#ffa21c','#ffe3a0']],
-  ['Bronze',['#0a0502','#5e3a1a','#c9863a','#ffd9a8']],['Black Gold',['#000000','#3d2e08','#d4a72c','#fff1b8']],['Honey',['#0a0600','#946a10','#ffd166','#fff6d6']]]}};
+  ['Gold',['#050403','#7d5a1c','#e3b855','#fff4cf']],['Champagne',['#060504','#5c4a2a','#cdb27a','#f7efdc']],
+  ['Rose Gold',['#080404','#6e3a32','#d9987f','#ffe6d8']],['Black Gold',['#000000','#2e2410','#c8a24a','#f6e7b4']],['Bronze',['#0a0502','#5e3a1a','#b9803a','#f0d3a8']]]}};
 const hexv=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255);
 
 // ================= looks =================
@@ -313,12 +332,13 @@ const RECIPES=[
  {m:'chrome',n:'Ice Trace',look:'Oil Trace',pal:'Ice',p:{size:3,con:.3,glow:.5,trail:.5}},
  {m:'chrome',n:'Steel Press',look:'Halftone',pal:'Gunmetal',p:{size:7,con:.2}},
  {m:'chrome',n:'Liquid Sort',look:'Pixel Sort',pal:'Platinum',l2:{look:'Mercury Dub',p:{},b:3,s:.6},p:{detail:.7,mix:0}},
+ {m:'gold',n:'Bullion Dots',look:'Halftone',pal:'Black Gold',l2:{look:'Gold Leaf',p:{},b:3,s:.5},p:{size:7,con:.2}},
+ {m:'gold',n:'Silk Trace',look:'Oil Trace',pal:'Champagne',p:{size:3,con:.3,glow:.4,trail:.5}},
  {m:'gold',n:'Gilded',look:'Gold Leaf',pal:'Gold',p:{}},
- {m:'gold',n:'Gold Type',look:'ASCII',pal:'Gold',gset:3,p:{size:7,con:.2,glow:.5}},
- {m:'gold',n:'Gold Survey',look:'Contour',pal:'Honey',p:{size:6,detail:.6,glow:.5}},
- {m:'gold',n:'Amber Bloom',look:'Heat',pal:'Amber',p:{size:6,glow:.7,con:.2}},
- {m:'gold',n:'Bronze Drag',look:'Pixel Sort',pal:'Bronze',p:{detail:.8,mix:0,con:.2}},
- {m:'gold',n:'Bullion Dots',look:'Halftone',pal:'Black Gold',l2:{look:'Gold Leaf',p:{},b:3,s:.5},p:{size:7,con:.2}}];
+ {m:'gold',n:'Liquid Gold',look:'Mercury Dub',pal:'Gold',p:{}},
+ {m:'gold',n:'Gold Type',look:'ASCII',pal:'Champagne',gset:3,p:{size:7,con:.2,glow:.4}},
+ {m:'gold',n:'Gold Survey',look:'Contour',pal:'Gold',p:{size:6,detail:.6,glow:.4}},
+ {m:'gold',n:'Rose Gilt',look:'Mercury Dub',pal:'Rose Gold',p:{}}];
 const S={clips:[],mode:'studio',look:4,home:4,auto:true,palIdx:0,inv:0,gset:0,motion:0,l2:{look:-1,p:{},b:0,s:.8},lo:0,hi:1,p:{...DEF},ratio:'16:9',scale:1,A:null,drops:[],plan:[],over:[],lines:[],live:false,dbg:true,art:null};
 try{const h=JSON.parse(localStorage.getItem('pr_home')||'{}');if(h.chrome!=null)MODES.chrome.home=h.chrome;if(h.gold!=null)MODES.gold.home=h.gold}catch(e){}
 
@@ -663,7 +683,7 @@ const toLRC=()=>S.lines.map(l=>`[${lrcT(l.t)}] ${l.s}`).join('\n'),toSRT=()=>S.l
 $('xlrc').onclick=()=>dl('lyrics.lrc',toLRC(),'text/plain');$('xsrt').onclick=()=>dl('lyrics.srt',toSRT(),'text/plain');
 const projOut=()=>JSON.stringify({v:1,clips:S.clips,lines:S.lines,mode:S.mode,look:S.look,home:S.home,p:S.p,palIdx:S.palIdx,inv:S.inv,gset:S.gset,motion:S.motion,l2:S.l2,ratio:S.ratio,x:window.__X?{...__X,showd:false}:{}},null,1);
 function projIn(d){clipDeselect();S.lines=d.lines||[];S.clips=d.clips||[];if(d.mode&&d.mode!==S.mode)setMode(d.mode);Object.assign(S,{look:d.look,home:d.home,p:d.p,palIdx:d.palIdx,inv:d.inv,gset:d.gset,motion:d.motion,l2:d.l2});if(window.__X)Object.assign(__X,d.x||{});LE.sel=-1;LE.edited=true;textKey='';renderPresets();syncSliders();renderPals();markLooks();syncExtras();renderLine();buildPlan()}
-$('psave').onclick=()=>dl('press-room-project.json',projOut(),'application/json');$('popen').onclick=()=>$('pin').click();$('pin').onchange=async e=>{const f=e.target.files[0];if(f)try{projIn(JSON.parse(await f.text()));msg('Project opened. Add your song and artwork again.')}catch(err){msg('That file is not a Motion Studio project.')}};
+$('psave').onclick=()=>dl('motion-studio-project.json',projOut(),'application/json');$('popen').onclick=()=>$('pin').click();$('pin').onchange=async e=>{const f=e.target.files[0];if(f)try{projIn(JSON.parse(await f.text()));msg('Project opened. Add your song and artwork again.')}catch(err){msg('That file is not a Motion Studio project.')}};
 document.fonts.ready.then(()=>{LE.fontTick=1;textKey=''});FONTS.forEach((f,i)=>{if(i)document.fonts.load(fontCss(i,40)).then(()=>{LE.fontTick=(LE.fontTick||0)+1;textKey=''})});
 cv.addEventListener('pointerdown',e=>{if(LE.drag&&LE.sel>=0)pushUndo()});
 cv.addEventListener('pointermove',e=>{if(e.buttons&&LE.drag&&LE.sel>=0){const r=cv.getBoundingClientRect();edit(l=>{l.x=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));l.y=Math.min(1,Math.max(0,(e.clientY-r.top)/r.height))},true)}});
@@ -768,9 +788,22 @@ function thumbs(){const st={t:12,k:.6,m:.5,h:.4,kickAge:.12,beatIdx:8,lyrIn:0,ho
 function levelsSnap(){lvx.drawImage(bgc,0,0,48,27);const d=lvx.getImageData(0,0,48,27).data,v=[];for(let i=0;i<d.length;i+=4)v.push((d[i]*.299+d[i+1]*.587+d[i+2]*.114)/255);v.sort((a,b)=>a-b);S.lo=v[Math.floor(v.length*.03)];S.hi=Math.max(S.lo+.2,v[Math.floor(v.length*.97)])}
 [...$('modeSeg').children].forEach(b=>b.onclick=()=>setMode(b.dataset.m));
 $('songBtn').onclick=()=>$('songIn').click();
-$('songIn').onchange=async e=>{const f=e.target.files[0];if(!f)return;msg('Reading the song…');
- try{if(S.live)stopLive();audio.src=URL.createObjectURL(f);const A=await analyse(f);S.A=A;S.drops=detectDrops();buildPlan();if(!LE.edited)parseLyrics();LE.v0=0;LE.v1=A.dur;$('xto').value=Math.floor(A.dur);xEstimate();
-  $('stats').textContent=`${A.bpm.toFixed(1)} BPM · ${A.bars.length} bars · ${S.drops.length} drop(s) · ${S.plan.length} sections`;msg('Ready. Press play. Fix drops on the timeline if needed.')}catch(err){msg('Could not read that file: '+err.message)}};
+async function loadSongFile(f,demo){msg('Reading the song…');
+ try{if(S.live)stopLive();audio.src=URL.createObjectURL(f);const A=await analyse(f);S.A=A;S.demo=!!demo;document.body.classList.toggle('demo',S.demo);if(demo&&!$('lyr').value.trim()){$('lyr').value=(window.AWA_DEMO_LYRICS||[]).join('\n');S.demoLyr=true}else if(!demo&&S.demoLyr&&$('lyr').value===(window.AWA_DEMO_LYRICS||[]).join('\n')){$('lyr').value='';S.demoLyr=false;LE.edited=false}S.drops=detectDrops();buildPlan();if(!LE.edited)parseLyrics();LE.v0=0;LE.v1=A.dur;$('xto').value=Math.floor(A.dur);xEstimate();
+  $('stats').textContent=`${demo?'DEMO · export locked · ':''}${A.bpm.toFixed(1)} BPM · ${A.bars.length} bars · ${S.drops.length} drop(s) · ${S.plan.length} sections`;msg('Ready. Press play. Fix drops on the timeline if needed.')}catch(err){msg('Could not read that file: '+err.message)}}
+$('songIn').onchange=e=>{const f=e.target.files[0];if(f)loadSongFile(f,false)};
+const DEMOS=window.AWA_DEMO_BEATS||[];let demoI=0;
+function showDemoLock(){let m=document.getElementById('demoLockModal');if(!m){m=document.createElement('div');m.id='demoLockModal';m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');m.setAttribute('aria-labelledby','dlT');
+ m.innerHTML='<div class="dl-card"><img src="../assets/img/icons/lock.png" alt="" width="64" height="64"><h2 id="dlT">Demo music can\'t be downloaded</h2><p>The demo beats are the property of Awa Sounds and are protected by copyright. Nobody can export, record or download a project that uses them, including us.</p><p>To export, load a song or beat you own, or one you have bought from the Awa Sounds Beat Store.</p><div class="dl-row"><button type="button" class="pri" id="dlOwn">Load my own song</button><a class="dl-a" href="../beat-store.html">Browse the Beat Store</a><button type="button" id="dlClose">Close</button></div></div>';
+ document.body.appendChild(m);const close=()=>{m.hidden=true;document.removeEventListener('keydown',esc)};const esc=e=>{if(e.key==='Escape')close()};m._esc=esc;
+ m.addEventListener('click',e=>{if(e.target===m)close()});m.querySelector('#dlClose').onclick=close;m.querySelector('#dlOwn').onclick=()=>{close();$('songBtn').click()}}
+ m.hidden=false;document.addEventListener('keydown',m._esc);m.querySelector('#dlOwn').focus()}
+function demoLocked(){if(!S.demo)return false;msg('Demo beat: export and downloads are locked.');showDemoLock();return true}
+async function loadDemo(i,play){const b=DEMOS[i];if(!b)return;demoI=i;[...$('demoBeats').children].forEach((c,k)=>c.classList.toggle('on',k===i));msg('Loading “'+b.name+'”, then reading the beat (about 10 seconds)…');
+ try{if(S.live)stopLive();const r=await fetch(b.url);if(!r.ok)throw new Error('HTTP '+r.status);const blob=await r.blob();await loadSongFile(new File([blob],b.name+' (demo).mp3',{type:blob.type||'audio/mpeg'}),true);if(play){ensureCtx();audio.currentTime=0;audio.play()}}catch(e){msg('Could not load the demo beat: '+e.message)}}
+(function(){const box=$('demoBeats');if(!box)return;if(!DEMOS.length){$('demoBox').hidden=true;return}$('demoNote').textContent=window.AWA_DEMO_NOTE||'';
+ DEMOS.forEach((b,i)=>{const c=document.createElement('button');c.type='button';c.innerHTML=b.name+'<small>'+b.genre+' · '+b.bpm+' BPM</small>';c.onclick=()=>loadDemo(i,true);box.appendChild(c)});
+ $('demoGo').onclick=()=>loadDemo(demoI,true)})();
 $('liveBtn').onclick=async()=>{try{ensureCtx();if(S.live){stopLive();return}audio.pause();micStream=await navigator.mediaDevices.getUserMedia({audio:true});const ms=actx.createMediaStreamSource(micStream);ms.connect(an);ms.connect(dest);micStream._n=ms;S.live=true;S.A=null;S.plan=[];S.over=[];$('liveBtn').classList.add('on');$('stats').textContent='Live: envelopes only. No drops or Press it.';msg('Live mode')}catch(e){msg('Mic blocked: '+e.message)}};
 function stopLive(){S.live=false;if(micStream){micStream._n.disconnect();micStream.getTracks().forEach(t=>t.stop());micStream=null}$('liveBtn').classList.remove('on')}
 $('play').onclick=()=>{if(S.live)return;ensureCtx();if(audio.paused){audio.play()}else{audio.pause()}};
@@ -780,13 +813,13 @@ $('clearDrops').onclick=()=>{S.drops=[];buildPlan()};
 $('dbg').onclick=()=>{S.dbg=!S.dbg;$('dbg').classList.toggle('on',S.dbg)};$('dbg').classList.add('on');
 tl.onclick=e=>{if(!S.A)return;const r=tl.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,t=LE.v0+x*(LE.v1-LE.v0);
  const hit=S.drops.findIndex(d=>Math.abs(d-t)<S.A.dur*.008);if(hit>=0&&e.shiftKey){S.drops.splice(hit,1);buildPlan();return}audio.currentTime=t};
-$('png').onclick=()=>{const a=document.createElement('a');a.download=`press-room-${S.mode}.png`;a.href=cv.toDataURL('image/png');a.click()};
+$('png').onclick=()=>{if(demoLocked())return;const a=document.createElement('a');a.download=`motion-studio-${S.mode}.png`;a.href=cv.toDataURL('image/png');a.click()};
 let rec=null,chunks=[];
-$('recAll').onclick=()=>{const b=$('recAll');if(rec){rec.stop();return}if(!S.A){msg('Load a song first.');return}ensureCtx();
+$('recAll').onclick=()=>{const b=$('recAll');if(rec){rec.stop();return}if(demoLocked())return;if(!S.A){msg('Load a song first.');return}ensureCtx();
  const st=cv.captureStream(30);dest.stream.getAudioTracks().forEach(t=>st.addTrack(t));
  const mt=['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'].find(m=>MediaRecorder.isTypeSupported(m));
  rec=new MediaRecorder(st,{mimeType:mt,videoBitsPerSecond:14e6});chunks=[];rec.ondataavailable=e=>e.data.size&&chunks.push(e.data);
- rec.onstop=()=>{const a=document.createElement('a');a.download=`press-room-${S.mode}-${new Date().toISOString().slice(0,10)}.${mt.includes('mp4')?'mp4':'webm'}`;a.href=URL.createObjectURL(new Blob(chunks,{type:mt.split(';')[0]}));a.click();rec=null;lblSet('recAll','Quick record');b.classList.remove('rec');audio.onended=null;msg('Saved.')};
+ rec.onstop=()=>{const a=document.createElement('a');a.download=`motion-studio-${S.mode}-${new Date().toISOString().slice(0,10)}.${mt.includes('mp4')?'mp4':'webm'}`;a.href=URL.createObjectURL(new Blob(chunks,{type:mt.split(';')[0]}));a.click();rec=null;lblSet('recAll','Quick record');b.classList.remove('rec');audio.onended=null;msg('Saved.')};
  audio.currentTime=0;audio.play();rec.start(30000);lblSet('recAll','■ Stop & save');b.classList.add('rec');audio.onended=()=>rec&&rec.stop()};
 
 // ================= timeline / debug overlay =================
@@ -1067,16 +1100,16 @@ function xBitrate(w,h,f){return Math.min(90e6,Math.round(w*h*f*.26))}
 function xEstimate(){const [a,b]=xRange(),sh=+$('xres').value,f=+$('xfps').value,[w,h]=RAT[S.ratio],k=sh/1080,mb=xBitrate(w*k,h*k,f)*(b-a)/8e6;$('xest').textContent=S.A?`${fmt(b-a)} long, about ${mb>900?(mb/1024).toFixed(1)+' GB':Math.round(mb/5)*5+' MB'}. Every frame is rendered, so slower computers take longer, never choppier.`:'Load a song to export.'}
 ['xres','xfps','xfrom','xto'].forEach(i=>$(i).addEventListener('input',xEstimate));$('xrange').onchange=e=>{$('xpart').style.display=e.target.value==='sel'?'grid':'none';xEstimate()};
 function xModal(){modal.innerHTML='<h2>Exporting your video</h2><p id="xs">Getting ready…</p><div style="height:10px;background:#000;border-radius:5px;overflow:hidden;margin-bottom:12px"><div id="xb" style="height:100%;width:0;background:var(--acc)"></div></div><p style="font-size:12px">Keep this tab open. You can use other apps meanwhile.</p><div class="row"><button id="xc">Cancel</button></div>';shade.style.display='flex';$('xc').onclick=()=>{EXP.cancel=true;$('xs').textContent='Cancelling…'}}
-async function exportVideo(o={}){if(EXP.on)return null;if(!S.A){msg('Load a song first.');return null}if(!window.VideoEncoder||!window.AudioEncoder){msg('This browser cannot export. Use Chrome or Edge, or Quick record.');return null}
- const mb=await import('./vendor/mediabunny.mjs'),short=o.res||+$('xres').value,fps=o.fps||+$('xfps').value,[from,to]=o.range||xRange(),A=S.A;clipDeselect();audio.pause();
+async function exportVideo(o={}){if(demoLocked())return null;if(EXP.on)return null;if(!S.A){msg('Load a song first.');return null}if(!window.VideoEncoder||!window.AudioEncoder){msg('This browser cannot export. Use Chrome or Edge, or Quick record.');return null}
+ let mb;try{mb=await import('./vendor/mediabunny.mjs')}catch(err){msg('Could not load the export engine. Check your connection and try again.');return null}const short=o.res||+$('xres').value,fps=o.fps||+$('xfps').value,[from,to]=o.range||xRange(),A=S.A;clipDeselect();audio.pause();
  const prevScale=S.scale,[bw,bh]=RAT[S.ratio],k=short/1080,w=Math.round(bw*k/2)*2,h=Math.round(bh*k/2)*2,bitrate=xBitrate(w,h,fps);
  if(!await mb.canEncodeVideo('avc',{width:w,height:h,bitrate})){msg('This computer cannot encode at that size. Try a lower resolution.');return null}
  const acodec=(await mb.canEncodeAudio('aac'))?'aac':'opus';
  EXP.on=true;EXP.cancel=false;const onLeave=e=>{e.preventDefault();e.returnValue=''};addEventListener('beforeunload',onLeave);xModal();
  const total=Math.round((to-from)*fps),t0=performance.now();let out=null,fh=null,ws=null,input=null,it=null,cur=null,result=null,err=null,dirRoot=null;
- const name=`press-room-${S.mode}-${short}p${fps}.mp4`;
+ const name=`motion-studio-${S.mode}-${short}p${fps}.mp4`;
  try{S.scale=k;setSize();R.k=R.m=R.h=0;
-  let target;try{dirRoot=await navigator.storage.getDirectory();fh=await dirRoot.getFileHandle('press-room-export.mp4',{create:true});ws=await fh.createWritable();target=new mb.StreamTarget(ws,{chunked:true})}catch(e){fh=null;ws=null;target=new mb.BufferTarget()}
+  let target;try{dirRoot=await navigator.storage.getDirectory();fh=await dirRoot.getFileHandle('motion-studio-export.mp4',{create:true});ws=await fh.createWritable();target=new mb.StreamTarget(ws,{chunked:true})}catch(e){fh=null;ws=null;target=new mb.BufferTarget()}
   out=new mb.Output({format:new mb.Mp4OutputFormat({fastStart:ws?false:'in-memory'}),target});
   const vs=new mb.CanvasSource(cv,{codec:'avc',bitrate,keyFrameInterval:2});out.addVideoTrack(vs,{frameRate:fps});
   const as=new mb.AudioBufferSource({codec:acodec,bitrate:192e3});out.addAudioTrack(as);await out.start();
