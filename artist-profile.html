@@ -116,7 +116,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 <div class="profile-main">
   <div class="profile-block">
     <div class="profile-avatar-wrap">
-      <div class="profile-avatar-ph" id="avatar-ph">🎵</div>
+      <div class="profile-avatar-ph" id="avatar-ph"><img class="aw-ico" src="/assets/img/icons/music.png" alt="" width="44" height="44"></div>
       <img class="profile-avatar" id="avatar-img" src="" alt="" style="display:none">
     </div>
     <div class="profile-meta">
@@ -275,7 +275,7 @@ function renderMusicLinks(links){
   const tree = document.createElement("div"); tree.className="link-tree";
   links.forEach(l=>{
     const a=document.createElement("a"); a.className="ltree-link"; a.href=l.url; a.target="_blank"; a.rel="noopener";
-    const icon = SOCIAL_ICONS[l.platform]||"🎵";
+    const icon = SOCIAL_ICONS[l.platform]||'<img class="aw-ico" src="/assets/img/icons/music.png" alt="" width="20" height="20">';
     const iconHTML = typeof icon==="string"&&icon.startsWith("<svg") ? icon : `<span>${icon}</span>`;
     a.innerHTML=`<div class="lico">${iconHTML}</div><div class="ltxt"><span>${l.title||l.url}</span><small>${l.subtitle||l.platform||""}</small></div><div class="larr">→</div>`;
     tree.appendChild(a);
@@ -312,7 +312,7 @@ function renderPortfolio(p){
     h.textContent="Cover Art"; pane.appendChild(h);
     const g=document.createElement("div"); g.className="purchases-grid";
     covers.forEach(c=>{
-      g.innerHTML+=`<div class="purch-card"><div class="purch-img" style="background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px">🖼️</div><div class="purch-body"><div class="purch-title">${esc(c.title||"")}</div><div class="purch-type">Cover Art</div></div></div>`;
+      g.innerHTML+=`<div class="purch-card"><div class="purch-img" style="background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px"><img class="aw-ico" src="/assets/img/icons/picture.png" alt="" width="36" height="36"></div><div class="purch-body"><div class="purch-title">${esc(c.title||"")}</div><div class="purch-type">Cover Art</div></div></div>`;
     });
     pane.appendChild(g);
   }
@@ -321,7 +321,7 @@ function renderPortfolio(p){
     h2.textContent="Licensed Beats"; pane.appendChild(h2);
     const g2=document.createElement("div"); g2.className="purchases-grid";
     beats.forEach(b=>{
-      g2.innerHTML+=`<div class="purch-card"><div class="purch-img" style="background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px">🎵</div><div class="purch-body"><div class="purch-title">${esc(b.title||"")}</div><div class="purch-type">Beat License</div></div></div>`;
+      g2.innerHTML+=`<div class="purch-card"><div class="purch-img" style="background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:28px"><img class="aw-ico" src="/assets/img/icons/music.png" alt="" width="36" height="36"></div><div class="purch-body"><div class="purch-title">${esc(b.title||"")}</div><div class="purch-type">Beat License</div></div></div>`;
     });
     pane.appendChild(g2);
   }

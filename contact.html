@@ -101,7 +101,7 @@
     try{
       var res=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{Accept:"application/json"},body:data});
       var out=await res.json();
-      if(out.success){ status.style.color="var(--gold)"; status.textContent="✓ Received. We read everything and reply to what moves us."; form.reset(); }
+      if(out.success){ status.style.color="var(--gold)"; status.innerHTML='<img class="aw-ico" src="/assets/img/icons/check.png" alt=""> Received. We read everything and reply to what moves us.'; form.reset(); }
       else{ status.style.color="#e8637a"; status.textContent=out.message||"Something went wrong. Email us directly."; }
     }catch(err){ status.style.color="#e8637a"; status.textContent="Network error. Email awasoundsenquires@gmail.com directly."; }
     btn.disabled=false;

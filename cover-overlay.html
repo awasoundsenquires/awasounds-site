@@ -112,7 +112,7 @@ input[type=range]{accent-color:var(--gold);width:100%;cursor:pointer;margin-top:
 <body>
 
 <div id="gate" style="display:none">
-  <div style="font-size:32px">✦</div>
+  <div><img class="aw-ico" src="/assets/img/icons/sparkle.png" alt="" width="40" height="40"></div>
   <h2>Members Only</h2>
   <p>The Cover Personaliser is available to all registered Awa Sounds members. Sign up free &#x2014; no membership required.</p>
   <a href="account.html" class="g-btn-gold">Sign In / Register</a>
@@ -139,9 +139,9 @@ input[type=range]{accent-color:var(--gold);width:100%;cursor:pointer;margin-top:
       <div class="sec-lbl">Your Cover Image</div>
       <div class="upzone" id="upzone">
         <input type="file" id="img-input" accept="image/*">
-        <div class="uz-ico">🖼️</div>
+        <div class="uz-ico"><img class="aw-ico" src="/assets/img/icons/picture.png" alt="" width="36" height="36"></div>
         <div class="uz-txt">Drop your cover art here<br><b>or click to upload</b><br><span style="font-size:9px;opacity:.6">JPG, PNG, WEBP &#xB7; up to 20MB</span></div>
-        <div class="uz-loaded" id="uz-ok" style="display:none">✓ Image loaded</div>
+        <div class="uz-loaded" id="uz-ok" style="display:none"><img class="aw-ico" src="/assets/img/icons/check.png" alt=""> Image loaded</div>
       </div>
       <img id="cover-thumb" class="cover-thumb" alt="">
       <p style="font-size:10px;color:var(--muted);margin-top:8px;line-height:1.5">Already purchased a cover? Upload it here to personalise it with your name and title.</p>
@@ -175,7 +175,7 @@ input[type=range]{accent-color:var(--gold);width:100%;cursor:pointer;margin-top:
     <div class="canvas-wrap" id="canvas-wrap">
       <canvas id="mc" width="1000" height="1000"></canvas>
       <div class="no-img-msg" id="no-img-msg">
-        <div class="ico">🎨</div>
+        <div class="ico"><img class="aw-ico" src="/assets/img/icons/styles.png" alt="" width="36" height="36"></div>
         <p>Upload your cover to begin</p>
       </div>
     </div>
@@ -335,7 +335,7 @@ function renderLayerPanels(){
     div.innerHTML=`
       <div class="text-row-head">
         <span class="text-row-label">Layer ${idx+1}</span>
-        <button class="text-row-del" data-del="${L.id}">✕</button>
+        <button class="text-row-del" data-del="${L.id}" aria-label="Delete line"><img class="aw-ico" src="/assets/img/icons/cross.png" alt="" width="12" height="12"></button>
       </div>
       <input class="text-input" type="text" value="${L.text.replace(/"/g,"&quot;")}" placeholder="Your text..." data-field="text" data-lid="${L.id}">
       <div class="row-grid">
@@ -488,7 +488,7 @@ function renderSlots(){
 
   slots.forEach((s,i)=>{
     const div=document.createElement("div"); div.className="slot";
-    div.innerHTML=`<div><div class="slot-name">${s.name||"Project "+(i+1)}</div><div class="slot-meta">${new Date(s.ts).toLocaleDateString()}</div></div><div class="slot-actions"><button class="slot-btn" data-load="${i}">Load</button><button class="slot-btn del" data-del="${i}">✕</button></div>`;
+    div.innerHTML=`<div><div class="slot-name">${s.name||"Project "+(i+1)}</div><div class="slot-meta">${new Date(s.ts).toLocaleDateString()}</div></div><div class="slot-actions"><button class="slot-btn" data-load="${i}">Load</button><button class="slot-btn del" data-del="${i}" aria-label="Delete project"><img class="aw-ico" src="/assets/img/icons/cross.png" alt="" width="12" height="12"></button></div>`;
     list.appendChild(div);
   });
 
