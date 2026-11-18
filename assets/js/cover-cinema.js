@@ -1,6 +1,6 @@
-﻿            /* cover-cinema.js \u2014 scroll-world scrub engine config for the Cover Art Store
+            /* cover-cinema.js - scroll-world scrub engine config for the Cover Art Store
    Drops the scrub-engine's mountScrollWorld into #cover-world.
-   Still images are used now; add clip/clipMobile URLs when Higgsfield dive
+   Still images are used now; add clip/clipMobile URLs when dive
    videos are generated for each series. */
 (function () {
   if (typeof window.mountScrollWorld !== 'function') return;
@@ -109,9 +109,9 @@
     connectorsMobile: []
   });
 
-  /* â”€â”€ Series filter bridge â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  /* ── Series filter bridge ───────────────────────────────────────────────
      The engine renders one .sw-copy per section, in order.
-     Map section index â†’ series filter button and fire it on CTA click. */
+     Map section index → series filter button and fire it on CTA click. */
   var SERIES_ORDER = ['chrome-universe', 'void', 'gold-season', 'flux', 'earth-chrome'];
   el.addEventListener('click', function (e) {
     var a = e.target.closest('.sw-btn[href="#cover-grid"]');
