@@ -423,6 +423,14 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       <div class="uz-txt"><b>Drop video or image</b><br>MP4, MOV, JPG, PNG</div>
       <div class="uz-loaded" id="bg-loaded" style="display:none"></div>
     </div>
+    <div class="cr" style="margin-top:8px">
+      <label>Background fit</label>
+      <select class="ls-sel" id="bg-fit" style="width:auto;margin-top:0" onchange="setBgFit(this.value)">
+        <option value="fill">Fill (crop)</option>
+        <option value="fit">Fit (no crop)</option>
+        <option value="blur">Blur fill</option>
+      </select>
+    </div>
     <div class="vid-list" id="vid-list" style="display:none"></div>
     <div class="vid-loop-row" id="vid-loop-row" style="display:none">
       <label><input type="checkbox" id="vid-loop-all" checked/> Loop playlist</label>
@@ -525,6 +533,16 @@ Every second getting full
         <option value="linear">Linear (auto)</option>
         <option value="beat" selected>Beat-locked</option>
         <option value="manual">Manual stamps</option>
+      </select>
+    </div>
+    <div class="cr">
+      <label>Line length</label>
+      <select class="ls-sel" id="lyr-bars" style="width:auto;margin-top:0">
+        <option value="0">Spread over song</option>
+        <option value="1">1 bar</option>
+        <option value="2" selected>2 bars</option>
+        <option value="4">4 bars</option>
+        <option value="8">8 bars</option>
       </select>
     </div>
     <div class="cr">
@@ -840,7 +858,7 @@ async function fillBeats(){
       list.querySelectorAll('.bi').forEach(b=>b.classList.remove('on'));
       el.classList.add('on');
       const src = el.dataset.src;
-      if(src){ demoBeatActive = false; loadAudio(src, el.querySelector('.bi-name').textContent); }
+      if(src){ demoBeatActive = false; window._bpmOverride = null; loadAudio(src, el.querySelector('.bi-name').textContent); }
       else toast('No preview URL for this beat yet','info');
     });
   });
@@ -1111,6 +1129,7 @@ function detectBPMFromFile(src){
         bpm=Math.round(60/(diffs.reduce((a,b)=>a+b)/diffs.length));
         bpm=Math.min(Math.max(bpm,50),220);
       } else { bpm=120; }
+      if(window._bpmOverride) bpm = window._bpmOverride;
       document.getElementById('bpm-lbl').textContent=bpm+' BPM';
       renderBeatMarkers();
       ctx2.close();
@@ -1139,7 +1158,14 @@ function onTimeUpdate(){
 
 function syncLyric(){
   if(!audio||!lyrics.length) return;
-  lyricIdx = Math.min(Math.floor(audio.currentTime/(audio.duration||1)*lyrics.length), lyrics.length-1);
+  var offEl = document.getElementById('lyr-offset'), barsEl = document.getElementById('lyr-bars');
+  var t = Math.max(0, audio.currentTime + ((parseFloat(offEl && offEl.value) || 0) / 1000));
+  var nb = barsEl ? parseInt(barsEl.value, 10) : 0;
+  if(nb > 0 && bpm > 0){
+    lyricIdx = Math.floor(t / ((240 / bpm) * nb)) % lyrics.length;
+  } else {
+    lyricIdx = Math.min(Math.floor(t / (audio.duration || 1) * lyrics.length), lyrics.length - 1);
+  }
 }
 
 /* ── Playback ─────────────────────────────────── */
@@ -1238,11 +1264,14 @@ function drawBG(amp){
 function fillCover(el){
   const ew=el.videoWidth||el.naturalWidth||el.width, eh=el.videoHeight||el.naturalHeight||el.height;
   if(!ew||!eh){ ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H); return; }
-  const ar=ew/eh, ca=W/H;
+  const ar=ew/eh, ca=W/H, mode=window._bgFit||'fill';
   let dw,dh,dx,dy;
-  if(ar>ca){ dh=H; dw=dh*ar; dx=(W-dw)/2; dy=0; }
-  else { dw=W; dh=dw/ar; dx=0; dy=(H-dh)/2; }
-  ctx.drawImage(el,dx,dy,dw,dh);
+  const cover=()=>{ if(ar>ca){ dh=H; dw=dh*ar; dx=(W-dw)/2; dy=0; } else { dw=W; dh=dw/ar; dx=0; dy=(H-dh)/2; } };
+  if(mode==='fill'){ cover(); ctx.drawImage(el,dx,dy,dw,dh); return; }
+  if(mode==='blur'){
+    const prev=ctx.filter; cover(); ctx.filter='blur(34px) brightness(.55)'; ctx.drawImage(el,dx-40,dy-40,dw+80,dh+80); ctx.filter=prev;
+  } else { ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H); }
+  const sc=Math.min(W/ew,H/eh); dw=ew*sc; dh=eh*sc; ctx.drawImage(el,(W-dw)/2,(H-dh)/2,dw,dh);
 }
 
 function drawVignette(){
@@ -1595,8 +1624,21 @@ function showExport(){
         <h3 style="font-family:'Space Grotesk',sans-serif;color:var(--hi);margin-bottom:6px;text-align:center">Export Your Lyric Video</h3>
         <p style="font-size:12px;color:var(--silver);line-height:1.6;margin-bottom:18px;text-align:center">1280&times;720 HD &mdash; records your animation and downloads it directly. No screen recorder needed.</p>
         <div id="exp-controls" style="margin-bottom:16px">
-          <button id="btn-rec-start" onclick="startExportRec()" style="width:100%;padding:13px;background:var(--hi);color:#000;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:.02em">&#x25cf;&nbsp; Record &amp; Download</button>
-          <p style="font-size:11px;color:var(--muted);text-align:center;line-height:1.6;margin-top:10px">Press <b style="color:var(--silver)">Play</b> first to start your animation, then click Record. Hit Stop when done &mdash; the video downloads automatically as <b style="color:var(--silver)">.mp4</b> (plays on all platforms &amp; social apps).</p>
+          <label for="exp-len" style="display:block;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Length</label>
+          <select id="exp-len" style="width:100%;padding:10px;margin-bottom:12px;background:var(--bg3);color:var(--text);border:1px solid var(--line);border-radius:8px;font-size:13px">
+            <option value="15">First 15 seconds</option>
+            <option value="30" selected>First 30 seconds</option>
+            <option value="60">First 60 seconds</option>
+            <option value="0">Whole song</option>
+          </select>
+          <button id="btn-rec-start" onclick="startExportRec('download')" style="width:100%;padding:13px;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:.02em;background:var(--hi);color:#000;margin-bottom:8px">Download MP4</button>
+          <button id="btn-rec-preview" onclick="startExportRec('preview')" style="width:100%;padding:13px;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:.02em;background:transparent;color:var(--text);border:1px solid var(--line)">Preview first</button>
+          <p style="font-size:11px;color:var(--muted);text-align:center;line-height:1.6;margin-top:10px">Recording runs in real time with sound, so a 30-second clip takes 30 seconds. Keep this tab open. If Chrome asks to allow downloads, choose <b style="color:var(--silver)">Allow</b>.</p>
+        </div>
+        <div id="exp-preview" style="display:none;margin-bottom:16px">
+          <video id="exp-video" controls playsinline style="width:100%;border-radius:10px;background:#000;display:block"></video>
+          <button onclick="downloadPreview()" style="width:100%;padding:13px;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:.02em;background:var(--hi);color:#000;margin-top:12px">Download MP4</button>
+          <button onclick="discardPreview()" style="width:100%;padding:13px;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:.02em;background:transparent;color:var(--text);border:1px solid var(--line);margin-top:8px">Record again</button>
         </div>
         <div id="exp-recording" style="display:none;text-align:center;margin-bottom:16px">
           <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
@@ -1620,7 +1662,9 @@ function showExport(){
   }
 }
 
-function startExportRec(){
+function startExportRec(mode){
+  window._exportMode = mode || 'download';
+  var lenEl = document.getElementById('exp-len'); var lenSec = lenEl ? (parseInt(lenEl.value,10)||0) : 0;
   const canvas = document.getElementById('cv');
   if(!canvas){ toast('Canvas not ready','err'); return; }
   if(!window.MediaRecorder){ toast('Recording not supported in this browser','err'); return; }
@@ -1641,32 +1685,27 @@ function startExportRec(){
     recChunks = [];
     mediaRecorder.ondataavailable = e => { if(e.data && e.data.size > 0) recChunks.push(e.data); };
     mediaRecorder.onstop = async () => {
-      clearInterval(window._recTimer);
-      if(mp4Mime){
-        clearInterval(window._recTimer);
-        downloadLyricVideo(new Blob(recChunks, { type: 'video/mp4' }), 'mp4');
-        toast('Saved as .mp4','ok');
-        var emz=document.getElementById('export-modal'); if(emz){ emz.classList.remove('rec-mini'); var ecz=document.getElementById('exp-controls'), erz=document.getElementById('exp-recording'); if(ecz) ecz.style.display=''; if(erz) erz.style.display='none'; }
-        return;
-      }
-      const webmBlob = new Blob(recChunks, { type: 'video/webm' });
+      clearInterval(window._recTimer); clearTimeout(window._recStop);
+      if(window._recGuard){ window.removeEventListener('beforeunload', window._recGuard); window._recGuard = null; }
       const er = document.getElementById('exp-recording');
-      const ec = document.getElementById('exp-controls');
-      if(er) er.innerHTML = '<div style="text-align:center;padding:16px 0"><div style="margin-bottom:8px"><img src="assets/img/icons/sparkle.png" alt="" width="40" height="40" style="vertical-align:-.2em;object-fit:contain"></div><div style="color:var(--gold);font-weight:700;font-family:\'Space Grotesk\',sans-serif;font-size:14px">Converting to MP4&hellip;</div><div style="font-size:11px;color:var(--silver);margin-top:4px">Encoding locally &#x2014; no upload needed</div></div>';
       if(recAudioDest){ try{ if(analyser) analyser.disconnect(recAudioDest); }catch(e){} recAudioDest=null; }
-      try {
-        const mp4Blob = await convertWebmToMp4(webmBlob);
-        downloadLyricVideo(mp4Blob, 'mp4');
-      } catch(e) {
-        console.warn('MP4 conversion failed, using WebM:', e);
-        downloadLyricVideo(webmBlob, 'webm');
-        toast('Saved as .webm &#x2014; MP4 conversion unavailable in this browser','info');
+      let blob, ext;
+      if(mp4Mime){
+        blob = new Blob(recChunks, { type: 'video/mp4' }); ext = 'mp4';
+      } else {
+        const webmBlob = new Blob(recChunks, { type: 'video/webm' });
+        if(er) er.innerHTML = '<div style="text-align:center;padding:16px 0"><div style="margin-bottom:8px"><img src="assets/img/icons/sparkle.png" alt="" width="40" height="40" style="vertical-align:-.2em;object-fit:contain"></div><div style="color:var(--gold);font-weight:700;font-family:\'Space Grotesk\',sans-serif;font-size:14px">Converting to MP4&hellip;</div><div style="font-size:11px;color:var(--silver);margin-top:4px">Encoding locally &#x2014; no upload needed</div></div>';
+        try { blob = await convertWebmToMp4(webmBlob); ext = 'mp4'; }
+        catch(e){ console.warn('MP4 conversion failed, using WebM:', e); blob = webmBlob; ext = 'webm'; toast('This browser cannot make MP4 here. Use Chrome for MP4. Saved as .webm','info'); }
       }
-      if(ec) ec.style.display = '';
-      if(er) er.style.display = 'none';
-      var emy=document.getElementById('export-modal'); if(emy) emy.classList.remove('rec-mini');
+      finishExport(blob, ext);
     };
+    if(audio){ try{ audio.currentTime = 0; }catch(e){} } lyricIdx = 0;
     mediaRecorder.start(200);
+    window._recGuard = function(e){ e.preventDefault(); e.returnValue = ''; };
+    window.addEventListener('beforeunload', window._recGuard);
+    clearTimeout(window._recStop); if(lenSec > 0) window._recStop = setTimeout(stopExportRec, lenSec*1000);
+    if(audio) audio.addEventListener('ended', function(){ stopExportRec(); }, { once:true });
     var emx=document.getElementById('export-modal'); if(emx) emx.classList.add('rec-mini');
     window._recT0=Date.now(); clearInterval(window._recTimer);
     window._recTimer=setInterval(function(){ var sec=Math.floor((Date.now()-window._recT0)/1000), el=document.getElementById('rec-label'); if(el) el.textContent='Recording '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'); },500);
@@ -1681,6 +1720,28 @@ function startExportRec(){
   }
 }
 
+function finishExport(blob, ext){
+  var em = document.getElementById('export-modal'); if(em) em.classList.remove('rec-mini');
+  var ec = document.getElementById('exp-controls'), er = document.getElementById('exp-recording'), pv = document.getElementById('exp-preview');
+  if(er){ er.style.display = 'none'; }
+  window._lastExport = { blob: blob, ext: ext };
+  if(window._exportMode === 'preview' && pv){
+    var v = document.getElementById('exp-video');
+    if(window._expUrl) URL.revokeObjectURL(window._expUrl);
+    window._expUrl = URL.createObjectURL(blob);
+    v.src = window._expUrl; pv.style.display = ''; if(ec) ec.style.display = 'none';
+  } else {
+    downloadLyricVideo(blob, ext); toast('Saved as .' + ext, 'ok'); if(ec) ec.style.display = '';
+  }
+}
+window.downloadPreview = function(){ var x = window._lastExport; if(x){ downloadLyricVideo(x.blob, x.ext); toast('Saved as .' + x.ext, 'ok'); } };
+window.discardPreview = function(){
+  var pv = document.getElementById('exp-preview'), ec = document.getElementById('exp-controls'), v = document.getElementById('exp-video');
+  if(v){ v.pause(); v.removeAttribute('src'); v.load(); }
+  if(window._expUrl){ URL.revokeObjectURL(window._expUrl); window._expUrl = null; }
+  window._lastExport = null;
+  if(pv) pv.style.display = 'none'; if(ec) ec.style.display = '';
+};
 function stopExportRec(){
   if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
 }
@@ -2245,6 +2306,7 @@ function initDemoMedia(){
         chips.querySelectorAll('.dchip').forEach(function(x){x.classList.remove('on');});
         el.classList.add('on');
         demoBeatActive=true;
+        window._bpmOverride=b.bpm;
         loadAudio(b.url, b.name+' (Demo)');
       });
       chips.appendChild(el);
@@ -2288,6 +2350,7 @@ function loadDemoImage(src,name){
 
 
 /* inline onclick handlers in the export dialog need these on window */
+window.setBgFit = function(v){ window._bgFit = v; if(!isPlaying) drawFrame(); };
 window.startExportRec = startExportRec;
 window.stopExportRec = stopExportRec;
 })();
