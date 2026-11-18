@@ -129,11 +129,11 @@
     let social = {};
     try { social = p.social_links ? JSON.parse(p.social_links) : {}; } catch(e) {}
     const linkDefs = [
-      { key:"instagram", label:"Instagram", icon:"&#x1F4F8;" },
-      { key:"youtube",   label:"YouTube",   icon:"&#x25B6;" },
-      { key:"spotify",   label:"Spotify",   icon:"&#x1F3B5;" },
-      { key:"tiktok",    label:"TikTok",    icon:"&#x266A;" },
-      { key:"booking",   label:"Booking",   icon:"&#x1F4E9;" }
+      { key:"instagram", label:"Instagram", icon:'<img class="aw-ico" src="/assets/img/icons/camera.png" alt="" width="16" height="16">' },
+      { key:"youtube",   label:"YouTube",   icon:'<img class="aw-ico" src="/assets/img/icons/media.png" alt="" width="16" height="16">' },
+      { key:"spotify",   label:"Spotify",   icon:'<img class="aw-ico" src="/assets/img/icons/music.png" alt="" width="16" height="16">' },
+      { key:"tiktok",    label:"TikTok",    icon:'<img class="aw-ico" src="/assets/img/icons/music.png" alt="" width="16" height="16">' },
+      { key:"booking",   label:"Booking",   icon:'<img class="aw-ico" src="/assets/img/icons/envelope.png" alt="" width="16" height="16">' }
     ];
     linksEl.innerHTML = linkDefs
       .filter(d => social[d.key])
@@ -345,7 +345,7 @@
       const title = esc(post.link_title || post.link_url);
       const domain = (() => { try { return new URL(post.link_url).hostname; } catch(e) { return post.link_url; } })();
       mediaHtml = `<a class="post-link-card" href="${esc(post.link_url)}" target="_blank" rel="noopener">
-        <span class="link-icon">&#x1F517;</span>
+        <span class="link-icon"><img class="aw-ico" src="/assets/img/icons/link.png" alt="" width="22" height="22"></span>
         <span class="link-text"><b>${title}</b><small>${esc(domain)}</small></span>
       </a>`;
     }

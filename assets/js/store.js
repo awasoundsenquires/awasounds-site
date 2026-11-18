@@ -485,7 +485,7 @@
       <div class="cup-grid">${matched.map(c=>`
         <a href="cover-store.html?id=${c.id}" class="cup-card">
           <div class="cup-img" style="background:var(--bg3)">
-            ${c.img?`<img src="${c.img}" alt="${esc(c.title)}" loading="lazy">`:'<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:28px">&#x1F5BC;</div>'}
+            ${c.img?`<img src="${c.img}" alt="${esc(c.title)}" loading="lazy">`:'<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:28px"><img class="aw-ico" src="/assets/img/icons/picture.png" alt="" width="36" height="36"></div>'}
           </div>
           <div class="cup-info">
             <div class="cup-name">${esc(c.title)}</div>

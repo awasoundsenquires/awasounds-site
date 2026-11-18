@@ -880,7 +880,7 @@ el.innerHTML = `
 el.querySelector(".cs-notify").addEventListener("click", function() {
 if (this.classList.contains("notified")) return;
 this.classList.add("notified");
-this.textContent = "Notified ✓";
+this.textContent = "Notified";
 });
 
 grid.appendChild(el);

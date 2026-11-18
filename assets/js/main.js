@@ -228,23 +228,23 @@
           <span><b>My Studio</b><small>Profile, posts &amp; Signal</small></span>
         </a>
         <a href="account.html#signal" role="menuitem" class="atm-member-hint">
-          <span class="atm-icon">&#x26A1;</span>
+          <span class="atm-icon"><img class="aw-ico" src="/assets/img/icons/bolt.png" alt="" width="22" height="22"></span>
           <span><b>The Signal</b><small>Your link-in-bio page</small></span>
         </a>
         <a href="lyric-studio.html" role="menuitem">
-          <span class="atm-icon">&#x270D;</span>
+          <span class="atm-icon"><img class="aw-ico" src="/assets/img/icons/styles.png" alt="" width="22" height="22"></span>
           <span><b>Lyric Studio</b><small>Write to any beat</small></span>
         </a>
         <a href="press-room/index.html" role="menuitem">
-          <span class="atm-icon">&#x1F3AC;</span>
-          <span><b>Press Room</b><small>Beat-reactive video effects</small></span>
+          <span class="atm-icon"><img class="aw-ico" src="/assets/img/icons/media.png" alt="" width="22" height="22"></span>
+          <span><b>Motion Studio</b><small>Beat-reactive video effects</small></span>
         </a>
         <a href="studio.html" role="menuitem">
-          <span class="atm-icon">&#x1F399;</span>
+          <span class="atm-icon"><img class="aw-ico" src="/assets/img/icons/mic.png" alt="" width="22" height="22"></span>
           <span><b>Recording Studio</b><small>Book a session</small></span>
         </a>
         <div class="atm-coming">
-          <span class="atm-icon">&#x2726;</span>
+          <span class="atm-icon"><img class="aw-ico" src="/assets/img/icons/sparkle.png" alt="" width="22" height="22"></span>
           <span><b>More tools coming</b><small>Beat builder, mixer &amp; more</small></span>
         </div>
       </div>`;

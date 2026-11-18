@@ -594,7 +594,7 @@
             </div>
             <div class="pq-info">
               <div class="pq-name">${q.title}</div>
-              <div class="pq-meta">${isLive?"⚡ LIVE NOW":isSold?"✓ Sold — "+q.winning_bid+" cr":isPassed?"Passed":"Queued"}</div>
+              <div class="pq-meta">${isLive?'<img class="aw-ico" src="/assets/img/icons/bolt.png" alt=""> LIVE NOW':isSold?'<img class="aw-ico" src="/assets/img/icons/check.png" alt=""> Sold — '+q.winning_bid+" cr":isPassed?"Passed":"Queued"}</div>
             </div>
             ${isLive?'<div class="pq-live-dot"></div>':""}
           </div>`;
@@ -634,7 +634,7 @@
         if (!snipeBannerShown && h === 0 && m === 0 && s <= 60) {
           snipeBannerShown = true;
           const warn = $("#snipe-warning");
-          if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Last 60 seconds — new bids reset the clock!"; }
+          if (warn) { warn.style.display = "flex"; warn.innerHTML = '<img class="aw-ico" src="/assets/img/icons/bolt.png" alt=""> Last 60 seconds — new bids reset the clock!'; }
         }
         updateItemPrice(item, auctionId);
       },
@@ -725,7 +725,7 @@
           item.extended_until = result.new_close;
           liveItem = item;
           const warn = $("#snipe-warning");
-          if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Bid in last 60s — clock reset to 60s!"; setTimeout(() => warn.style.display = "none", 8000); }
+          if (warn) { warn.style.display = "flex"; warn.innerHTML = '<img class="aw-ico" src="/assets/img/icons/bolt.png" alt=""> Bid in last 60s — clock reset to 60s!'; setTimeout(() => warn.style.display = "none", 8000); }
         }
         item.winning_bid = bidAmt;
         minBid = bidAmt + item.bid_increment;
@@ -836,7 +836,7 @@
             if (fresh.extended_until && fresh.extended_until !== liveItem.extended_until) {
               liveItem.extended_until = fresh.extended_until;
               const warn = $("#snipe-warning");
-              if (warn) { warn.style.display = "flex"; warn.textContent = "⚡ Bid in last 60s — clock reset to 60s!"; setTimeout(() => warn.style.display = "none", 8000); }
+              if (warn) { warn.style.display = "flex"; warn.innerHTML = '<img class="aw-ico" src="/assets/img/icons/bolt.png" alt=""> Bid in last 60s — clock reset to 60s!'; setTimeout(() => warn.style.display = "none", 8000); }
             }
           });
       } else {

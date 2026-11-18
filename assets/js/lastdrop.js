@@ -35,13 +35,13 @@
 
     let icon, msg;
     if (item.type === "cover") {
-      icon = "🖼️";
+      icon = '<img class="aw-ico" src="/assets/img/icons/picture.png" alt="" width="22" height="22">';
       msg = `Someone from <b>${item.loc}</b> just purchased <b>${item.name}</b> cover art`;
     } else if (item.type === "member") {
-      icon = "✦";
+      icon = '<img class="aw-ico" src="/assets/img/icons/sparkle.png" alt="" width="22" height="22">';
       msg = `Someone from <b>${item.loc}</b> just became an <b>Insider Member</b>`;
     } else {
-      icon = "🎵";
+      icon = '<img class="aw-ico" src="/assets/img/icons/music.png" alt="" width="22" height="22">';
       const tierStr = item.tier ? ` <span class="ld-tier">${item.tier}</span>` : "";
       msg = `Someone from <b>${item.loc}</b> just licensed <b>${item.name}</b>${tierStr}`;
     }

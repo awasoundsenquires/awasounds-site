@@ -199,7 +199,7 @@
     loading.style.display = "none";
     root.style.display = "";
     root.innerHTML = `<div class="sig-not-found">
-      <div style="font-size:48px">&#x26A1;</div>
+      <div><img class="aw-ico" src="/assets/img/icons/bolt.png" alt="" width="56" height="56"></div>
       <h2>Signal not found</h2>
       <p>${esc(msg)}</p>
       <a class="btn btn-ghost" href="index.html" style="margin-top:20px;display:inline-flex">Back to Awa Sounds</a>
