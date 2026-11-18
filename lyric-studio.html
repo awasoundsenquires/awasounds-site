@@ -247,6 +247,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 .i3d{width:1.5em;height:1.5em;object-fit:contain;vertical-align:-.45em;margin-right:4px}
 .dl-pri{background:linear-gradient(135deg,#e8e8f0,#9a9ab0);color:#0a0a10;font-weight:700}#demoLockModal{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.74);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px}#demoLockModal[hidden]{display:none}.dl-card{max-width:440px;background:#0c0c12;border:1px solid rgba(200,168,75,.5);border-radius:16px;padding:24px 26px;text-align:center;color:#e8e8f0;box-shadow:0 20px 70px rgba(0,0,0,.7)}.dl-card img{display:block;margin:0 auto}.dl-card h2{margin:8px 0 6px;font-size:20px}.dl-card p{color:#a8a8c0;margin:6px 0;line-height:1.5;font-size:14px}.dl-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}.dl-row button,.dl-a{padding:9px 14px;border-radius:8px;border:1px solid #2a2a3a;background:#16161f;color:#e8e8f0;font:inherit;font-size:13px;cursor:pointer;text-decoration:none}.dl-row .dl-pri{border:0}
 .demo-quick{width:100%;padding:11px;border:0;border-radius:9px;background:linear-gradient(135deg,#f0f0f6,#9a9ab2);color:#0a0a10;font-weight:700;font-size:13px;letter-spacing:.04em;cursor:pointer;margin-bottom:6px}.demo-quick:hover{filter:brightness(1.08)}.demo-hint,.demo-note{font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:10px}.demo-note{margin:10px 0 0;padding-top:8px;border-top:1px solid var(--line)}.demo-sub{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:4px 0 5px}#demo-beat-chips{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px}#demo-beat-chips .dchip{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.03);color:inherit;font:inherit;font-size:12px;cursor:pointer}#demo-beat-chips .dchip small{color:var(--muted);font-size:10px}#demo-beat-chips .dchip.on{border-color:#c0c0d0;background:rgba(200,200,220,.12)}#demo-beat-chips .dchip:last-child:nth-child(odd){grid-column:1/-1}
+#export-modal.rec-mini{inset:auto 0 22px 0 !important;background:transparent !important;padding:0 !important;align-items:flex-end !important;pointer-events:none !important}#export-modal.rec-mini>div{pointer-events:auto;max-width:340px !important;padding:14px 18px !important;border-color:rgba(226,34,34,.55) !important;box-shadow:0 10px 40px rgba(0,0,0,.6)}#export-modal.rec-mini>div>*:not(#exp-recording){display:none !important}#export-modal.rec-mini #exp-recording{margin:0 !important}#export-modal.rec-mini #exp-recording p{margin-bottom:10px !important}
 </style>
 </head>
 <body>
@@ -1600,7 +1601,7 @@ function showExport(){
         <div id="exp-recording" style="display:none;text-align:center;margin-bottom:16px">
           <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
             <span style="width:11px;height:11px;background:#e22;border-radius:50%;display:inline-block;animation:recpulse 1s ease-in-out infinite"></span>
-            <span style="color:#e22;font-weight:700;font-size:14px;font-family:'Space Grotesk',sans-serif">Recording&hellip;</span>
+            <span style="color:#e22;font-weight:700;font-size:14px;font-family:'Space Grotesk',sans-serif" id="rec-label">Recording&hellip;</span>
           </div>
           <p style="font-size:11px;color:var(--silver);margin-bottom:14px">Your animation is being captured in real time.</p>
           <button onclick="stopExportRec()" style="width:100%;padding:12px;background:none;border:1px solid #e22;color:#e22;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Space Grotesk',sans-serif">&#x25a0;&nbsp; Stop &amp; Download</button>
@@ -1639,6 +1640,7 @@ function startExportRec(){
     recChunks = [];
     mediaRecorder.ondataavailable = e => { if(e.data && e.data.size > 0) recChunks.push(e.data); };
     mediaRecorder.onstop = async () => {
+      clearInterval(window._recTimer);
       const webmBlob = new Blob(recChunks, { type: 'video/webm' });
       const er = document.getElementById('exp-recording');
       const ec = document.getElementById('exp-controls');
@@ -1654,8 +1656,12 @@ function startExportRec(){
       }
       if(ec) ec.style.display = '';
       if(er) er.style.display = 'none';
+      var emy=document.getElementById('export-modal'); if(emy) emy.classList.remove('rec-mini');
     };
     mediaRecorder.start(200);
+    var emx=document.getElementById('export-modal'); if(emx) emx.classList.add('rec-mini');
+    window._recT0=Date.now(); clearInterval(window._recTimer);
+    window._recTimer=setInterval(function(){ var sec=Math.floor((Date.now()-window._recT0)/1000), el=document.getElementById('rec-label'); if(el) el.textContent='Recording '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'); },500);
     const ec = document.getElementById('exp-controls');
     const er = document.getElementById('exp-recording');
     if(ec) ec.style.display = 'none';
