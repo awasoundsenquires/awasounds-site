@@ -84,7 +84,7 @@
       if (idx < MAX) setTimeout(next, 13000);
     }
 
-    setTimeout(next, 7000);
+    /* disabled: toasts used sample data, not real purchases. Re-enable only with real order data. */
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
