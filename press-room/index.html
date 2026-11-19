@@ -141,6 +141,7 @@ small,.note{color:var(--dim);font-size:12px}
  <h3>STARTERS</h3>
  <small class="note">One click sets the frame shape, a look and a palette for the genre. Change anything after.</small>
  <div class="row" id="starters" style="flex-wrap:wrap"></div>
+ <div class="row"><button id="reroll" type="button">Reroll</button><button id="saveLook" type="button">Save my look</button><button id="useLook" type="button">Use my look</button></div>
  <h3>1 · SONG</h3>
  <div class="row"><button id="songBtn" class="pri">Load your song</button><button id="liveBtn">Live mic</button></div>
  <input id="songIn" type="file" accept="audio/*" hidden>
@@ -170,7 +171,7 @@ small,.note{color:var(--dim);font-size:12px}
   <label class="sl">Size<input id="lsize" type="range" min="0.4" max="2.5" step="0.01"><output></output></label>
   <label class="sl">Across<input id="lx" type="range" min="0" max="1" step="0.01"><output></output></label>
   <label class="sl">Up / down<input id="ly" type="range" min="0" max="1" step="0.01"><output></output></label>
-  <div class="row"><button id="ldrag">Drag on picture</button><button id="lcaps">CAPS</button><button id="lout">Outline</button><button id="lplate" class="on">Backing</button></div>
+  <div class="row"><button id="ldrag">Drag on picture</button><button id="lcaps">CAPS</button><button id="lout">Outline</button><button id="lplate">Backing</button></div>
   <div class="row" style="margin-top:6px;align-items:center"><input id="lcol" type="color" value="#ffffff" style="width:40px;height:32px;padding:0;background:none;border:0"><button id="lcolauto">Auto colour</button></div>
   <div class="row" style="margin-top:6px"><button id="lall">Style all lines like this</button><button id="ldup">Duplicate</button><button id="ldel">Delete</button></div>
  </div>
@@ -240,6 +241,18 @@ small,.note{color:var(--dim);font-size:12px}
  <div class="two"><select id="glass"></select><select id="gpos"><option value="0">Behind subject</option><option value="1">In front</option><option value="2">Both</option></select></div>
  <label class="sl">Glass size<input id="gsize" type="range" min="0.4" max="2" step="0.01" value="1"><output>1</output></label>
  <label class="sl">Refraction<input id="gref" type="range" min="0" max="1" step="0.01" value="0.5"><output>0.5</output></label>
+ <label class="sl">How many (0 = auto)<input id="gcount" type="range" min="0" max="8" step="1" value="0"><output>0</output></label>
+ <div class="two"><select id="gmode"><option value="0">Moves: Drift</option><option value="1">Moves: Pinned in place</option><option value="2">Moves: Orbit a point</option><option value="3">Moves: Bounce on the beat</option><option value="4">Moves: Sweep across the video</option></select><select id="gscope"><option value="0">Show: Whole video</option><option value="1">Show: Between two points</option><option value="2">Show: Pulse on the beat</option><option value="3">Show: Around the drops</option></select></div>
+ <label class="sl">From (song position)<input id="gfrom" type="range" min="0" max="1" step="0.01" value="0.2"><output>0.2</output></label>
+ <label class="sl">To (song position)<input id="gto" type="range" min="0" max="1" step="0.01" value="0.8"><output>0.8</output></label>
+ <label class="sl">Move speed<input id="gspd" type="range" min="0" max="3" step="0.05" value="1"><output>1</output></label>
+ <label class="sl">Spread<input id="gspread" type="range" min="0.2" max="1.8" step="0.01" value="1"><output>1</output></label>
+ <label class="sl">Position left / right<input id="gx" type="range" min="-1" max="1" step="0.01" value="0"><output>0</output></label>
+ <label class="sl">Position up / down<input id="gy" type="range" min="-1" max="1" step="0.01" value="0"><output>0</output></label>
+ <label class="sl">Depth (back / front)<input id="gz" type="range" min="-0.5" max="1" step="0.01" value="0"><output>0</output></label>
+ <label class="sl">Spin and shimmer<input id="grot" type="range" min="0" max="3" step="0.05" value="1"><output>1</output></label>
+ <div class="two"><label class="sl">Tint strength<input id="gtstr" type="range" min="0" max="1" step="0.01" value="0"><output>0</output></label><input id="gtint" type="color" value="#ffcc80" style="height:34px"></div>
+ <div class="row"><button id="gsur" type="button">Surprise the glass</button></div>
 
  <h3>6 · FRAME</h3>
  <div class="row" id="ratios"></div>
@@ -346,8 +359,7 @@ const RECIPES=[
  {m:'chrome',n:'Liquid Sort',look:'Pixel Sort',pal:'Platinum',l2:{look:'Mercury Dub',p:{},b:3,s:.6},p:{detail:.7,mix:0}},
  {m:'gold',n:'Silk Trace',look:'Oil Trace',pal:'Champagne',p:{size:3,con:.3,glow:.4,trail:.5}},
  {m:'gold',n:'Silk Survey',look:'Contour',pal:'Champagne',l2:{look:'Oil Trace',p:{size:3,glow:.3,trail:.4},b:3,s:.45},p:{size:6,detail:.5,glow:.4}},
- {m:'gold',n:'Bullion Dots',look:'Halftone',pal:'Black Gold',l2:{look:'Gold Leaf',p:{amt:.45},b:3,s:.35},p:{size:7,con:.2}},
- {m:'gold',n:'Gilded',look:'Gold Leaf',pal:'Gold',p:{amt:.6}},
+ {m:'gold',n:'Bullion Dots',look:'Halftone',pal:'Black Gold',p:{size:7,con:.2}},
  {m:'gold',n:'Liquid Gold',look:'Mercury Dub',pal:'Champagne',p:{amt:.8}},
  {m:'gold',n:'Gold Type',look:'ASCII',pal:'Champagne',gset:3,p:{size:7,con:.2,glow:.4}},
  {m:'gold',n:'Gold Survey',look:'Contour',pal:'Gold',p:{size:6,detail:.6,glow:.4}},
@@ -628,7 +640,7 @@ const FONTS=[['Bold Sans','800','system-ui,Helvetica,sans-serif'],['Poster','400
 const ANIMS=['Rise','Fade','Pop','Slide','Typewriter','Karaoke','Beat bounce','None'];
 const fontCss=(i,px)=>{const f=FONTS[i];return `${f[1]} ${px}px ${f[2].includes(',')?f[2]:'"'+f[2]+'"'}`};
 const LE={csel:-1,base:null,sel:-1,snap:true,ghost:true,drag:false,undo:[],edited:false,dragging:null,hover:null,tb:{l:.1,r:.9}};
-const newLine=(t,e,s,o)=>({t,e,s,back:0,font:0,size:1,x:.5,y:null,anim:0,caps:0,color:'',plate:1,outline:0,...o});
+const newLine=(t,e,s,o)=>({t,e,s,back:0,font:0,size:1,x:.5,y:null,anim:0,caps:0,color:'',plate:0,outline:0,...o});
 function beatNear(t){const A=S.A;if(!A)return t;const b=A.T*.01,p=A.phi*.01;return p+Math.round((t-p)/b)*b}
 function quant(t){const A=S.A;if(!A||!LE.snap)return t;const b=A.T*.01,k=Math.floor((t-A.phi*.01)/b+.001);return Math.max(0,A.phi*.01+k*b)}
 function parseLyrics(){const raw=$('lyr').value.split('\n').map(s=>s.trim()).filter(Boolean);const out=[];let stamped=0;
@@ -849,9 +861,9 @@ function drawTL(t){const w=tl.width,h=tl.height;tx.clearRect(0,0,w,h);tx.fillSty
  tx.fillStyle='#fff';tx.fillRect(X(t),0,2,h)}
 
 // ================= depth + 3D scene =================
-const X={bysub:true,cam:1,damt:.6,camt:.7,sep:true,split:.55,soft:.04,blur:.25,apply:0,behind:false,glass:0,gpos:0,gsize:1,gref:.5,showd:false,dx:0,dy:0,spd:1,zoom:0,roll:0,kick:0};
+const X={bysub:true,cam:1,damt:.6,camt:.7,sep:true,split:.55,soft:.04,blur:.25,apply:0,behind:false,glass:0,gpos:0,gsize:1,gref:.5,showd:false,dx:0,dy:0,spd:1,zoom:0,roll:0,kick:0,gcount:0,gspd:1,gspread:1,gx:0,gy:0,gz:0,grot:1,gtstr:0,gtint:[1,.8,.5],gmode:0,gscope:0,gfrom:.2,gto:.8};
 const D3={ready:false,busy:false,frames:[],w:0,h:0,fps:6,video:false,tmp:null,uploaded:-1};window.D3=D3;
-const CAMS=['Locked','Drift','Orbit','Dolly in','Crane','Beat push','Figure 8','Handheld','Spiral','Push pull','Whip'],GLASS=['No glass','Orbs','Panes','Shards','Big lens'];
+const CAMS=['Locked','Drift','Orbit','Dolly in','Crane','Beat push','Figure 8','Handheld','Spiral','Push pull','Whip'],GLASS=['No glass','Orbs','Panes','Shards','Big lens','Bubbles','Halo ring','Slabs','Cubes','Blinds','Moon','Tiles'];
 const MVS=`#version 300 es
 in vec2 a;uniform sampler2D u_d,u_m;uniform mat4 u_vp;uniform float u_asp,u_amt,u_split,u_sep,u_layer,u_soft,u_bysub;out vec2 v;
 void main(){vec2 aa=u_layer>.5?a:a*1.8-.4;v=clamp(aa,0.,1.);float d=texture(u_d,v).r;if(u_layer<.5&&u_sep>.5){if(u_bysub>.5){float s=texture(u_m,v).r;d-=smoothstep(u_split-u_soft,u_split+u_soft,s)*s*.5;}else d=min(d,u_split);}float z=(d-.5)*u_amt+(u_layer>.5?u_amt*.08:0.);
@@ -870,7 +882,7 @@ void main(){float m=mk(v);
  }
  o=vec4(c,0.);}`;
 const GFS=`#version 300 es
-precision highp float;in vec2 uv;out vec4 o;uniform sampler2D u_prev;uniform vec3 u_ro,u_rt,u_up,u_fw;uniform float u_tan,u_asp,u_ref,u_time;uniform int u_n,u_type;uniform vec4 u_obj[8];uniform vec3 u_hs;
+precision highp float;in vec2 uv;out vec4 o;uniform sampler2D u_prev;uniform vec3 u_ro,u_rt,u_up,u_fw;uniform float u_tan,u_asp,u_ref,u_time;uniform int u_n,u_type;uniform vec4 u_obj[8];uniform vec3 u_hs,u_tint;uniform float u_tstr;
 mat3 rot(float a,float b){float ca=cos(a),sa=sin(a),cb=cos(b),sb=sin(b);return mat3(ca,0.,-sa,0.,1.,0.,sa,0.,ca)*mat3(1.,0.,0.,0.,cb,sb,0.,-sb,cb);}
 void main(){vec4 pv=texture(u_prev,uv);vec2 nd=uv*2.-1.;vec3 rd=normalize(u_fw+u_rt*nd.x*u_tan*u_asp+u_up*nd.y*u_tan);float tb=1e9;vec3 n=vec3(0.);float edg=0.;
  for(int i=0;i<8;i++){if(i>=u_n)break;vec4 ob=u_obj[i];
@@ -881,7 +893,7 @@ void main(){vec4 pv=texture(u_prev,uv);vec2 nd=uv*2.-1.;vec3 rd=normalize(u_fw+u
  float nv=max(dot(-rd,n),0.);float fr=pow(1.-nv,3.);vec3 rf=refract(rd,n,.66);vec2 off=(rf.xy-rd.xy)*u_ref*.35*vec2(1./u_asp,1.);
  vec3 c=vec3(texture(u_prev,uv+off*1.14).r,texture(u_prev,uv+off).g,texture(u_prev,uv+off*.86).b);
  float sp=pow(max(dot(reflect(rd,n),normalize(vec3(-.4,.7,.6))),0.),70.);float sp2=pow(max(dot(reflect(rd,n),normalize(vec3(.6,-.3,.7))),0.),24.);
- float rimv=u_type==1?fr*.6:fr*.18;float hu=dot(n,vec3(.5,.7,.3))*6.+u_time*.3;vec3 ir=.5+.5*cos(hu+vec3(0.,2.1,4.2));c=c*(1.05-fr*.2)+rimv+sp*1.4+sp2*.22+edg*(.5+.5*ir);o=vec4(c,pv.a);}`;
+ float rimv=u_type==1?fr*.6:fr*.18;float hu=dot(n,vec3(.5,.7,.3))*6.+u_time*.3;vec3 ir=.5+.5*cos(hu+vec3(0.,2.1,4.2));c=c*(1.05-fr*.2)+rimv+sp*1.4+sp2*.22+edg*(.5+.5*ir);c=mix(c,c*u_tint*1.7,u_tstr);o=vec4(c,pv.a);}`;
 function mkProg(v,f){const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,v));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,f));gl.bindAttribLocation(p,0,gl===null?'':(v===MVS?'a':'p'));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));return p}
 const mProg=mkProg(MVS,MFS),gProg=mkProg(VS,GFS);
 const uni=(p,n)=>gl.getUniformLocation(p,n);
@@ -913,17 +925,38 @@ function camera(t0,k){const t=t0*X.spd,A=X.camt,mv=X.cam;let x=0,y=0,z=2.4;
 function vpMat(c,asp){const f=2.4/1,nr=.05,fr=20;const P=[f/asp,0,0,0, 0,f,0,0, 0,0,(fr+nr)/(nr-fr),-1, 0,0,2*fr*nr/(nr-fr),0];
  const {ro,fw,rt,up}=c;const V=[rt[0],up[0],-fw[0],0, rt[1],up[1],-fw[1],0, rt[2],up[2],-fw[2],0, -v3.dt(rt,ro),-v3.dt(up,ro),v3.dt(fw,ro),1];const o=new Float32Array(16);
  for(let i=0;i<4;i++)for(let j=0;j<4;j++){let s=0;for(let q=0;q<4;q++)s+=P[q*4+j]*V[i*4+q];o[i*4+j]=s}return o}
-function glassObjs(t,k,m,asp){const g=X.glass,S0=X.gsize,o=[],hh=(i,q)=>{const x=Math.sin(i*127.1+q*311.7)*43758.5453;return x-Math.floor(x)};if(!g)return {o,type:1,hs:[1,1,1]};
- if(g===1)for(let i=0;i<6;i++)o.push([Math.sin(t*.2+i*1.7)*asp*.75,Math.cos(t*.17+i*2.1)*.62,(i%2?.55:-.25),(.1+.11*hh(i,1))*S0*(1+k*.22)]);
- if(g===2)for(let i=0;i<3;i++)o.push([(i-1)*asp*.6+Math.sin(t*.15+i)*.1,Math.sin(t*.2+i*2)*.2,(i%2?.5:-.2),S0*(1+k*.08)]);
- if(g===3)for(let i=0;i<8;i++)o.push([Math.sin(t*.13+i*2.4)*asp*.8,Math.cos(t*.19+i*1.3)*.65,(i%2?.6:-.25)+Math.sin(t*.2+i)*.05,S0*(.7+.6*hh(i,2))*(1+k*.25)]);
- if(g===4)o.push([Math.sin(t*.25)*asp*.4,Math.cos(t*.2)*.2,.45,.5*S0*(1+k*.1)]);
- return {o,type:(g===1||g===4)?1:2,hs:g===2?[.34,.5,.012]:[.09,.2,.008]}}
+function glassObjs(t,k,m,asp){const g=X.glass,S0=X.gsize,hh=(i,q)=>{const x=Math.sin(i*127.1+q*311.7)*43758.5453;return x-Math.floor(x)};if(!g)return {o:[],type:1,hs:[1,1,1]};
+ const tt=X.gmode===0?t*X.gspd:0,K=X.gmode===0?k:0;let o=[];
+ if(g===1)for(let i=0;i<6;i++)o.push([Math.sin(tt*.2+i*1.7)*asp*.75,Math.cos(tt*.17+i*2.1)*.62,(i%2?.55:-.25),(.1+.11*hh(i,1))*S0*(1+K*.22)]);
+ if(g===2)for(let i=0;i<3;i++)o.push([(i-1)*asp*.6+Math.sin(tt*.15+i)*.1,Math.sin(tt*.2+i*2)*.2,(i%2?.5:-.2),S0*(1+K*.08)]);
+ if(g===3)for(let i=0;i<8;i++)o.push([Math.sin(tt*.13+i*2.4)*asp*.8,Math.cos(tt*.19+i*1.3)*.65,(i%2?.6:-.25)+Math.sin(tt*.2+i)*.05,S0*(.7+.6*hh(i,2))*(1+K*.25)]);
+ if(g===4)o.push([Math.sin(tt*.25)*asp*.4,Math.cos(tt*.2)*.2,.45,.5*S0*(1+K*.1)]);
+ if(g===5)for(let i=0;i<8;i++)o.push([Math.sin(tt*.15+i*2.3)*asp*.85,Math.cos(tt*.21+i*1.7)*.7,(i%3-1)*.35,(.04+.06*hh(i,3))*S0*(1+K*.2)]);
+ if(g===6)for(let i=0;i<8;i++){const a=i*Math.PI/4+tt*.1;o.push([Math.cos(a)*.62*asp*.8,Math.sin(a)*.5,.1,.075*S0*(1+K*.15)])}
+ if(g===7)for(let i=0;i<4;i++)o.push([(i-1.5)*asp*.38+Math.sin(tt*.12+i)*.05,Math.sin(tt*.15+i)*.1,(i%2?.45:-.2),S0*(1+K*.08)]);
+ if(g===8)for(let i=0;i<5;i++)o.push([Math.sin(tt*.14+i*2.1)*asp*.8,Math.cos(tt*.18+i*1.9)*.6,(i%2?.5:-.2),S0*(.7+.6*hh(i,4))*(1+K*.2)]);
+ if(g===9)for(let i=0;i<8;i++)o.push([(i-3.5)*asp*.24+Math.sin(tt*.1+i)*.03,0,.3,S0*(1+K*.06)]);
+ if(g===10)o.push([asp*.45+Math.sin(tt*.1)*.06,.25+Math.cos(tt*.12)*.04,-.3,.42*S0*(1+K*.08)]);
+ if(g===11)for(let i=0;i<6;i++)o.push([Math.sin(tt*.12+i*2.6)*asp*.8,Math.cos(tt*.16+i*1.5)*.62,(i%2?.5:-.25),S0*(.6+.6*hh(i,6))*(1+K*.2)]);
+ const sph=[1,4,5,6,10].includes(g),n0=o.length;
+ if(X.gcount>0){o=o.slice(0,X.gcount);for(let i=o.length;i<X.gcount&&i<8;i++){const b=o[i%n0];o.push([(hh(i,7)-.5)*asp*1.6,(hh(i,8)-.5)*1.3,b[2],b[3]*(.7+.5*hh(i,9))])}}
+ o=o.slice(0,8);const dur=(S.A&&S.A.dur)||(audio&&audio.duration)||180,N=o.length;
+ let f=1;
+ if(X.gscope===1){const a=X.gfrom*dur,b=X.gto*dur;f=Math.max(0,Math.min(1,Math.min(t-a,b-t)/1.2))}
+ else if(X.gscope===2)f=.2+.8*Math.min(1,k*1.5);
+ else if(X.gscope===3){let d=99;S.drops.forEach(D=>{d=Math.min(d,Math.abs(t-D))});f=Math.max(0,Math.min(1,1-(d-1.5)/2))}
+ if(f<.02)return {o:[],type:1,hs:[1,1,1]};
+ o=o.map((p,i)=>{let x=p[0]*X.gspread+X.gx*asp,y=p[1]*X.gspread+X.gy,z=p[2]+X.gz,r=p[3]*f;
+  if(X.gmode===2){const a=t*.3*X.gspd+i*6.2832/N,R=.55*X.gspread;x=X.gx*asp+Math.cos(a)*R*asp*.8;y=X.gy+Math.sin(a)*R*.7}
+  if(X.gmode===3){r*=1+k*.6;y+=k*.05}
+  if(X.gmode===4){x=asp*(-.9+1.8*(((t*X.gspd)/dur*3)%1))+p[0]*.25+X.gx*asp}
+  return [x,y,z,r]});
+ return {o,type:sph?1:2,hs:g===2?[.34,.5,.012]:g===7?[.12,.62,.012]:g===8?[.11,.11,.11]:g===9?[.03,.7,.01]:g===11?[.2,.2,.01]:[.09,.2,.008]}}
 function depthUpload(){if(!D3.frames.length)return;let buf;const N=D3.frames.length;
  let mb;if(N===1){if(D3.uploaded===0)return;buf=D3.frames[0];mb=D3.masks[0];D3.uploaded=0}else{const f=((EXP.on?EXP.vt:artVid.currentTime)*D3.fps)%N,i=Math.floor(f),w=f-i,n=(i+1)%N,a=D3.frames[i],b=D3.frames[n],c=D3.masks[i],e=D3.masks[n],T=D3.tmp,Q=D3.tmp2;for(let j=0;j<T.length;j++){T[j]=a[j]+(b[j]-a[j])*w;Q[j]=c[j]+(e[j]-c[j])*w}buf=T;mb=Q}
  gl.pixelStorei(gl.UNPACK_ALIGNMENT,1);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.activeTexture(gl.TEXTURE5);gl.texImage2D(gl.TEXTURE_2D,0,gl.R8,D3.w,D3.h,0,gl.RED,gl.UNSIGNED_BYTE,buf);gl.activeTexture(gl.TEXTURE8);gl.texImage2D(gl.TEXTURE_2D,0,gl.R8,D3.w,D3.h,0,gl.RED,gl.UNSIGNED_BYTE,mb);gl.pixelStorei(gl.UNPACK_ALIGNMENT,4)}
 function drawMesh(layer,vp,asp){gl.useProgram(mProg);gl.bindVertexArray(mVao);const u=n=>uni(mProg,n);gl.uniform1i(u('u_c'),0);gl.uniform1i(u('u_d'),5);gl.uniform1i(u('u_m'),8);gl.uniform1f(u('u_bysub'),X.bysub?1:0);gl.uniformMatrix4fv(u('u_vp'),false,vp);gl.uniform1f(u('u_asp'),asp);gl.uniform1f(u('u_amt'),X.damt);gl.uniform1f(u('u_split'),X.split);gl.uniform1f(u('u_soft'),X.soft);gl.uniform1f(u('u_sep'),X.sep?1:0);gl.uniform1f(u('u_layer'),layer);gl.uniform1f(u('u_blur'),X.blur);gl.drawElements(gl.TRIANGLES,mCount,gl.UNSIGNED_INT,0);gl.bindVertexArray(null)}
-function glassPass(readUnit,writeFbo,objs,G,c,asp,t){gl.bindFramebuffer(gl.FRAMEBUFFER,writeFbo);gl.disable(gl.DEPTH_TEST);gl.disable(gl.BLEND);gl.useProgram(gProg);const u=n=>uni(gProg,n);gl.uniform1i(u('u_prev'),readUnit);gl.uniform3fv(u('u_ro'),c.ro);gl.uniform3fv(u('u_rt'),c.rt);gl.uniform3fv(u('u_up'),c.up);gl.uniform3fv(u('u_fw'),c.fw);gl.uniform1f(u('u_tan'),1/2.4);gl.uniform1f(u('u_asp'),asp);gl.uniform1f(u('u_ref'),X.gref);gl.uniform1f(u('u_time'),t);gl.uniform1i(u('u_n'),objs.length);gl.uniform1i(u('u_type'),G.type);gl.uniform3fv(u('u_hs'),G.hs);const a=new Float32Array(32);objs.forEach((o,i)=>a.set(o,i*4));gl.uniform4fv(u('u_obj[0]'),a);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+function glassPass(readUnit,writeFbo,objs,G,c,asp,t){gl.bindFramebuffer(gl.FRAMEBUFFER,writeFbo);gl.disable(gl.DEPTH_TEST);gl.disable(gl.BLEND);gl.useProgram(gProg);const u=n=>uni(gProg,n);gl.uniform1i(u('u_prev'),readUnit);gl.uniform3fv(u('u_ro'),c.ro);gl.uniform3fv(u('u_rt'),c.rt);gl.uniform3fv(u('u_up'),c.up);gl.uniform3fv(u('u_fw'),c.fw);gl.uniform1f(u('u_tan'),1/2.4);gl.uniform1f(u('u_asp'),asp);gl.uniform1f(u('u_ref'),X.gref);gl.uniform3fv(u('u_tint'),X.gtint);gl.uniform1f(u('u_tstr'),X.gtstr);gl.uniform1f(u('u_time'),t*X.grot);gl.uniform1i(u('u_n'),objs.length);gl.uniform1i(u('u_type'),G.type);gl.uniform3fv(u('u_hs'),G.hs);const a=new Float32Array(32);objs.forEach((o,i)=>a.set(o,i*4));gl.uniform4fv(u('u_obj[0]'),a);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
 function renderScene(t,k,m){depthUpload();const asp=SW/SH,c=camera(t,k),vp=vpMat(c,asp);gl.viewport(0,0,SW,SH);gl.disable(gl.BLEND);
  gl.bindFramebuffer(gl.FRAMEBUFFER,fA);gl.clearColor(0,0,0,0);gl.clearDepth(1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);drawMesh(0,vp,asp);
  let cur=6;const G=glassObjs(t,k,m,asp),back=G.o.filter(o=>X.gpos===0?true:X.gpos===1?false:o[2]<.2),front=G.o.filter(o=>X.gpos===1?true:X.gpos===0?false:o[2]>=.2);
@@ -1171,7 +1204,7 @@ function drawFrame(tRaw,dt,now){const t0=performance.now();
  else beatIdx=now/600;
  const li=S.lines.length?lineAt(t):-1;let lyrIn=0,fx=null;
  if(li>=0){fx=lineFx(S.lines[li],t,A?A.T*.01:.5,R.k);lyrIn=fx.lyrIn}else if(!S.lines.length&&!A)lyrIn=.6+.4*Math.sin(now/900);
- if(!A&&!S.lines.length){const k='demo'+W+H;if(textKey!==k){textKey=k;txx.fillStyle='#000';txx.fillRect(0,0,W,H);txx.fillStyle='#f00';txx.textAlign='center';txx.textBaseline='middle';txx.font=`800 ${H*.1}px system-ui`;txx.fillText('Motion Studio',W/2,H*.82);gl.activeTexture(gl.TEXTURE1);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,txc)}}
+ if(!A&&!S.lines.length){const k='demo'+W+H;if(textKey!==k){textKey=k;txx.fillStyle='#000';txx.fillRect(0,0,W,H);txx.fillStyle='#f00';txx.textAlign='center';txx.textBaseline='middle';txx.font=`800 ${H*.1}px system-ui`;gl.activeTexture(gl.TEXTURE1);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,txc)}}
  else renderText(li,big,t);
  drawBg(tv,R.k,R.m);uploadBg();if(++fcount%15===0)levels();
  const scn=D3.ready&&renderScene(tv,R.k,R.m);
@@ -1217,7 +1250,32 @@ window.__fc=()=>fcount;window.__X=X;window.__make3D=make3D;window.__artVid=artVi
  const apply=o=>{Object.entries(o).forEach(([k,v])=>setX(k,v));$('dstat').textContent=D3.ready?$('dstat').textContent:'Shot set. Press Make 3D to see it.'};
  Object.keys(SHOTS).forEach(n=>{const b=document.createElement('button');b.type='button';b.textContent=n;b.onclick=()=>apply(SHOTS[n]);$('shots').appendChild(b)});
  $('ctr3d').onclick=()=>{setX('dx',0);setX('dy',0);setX('zoom',0);setX('roll',0)};
- $('sur3d').onclick=()=>{const o={cam:1+Math.floor(Math.random()*(CAMS.length-1)),camt:R(.5,1.3),spd:R(.5,1.6),zoom:R(-.15,.3),roll:P([0,0,0,-3,3,6,-6]),kick:P([0,.2,.4,.6]),damt:R(.45,1),blur:R(.1,.55),split:R(.4,.65),glass:P([0,0,1,2,3,4]),gpos:P([0,1,2]),gsize:R(.8,1.4),gref:R(.3,.8),dx:R(-.25,.25),dy:R(-.15,.15)};apply(o);X.sep=true;const n=CAMS[o.cam];$('msg').textContent='Surprise: '+n+', speed '+o.spd.toFixed(1)+(o.glass?', '+GLASS[o.glass]:'')+(o.roll?', roll '+o.roll:'')+'. Press again for another.'};
+ $('sur3d').onclick=()=>{const o={cam:1+Math.floor(Math.random()*(CAMS.length-1)),camt:R(.5,1.3),spd:R(.5,1.6),zoom:R(-.15,.3),roll:P([0,0,0,-3,3,6,-6]),kick:P([0,.2,.4,.6]),damt:R(.45,1),blur:R(.1,.55),split:R(.4,.65),glass:P([0,0,1,2,3,4]),gpos:P([0,1,2]),gsize:R(.8,1.4),gref:R(.3,.8),dx:R(-.25,.25),dy:R(-.15,.15)};apply(o);X.sep=true;if(o.glass){X.gmode=P([0,0,1,2,3,4]);$('gmode').value=X.gmode}const n=CAMS[o.cam];$('msg').textContent='Surprise: '+n+', speed '+o.spd.toFixed(1)+(o.glass?', '+GLASS[o.glass]:'')+(o.roll?', roll '+o.roll:'')+'. Press again for another.'};
+})();
+(function(){
+ [['gcount','gcount'],['gfrom','gfrom'],['gto','gto'],['gspd','gspd'],['gspread','gspread'],['gx','gx'],['gy','gy'],['gz','gz'],['grot','grot'],['gtstr','gtstr']].forEach(a=>bindRange(...a));
+ $('gmode').onchange=e=>X.gmode=+e.target.value;$('gscope').onchange=e=>X.gscope=+e.target.value;
+ $('gtint').oninput=e=>{const h=e.target.value;X.gtint=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255)};X.gtint=[1,3,5].map(i=>parseInt('#ffcc80'.slice(i,i+2),16)/255);
+ const R=(a,b)=>a+Math.random()*(b-a),P=a=>a[Math.floor(Math.random()*a.length)];
+ const sv=(k,v,id)=>{X[k]=v;const el=$(id||k);if(el){el.value=v;const o=el.parentElement.querySelector('output');if(o)o.textContent=(+v).toFixed(2).replace(/\.?0+$/,'')||'0'}};
+ $('gsur').onclick=()=>{const g=1+Math.floor(Math.random()*(GLASS.length-1));X.glass=g;$('glass').value=g;X.gpos=P([0,1,2]);$('gpos').value=X.gpos;
+  X.gmode=P([0,0,1,2,3,4]);$('gmode').value=X.gmode;X.gscope=P([0,0,0,2,3]);$('gscope').value=X.gscope;
+  sv('gcount',P([0,0,3,5,8]));sv('gspd',R(.5,1.8));sv('gspread',R(.7,1.4));sv('gx',R(-.3,.3));sv('gy',R(-.2,.2));sv('gz',R(-.1,.4));sv('grot',R(.4,2));sv('gsize',R(.8,1.4));sv('gref',R(.3,.8));
+  sv('gtstr',P([0,0,.25,.4]));$('msg').textContent='Glass: '+GLASS[g]+', '+$('gmode').selectedOptions[0].text.replace('Moves: ','').toLowerCase()+'. Press again for another.'};
+})();
+(function(){
+ $('reroll').onclick=()=>{const list=RECIPES.filter(x=>x.m===S.mode),r=list[Math.floor(Math.random()*list.length)];applyRecipe(r);
+  const pals=MODES[S.mode].pals;S.palIdx=Math.floor(Math.random()*pals.length);S.inv=pals[S.palIdx][2]?1:0;renderPals();
+  S.motion=Math.floor(Math.random()*MOTIONS.length);S.gset=Math.floor(Math.random()*GSETS.length);syncExtras();
+  $('msg').textContent='Reroll: '+r.n+', '+pals[S.palIdx][0]+', motion '+MOTIONS[S.motion]+'. Press again for another.'};
+ $('saveLook').onclick=()=>{try{const pal=MODES[S.mode].pals[S.palIdx];localStorage.setItem('pr_mylook',JSON.stringify({mode:S.mode,look:S.look,p:S.p,pal,inv:S.inv,gset:S.gset,motion:S.motion,l2:S.l2,ratio:S.ratio}));$('msg').textContent='Saved as your look.'}catch(e){$('msg').textContent='Could not save in this browser.'}};
+ $('useLook').onclick=()=>{let o=null;try{o=JSON.parse(localStorage.getItem('pr_mylook')||'null')}catch(e){}
+  if(!o){$('msg').textContent='Nothing saved yet. Set a look, then press Save my look.';return}
+  if(o.mode!==S.mode)setMode(o.mode);S.look=o.look;S.p=o.p;S.inv=o.inv;S.gset=o.gset;S.motion=o.motion;S.l2=o.l2;
+  const pals=MODES[S.mode].pals;let ix=pals.findIndex(q=>q[0]===o.pal[0]);if(ix<0){pals.push(o.pal);ix=pals.length-1}else if(o.pal[0]==='Pulled tone')pals[ix]=o.pal;S.palIdx=ix;
+  $('desc').textContent=LOOKS[S.look].d;renderPresets();syncSliders();renderPals();markLooks();syncExtras();buildPlan();
+  if(o.ratio&&o.ratio!==S.ratio){S.ratio=o.ratio;[...ratBox.children].forEach(x=>x.className=x.textContent===o.ratio?'on':'');setSize()}
+  $('msg').textContent='Your look is back.'};
 })();
 window.__RECIPES=RECIPES;window.__recCfg=recCfg;window.__applyRecipe=applyRecipe;window.__thumbs=thumbs;window.__setMode=setMode;window.__S=S;window.__R=R;window.__analyse=analyse;window.__LOOKS=LOOKS;window.__setLook=(i,p)=>{S.auto=false;selectLook(i,false);if(p!=null)applyPreset(LOOKS[i].presets[p])};
 </script>
