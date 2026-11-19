@@ -138,6 +138,9 @@ small,.note{color:var(--dim);font-size:12px}
   <div class="row"><button id="demoGo" class="pri">▶ Play demo</button><button id="demoClip" type="button">15-second clip</button></div>
   <small class="note" id="demoNote"></small>
  </div>
+ <h3>STARTERS</h3>
+ <small class="note">One click sets the frame shape, a look and a palette for the genre. Change anything after.</small>
+ <div class="row" id="starters" style="flex-wrap:wrap"></div>
  <h3>1 · SONG</h3>
  <div class="row"><button id="songBtn" class="pri">Load your song</button><button id="liveBtn">Live mic</button></div>
  <input id="songIn" type="file" accept="audio/*" hidden>
@@ -202,7 +205,7 @@ small,.note{color:var(--dim);font-size:12px}
  <div class="row" style="margin-top:8px"><button id="surprise">Surprise me</button><button id="auto" class="on">Press it: ON</button></div>
  <h4>PALETTE</h4>
  <div class="row" id="pals"></div>
- <div class="row" style="margin-top:6px"><button id="inv">Invert</button></div>
+ <div class="row" style="margin-top:6px"><button id="inv">Invert</button><button id="toneBtn" type="button" title="Builds a palette from your artwork">Pull tone from artwork</button></div>
  <h4>LAYER 2 · stack a second look</h4>
  <div class="two"><select id="l2look"></select><select id="l2blend"><option value="0">Normal</option><option value="1">Screen</option><option value="2">Multiply</option><option value="3">Overlay</option></select></div>
  <label class="sl">Layer strength<input id="l2str" type="range" min="0" max="1" step="0.01" value="0.8"><output id="l2o">0.8</output></label>
@@ -830,7 +833,7 @@ function drawTL(t){const w=tl.width,h=tl.height;tx.clearRect(0,0,w,h);tx.fillSty
  const v0=LE.v0||0,v1=LE.v1||A.dur,X=s=>(s-v0)/(v1-v0)*w;const acc=getComputedStyle(document.documentElement).getPropertyValue('--acc').trim();
  S.plan.forEach(p=>{tx.fillStyle=['#14151a','#1b1d24','#262933'][p.c];tx.fillRect(X(p.t0),0,X(p.t1)-X(p.t0),h);tx.fillStyle='#667';tx.font='10px system-ui';tx.fillText(LOOKS[p.pr].n,X(p.t0)+4,10)});
  S.over.forEach(o=>{tx.fillStyle='rgba(255,255,255,.08)';tx.fillRect(X(o.t0),0,X(o.t1)-X(o.t0),h)});
- if(S.dbg){const cols=[A.low,A.mid,A.hi],cc=['#ff6b6b','#6bc2ff','#d9d9d9'];cols.forEach((a,ci)=>{tx.strokeStyle=cc[ci];tx.globalAlpha=.7;tx.beginPath();const step=Math.max(1,Math.floor((v1-v0)*100/w));
+ if(S.dbg){const cols=[A.low,A.mid,A.hi],cc=S.mode==='gold'?['#8a6a2a','#d8b76a','#fff1c4']:S.mode==='chrome'?['#6b7280','#a9b2c3','#f2f5fa']:['#ff6b6b','#6bc2ff','#d9d9d9'];cols.forEach((a,ci)=>{tx.strokeStyle=cc[ci];tx.globalAlpha=.7;tx.beginPath();const step=Math.max(1,Math.floor((v1-v0)*100/w));
   for(let x=0;x<w;x++){let m=0;const b0=Math.floor((v0+x/w*(v1-v0))*100);for(let j=0;j<step;j++)m=Math.max(m,a[b0+j]||0);const y=h-4-(m*(h-16))*(ci===0?1:.7)*.5;x?tx.lineTo(x,y):tx.moveTo(x,y)}tx.stroke()});tx.globalAlpha=1;
   tx.fillStyle='rgba(255,255,255,.25)';A.kicks.forEach(k=>tx.fillRect(X(k.t),h-8,1,8))}
  tx.strokeStyle=acc;tx.lineWidth=2;S.drops.forEach(d=>{tx.beginPath();tx.moveTo(X(d),0);tx.lineTo(X(d),h);tx.stroke()});tx.lineWidth=1;
@@ -1167,6 +1170,25 @@ function drawFrame(tRaw,dt,now){const t0=performance.now();
 const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
 setSize();setMode('studio');requestAnimationFrame(frame);xEstimate();
 window.__fc=()=>fcount;window.__X=X;window.__make3D=make3D;window.__artVid=artVid;window.__recTest=async sec=>{ensureCtx();const st=cv.captureStream(30);dest.stream.getAudioTracks().forEach(t=>st.addTrack(t));const mt=['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'].find(m=>MediaRecorder.isTypeSupported(m));const r=new MediaRecorder(st,{mimeType:mt,videoBitsPerSecond:14e6}),ch=[];r.ondataavailable=e=>e.data.size&&ch.push(e.data);const done=new Promise(z=>r.onstop=z);r.start(1000);await new Promise(z=>setTimeout(z,sec*1000));r.stop();await done;return new Blob(ch,{type:mt.split(';')[0]})};
+(function(){
+ const ST=[['Trap','9:16',0,0],['Drill','9:16',3,1],['Afrobeat','9:16',2,0],['Amapiano','9:16',5,2],['R&B','1:1',1,1],['House','16:9',4,3]];
+ const box=$('starters');ST.forEach(([n,r,ri,pi])=>{const b=document.createElement('button');b.type='button';b.textContent=n;b.onclick=()=>{
+  const list=RECIPES.filter(x=>x.m===S.mode);applyRecipe(list[ri%list.length]);const pals=MODES[S.mode].pals;S.palIdx=pi%pals.length;S.inv=pals[S.palIdx][2]?1:0;renderPals();
+  S.ratio=r;[...ratBox.children].forEach(x=>x.className=x.textContent===r?'on':'');setSize();$('msg').textContent='Starter applied: '+n+', '+r+'.'};box.appendChild(b)});
+ $('toneBtn').onclick=()=>{
+  if(!S.art){$('msg').textContent='Add artwork first, then pull its tone.';return}
+  const c=document.createElement('canvas');c.width=c.height=300;const g=c.getContext('2d',{willReadFrequently:true});
+  try{g.drawImage(S.art,0,0,300,300)}catch(e){$('msg').textContent='Could not read the artwork.';return}
+  const d=g.getImageData(0,0,300,300).data,B={};
+  for(let i=0;i<d.length;i+=80){const k=((d[i]>>4)<<8)|((d[i+1]>>4)<<4)|(d[i+2]>>4);const o=B[k]||(B[k]=[0,0,0,0]);o[0]++;o[1]+=d[i];o[2]+=d[i+1];o[3]+=d[i+2]}
+  const arr=Object.values(B).map(o=>[o[0],[o[1]/o[0],o[2]/o[0],o[3]/o[0]]]).sort((a,b)=>b[0]-a[0]),pick=[];
+  for(const [,c2] of arr){if(pick.every(p=>Math.abs(p[0]-c2[0])+Math.abs(p[1]-c2[1])+Math.abs(p[2]-c2[2])>52))pick.push(c2);if(pick.length===4)break}
+  while(pick.length<4){const v=pick.length*80;pick.push([v,v,v])}
+  const L=c2=>.2126*c2[0]+.7152*c2[1]+.0722*c2[2];pick.sort((a,b)=>L(a)-L(b));pick[0]=pick[0].map(v=>v*.35);
+  const hex=c2=>'#'+c2.map(v=>('0'+Math.round(v).toString(16)).slice(-2)).join('');
+  const pals=MODES[S.mode].pals,ix=pals.findIndex(p=>p[0]==='Pulled tone'),ent=['Pulled tone',pick.map(hex)];
+  if(ix>=0)pals[ix]=ent;else pals.push(ent);S.palIdx=ix>=0?ix:pals.length-1;S.inv=0;renderPals();$('msg').textContent='Pulled tone: '+ent[1].join(' ')+'. Pull again to refresh.'};
+})();
 window.__RECIPES=RECIPES;window.__recCfg=recCfg;window.__applyRecipe=applyRecipe;window.__thumbs=thumbs;window.__setMode=setMode;window.__S=S;window.__R=R;window.__analyse=analyse;window.__LOOKS=LOOKS;window.__setLook=(i,p)=>{S.auto=false;selectLook(i,false);if(p!=null)applyPreset(LOOKS[i].presets[p])};
 </script>
 
