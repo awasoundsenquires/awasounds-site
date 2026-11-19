@@ -624,6 +624,16 @@ Every second getting full
     <div class="sec-lbl" style="margin-top:14px">Tap Along</div>
     <div class="cap-row"><button type="button" id="tap-btn" onclick="tapAlong()">Start tapping</button><button type="button" onclick="tapUndo()">Undo</button></div>
     <div id="tap-status" style="font-size:10.5px;color:var(--muted);line-height:1.5;margin:6px 0 12px">Play your beat, then press T on the first word of each line. Backspace undoes one tap.</div>
+    <div class="sec-lbl" style="margin-top:14px">Hook loop</div>
+    <div class="cr"><label for="loop-tg">Loop this part</label><input type="checkbox" id="loop-tg" onchange="applyLoop()"></div>
+    <div class="cr"><label>In / Out (s)</label><span><input type="number" id="loop-in" value="0" step="0.5" min="0" style="width:62px" onchange="applyLoop()"> <input type="number" id="loop-out" value="8" step="0.5" min="0" style="width:62px" onchange="applyLoop()"></span></div>
+    <div class="cap-row"><button type="button" onclick="loopBars(2)">2 bars</button><button type="button" onclick="loopBars(4)">4 bars</button><button type="button" onclick="loopBars(8)">8 bars</button></div>
+    <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin:6px 0 12px">Press a bar length to loop from where the song is now.</div>
+    <div class="sec-lbl">Start on the hit</div>
+    <div class="cap-row"><button type="button" onclick="findHit()">Find first hit</button></div>
+    <div class="cr" style="margin-top:6px"><label for="trim-tg">Export starts on the hit</label><input type="checkbox" id="trim-tg"></div>
+    <div id="hit-status" style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Finds the first strong beat so the video does not open on silence.</div>
+    <div class="cr"><label for="countin-tg">Count-in bar</label><input type="checkbox" id="countin-tg" onchange="redraw()"></div>
     <div class="sec-lbl" style="margin-top:14px">Finish</div>
     <div class="cr"><label for="plate-tg">Text plate</label><input type="checkbox" id="plate-tg" onchange="if(!isPlayingNow())redraw()"></div>
     <div class="cr"><label for="adlib-tg">Ad-libs, (in brackets)</label><input type="checkbox" id="adlib-tg" checked onchange="if(!isPlayingNow())redraw()"></div>
@@ -1229,6 +1239,25 @@ function syncLyric(){
   }
 }
 
+window.applyLoop=function(){
+  var on=_on('loop-tg'), a=parseFloat(_val('loop-in','0')), b=parseFloat(_val('loop-out','8'));
+  if(on&&!(b>a+0.5)){ toast('Out point must be after In','info'); document.getElementById('loop-tg').checked=false; on=false; }
+  window._loopOn=on; window._loopIn=a; window._loopOut=b;
+};
+window.loopBars=function(n){
+  if(!audio){ toast('Load a beat first','info'); return; }
+  if(!(bpm>0)){ toast('Waiting for the tempo to be detected','info'); return; }
+  var a=audio.currentTime, b=Math.min((audio.duration||1), a+n*240/bpm);
+  document.getElementById('loop-in').value=a.toFixed(1); document.getElementById('loop-out').value=b.toFixed(1);
+  document.getElementById('loop-tg').checked=true; window.applyLoop(); toast('Looping '+n+' bars','ok');
+};
+window.findHit=function(){
+  if(!audio){ toast('Load a beat first','info'); return; }
+  if(!beats.length){ toast('Still reading the beat. Try again in a moment.','info'); return; }
+  var h=beats[0]; window._hit=h; var m=Math.floor(h/60), s2=(h%60).toFixed(1);
+  document.getElementById('hit-status').textContent='First strong hit at '+m+':'+(s2<10?'0':'')+s2+'. Turn on the switch to start the export there.';
+  try{ audio.currentTime=h; }catch(e){} if(!isPlaying) drawFrame();
+};
 window._tapTimes=[]; var _tapping=false;
 function _tapStatus(m){ var e=document.getElementById('tap-status'); if(e) e.textContent=m; }
 window.tapAlong=function(){
@@ -1368,16 +1397,17 @@ function getAmp(){
 
 /* ── Draw ─────────────────────────────────────── */
 function drawFrame(){
+  if(window._loopOn&&audio&&isPlaying&&audio.currentTime>=window._loopOut){ audio.currentTime=window._loopIn; }
   const amp = getAmp();
   const a = amp.avg||0;
   const bassA = amp.bass||0;
   ctx.clearRect(0,0,W,H);
   drawBG(a);
   var _rw=W,_rh=H,_vk=(W!==1280);
-  if(_vk){ ctx.save(); ctx.translate(_rw/2,_rh/2); ctx.scale(_rw/1280,_rw/1280); ctx.translate(-640,-360); W=1280; H=720; }
+  if(_vk){ ctx.save(); ctx.translate(_rw/2,_rh/2); ctx.scale(_rw/1280*(_rh>_rw?1.6:1.15),_rw/1280*(_rh>_rw?1.6:1.15)); ctx.translate(-640,-360); W=1280; H=720; }
   try{
-  drawPlate();
-  drawStyleLayer(a,bassA);
+  if(endCardK()<0.02 && !countInOn()){ drawPlate();
+  drawStyleLayer(a,bassA); }
   } finally { if(_vk){ ctx.restore(); W=_rw; H=_rh; } }
   drawFinishLayers();
   drawVignette();
@@ -1398,6 +1428,17 @@ function drawFrame(){
 /* ── Finish layers: text plate, ad-libs, stamp, end card ── */
 function _on(id){ var e=document.getElementById(id); return !!(e&&e.checked); }
 function _val(id,d){ var e=document.getElementById(id); return (e&&e.value!=='')?e.value:d; }
+function countInOn(){
+  if(!_on('countin-tg')||!audio||!(bpm>0)) return false;
+  var rec=mediaRecorder&&mediaRecorder.state==='recording', base=rec?(window._cbase||0):0;
+  return (audio.currentTime-base) < 240/bpm;
+}
+function endCardK(){
+  if(!_on('endcard-tg')||!audio) return 0;
+  var recOn=mediaRecorder&&mediaRecorder.state==='recording';
+  var endAt=(recOn&&window._expLen>0)?window._expLen:(audio.duration||0), hold=parseFloat(_val('endcard-len','2'))+0.35;
+  if(!(endAt>0)) return 0; return Math.max(0,Math.min(1,(audio.currentTime-(endAt-hold))/0.32));
+}
 function drawFinishLayers(){
   var t=audio?audio.currentTime:0;
   // ad-lib layer
@@ -1408,6 +1449,11 @@ function drawFinishLayers(){
       ctx.fillText(ad.join('  ').toLowerCase(), W-Math.round(W*.09), H/2+fSize*1.25);
       ctx.restore();
     }
+  }
+  // count-in ticks
+  if(countInOn()){
+    var rec0=mediaRecorder&&mediaRecorder.state==='recording', b0=rec0?(window._cbase||0):0, beatLen=60/bpm, bi=Math.min(3,Math.floor((t-b0)/beatLen));
+    ctx.save(); for(var q=0;q<4;q++){ ctx.globalAlpha=q<=bi?.9:.22; ctx.fillStyle='#e8e8f0'; var tw=Math.round(W*.16); ctx.fillRect(W/2-tw*2.2+q*tw*1.15, 14, tw, 3); } ctx.restore();
   }
   // session stamp
   if(_on('stamp-tg')){
@@ -1901,6 +1947,7 @@ function showExport(){
         </div>
       </div>`;
     document.body.appendChild(em);
+    var _er=em.querySelector('#exp-res'); if(_er) _er.textContent=W+'\u00d7'+H;
     em.addEventListener('click', e=>{ if(e.target===em) em.remove(); });
   } else {
     em.style.display = 'flex';
@@ -1945,7 +1992,8 @@ function startExportRec(mode){
       }
       finishExport(blob, ext);
     };
-    if(audio){ try{ audio.currentTime = 0; }catch(e){} } lyricIdx = 0;
+    window._cbase = (_on('trim-tg') && window._hit) ? window._hit : 0;
+    if(audio){ try{ audio.currentTime = window._cbase; }catch(e){} } lyricIdx = 0;
     mediaRecorder.start(200);
     window._recGuard = function(e){ e.preventDefault(); e.returnValue = ''; };
     window.addEventListener('beforeunload', window._recGuard);
