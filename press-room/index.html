@@ -567,7 +567,7 @@ void main(){
   float wide=(TT(rq+vec2(.01,0.)*ax)+TT(rq-vec2(.01,0.)*ax)+TT(rq+vec2(0.,.014)*ax)+TT(rq-vec2(0.,.014)*ax))*.25;
   vec3 ink=lum(c2)>lum(c0)?mix(c3,c2,.3)*1.1:c2;if(u_tcol.a>.5)ink=u_tcol.rgb;vec3 halo=lum(ink)>.4?min(c0,vec3(.12))*.6:vec3(.95);if(u_kar>-.5&&rq.x>u_kar)ink*=.42;
   float far=0.;for(int i=0;i<8;i++){float an=float(i)*.7854;far+=TT(rq+vec2(cos(an)*.018,sin(an)*.03)*ax);}far/=8.;
-  float plate=clamp((wide+far)*2.2,0.,1.);col=mix(col,halo,plate*.9*u_lyrIn*u_plate);col=mix(col,ink,smoothstep(.15,.6,tm)*u_lyrIn);
+  float plate=clamp((wide+far)*2.2,0.,1.);col=mix(col,halo,plate*.9*u_lyrIn*u_plate);col=mix(col,col*.1,plate*.8*u_lyrIn*(1.-u_plate)*(1.-smoothstep(.15,.6,tm)));col=mix(col,ink,smoothstep(.15,.6,tm)*u_lyrIn);
   col=mix(col,ink,texture(u_txt,rq).g*.45*u_lyrIn*(1.-u_behind*texture(u_scene,rq).a));}
  if(u_final<.5){o=vec4(col,1.);return;}
  col*=mix(1.,.12,u_hold);
