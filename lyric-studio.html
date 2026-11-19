@@ -1442,7 +1442,7 @@ function endCardK(){
 function drawFinishLayers(){
   var t=audio?audio.currentTime:0;
   // ad-lib layer
-  if(_on('adlib-tg')){
+  if(_on('adlib-tg') && endCardK()<0.02 && !countInOn()){
     var ad=adlibsOf(); if(ad.length){
       ctx.save(); ctx.globalAlpha=.62*fOpacity; ctx.fillStyle=txColor; ctx.textAlign='right'; ctx.textBaseline='alphabetic';
       ctx.font="500 "+Math.round(fSize*.52)+"px 'IBM Plex Mono',ui-monospace,monospace"; ctx.letterSpacing='1px';
