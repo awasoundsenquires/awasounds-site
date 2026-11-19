@@ -560,6 +560,7 @@ Every second getting full
         <option value="2" selected>2 bars</option>
         <option value="4">4 bars</option>
         <option value="8">8 bars</option>
+        <option value="-1" id="opt-tapped" disabled>Tapped timing</option>
       </select>
     </div>
     <div class="cr">
@@ -619,6 +620,9 @@ Every second getting full
     </div>
     <div class="cr"><label for="safe-tg">Safe area guides</label><input type="checkbox" id="safe-tg" onchange="toggleSafe(this.checked)"></div>
     <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin:-2px 0 12px">Guides show in the preview only. They never appear in the export.</div>
+    <div class="sec-lbl" style="margin-top:14px">Tap Along</div>
+    <div class="cap-row"><button type="button" id="tap-btn" onclick="tapAlong()">Start tapping</button><button type="button" onclick="tapUndo()">Undo</button></div>
+    <div id="tap-status" style="font-size:10.5px;color:var(--muted);line-height:1.5;margin:6px 0 12px">Play your beat, then press T on the first word of each line. Backspace undoes one tap.</div>
     <div class="sec-lbl" style="margin-top:14px">Finish</div>
     <div class="cr"><label for="plate-tg">Text plate</label><input type="checkbox" id="plate-tg" onchange="if(!isPlayingNow())redraw()"></div>
     <div class="cr"><label for="adlib-tg">Ad-libs, (in brackets)</label><input type="checkbox" id="adlib-tg" checked onchange="if(!isPlayingNow())redraw()"></div>
@@ -1215,12 +1219,38 @@ function syncLyric(){
   var offEl = document.getElementById('lyr-offset'), barsEl = document.getElementById('lyr-bars');
   var t = Math.max(0, audio.currentTime + ((parseFloat(offEl && offEl.value) || 0) / 1000));
   var nb = barsEl ? parseInt(barsEl.value, 10) : 0;
-  if(nb > 0 && bpm > 0){
+  if(nb === -1 && window._tapTimes && window._tapTimes.length){
+    var ti=0; for(var q=0;q<window._tapTimes.length;q++){ if(window._tapTimes[q] <= t) ti=q; } lyricIdx=Math.min(ti,lyrics.length-1);
+  } else if(nb > 0 && bpm > 0){
     lyricIdx = Math.floor(t / ((240 / bpm) * nb)) % lyrics.length;
   } else {
     lyricIdx = Math.min(Math.floor(t / (audio.duration || 1) * lyrics.length), lyrics.length - 1);
   }
 }
+
+window._tapTimes=[]; var _tapping=false;
+function _tapStatus(m){ var e=document.getElementById('tap-status'); if(e) e.textContent=m; }
+window.tapAlong=function(){
+  if(!audio){ toast('Load a beat first','info'); return; }
+  if(!lyrics.length){ toast('Add some lyrics first','info'); return; }
+  if(_tapping){ _tapping=false; document.getElementById('tap-btn').textContent='Start tapping'; _tapStatus(window._tapTimes.length+' lines tapped.'); return; }
+  _tapping=true; window._tapTimes=[]; audio.currentTime=0; if(!isPlaying) play();
+  document.getElementById('tap-btn').textContent='Stop tapping'; _tapStatus('Tap T on line 1: '+lyrics[0]);
+};
+window.tapUndo=function(){ if(!window._tapTimes.length) return; window._tapTimes.pop(); _tapStatus('Undone. Next is line '+(window._tapTimes.length+1)+': '+lyrics[window._tapTimes.length]); };
+function _tapOne(){
+  if(!_tapping||!audio) return; var n=window._tapTimes.length; if(n>=lyrics.length) return;
+  window._tapTimes.push(audio.currentTime); n++;
+  if(n>=lyrics.length){ _tapping=false; document.getElementById('tap-btn').textContent='Start tapping';
+    var o=document.getElementById('opt-tapped'); if(o){ o.disabled=false; } var sel=document.getElementById('lyr-bars'); sel.value='-1'; syncLyric(); if(!isPlaying) drawFrame();
+    _tapStatus('All '+n+' lines tapped. Timing set to Tapped. Captions will follow it.'); toast('Tapped timing saved','ok'); }
+  else _tapStatus('Tapped '+n+'. Next, line '+(n+1)+': '+lyrics[n]);
+}
+document.addEventListener('keydown',function(e){
+  var tg=e.target&&e.target.tagName; if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT') return;
+  if(e.key==='t'||e.key==='T'){ if(_tapping){ e.preventDefault(); _tapOne(); } }
+  else if(e.key==='Backspace'&&_tapping){ e.preventDefault(); window.tapUndo(); }
+});
 
 /* ── Pressings, Format, Captions ──────────────── */
 var PRESSINGS = [
@@ -1272,8 +1302,10 @@ window.exportCaptions=function(kind){
   if(!dur){ toast('Load a beat first so the captions can follow its timing','info'); return; }
   var barsEl=document.getElementById('lyr-bars'), nb=barsEl?parseInt(barsEl.value,10):0;
   var off=(parseFloat((document.getElementById('lyr-offset')||{}).value)||0)/1000;
-  var L=(nb>0&&bpm>0)?(240/bpm)*nb:dur/lyrics.length, cues=[], j=0;
-  while(j*L-off<dur && cues.length<800){
+  var cues=[], j=0, TT=(nb===-1&&window._tapTimes)?window._tapTimes:null;
+  if(TT){ TT.forEach(function(st,i){ var en=(i+1<TT.length)?TT[i+1]:Math.min(dur,st+3); if(en>st) cues.push({a:st,b:en,t:lyrics[i]}); }); }
+  var L=(nb>0&&bpm>0)?(240/bpm)*nb:dur/lyrics.length;
+  while(!TT && j*L-off<dur && cues.length<800){
     var a=Math.max(0,j*L-off), b=Math.min(dur,(j+1)*L-off);
     if(b>a) cues.push({a:a,b:b,t:lyrics[j%lyrics.length]});
     j++;
@@ -1397,7 +1429,7 @@ function drawPlate(){
 }
 
 var _foilCv=null;
-var FOILS={gold:[[0,'#fff1bf'],[.3,'#e9c56b'],[.52,'#b88a30'],[.74,'#f1dc9a'],[1,'#9a6f22']],chrome:[[0,'#ffffff'],[.35,'#d6dae3'],[.55,'#8e95a6'],[.78,'#e8ebf2'],[1,'#6b7280']]};
+var FOILS={gold:[[0,'#fff6cf'],[.3,'#f0cf7a'],[.52,'#c99a3b'],[.74,'#f3dc98'],[1,'#a8782a']],chrome:[[0,'#ffffff'],[.35,'#d6dae3'],[.55,'#8e95a6'],[.78,'#e8ebf2'],[1,'#6b7280']]};
 function drawStyleLayer(a,bassA){
   var foil=window._foil&&style!=='split'&&FOILS[window._foil], main=ctx;
   if(foil){
@@ -1422,7 +1454,7 @@ function drawStyleLayer(a,bassA){
   } finally { ctx=main; }
   if(foil){
     var oc2=_foilCv.getContext('2d'); oc2.setTransform(1,0,0,1,0,0); oc2.globalCompositeOperation='source-in';
-    var g=oc2.createLinearGradient(0,_foilCv.height*.28,0,_foilCv.height*.72); foil.forEach(function(st){g.addColorStop(st[0],st[1]);});
+    var hh=Math.max(28,fSize*(_foilCv.width/1280)*1.0), cy=_foilCv.height/2, g=oc2.createLinearGradient(0,cy-hh,0,cy+hh); foil.forEach(function(st){g.addColorStop(st[0],st[1]);});
     oc2.fillStyle=g; oc2.fillRect(0,0,_foilCv.width,_foilCv.height); oc2.globalCompositeOperation='source-over';
     main.save(); main.setTransform(1,0,0,1,0,0); main.drawImage(_foilCv,0,0); main.restore();
   }
