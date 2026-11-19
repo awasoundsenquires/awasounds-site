@@ -609,6 +609,7 @@ Every second getting full
   <div class="ps">
     <div class="sec-lbl">Pressings</div>
     <div class="press-grid" id="press-grid"></div>
+    <div class="cap-row" style="margin-bottom:8px"><button type="button" onclick="rerollLook()">Reroll</button><button type="button" onclick="saveMyLook()">Save my look</button><button type="button" onclick="useMyLook()">Use my look</button></div>
     <div class="press-rev" id="press-rev"><span id="press-rev-lbl">Applied</span><button type="button" onclick="revertPressing()">Revert</button></div>
     <div class="sec-lbl" style="margin-top:14px">Format</div>
     <div class="cr"><label for="fmt-sel">Aspect</label>
@@ -1281,6 +1282,20 @@ function buildPressings(){
   }); });
 }
 window.isPlayingNow=function(){ return isPlaying; }; window.redraw=function(){ if(!isPlaying) drawFrame(); };
+window.rerollLook=function(){
+  var p=PRESSINGS[Math.floor(Math.random()*PRESSINGS.length)], r=Math.random();
+  _pressUndo=_pressSnap(); _pressApply(p);
+  var fo=r<.3?'gold':r<.5?'chrome':null, sw=document.querySelector('.cswatch.foil[data-f="'+fo+'"]');
+  if(fo&&sw) sw.click(); else { window._foil=null; var w=document.querySelector('.cswatch[data-c="#ffffff"]'); if(w) w.click(); }
+  var pl=document.getElementById('plate-tg'); if(pl){ pl.checked=Math.random()<.35; }
+  _setCtl('fsize', Math.round(p.z*(0.9+Math.random()*0.25))); _setCtl('fspacing', Math.max(-1,Math.min(14,p.sp+Math.round((Math.random()-.4)*4))));
+  if(!isPlaying) drawFrame(); toast('Reroll: '+p.n+(fo?', '+fo+' foil':''),'info');
+};
+window.saveMyLook=function(){ try{ var o=_pressSnap(); o.foil=window._foil||null; o.col=txColor; localStorage.setItem('awa_ls_mylook',JSON.stringify(o)); toast('Saved as your look','ok'); }catch(e){ toast('Could not save in this browser','info'); } };
+window.useMyLook=function(){ var o=null; try{ o=JSON.parse(localStorage.getItem('awa_ls_mylook')||'null'); }catch(e){}
+  if(!o){ toast('Nothing saved yet. Set a look, then press Save my look.','info'); return; }
+  _pressApply(o); var sw=o.foil&&document.querySelector('.cswatch.foil[data-f="'+o.foil+'"]'); if(sw) sw.click(); else { window._foil=null; txColor=o.col||'#ffffff'; }
+  if(!isPlaying) drawFrame(); toast('Your look is back','ok'); };
 window.revertPressing=function(){ if(!_pressUndo) return; _pressApply(_pressUndo); _pressUndo=null; clearTimeout(_pressTimer); document.getElementById('press-rev').classList.remove('on'); };
 
 window.toggleSafe=function(on){ var ov=document.getElementById('safe-ov'); if(ov) ov.classList.toggle('on', !!on && window._fmt==='9:16'); };
@@ -1455,7 +1470,10 @@ function drawStyleLayer(a,bassA){
   if(foil){
     var oc2=_foilCv.getContext('2d'); oc2.setTransform(1,0,0,1,0,0); oc2.globalCompositeOperation='source-in';
     var hh=Math.max(28,fSize*(_foilCv.width/1280)*1.0), cy=_foilCv.height/2, g=oc2.createLinearGradient(0,cy-hh,0,cy+hh); foil.forEach(function(st){g.addColorStop(st[0],st[1]);});
-    oc2.fillStyle=g; oc2.fillRect(0,0,_foilCv.width,_foilCv.height); oc2.globalCompositeOperation='source-over';
+    oc2.fillStyle=g; oc2.fillRect(0,0,_foilCv.width,_foilCv.height);
+    var fw=_foilCv.width, sx=((Date.now()%8000)/8000)*(fw+500)-250, sg=oc2.createLinearGradient(sx-120,0,sx+120,0);
+    sg.addColorStop(0,'rgba(255,248,215,0)'); sg.addColorStop(.5,'rgba(255,250,225,.6)'); sg.addColorStop(1,'rgba(255,248,215,0)');
+    oc2.globalCompositeOperation='source-atop'; oc2.fillStyle=sg; oc2.fillRect(0,0,fw,_foilCv.height); oc2.globalCompositeOperation='source-over';
     main.save(); main.setTransform(1,0,0,1,0,0); main.drawImage(_foilCv,0,0); main.restore();
   }
 }
