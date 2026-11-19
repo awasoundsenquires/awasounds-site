@@ -1310,6 +1310,9 @@ function drawFrame(){
   const bassA = amp.bass||0;
   ctx.clearRect(0,0,W,H);
   drawBG(a);
+  var _rw=W,_rh=H,_vk=(W!==1280);
+  if(_vk){ ctx.save(); ctx.translate(_rw/2,_rh/2); ctx.scale(_rw/1280,_rw/1280); ctx.translate(-640,-360); W=1280; H=720; }
+  try{
   switch(style){
     case 'impact':    drawImpact(a,bassA); break;
     case 'mirror':    drawMirror(a,bassA); break;
@@ -1322,6 +1325,7 @@ function drawFrame(){
     case 'glitch':    drawGlitch(a); break;
     case 'minimal':   drawMinimal(a); break;
   }
+  } finally { if(_vk){ ctx.restore(); W=_rw; H=_rh; } }
   drawVignette();
   // Awa Sounds watermark
   ctx.save();
