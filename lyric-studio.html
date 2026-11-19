@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Lyric Studio &#x2014; Members Only | Awa Sounds</title>
+<title>Lyric Studio, Members Only | Awa Sounds</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css"/>
 <style>
@@ -165,6 +165,23 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
 /* ── Canvas area ───────────────────────────────────── */
 .canvas-area{flex:1;display:flex;flex-direction:column;align-items:center;background:#000;position:relative;overflow:hidden}
 .cw{width:100%;max-width:800px;position:relative;margin:auto}
+.safe-ov{position:absolute;left:0;top:0;width:100%;pointer-events:none;display:none;z-index:3;font-family:'IBM Plex Mono',ui-monospace,monospace}
+.safe-ov.on{display:block}
+.safe-ov i{position:absolute;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:8px;letter-spacing:.14em;color:rgba(232,232,240,.75);background:repeating-linear-gradient(135deg,rgba(214,218,227,.16) 0 1px,rgba(214,218,227,0) 1px 7px);border:1px solid rgba(214,218,227,.28)}
+.safe-ov .sv-t{left:0;right:0;top:0;height:11.46%}
+.safe-ov .sv-b{left:0;right:0;bottom:0;height:16.67%}
+.safe-ov .sv-r{right:0;top:11.46%;bottom:16.67%;width:12.04%;writing-mode:vertical-rl}
+.press-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.press-grid button{background:var(--bg3);border:1px solid var(--line);color:var(--hi);border-radius:7px;padding:8px 9px;text-align:left;cursor:pointer;font-family:'Inter',sans-serif;transition:border-color .18s,transform .18s}
+.press-grid button:hover{border-color:#4a505e;transform:translateY(-1px)}
+.press-grid button b{display:block;font-size:12px;font-weight:600;letter-spacing:-.01em}
+.press-grid button span{display:block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.press-rev{display:none;margin:0 0 8px;font-size:11px;color:var(--silver);align-items:center;justify-content:space-between}
+.press-rev.on{display:flex}
+.press-rev button{background:none;border:1px solid var(--line);color:var(--hi);border-radius:5px;padding:3px 9px;font-size:11px;cursor:pointer}
+.cap-row{display:flex;gap:6px}
+.cap-row button{flex:1;background:var(--bg3);border:1px solid var(--line);color:var(--hi);border-radius:7px;padding:8px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif}
+.cap-row button:hover{border-color:#4a505e}
 #cv{width:100%;display:block;background:#000}
 .transport{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:100px;padding:7px 14px;white-space:nowrap}
 .tb{background:none;border:none;color:var(--silver);cursor:pointer;font-size:16px;padding:0 3px;transition:.15s}
@@ -269,11 +286,11 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px 20px;max-width:400px;text-align:left;margin:4px 0">
     <div style="font-size:10px;letter-spacing:.1em;color:#7070a0;text-transform:uppercase;margin-bottom:10px;font-weight:600">What's inside</div>
     <div style="display:flex;flex-direction:column;gap:7px">
-      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/music.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">Beat-reactive lyric videos</b> &#x2014; text pulses on every kick</div>
-      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/styles.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">10 animation styles</b> &#x2014; Impact, Kinetic, Glitch, Karaoke + more</div>
-      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/mixer.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">3-layer audio mixer</b> &#x2014; stack beat, vocals and ambience</div>
-      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/export.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">HD export</b> &#x2014; 1280×720 ready to post on any platform</div>
-      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/save.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">4 saved projects</b> &#x2014; auto-backup included</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/music.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">Beat-reactive lyric videos</b>, text pulses on every kick</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/styles.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">10 animation styles</b>, Impact, Kinetic, Glitch, Karaoke + more</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/mixer.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">3-layer audio mixer</b>, stack beat, vocals and ambience</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/export.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">HD export</b>, 1280×720 ready to post on any platform</div>
+      <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/save.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">4 saved projects</b>, auto-backup included</div>
       <div style="font-size:12.5px;color:#b0b0d0"><img class="i3d" src="assets/img/icons/check.png" alt="" width="24" height="24" loading="lazy"> <b style="color:#e0e0f0">No downloads. No apps.</b> Runs entirely in your browser.</div>
     </div>
   </div>
@@ -287,7 +304,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <div style="display:flex;gap:10px;max-width:400px;margin:0 0 8px">
     <div style="text-align:center;flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 8px">
       <div style="font-size:18px;font-weight:800;color:#e0a030;font-family:'Space Grotesk',sans-serif">1</div>
-      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4">Create your <b style="color:#e0e0f0">free account</b> &#x2014; takes 30 seconds</div>
+      <div style="font-size:11px;color:#b0b0d0;margin-top:2px;line-height:1.4">Create your <b style="color:#e0e0f0">free account</b>, takes 30 seconds</div>
     </div>
     <div style="text-align:center;flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 8px">
       <div style="font-size:18px;font-weight:800;color:#e0a030;font-family:'Space Grotesk',sans-serif">2</div>
@@ -299,10 +316,10 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     </div>
   </div>
 
-  <a href="account.html#membership" class="g-btn-gold" id="gate-cta-primary">Upgrade &#x2014; &#xA3;4.99/mo</a>
+  <a href="account.html#membership" class="g-btn-gold" id="gate-cta-primary">Upgrade, &#xA3;4.99/mo</a>
   <a href="#" class="g-btn-ghost" id="gate-cta-secondary" onclick="event.preventDefault();window.AWAAuth&&window.AWAAuth.openModal('Create a free account to access Lyric Studio.')">Create Free Account</a>
 
-  <!-- Escape link &#x2014; visible to ALL users so nobody is trapped -->
+  <!-- Escape link, visible to ALL users so nobody is trapped -->
   <a href="index.html" style="display:block;margin-top:18px;font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;letter-spacing:.05em;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">← Back to Awa Sounds</a>
 </div>
 
@@ -331,15 +348,15 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
   <div class="split-guide-steps">
     <div class="sg-step">
       <div class="sg-step-num">1</div>
-      <div class="sg-step-txt"><b>Left panel</b> &#x2014; your cover art or video, fully visible. <b>Drag</b> it anywhere and <b>resize</b> using the corner handles to find your perfect layout.</div>
+      <div class="sg-step-txt"><b>Left panel</b>, your cover art or video, fully visible. <b>Drag</b> it anywhere and <b>resize</b> using the corner handles to find your perfect layout.</div>
     </div>
     <div class="sg-step">
       <div class="sg-step-num">2</div>
-      <div class="sg-step-txt"><b>Right panel</b> &#x2014; your lyrics, animated beat-by-beat. The same media plays blurred behind them for a seamless aesthetic.</div>
+      <div class="sg-step-txt"><b>Right panel</b>, your lyrics, animated beat-by-beat. The same media plays blurred behind them for a seamless aesthetic.</div>
     </div>
     <div class="sg-step">
       <div class="sg-step-num">3</div>
-      <div class="sg-step-txt"><b>Best use</b> &#x2014; upload a square cover art for the left panel. Works best with an instrumental beat playing. Hit Export when your lyric video is ready to post.</div>
+      <div class="sg-step-txt"><b>Best use</b>, upload a square cover art for the left panel. Works best with an instrumental beat playing. Hit Export when your lyric video is ready to post.</div>
     </div>
   </div>
   <div class="split-guide-actions">
@@ -403,7 +420,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <div class="exit-btns">
       <button class="ebtn ebtn-save" id="ebtn-save">Save &amp; Stay</button>
       <button class="ebtn ebtn-leave" id="ebtn-leave">Leave Without Saving</button>
-      <button class="ebtn ebtn-stay" id="ebtn-stay">Cancel &#x2014; Keep Editing</button>
+      <button class="ebtn ebtn-stay" id="ebtn-stay">Cancel, Keep Editing</button>
     </div>
   </div>
 </div>
@@ -436,7 +453,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
       <label><input type="checkbox" id="vid-loop-all" checked/> Loop playlist</label>
     </div>
     <select class="ls-sel" id="cover-sel">
-      <option value="">&#x2014; Or pick a purchased cover &#x2014;</option>
+      <option value="">, Or pick a purchased cover, </option>
     </select>
   </div>
 
@@ -510,7 +527,7 @@ input[type=color]{width:22px;height:22px;border-radius:5px;border:1px solid var(
     <div class="sec-lbl">Lyrics <span id="lyr-count" style="color:var(--muted);font-size:9px">0 lines</span></div>
     <textarea class="lyrics-ta" id="lyr-ta" placeholder="Not a template. Beat-reactive, your lyrics, your track.
 
-Paste your lyrics here &#x2014; one line per row.
+Paste your lyrics here, one line per row.
 
 [Verse 1]
 I been moving through the chrome
@@ -557,13 +574,14 @@ Every second getting full
 <div class="canvas-area" id="canvas-area">
   <div class="cw" id="cw">
     <canvas id="cv" width="1280" height="720"></canvas>
+    <div class="safe-ov" id="safe-ov" aria-hidden="true"><i class="sv-t">STATUS</i><i class="sv-b">CAPTION</i><i class="sv-r">ACTIONS</i></div>
     <div class="transport">
       <button class="tb" id="restart-btn">⏮</button>
       <button class="tb" id="play-tb">▶</button>
       <span class="t-time" id="t-time">0:00 / 0:00</span>
       <div class="beat-ind">
         <div class="bdot" id="bdot"></div>
-        <span id="bpm-lbl">&#x2014; BPM</span>
+        <span id="bpm-lbl">, BPM</span>
       </div>
     </div>
   </div>
@@ -584,6 +602,26 @@ Every second getting full
     <div class="style-grid" id="style-grid">
       <!-- Filled by JS -->
     </div>
+  </div>
+
+  <!-- Looks and format -->
+  <div class="ps">
+    <div class="sec-lbl">Pressings</div>
+    <div class="press-grid" id="press-grid"></div>
+    <div class="press-rev" id="press-rev"><span id="press-rev-lbl">Applied</span><button type="button" onclick="revertPressing()">Revert</button></div>
+    <div class="sec-lbl" style="margin-top:14px">Format</div>
+    <div class="cr"><label for="fmt-sel">Aspect</label>
+      <select class="ls-sel" id="fmt-sel" style="width:auto;margin-top:0" onchange="setFormat(this.value)">
+        <option value="16:9" selected>16:9 YouTube</option>
+        <option value="9:16">9:16 Reels, TikTok, Shorts</option>
+        <option value="1:1">1:1 Square</option>
+      </select>
+    </div>
+    <div class="cr"><label for="safe-tg">Safe area guides</label><input type="checkbox" id="safe-tg" onchange="toggleSafe(this.checked)"></div>
+    <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin:-2px 0 12px">Guides show in the preview only. They never appear in the export.</div>
+    <div class="sec-lbl">Captions</div>
+    <div class="cap-row"><button type="button" onclick="exportCaptions('srt')">Download .srt</button><button type="button" onclick="exportCaptions('vtt')">Download .vtt</button></div>
+    <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-top:6px">Uses your current line timing, so upload them straight to Shorts or YouTube.</div>
   </div>
 
   <!-- Font -->
@@ -670,7 +708,7 @@ const STORE_PREFIX = 'awa_ls_slot_';
 function checkAccess(){
   const gate = document.getElementById('gate');
   if(!window.AWA_SESSION){
-    // Not logged in &#x2014; show full onboarding gate
+    // Not logged in, show full onboarding gate
     const title = document.getElementById('gate-title');
     const desc = document.getElementById('gate-desc');
     const ctaP = document.getElementById('gate-cta-primary');
@@ -684,7 +722,7 @@ function checkAccess(){
   const p = window.AWA_PROFILE;
   // Lyric Studio requires Insider membership
   if(p && !p.is_member){
-    // Logged in but free account &#x2014; show upgrade gate
+    // Logged in but free account, show upgrade gate
     const title = document.getElementById('gate-title');
     const desc = document.getElementById('gate-desc');
     const ctaP = document.getElementById('gate-cta-primary');
@@ -714,7 +752,7 @@ setTimeout(() => {
 /* ── State ───────────────────────────────────── */
 const cv    = document.getElementById('cv');
 const ctx   = cv.getContext('2d');
-const W = 1280, H = 720;
+let W = 1280, H = 720;
 
 let bgEl = null;          // img or video
 let audio = null;
@@ -805,7 +843,7 @@ function drawThumbs(){
 /* ── Init ────────────────────────────────────── */
 function init(){
   if(window._lsInit) return; window._lsInit=true;
-  buildStyleGrid();
+  buildStyleGrid(); buildPressings();
   fillCovers();
   fillBeats();
   wireUI();
@@ -819,8 +857,9 @@ function init(){
 function resizeCanvas(){
   const cw = document.getElementById('cw');
   const avail = cw.offsetWidth;
-  const h = avail * 720/1280;
+  const h = avail * H/W;
   cv.style.height = h + 'px';
+  var ov=document.getElementById('safe-ov'); if(ov) ov.style.height = h + 'px';
 }
 
 function fillCovers(){
@@ -845,7 +884,7 @@ async function fillBeats(){
   }
 
   if(!bts.length){ list.innerHTML='<div style="font-size:10px;color:var(--muted);padding:4px 0">'+(isAdmin?'No beats in store yet.':'Purchase a beat to load it here.')+'</div>'; return; }
-  list.innerHTML = (isAdmin?'<div style="font-size:9px;color:var(--gold);padding:2px 0 6px;letter-spacing:.06em">ADMIN &#x2014; ALL STORE BEATS</div>':'')+bts.map(b=>`
+  list.innerHTML = (isAdmin?'<div style="font-size:9px;color:var(--gold);padding:2px 0 6px;letter-spacing:.06em">ADMIN, ALL STORE BEATS</div>':'')+bts.map(b=>`
     <div class="bi" data-id="${b.id}" data-src="${b.preview||''}">
       <img src="assets/img/icons/music.png" alt="" width="18" height="18" style="flex:none">
       <div style="min-width:0;flex:1">
@@ -876,7 +915,7 @@ function wireUI(){
     });
   });
 
-  // BG &#x2014; video playlist + image support
+  // BG, video playlist + image support
   let bgVideos = []; // { name, url, el }
   let bgVideoIdx = 0;
 
@@ -1168,6 +1207,68 @@ function syncLyric(){
   }
 }
 
+/* ── Pressings, Format, Captions ──────────────── */
+var PRESSINGS = [
+  {n:'Steel Poise',  s:'minimal',   f:"'Inter',sans-serif",        w:600,sp:6, d:0.35,z:54},
+  {n:'Mono Relay',   s:'ticker',    f:'monospace',                 w:500,sp:4, d:0.45,z:44},
+  {n:'Cold Open',    s:'cinematic', f:"'Space Grotesk',sans-serif",w:400,sp:12,d:0.35,z:52},
+  {n:'Paper Cut',    s:'impact',    f:"'Bebas Neue',sans-serif",   w:800,sp:2, d:0.30,z:64},
+  {n:'Signal Drift', s:'glitch',    f:"'Space Grotesk',sans-serif",w:700,sp:2, d:0.40,z:58},
+  {n:'Deep Chrome',  s:'kinetic',   f:"'Inter',sans-serif",        w:800,sp:1, d:0.45,z:60},
+  {n:'Ash Stack',    s:'mirror',    f:"'Space Grotesk',sans-serif",w:600,sp:3, d:0.50,z:56},
+  {n:'Night Bus',    s:'karaoke',   f:"'Inter',sans-serif",        w:700,sp:2, d:0.55,z:54}
+];
+var _pressUndo=null,_pressTimer=null;
+function _setCtl(id,v){ var e=document.getElementById(id); if(!e) return; e.value=v; e.dispatchEvent(new Event(id==='font-pick'?'change':'input',{bubbles:true})); }
+function _pressSnap(){ return {s:style,f:document.getElementById('font-pick').value,w:document.getElementById('fweight').value,sp:document.getElementById('fspacing').value,d:document.getElementById('bg-dim').value,z:document.getElementById('fsize').value}; }
+function _pressApply(o){
+  var card=document.querySelector('#style-grid .sc[data-s="'+o.s+'"]'); if(card) card.click();
+  _setCtl('font-pick',o.f); _setCtl('fweight',o.w); _setCtl('fspacing',o.sp); _setCtl('bg-dim',o.d); _setCtl('fsize',o.z);
+  if(!isPlaying) drawFrame();
+}
+function buildPressings(){
+  var g=document.getElementById('press-grid'); if(!g) return;
+  g.innerHTML=PRESSINGS.map(function(p,i){ var st=STYLES.filter(function(x){return x.id===p.s;})[0]; return '<button type="button" data-i="'+i+'"><b>'+p.n+'</b><span>'+(st?st.name:p.s)+'</span></button>'; }).join('');
+  g.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){
+    var p=PRESSINGS[+b.dataset.i]; _pressUndo=_pressSnap(); _pressApply(p);
+    var r=document.getElementById('press-rev'); document.getElementById('press-rev-lbl').textContent=p.n+' applied'; r.classList.add('on');
+    clearTimeout(_pressTimer); _pressTimer=setTimeout(function(){ r.classList.remove('on'); _pressUndo=null; },6000);
+  }); });
+}
+window.revertPressing=function(){ if(!_pressUndo) return; _pressApply(_pressUndo); _pressUndo=null; clearTimeout(_pressTimer); document.getElementById('press-rev').classList.remove('on'); };
+
+window.toggleSafe=function(on){ var ov=document.getElementById('safe-ov'); if(ov) ov.classList.toggle('on', !!on && window._fmt==='9:16'); };
+window.setFormat=function(f){
+  var D={'16:9':[1280,720,''],'9:16':[720,1280,'340px'],'1:1':[900,900,'520px']}, d=D[f]||D['16:9'];
+  window._fmt=f; W=d[0]; H=d[1]; cv.width=W; cv.height=H;
+  document.getElementById('cw').style.maxWidth=d[2];
+  var tg=document.getElementById('safe-tg'); if(tg) window.toggleSafe(tg.checked);
+  var er=document.getElementById('exp-res'); if(er) er.textContent=W+'\u00d7'+H;
+  resizeCanvas(); drawFrame();
+  toast(f==='9:16'?'Vertical frame. Turn on safe area guides to keep text clear of the app interface.':'Format set to '+f,'info');
+};
+
+function _tc(sec,sep){ sec=Math.max(0,sec); var h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=Math.floor(sec%60),ms=Math.round((sec-Math.floor(sec))*1000); if(ms===1000){ms=0;s++;}
+  var z=function(n,l){return ('000'+n).slice(-l);}; return z(h,2)+':'+z(m,2)+':'+z(s,2)+sep+z(ms,3); }
+window.exportCaptions=function(kind){
+  if(!lyrics.length){ toast('Add some lyrics first','info'); return; }
+  var dur=(audio&&audio.duration&&isFinite(audio.duration))?audio.duration:0;
+  if(!dur){ toast('Load a beat first so the captions can follow its timing','info'); return; }
+  var barsEl=document.getElementById('lyr-bars'), nb=barsEl?parseInt(barsEl.value,10):0;
+  var off=(parseFloat((document.getElementById('lyr-offset')||{}).value)||0)/1000;
+  var L=(nb>0&&bpm>0)?(240/bpm)*nb:dur/lyrics.length, cues=[], j=0;
+  while(j*L-off<dur && cues.length<800){
+    var a=Math.max(0,j*L-off), b=Math.min(dur,(j+1)*L-off);
+    if(b>a) cues.push({a:a,b:b,t:lyrics[j%lyrics.length]});
+    j++;
+  }
+  var sep=kind==='srt'?',':'.', out=kind==='vtt'?'WEBVTT\n\n':'';
+  cues.forEach(function(c,i){ out+=(kind==='srt'?(i+1)+'\n':'')+_tc(c.a,sep)+' --> '+_tc(c.b,sep)+'\n'+c.t+'\n\n'; });
+  var blob=new Blob([out],{type:'text/plain;charset=utf-8'}), url=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url; a.download='lyric-studio-captions.'+kind; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(url);},4000);
+  toast('Captions saved: '+cues.length+' cues, '+_tc(dur,sep).slice(3,8),'success');
+};
+
 /* ── Playback ─────────────────────────────────── */
 function togglePlay(){
   if(!audio){ toast('Load a beat first','info'); return; }
@@ -1352,14 +1453,14 @@ function drawTicker(a){
   const metrics = ctx.measureText(line().toUpperCase()+' \u2726 ');
   const unitW = metrics.width;
   if(Math.abs(tickerOffset) > unitW) tickerOffset += unitW;
-  // Band 1 &#x2014; center
+  // Band 1, center
   ctx.save();
   ctx.fillStyle='rgba(0,0,0,0.35)';
   ctx.fillRect(0, H/2-sz*0.8, W, sz*1.6);
   if(strokeW>0){ ctx.strokeStyle=strokeColor; ctx.lineWidth=strokeW; ctx.strokeText(txt, tickerOffset, H/2); }
   ctx.fillStyle=txColor; ctx.fillText(txt, tickerOffset, H/2);
   ctx.restore();
-  // Band 2 &#x2014; top (reverse, smaller)
+  // Band 2, top (reverse, smaller)
   ctx.save();
   ctx.fillStyle='rgba(0,0,0,0.2)'; ctx.fillRect(0,80,W,sz*0.9);
   ctx.globalAlpha=0.5*fOpacity; setFont(Math.round(sz*0.65),0.5);
@@ -1622,7 +1723,7 @@ function showExport(){
         <button onclick="document.getElementById('export-modal').remove()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer">&times;</button>
         <div style="margin-bottom:8px;text-align:center"><img src="assets/img/icons/export.png" alt="" width="44" height="44" style="vertical-align:-.2em;object-fit:contain"></div>
         <h3 style="font-family:'Space Grotesk',sans-serif;color:var(--hi);margin-bottom:6px;text-align:center">Export Your Lyric Video</h3>
-        <p style="font-size:12px;color:var(--silver);line-height:1.6;margin-bottom:18px;text-align:center">1280&times;720 HD &mdash; records your animation and downloads it directly. No screen recorder needed.</p>
+        <p style="font-size:12px;color:var(--silver);line-height:1.6;margin-bottom:18px;text-align:center"><span id="exp-res">1280&times;720</span> HD, records your animation and downloads it directly. No screen recorder needed.</p>
         <div id="exp-controls" style="margin-bottom:16px">
           <label for="exp-len" style="display:block;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Length</label>
           <select id="exp-len" style="width:100%;padding:10px;margin-bottom:12px;background:var(--bg3);color:var(--text);border:1px solid var(--line);border-radius:8px;font-size:13px">
@@ -1650,7 +1751,7 @@ function showExport(){
         </div>
         <div style="background:rgba(217,195,143,.07);border:1px solid rgba(217,195,143,.2);border-radius:10px;padding:14px">
           <div style="font-size:10px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Share it</div>
-          <p style="font-size:12px;color:var(--text);line-height:1.5;margin-bottom:10px">Post on IG, TikTok or YouTube and tag us &mdash; we repost the best ones.</p>
+          <p style="font-size:12px;color:var(--text);line-height:1.5;margin-bottom:10px">Post on IG, TikTok or YouTube and tag us, we repost the best ones.</p>
           <div style="background:var(--bg3);border-radius:8px;padding:10px;font-size:11.5px;color:var(--silver);line-height:1.6" id="share-caption">Made with Awa Sounds Lyric Studio &middot; @awasounds</div>
           <button onclick="(function(btn){const txt=document.getElementById('share-caption').textContent;(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();});btn.textContent='&#x2713; Copied!';btn.style.color='var(--green)';btn.style.borderColor='var(--green)';setTimeout(()=>{btn.textContent='Copy Caption';btn.style.color='';btn.style.borderColor='';},2000);})(this)" style="background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 14px;font-size:11px;cursor:pointer;margin-top:8px;width:100%;transition:.2s">Copy Caption</button>
         </div>
@@ -1694,7 +1795,7 @@ function startExportRec(mode){
         blob = new Blob(recChunks, { type: 'video/mp4' }); ext = 'mp4';
       } else {
         const webmBlob = new Blob(recChunks, { type: 'video/webm' });
-        if(er) er.innerHTML = '<div style="text-align:center;padding:16px 0"><div style="margin-bottom:8px"><img src="assets/img/icons/sparkle.png" alt="" width="40" height="40" style="vertical-align:-.2em;object-fit:contain"></div><div style="color:var(--gold);font-weight:700;font-family:\'Space Grotesk\',sans-serif;font-size:14px">Converting to MP4&hellip;</div><div style="font-size:11px;color:var(--silver);margin-top:4px">Encoding locally &#x2014; no upload needed</div></div>';
+        if(er) er.innerHTML = '<div style="text-align:center;padding:16px 0"><div style="margin-bottom:8px"><img src="assets/img/icons/sparkle.png" alt="" width="40" height="40" style="vertical-align:-.2em;object-fit:contain"></div><div style="color:var(--gold);font-weight:700;font-family:\'Space Grotesk\',sans-serif;font-size:14px">Converting to MP4&hellip;</div><div style="font-size:11px;color:var(--silver);margin-top:4px">Encoding locally, no upload needed</div></div>';
         try { blob = await convertWebmToMp4(webmBlob); ext = 'mp4'; }
         catch(e){ console.warn('MP4 conversion failed, using WebM:', e); blob = webmBlob; ext = 'webm'; toast('This browser cannot make MP4 here. Use Chrome for MP4. Saved as .webm','info'); }
       }
@@ -1791,7 +1892,7 @@ function toast(msg, type){
 
 // Slot constants declared at IIFE top so checkAccess() can reference them
 let isDirty = false;       // true after any user edit
-let activeSlot = null;     // 0 or 1 &#x2014; slot currently loaded/saved into
+let activeSlot = null;     // 0 or 1, slot currently loaded/saved into
 let autoBackupTimer = null;
 let exitPendingCb = null;  // resolve fn from beforeunload intercept
 let demoBgActive   = false;
@@ -2042,7 +2143,7 @@ document.getElementById('ebtn-stay').addEventListener('click',()=>{
 /* ── beforeunload / page close/reload ─────────────── */
 window.addEventListener('beforeunload', e=>{
   if(!isDirty) return;
-  // Show the browser's native dialog (required &#x2014; we cannot override this)
+  // Show the browser's native dialog (required, we cannot override this)
   e.preventDefault();
   e.returnValue=''; // triggers browser default "Leave site?" dialog
   // Also show our custom modal for the user to save from
@@ -2062,7 +2163,7 @@ document.addEventListener('click', e=>{
   showExitModal(()=>{ window.location.href=href; });
 });
 
-/* ── On page load &#x2014; restore last slot ────────────── */
+/* ── On page load, restore last slot ────────────── */
 (function loadMostRecent(){
   let newest=-1, newestSlot=null;
   for(let i=0;i<MAX_SLOTS;i++){
@@ -2078,7 +2179,7 @@ document.addEventListener('click', e=>{
   updateSaveBtn();
 })();
 
-// Idle animation loop &#x2014; pause when auth gate is visible (prevents JS thread blocking)
+// Idle animation loop, pause when auth gate is visible (prevents JS thread blocking)
 (function idle(){
   const g = document.getElementById('gate');
   if(!isPlaying && (!g || g.style.display === 'none')) drawFrame();
@@ -2117,7 +2218,7 @@ document.addEventListener('click', e=>{
     {
       id:    'bg-zone',
       title: 'Upload Your Background',
-      body:  'Drag & drop your video or cover art here. This becomes the visual backdrop of your lyric video — blurred or sharp, your call.',
+      body:  'Drag & drop your video or cover art here. This becomes the visual backdrop of your lyric video, blurred or sharp, your call.',
       placement: 'right'
     },
     {
@@ -2135,7 +2236,7 @@ document.addEventListener('click', e=>{
     {
       id:    'style-grid',
       title: 'Pick a Visual Style',
-      body:  'Choose from Impact, Neon, Cinematic, Minimal and more. Each preset controls font, shadow, colour and animation — live preview as you click.',
+      body:  'Choose from Impact, Neon, Cinematic, Minimal and more. Each preset controls font, shadow, colour and animation, live preview as you click.',
       placement: 'left'
     },
     {
@@ -2332,7 +2433,7 @@ function loadDemoVideo(src,name){
     else { v.currentTime=0; drawFrame(); }
     var bl=document.getElementById('bg-loaded');
     if(bl){bl.textContent='✓ Demo: '+name; bl.style.display='block';}
-    toast('Demo loaded — '+name,'ok');
+    toast('Demo loaded, '+name,'ok');
   };
 }
 function loadDemoImage(src,name){
@@ -2343,7 +2444,7 @@ function loadDemoImage(src,name){
     if(!isPlaying) drawFrame();
     var bl=document.getElementById('bg-loaded');
     if(bl){bl.textContent='✓ Demo: '+name; bl.style.display='block';}
-    toast('Demo loaded — '+name,'ok');
+    toast('Demo loaded, '+name,'ok');
   };
   img.src=src;
 }
